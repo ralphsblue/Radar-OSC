@@ -10,7 +10,8 @@ Cada decisão tem um número (T1 a T18), as opções consideradas, a recomendaç
 Sub-decisões aparecem como T3a, T3b etc., para que cada uma possa ser aprovada ou recusada separadamente.
 As escolhas que eram do dono do projeto (produto, prazo, exposição pública, política) tinham o selo [DECIDIR]; todas foram respondidas em D19 e o texto de cada uma traz agora o selo **[DECIDIDO Qxx]** com a resposta.
 Itens sem selo são decisões técnicas, fechadas pela recomendação da revisão (D20).
-Regras de interpretação da lei que ainda dependem do orientador aparecem como `[ORIENTADOR Qxx]` e são parâmetros versionados, não código; a ampliação de dirigentes aparece como `[PENDENTE Q8]`.
+Regras de interpretação da lei que ainda dependem do orientador aparecem como `[ORIENTADOR Qxx]` e são parâmetros versionados, não código.
+A ampliação de dirigentes foi decidida pelo dono (Q8, opção C, D15) e já está incorporada nas fontes, na fatia 5 e nos testes.
 No fim há uma tabela-resumo de todas as decisões e a lista das decisões do dono.
 
 ## Estado atual verificado (01/10/2026)
@@ -156,7 +157,7 @@ atv-ext/
     dados/                  arquivos de regra versionados (package data)
       natureza_juridica.json   código, descrição oficial, sinônimos, regra, justificativa (B12)
       regras_cnae.json         movido de fase0/cnae
-      ibge_cnae_subclasses.json
+      cnae_subclasses.json       versão enxuta do IBGE (gerada por fase0/cnae/gerar_cnae_enxuto.py)
       regras_orientador.json   parâmetros das regras [ORIENTADOR Q16 a Q24] (mesmos nomes de REGRAS_ORIENTADOR)
       mensagens.json           catálogo de mensagens por (verificação, estado, situação) (B1)
       limites.json             idade máxima das bases, limite do espelho, janela de 8 anos (Q6)
@@ -167,7 +168,8 @@ atv-ext/
     bases_locais/           ARQUIVOS INGERIDOS
       carga.py              ciclo de vida de uma carga (baixar, hash, gravar, ativar)
       sancoes_cgu.py        CEPIM, CEIS, CNEP (CSV; observação principal, D14)
-      listas_tcu.py         inidôneos (Q34) e contas irregulares [ORIENTADOR Q21] da Plataforma de Certidões
+      listas_tcu.py         inidôneos (Q34), contas irregulares [ORIENTADOR Q21] e inabilitados (Q8) da Plataforma de Certidões
+      tcesp.py              relação do TCE-SP de contas do Terceiro Setor julgadas irregulares (Q8), xlsx mensal
       siscebas_saude.py     XLS diário
       cebas_planilhas.py    MDS 2024 e MEC 2023
       dou.py                parser do XML mensal (porta de fase0/cebas_dou/parser_cebas.py)
@@ -240,16 +242,17 @@ Esboço ilustrativo:
 ```python
 @dataclass(frozen=True, slots=True)
 class Contexto:
-    data_referencia: date          # sempre injetada; o motor nunca chama date.today()
-    esfera: Esfera | None          # D6
+    data_referencia: date  # sempre injetada; o motor nunca chama date.today()
+    esfera: Esfera | None  # D6
+
 
 @dataclass(frozen=True, slots=True)
 class ResultadoVerificacao:
-    id: str                        # "situacao", "cepim", ...
+    id: str  # "situacao", "cepim", ...
     estado: Estado
     mensagem: str
-    achados: tuple[Achado, ...]    # registros relevantes (sanção, ato CEBAS, etc.)
-    fontes: tuple[RefFonte, ...]   # fonte, data da base, id da evidência, de_cache
+    achados: tuple[Achado, ...]  # registros relevantes (sanção, ato CEBAS, etc.)
+    fontes: tuple[RefFonte, ...]  # fonte, data da base, id da evidência, de_cache
 ```
 
 ## T3b - Tipos, estados e catálogo de verificações (Q25)
@@ -273,7 +276,7 @@ Este é o contrato da API e dos casos de referência (spec 2.6); o número do sp
 | `tcu_inidoneos` | 9 | Licitantes inidôneos TCU | ELIMINATORIA | TCU consolidada + lista local de inidôneos (Q34) |
 | `cnj_cnia` | 9 | Improbidade CNJ (CNIA) | ELIMINATORIA | TCU consolidada + CEIS de origem CNJ pelo processo [ORIENTADOR Q19] |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (art. 39, VI) | ALERTA [ORIENTADOR Q21] | lista local de contas irregulares do TCU |
-| `dirigentes` | 10 | Dirigentes (QSA) | ALERTA | QSA + pessoas físicas do CEIS/CNEP locais (D15) [ORIENTADOR Q22] [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | ALERTA | QSA + pessoas físicas de CEIS/CNEP, listas do TCU (contas irregulares, inabilitados) e TCE-SP Terceiro Setor, todas locais (D15, Q8) [ORIENTADOR Q22] |
 | `mapa_osc` | 11 | Mapa das OSCs | INFORMATIVA (ausente = ALERTA, D2) | API do Ipea, pela matriz (Q28, Q38) |
 | `cebas` | 12 | CEBAS | INFORMATIVA | bases locais (D16), pela matriz e pelo consultado (Q28) |
 
@@ -282,7 +285,15 @@ O `id` textual é estável na API; a coluna "Spec" mantém a ligação com a num
 `tcu_contas_irregulares` só existe enquanto `regras_orientador.json` mantiver o Q21 em "alerta" ou "restricao"; com "nao_usar" ela sai do catálogo.
 As verificações informativas têm também um campo `situacao` com rótulo próprio (Q40): `ATIVO`, `EM_RENOVACAO`, `NAO_VIGENTE`, `PEDIDO_EM_ANALISE`, `NAO_ENCONTRADO` no CEBAS; `PREENCHIDO`, `AUTOMATICO`, `AUSENTE` no Mapa.
 
-Fontes de `dirigentes` [PENDENTE Q8]: hoje só CEIS e CNEP; a proposta C acrescenta as listas do TCU (contas irregulares, inabilitados) e do TCE-SP como bases locais em `bases_locais/listas_tcu.py` e `bases_locais/tcesp.py`, com o mesmo casamento por nome normalizado + 6 dígitos.
+Fontes de `dirigentes` (D15 com a opção C do Q8, decidida pelo dono em 01/10/2026; regra no spec 13.3):
+
+- CEIS e CNEP (`bases_locais/sancoes_cgu.py`): nome normalizado + 6 dígitos do meio, sanção vigente.
+- TCU contas irregulares e TCU inabilitados (`bases_locais/listas_tcu.py`): nome normalizado + 6 dígitos do meio; contas irregulares com trânsito em julgado nos últimos 8 anos, inabilitados só vigentes.
+- TCE-SP Terceiro Setor (`bases_locais/tcesp.py`): nome normalizado + dígito verificador calculado com os 3 primeiros dígitos do TCE-SP e os 6 do QSA, conferido contra os 2 últimos do TCE-SP; trânsito em julgado nos últimos 8 anos.
+
+Sempre ALERTA, nunca RESTRICAO; correspondência só por nome nunca gera achado.
+O CPF reconstituído no casamento com o TCE-SP só existe dentro da função pura do motor que calcula o DV (`regras/verificacoes/dirigentes.py`), que devolve só um booleano.
+Ele nunca é persistido, logado nem exibido, e um teste automatizado garante isso (T13).
 
 ## T3c - Agregação do status final
 
@@ -291,7 +302,7 @@ Regra do spec 2.5, escrita de forma que não haja ambiguidade:
 ```python
 def status_final(vs: Sequence[ResultadoVerificacao]) -> StatusFinal:
     if dv(vs).estado is RESTRICAO:
-        return CNPJ_INVALIDO                      # Q3
+        return CNPJ_INVALIDO  # Q3
     elim = [v for v in vs if v.tipo is ELIMINATORIA]
     if any(v.estado is RESTRICAO for v in elim):
         return INAPTA
@@ -401,17 +412,20 @@ Recomendação: o adapter devolve fatos normalizados ou uma falha tipada; quem d
 @dataclass(frozen=True, slots=True)
 class Obtido(Generic[T]):
     dados: T
-    evidencia: RefEvidencia        # id + sha256 + recebida_em + de_cache
+    evidencia: RefEvidencia  # id + sha256 + recebida_em + de_cache
+
 
 @dataclass(frozen=True, slots=True)
 class NaoEncontrado:
     evidencia: RefEvidencia
 
+
 @dataclass(frozen=True, slots=True)
 class Falha:
-    motivo: MotivoFalha            # TIMEOUT, HTTP_5XX, HTTP_4XX, FORMATO_INESPERADO, NAO_SUPORTADO, BASE_VENCIDA
+    motivo: MotivoFalha  # TIMEOUT, HTTP_5XX, HTTP_4XX, FORMATO_INESPERADO, NAO_SUPORTADO, BASE_VENCIDA
     detalhe: str
     evidencia: RefEvidencia | None
+
 
 type Coleta[T] = Obtido[T] | NaoEncontrado | Falha
 ```
@@ -420,6 +434,7 @@ type Coleta[T] = Obtido[T] | NaoEncontrado | Falha
 class FonteCadastral(Protocol):
     nome: str
     aceita_alfanumerico: bool
+
     async def consultar(self, cnpj: str) -> Coleta[CadastroComDatasets]: ...
 ```
 
@@ -436,8 +451,6 @@ O TTL sai do adapter e vai para a configuração do cache (T7), porque é polít
 | `Sancao` | cadastro (CEPIM, CEIS, CNEP), documento, raiz, nome, categoria, data_inicio, data_fim (None = sem fim), orgao, esfera, uf, abrangencia, fundamentacao, processo, valor_multa, codigo_sancao, origem_informacoes, fontes | Mesmo tipo para CSV local e OpenCNPJ datasets, que têm os mesmos campos e o mesmo `codigo_sancao` (spec 18A.3). CEPIM sem datas. |
 | `CertidaoTcu` | tipo (INIDONEOS, CNIA, CEIS, CNEP), situacao (NADA_CONSTA, CONSTAM_REGISTROS, INDISPONIVEL, NAO_SUPORTADO), observacao, datas_observacao (datas entre parênteses, Q35), processos (números do CNIA, Q19), link_manual | `RespostaTcu` agrega as 4 certidões + `cnpj_encontrado` + razão social. |
 | `RegistroListaTcu` | lista (INIDONEOS, CONTAS_IRREGULARES), documento, raiz, nome, processo, acordao, data_acordao, data_transito, data_final | Linhas das listas da Plataforma de Certidões (Q34, Q21). |
->>>>
-
 | `PerfilMapa` | id_osc, situacao, preenchido_pela_osc (bool), indice_preenchimento, certificados (tuple) | Regra de "preenchido pela OSC" da ficha do Mapa, aplicada no normalizador. |
 | `AtoCebas` | cnpj, area, tipo_ato (CONCESSAO, RENOVACAO, INDEFERIMENTO, CANCELAMENTO, RECONSIDERACAO, PRORROGACAO, ARQUIVAMENTO, OUTRO), deferido, vigencia_inicio, vigencia_fim, data_publicacao, ref_ato, torna_sem_efeito, trecho, url_pdf | D16 e ficha do DOU. |
 | `SituacaoCebas` | fonte (SISCEBAS_SAUDE, PLANILHA_MDS_2024, PLANILHA_MEC_2023), area, cebas, situacao_texto, vigencia_inicio, vigencia_fim, portaria, data_base | Linha de retrato oficial. |
@@ -466,8 +479,9 @@ Os normalizadores podem declarar modelos pydantic privados para o formato bruto 
 | CEPIM, CEIS, CNEP (OpenCNPJ) | OpenCNPJ `?datasets=cepim,ceis,cnep` | Online, **na mesma chamada do cadastro** (zero requisição extra), observação adicional | D14, Q36. |
 | Inidôneos TCU, CNIA, CEIS, CNEP | TCU Consulta Consolidada | Online por consulta, com cache | D13, D14. |
 | Lista de inidôneos TCU (CSV) | Plataforma de Certidões (certidoes.apps.tcu.gov.br) | Local, ingestão diária (35 KB), segunda observação de `tcu_inidoneos` | Q34. |
-| Lista de contas irregulares TCU (CSV) | Plataforma de Certidões | Local, ingestão diária (11 MB) | [ORIENTADOR Q21]; também fonte de dirigentes se Q8 aceitar. |
-| Listas de dirigentes (TCU inabilitados, TCE-SP) | Plataforma de Certidões e TCE-SP | Local, diária (TCU) e mensal (TCE-SP) | [PENDENTE Q8]. |
+| Lista de contas irregulares TCU | Plataforma de Certidões, `POST https://certidoes.apps.tcu.gov.br/api/publico/responsaveis-contas-irregulares` (JSON de 24 MB ou CSV de 11 MB) | Local, ingestão diária | [ORIENTADOR Q21] por CNPJ; fonte de `dirigentes` por CPF (Q8). |
+| Lista de inabilitados TCU | Plataforma de Certidões, `POST https://certidoes.apps.tcu.gov.br/api/publico/responsaveis-inabilitados` (JSON de 0,4 MB) | Local, ingestão diária | Fonte de `dirigentes` (Q8, art. 39, VII, b). |
+| Relação do TCE-SP de contas do Terceiro Setor julgadas irregulares | xlsx de 0,6 MB, link descoberto a cada mês na página do TCE-SP (o nome do arquivo leva o período) | Local, ingestão mensal | Fonte de `dirigentes` (Q8, art. 39, VII, a, parcerias em SP). |
 | Mapa das OSCs | API do Ipea | Online, cache de 30 dias, 5 chamadas por consulta (Q38) | Base CSV de 344 MB não traz certificados nem perfil. |
 | CEBAS Saúde | SisCEBAS Saúde XLS | Local, ingestão diária | D16; 24 s para gerar, inviável por consulta. |
 | CEBAS MDS e MEC | Planilhas oficiais (2024 e 2023) | Local, carga única com hash fixado | D16; retrato estático. |
@@ -511,7 +525,8 @@ O comando `atualizar-bases` roda todas as ingestões devidas, em ordem, e é o �
 
 Para nunca usar base velha em silêncio, cada fonte local tem uma idade máxima configurável (`dados/limites.json`); acima dela a observação vira `Falha(BASE_VENCIDA)`.
 **[DECIDIDO Q6]** Valores: CEIS e CNEP 3 dias, CEPIM 7 dias (já chega com 2 dias de atraso), SisCEBAS Saúde 7 dias, DOU 75 dias (defasagem natural de até 6 semanas), planilhas MDS/MEC sem limite (retrato declarado com data de corte na mensagem).
-Bases acrescentadas pela revisão: lista de inidôneos do TCU 3 dias (Q34), lista de contas irregulares do TCU 7 dias [ORIENTADOR Q21]; se Q8 aceitar, TCU inabilitados 7 dias e TCE-SP 45 dias.
+Bases acrescentadas pela revisão: lista de inidôneos do TCU 3 dias (Q34), lista de contas irregulares do TCU 7 dias [ORIENTADOR Q21], lista de inabilitados do TCU 7 dias e relação do TCE-SP do Terceiro Setor 45 dias (base mensal), as duas últimas pelo Q8.
+Lista de dirigentes vencida não é consultada e o texto de `dirigentes` diz qual faltou; com todas vencidas, `dirigentes` fica INDISPONIVEL (Q5).
 Espelho cadastral (Q6, B6): o OpenCNPJ com mais de 60 dias (data do `/info`) gera ALERTA em `situacao` com a data dos dados; não é base local, mas segue a mesma ideia de nunca usar dado velho em silêncio.
 
 Base vencida ou ausente (B5): a mensagem ao usuário diz "base de [fonte] de DD/MM/AAAA, mais velha que o limite de N dias" (ou "base ainda não carregada" no primeiro uso); a página `/fontes` mostra a base em destaque e o log registra nível de erro; todo texto de verificação baseada em base local diz "consultado na base de DD/MM/AAAA".
@@ -696,7 +711,7 @@ carga
   id              bigint identity PK
   fonte           text        -- cgu_cepim, cgu_ceis, cgu_cnep, tcu_inidoneos, tcu_contas_irregulares,
                               -- siscebas_saude, cebas_mds_2024, cebas_mec_2023, dou_s01
-                              -- (+ tcu_inabilitados, tcesp_terceiro_setor se Q8 aceitar)
+                              -- tcu_inabilitados, tcesp_terceiro_setor (Q8)
   status          text        -- EM_ANDAMENTO | CONCLUIDA | SEM_MUDANCA | FALHOU
   ativa           bool        -- índice único parcial (fonte) where ativa
   referencia      text null   -- ex.: "2026-08" para o DOU
@@ -719,13 +734,20 @@ sancao_registro           -- CSVs da CGU
   linha jsonb  -- linha original completa (evidência), com o CPF de PF já mascarado
   indices (carga_id, documento), (carga_id, raiz), (carga_id, nome_normalizado, cpf_meio)
 
-lista_tcu_registro        -- inidôneos (Q34) e contas irregulares (Q21) da Plataforma de Certidões
+lista_tcu_registro        -- inidôneos (Q34), contas irregulares (Q21, Q8) e inabilitados (Q8) da Plataforma de Certidões
   id, carga_id FK, lista (INIDONEOS|CONTAS_IRREGULARES|INABILITADOS), tipo_registro (CPF|CNPJ),
   documento text null,        -- só CNPJ; para CPF, as mesmas regras do B13
   raiz char(8) null, nome_normalizado text, cpf_meio char(6) null, cpf_dv_final char(2) null,
   nome, processo, acordao, data_acordao date null, data_transito date null, data_final date null,
   linha jsonb
   indices (carga_id, documento), (carga_id, raiz), (carga_id, nome_normalizado, cpf_meio)
+
+tcesp_registro            -- relação do TCE-SP de contas do Terceiro Setor julgadas irregulares (Q8)
+  id, carga_id FK, nome_normalizado text, cpf_inicio char(3), cpf_dv_final char(2),
+                              -- só o que o TCE-SP publica (999.XXX.XXX-99); nunca o CPF reconstituído
+  nome, processo, materia, origem, data_transito date null, exercicio text,
+  linha jsonb
+  indice (carga_id, nome_normalizado)
 
 cebas_ato                 -- DOU
   id, carga_id FK, ref_ato text unique, cnpj varchar(14), cnpj_dv_ok bool, entidade, municipio_uf,
@@ -747,6 +769,7 @@ Política de CPF no banco (B13): o casamento de dirigentes só usa nome normaliz
 Para cada PF ficam o nome normalizado, os 6 dígitos do meio e os 2 dígitos finais (DV), que ajudam a desempatar sem reconstruir o CPF; a coluna `linha` guarda o CPF já mascarado (`***XXXXXX**`).
 O arquivo bruto com CPF completo fica só em `var/arquivos/` (fora do git, acesso local do operador) para a prova de integridade pelo hash; ele é apagado quando a carga deixa de ser referenciada por consultas dentro do limite de retenção.
 CPF nunca vai para log, fixture ou resposta da API.
+O CPF reconstituído no casamento com o TCE-SP (QSA + máscara complementar) não é gravado em lugar nenhum: nem no banco, nem em `consulta.resultado`, nem em evidência, cache ou log (teste no T13).
 
 Versão das regras (B11): `versao_regras` é o sha256 da concatenação ordenada de `natureza_juridica.json`, `regras_cnae.json`, `regras_orientador.json`, `mensagens.json` e `limites.json` (idades máximas, limite do espelho, janela de 8 anos) e da lista de fontes ativas; o replay de uma consulta usa a mesma versão.
 
@@ -872,7 +895,7 @@ Segredos nunca em log: os campos usam `SecretStr`.
 
 Recomendação: B.
 Eventos mínimos: requisição recebida e respondida (rota, status, ms, id da requisição); cada chamada de fonte (fonte, chave, status HTTP, ms, tentativa, de_cache, motivo de falha); conclusão da consulta (status, motivos, ms); cada carga (fonte, linhas, hash, duração, resultado).
-CNPJ pode aparecer em log (dado público de pessoa jurídica); nomes de dirigentes não.
+CNPJ pode aparecer em log (dado público de pessoa jurídica); nomes e CPFs de dirigentes não, nem o CPF reconstituído com o TCE-SP.
 
 ## T11c - Observabilidade
 
@@ -928,7 +951,8 @@ O CI roda os mesmos comandos, então o pre-commit é conveniência e o CI é a g
 | Unitários de tabelas | `natureza_juridica.json` e regras CNAE válidas | Validação na carga (como o `classificar_cnae.py` já faz) + os 22 testes existentes migrados | Sempre |
 | Normalizadores (contrato) | Bruto real de cada fonte vira o domínio esperado | Fixtures copiadas da Fase 0 para `tests/fixtures/fontes/<fonte>/` (OK, RESTRICAO, 404, 412, 5xx, formatos estranhos como `cnae_fiscal` sem zero à esquerda) | Sempre |
 | Cliente HTTP e adapters | Timeouts, retry, `Retry-After`, fallback OpenCNPJ para BrasilAPI, falha tipada | `httpx.MockTransport` e relógio falso | Sempre |
-| Ingestores | Parse e sanidade de CSV CGU, XLS SisCEBAS, planilhas, XML do DOU | Amostras pequenas versionadas (as 10 linhas de `fase0/portal/amostras`, um XLS reduzido, os XMLs dos 20 atos conferidos no T2 do DOU) | Sempre |
+| Proteção do CPF reconstituído (Q8, D15) | O CPF que o casamento com o TCE-SP reconstitui (3 primeiros do TCE-SP + 6 do QSA + 2 finais) nunca é persistido, logado nem exibido | Teste automatizado com um QSA e uma linha do TCE-SP sintéticos que casam: roda a consulta inteira (motor, orquestrador, gravação da consulta e das evidências, API JSON, página HTML) com captura de logs e procura o CPF de 11 dígitos, com e sem pontuação, em todas as tabelas do banco, nos arquivos gravados, nos logs e nas respostas; qualquer ocorrência falha o teste. Um segundo caso confere que a função de casamento devolve só booleano. Os casos de referência já trazem a mesma conferência (`conferir_sem_cpf` em `montar_casos.py`) | Sempre |
+| Ingestores | Parse e sanidade de CSV CGU, listas do TCU, xlsx do TCE-SP, XLS SisCEBAS, planilhas, XML do DOU | Amostras pequenas versionadas (as 10 linhas de `fase0/portal/amostras`, um XLS reduzido, os XMLs dos 20 atos conferidos no T2 do DOU) | Sempre |
 | Integração com banco | Repositórios, cache por TTL, troca atômica de carga, migrações | Postgres real (serviço no CI, Compose local), banco recriado por sessão, transação revertida por teste | Sempre no CI; local com o banco no ar |
 | E2E da API | Casos de referência ponta a ponta | `fase0/casos_referencia.json` (movido para `tests/e2e/casos_referencia.json` quando estabilizar) executado pela API com todas as fontes servidas por fixtures gravadas ("modo replay") e `data_referencia` fixa na data da gravação; afere status final e estado de cada verificação | Sempre |
 | E2E de navegador | A página como o usuário usa: digitar CNPJ, esperar, ver o veredito, abrir link permanente, imprimir | Playwright contra o app em modo replay; poucos cenários (APTA, INAPTA, INCONCLUSIVA) | CI e local |
@@ -1050,13 +1074,13 @@ A ordem prioriza chegar cedo a uma consulta completa e demonstrável, e depois a
 | 2. Resiliência e filial | Fallback BrasilAPI e normalizador; retry, timeouts, prazo global; INDISPONIVEL; filial (D5) e esfera (D6) completos; `/fontes` (parte online). | `estabelecimento` + regras de filial | Filial ativa (T7), filial baixada com matriz ativa (T7b), cenários de pane simulados. |
 | 3. TCU e sanções (um marco só) | Adapter e normalizador da Consulta Consolidada (D13, Q33, Q35); infraestrutura de carga (`carga`, CLI `ingerir`, `atualizar-bases`, idade máxima, sanidade B19); ingestão dos CSVs CEPIM, CEIS, CNEP (principal, D14) e das listas do TCU (inidôneos, contas irregulares); datasets do OpenCNPJ; combinação T3d com busca por raiz [ORIENTADOR Q20]. | `tcu_inidoneos`, `cnj_cnia`, `tcu_contas_irregulares`, `cepim`, `ceis`, `cnep` | C28 a C46 e C49 de `casos_referencia.json`: CEPIM, CEIS vigente, expirado e fronteira 22/11/2026, CNEP de multa, CNIA, Instituto Global e IDEAS (raiz), entidades INAPTAS com sanções (Q1). |
 | 4. Mapa das OSCs | Adapter com as 5 seções do Q38, regra de perfil preenchido, D2, `situacao` (Q40). | `mapa_osc` | OKBR (só automático), Abrinq (preenchido), cooperativa e filial ausentes (C14, C24). |
-| 5. Dirigentes | Casamento nome + 6 dígitos centrais do CPF contra pessoas físicas do CEIS/CNEP locais (D15) [ORIENTADOR Q22]; exibição dos nomes só para o operador (Q9). Fontes extras conforme Q8 [PENDENTE Q8]. | `dirigentes` | C36 e C39 (correspondência), os QSA dos demais casos (sem correspondência) e os casos do teste ponta a ponta de `fase0/dirigentes/ficha.md` se Q8 aceitar. |
+| 5. Dirigentes | Ingestão da lista de inabilitados do TCU e da relação do TCE-SP do Terceiro Setor (a de contas irregulares já vem da fatia 3); casamento nome + 6 dígitos centrais do CPF contra CEIS/CNEP e listas do TCU, e nome + DV contra o TCE-SP (D15, Q8) [ORIENTADOR Q22]; janela de 8 anos e vigência por fonte; exibição dos nomes só para o operador (Q9); teste de proteção do CPF reconstituído (T13). | `dirigentes` | C36 e C39 (CEIS), C40 e C42 (TCU contas irregulares), C41, C44 e C46 (TCE-SP), C28 e C36 (TCU fora da janela, só informação), os QSA dos demais casos (sem correspondência) e os casos do teste ponta a ponta de `fase0/dirigentes/ficha.md`. |
 | 6. CEBAS | Ingestão SisCEBAS Saúde, planilhas MDS/MEC, DOU desde 12/2023 (Q39) e mensal, parser migrado com vigência como data e novos tipos de ato (Q43); regra de status pura (D16) com `situacao` (Q40) e bloco "Sobre o CEBAS" (B7). | `cebas` | C16, C23, C25, C26, C27, C47, C48 (gerar de novo depois da carga do DOU, [PENDENTE X17]). |
 | 7. Mensagens e relatório | Catálogo `mensagens.json` (B1) com teste de cobertura, blocos fixos (B8, B9), ordem de exibição (B16), rodapé de atribuição (B18), relatório de filial (B20). | todas | Conjunto completo, conferido na página. |
 | 8. Pronto para apresentar | CSS de impressão (T16 B), página `/fontes` completa, limite por IP e token de evidências (T9e), workflow `vivo` agendado, deploy conforme T14c, roteiro de demonstração. | todas | Conjunto completo de `casos_referencia.json`. |
 
 Depois da fatia 3 todas as eliminatórias estão cobertas e já existe um MVP demonstrável; a ingestão dos CSVs da CGU entra junto com o TCU porque o CSV é a observação principal (D14).
-As fatias 4 a 7 são informativas, de alerta ou de texto e podem ser reordenadas conforme o que a banca valorizar; a 5 depende do Q8 só para as fontes extras, e a 6 depende da carga do DOU.
+As fatias 4 a 7 são informativas, de alerta ou de texto e podem ser reordenadas conforme o que a banca valorizar; a 6 depende da carga do DOU.
 
 ---
 
@@ -1104,17 +1128,16 @@ As fatias 4 a 7 são informativas, de alerta ou de texto e podem ser reordenadas
 2. **T16 - PDF de auditoria (Q11):** CSS de impressão; sem PDF no servidor no MVP.
 3. **T14c - Onde demonstrar (Q12):** local na apresentação; túnel público se necessário.
 4. **T15a - Repositório (Q13):** privado até a aprovação do projeto.
-5. **T5d - Idade máxima das bases locais (Q6):** CEIS e CNEP 3 dias, CEPIM e SisCEBAS 7, DOU 75, espelho cadastral com mais de 60 dias = ALERTA.
+5. **T5d - Idade máxima das bases locais (Q6):** CEIS e CNEP 3 dias, CEPIM e SisCEBAS 7, DOU 75, espelho cadastral com mais de 60 dias = ALERTA; com a revisão e o Q8, inidôneos do TCU 3, contas irregulares e inabilitados do TCU 7, TCE-SP 45.
 6. **T3h - Entidade já INAPTA pelo cadastro (Q1):** consultar e mostrar as sanções mesmo assim; o status segue INAPTA.
 7. **T3c' - Verificação não eliminatória indisponível (Q5):** não muda o status, com aviso explícito em destaque.
 8. **T3e - Filial inativa com matriz ativa (Q4):** ALERTA.
 
 Também respondidas em D19: Q2 (alfanumérico = INCONCLUSIVA), Q3 (CNPJ_INVALIDO), Q7 (D18 aprovado) e Q9 (link aberto, nomes de dirigentes só para operador).
+Respondida depois, em D15: Q8 (opção C: dirigentes também contra TCU contas irregulares, TCU inabilitados e TCE-SP Terceiro Setor; CPF completo e CNIA por CPF no pós-MVP).
 
 Ainda em aberto, sem bloquear o início:
 
-- [PENDENTE Q8] Ampliação das fontes de dirigentes (antes da fatia 5 só para as fontes extras).
 - [ORIENTADOR Q14 a Q24] Regras de interpretação da lei; até a resposta valem as recomendações da revisão como parâmetros de `dados/regras_orientador.json`, `natureza_juridica.json` e `regras_cnae.json`, sem mudar código.
 - [PENDENTE X17] Carga do DOU desde 12/2023 (antes de fechar os casos da fatia 6).
->>>>
 

@@ -10,17 +10,26 @@ O catálogo usa os ids textuais da arquitetura (Q25), com o número do spec como
 atributo. As regras que ainda dependem do orientador (Q14 a Q24) estão em
 REGRAS_ORIENTADOR: trocar a regra é mudar o valor ali e gerar de novo. Cada
 verificação cujo esperado depende de uma regra provisória ou pendente traz o
-marcador em `depende_de` ("ORIENTADOR Q16", "PENDENTE Q8", "PENDENTE X17").
+marcador em `depende_de` ("ORIENTADOR Q16", "PENDENTE X17").
+
+Dirigentes (D15, opção C do Q8): QSA x CEIS/CNEP (fatos.dirigentes) e x listas
+do TCU (contas irregulares, inabilitados) e do TCE-SP Terceiro Setor, com o
+índice e o casamento de fase0/dirigentes/casar_dirigentes.py. O CPF completo
+das listas e o CPF reconstituído do TCE-SP só existem em memória; a saída traz
+só nome, fonte, processo e datas, e main() confere que nenhum CPF foi gravado.
 
 Uso: .venv/Scripts/python fase0/casos/montar_casos.py
 """
 
 from __future__ import annotations
 
+import importlib
 import json
 import re
+import sys
 from collections import Counter
 from datetime import date
+from functools import cache
 
 import fatos
 from casos_def import CASOS, DATA_REFERENCIA
@@ -54,8 +63,8 @@ REGRAS_ORIENTADOR = {
     # Q21: contas da própria OSC julgadas irregulares pelo TCU (art. 39, VI), verificação nova.
     # "alerta" (recomendado) | "restricao" | "nao_usar" (sem a verificação).
     "Q21_contas_irregulares_osc": "alerta",
-    # Q22: achado de dirigente (parte CEIS/CNEP; a ampliação de fontes depende de Q8).
-    # "ficha" (recomendado: só vigente, categorias de servidor sem ALERTA) | "qualquer_vigente".
+    # Q22: achado de dirigente (fontes decididas no Q8, opção C).
+    # "ficha" (recomendado: só vigente ou dentro da janela de 8 anos, categorias de servidor sem ALERTA) | "qualquer_vigente".
     "Q22_dirigentes": "ficha",
     # Q23: tempo com cadastro ativo quando há sinal de reativação.
     # "inicio_atividade" (recomendado) | "reativacao" (conta desde data_situacao_cadastral).
@@ -78,7 +87,13 @@ PREFIXOS_Q15 = (
 )
 
 # Q6 (DONO, D19): idade máxima das bases (dias) e do espelho cadastral.
-IDADE_MAXIMA_DIAS = {"CEIS": 3, "CNEP": 3, "CEPIM": 7, "INIDONEOS_TCU": 3, "CONTAS_IRREGULARES_TCU": 7, "SISCEBAS_SAUDE": 7, "DOU": 75}
+IDADE_MAXIMA_DIAS = {
+    "CEIS": 3, "CNEP": 3, "CEPIM": 7, "INIDONEOS_TCU": 3, "CONTAS_IRREGULARES_TCU": 7, "INABILITADOS_TCU": 7,
+    "TCESP_TERCEIRO_SETOR": 45, "SISCEBAS_SAUDE": 7, "DOU": 75,
+}
+# Datas das bases de dirigentes que fatos.DATA_BASE não traz (fase0/dirigentes/downloads/):
+# inabilitados do TCU baixados em 01/10/2026; planilha do TCE-SP com dados até 01/09/2026.
+DATA_BASE = {**fatos.DATA_BASE, "INABILITADOS_TCU": date(2026, 10, 1), "TCESP_TERCEIRO_SETOR": date(2026, 9, 1)}
 LIMITE_ESPELHO_DIAS = 60
 DATA_ESPELHO_OPENCNPJ = date(2026, 9, 15)
 # As idades são medidas na data da coleta; as variantes mudam só a data de referência das vigências.
@@ -170,7 +185,7 @@ AMBIGUIDADES = [
      "situacao": "provisória"},
     {"id": "A12", "titulo": "Dirigentes: correspondência só por nome e sanção expirada",
      "regra": "Spec 13.5 usa nome + 6 dígitos do meio do CPF (a v1.1 dos casos citava por engano o 13.4 como busca só por nome).",
-     "resolucao": "[ORIENTADOR Q22] provisório: ALERTA só para nome + 6 dígitos com sanção vigente e categoria que é hipótese do art. 39; categorias de servidor (Demissão, Suspensão) e só nome ficam como informação. [PENDENTE Q8]: fontes além de CEIS/CNEP.",
+     "resolucao": "[ORIENTADOR Q22] provisório: ALERTA só para nome + 6 dígitos (TCE-SP: nome + DV) com sanção vigente ou trânsito em julgado nos últimos 8 anos e hipótese do art. 39; categorias de servidor (Demissão, Suspensão), achados fora da janela e só nome ficam como informação. Fontes do Q8 (DONO, opção C, D15): CEIS, CNEP, TCU contas irregulares, TCU inabilitados e TCE-SP Terceiro Setor.",
      "situacao": "provisória"},
     {"id": "A13", "titulo": "CEBAS com renovação tempestiva pendente ou vigência vencida",
      "regra": "D16: validade vencida sem ato novo = 'possível renovação em análise'.",
@@ -203,10 +218,9 @@ REGRAS_PROVISORIAS_TEXTO = {
     "ORIENTADOR Q19": "CNIA = RESTRICAO só com proibição vigente achada no CEIS pelo processo; senão ALERTA.",
     "ORIENTADOR Q20": "Sanção em outro estabelecimento da raiz = RESTRICAO, indicando o estabelecimento.",
     "ORIENTADOR Q21": "Verificação `tcu_contas_irregulares` (OSC na lista do TCU com trânsito em julgado nos últimos 8 anos) = ALERTA.",
-    "ORIENTADOR Q22": "Dirigentes: só sanção vigente e categoria que é hipótese do art. 39.",
+    "ORIENTADOR Q22": "Dirigentes: só sanção vigente (CEIS, CNEP, TCU inabilitados) ou trânsito em julgado nos últimos 8 anos (TCU contas irregulares, TCE-SP) e categoria que é hipótese do art. 39.",
     "ORIENTADOR Q23": "Tempo desde data_inicio_atividade, citando a data da situação.",
     "ORIENTADOR Q24": "CEBAS vencido sem ato novo = possível renovação, sem limite, com a idade no texto.",
-    "PENDENTE Q8": "Fontes de dirigentes além de CEIS/CNEP (TCU contas irregulares e inabilitados, TCE-SP) aguardam o dono.",
     "PENDENTE X17": "Esperado de CEBAS MDS/MEC sem os atos do DOU de 12/2023 a 05/2026 (Q39); gerar de novo depois da carga.",
 }
 
@@ -269,7 +283,7 @@ def _perto_do_aniversario(marco: date, ref: date) -> bool:
 
 
 def _base_valida(nome: str) -> bool:
-    return (DATA_COLETA - fatos.DATA_BASE[nome]).days <= IDADE_MAXIMA_DIAS[nome]
+    return (DATA_COLETA - DATA_BASE[nome]).days <= IDADE_MAXIMA_DIAS[nome]
 
 
 class Avaliacao:
@@ -582,10 +596,7 @@ def avaliar_contas_irregulares(a: Avaliacao, cnpj: str, matriz: str | None, raiz
     if not _base_valida("CONTAS_IRREGULARES_TCU"):
         a.set("tcu_contas_irregulares", "INDISPONIVEL", "Lista de contas irregulares do TCU mais velha que o limite.")
         return
-    try:
-        limite = ref.replace(year=ref.year - JANELA_CONTAS_IRREGULARES_ANOS)
-    except ValueError:  # 29/02
-        limite = date(ref.year - JANELA_CONTAS_IRREGULARES_ANOS, 2, 28)
+    limite = _limite_8_anos(ref)
     dentro, fora, dep = [], [], ["ORIENTADOR Q21"]
     for r in fatos.contas_irregulares_csv().get(raiz, []):
         esc = _escopo(r["cnpj_registro"], cnpj, matriz)
@@ -603,6 +614,114 @@ def avaliar_contas_irregulares(a: Avaliacao, cnpj: str, matriz: str | None, raiz
     else:
         a.set("tcu_contas_irregulares", "OK", f"Nada na {fonte} nos últimos {JANELA_CONTAS_IRREGULARES_ANOS} anos"
               + (f" (histórico fora da janela: {'; '.join(fora)})" if fora else "") + ".", depende=dep, propaga=False)
+
+
+# ------------------------------------------- dirigentes: listas do TCU e do TCE-SP (D15, Q8)
+
+PASTA_DIRIGENTES = RAIZ / "fase0" / "dirigentes"
+# fonte do casar_dirigentes -> (base para a idade máxima, nome no texto, hipótese do art. 39)
+LISTAS_DIRIGENTES = {
+    "TCU contas irregulares": ("CONTAS_IRREGULARES_TCU", "na lista de contas irregulares do TCU", "art. 39, VII, a"),
+    "TCU inabilitados": ("INABILITADOS_TCU", "na lista de inabilitados do TCU", "art. 39, VII, b"),
+    "TCE-SP terceiro setor": ("TCESP_TERCEIRO_SETOR", "na relação do TCE-SP de contas do Terceiro Setor julgadas irregulares", "art. 39, VII, a"),
+}
+
+
+@cache
+def _casar_dirigentes():
+    """Importa fase0/dirigentes/casar_dirigentes.py e carrega o índice uma vez.
+
+    As duas pastas têm um módulo `comum`; o de fase0/dirigentes é usado só durante o import
+    e o de fase0/casos volta para sys.modules logo depois.
+    """
+    salvo = sys.modules.pop("comum", None)
+    sys.path.insert(0, str(PASTA_DIRIGENTES))
+    try:
+        mod = importlib.import_module("casar_dirigentes")
+    finally:
+        sys.path.remove(str(PASTA_DIRIGENTES))
+        sys.modules.pop("comum", None)
+        if salvo is not None:
+            sys.modules["comum"] = salvo
+    return mod, mod.carregar_indice(DATA_COLETA)
+
+
+@cache
+def _listas_por_nome() -> dict[str, list[tuple[str, list]]]:
+    """Nome normalizado -> [(6 dígitos do meio, registros)] das listas do TCU (sem CEIS/CNEP, que vêm de fatos)."""
+    _, ix = _casar_dirigentes()
+    por_nome: dict[str, list[tuple[str, list]]] = {}
+    for (nome, meio), regs in ix.por_nome_meio.items():
+        regs = [x for x in regs if x.fonte in LISTAS_DIRIGENTES]
+        if regs:
+            por_nome.setdefault(nome, []).append((meio, regs))
+    return por_nome
+
+
+def _limite_8_anos(ref: date) -> date:
+    try:
+        return ref.replace(year=ref.year - JANELA_CONTAS_IRREGULARES_ANOS)
+    except ValueError:  # 29/02
+        return date(ref.year - JANELA_CONTAS_IRREGULARES_ANOS, 2, 28)
+
+
+def dirigentes_listas(qsa: list[dict], raiz: str, ref: date) -> dict:
+    """QSA x listas do TCU e do TCE-SP com a regra de casar_dirigentes.py.
+
+    Devolve textos sem CPF: só qualificação, nome, fonte, processo e datas.
+    """
+    mod, ix = _casar_dirigentes()
+    validas = {f for f, (base, _, _) in LISTAS_DIRIGENTES.items() if _base_valida(base)}
+    socios = [
+        {"nome_socio": q["nome"], "cnpj_cpf_socio": q.get("doc") or "", "qualificacao_socio": q.get("qualificacao") or ""}
+        for q in qsa if q.get("tipo") == "Pessoa Física" and q.get("nome")
+    ]
+    processos_osc = {_digitos(r["processo"]) for r in fatos.contas_irregulares_csv().get(raiz, [])}
+    limite = _limite_8_anos(ref)
+    # Agrupa por (dirigente, fonte, dentro ou fora da janela) para citar todos os processos numa frase.
+    grupos: dict[tuple, list[tuple[date | None, str]]] = {}
+    for ach in mod.casar(ix, socios):
+        r = ach.registro
+        if r.fonte not in validas:
+            continue
+        if r.fonte == "TCU inabilitados":
+            dentro = bool(r.data_ref and r.data_ref >= ref)
+            item = f"processo {r.processo}, inabilitação até {_br(r.data_ref)}"
+        else:
+            dentro = bool(r.data_ref and limite <= r.data_ref <= ref)
+            item = f"processo {r.processo}, trânsito em julgado {_br(r.data_ref)}"
+        if r.fonte == "TCU contas irregulares" and _digitos(r.processo) in processos_osc:
+            item += ", também condenou a própria OSC"
+        chave = (ach.qualificacao, ach.dirigente, r.fonte, ach.criterio, dentro)
+        grupos.setdefault(chave, []).append((r.data_ref, item))
+    alerta, info, so_nome = [], [], 0
+    for (qual, nome, fonte, criterio, dentro), itens in grupos.items():
+        _, onde, hip = LISTAS_DIRIGENTES[fonte]
+        como = "com nome e dígito verificador do CPF conferidos" if criterio == "nome+6+dv" else "com os mesmos 6 dígitos centrais do CPF"
+        itens.sort(key=lambda x: x[0] or date.min, reverse=True)
+        extra = "; a lista não informa se a conta é de parceria, confira o acórdão" if fonte == "TCU contas irregulares" else ""
+        txt = f"{qual} {nome} aparece {onde} {como} ({hip}; " + "; ".join(i for _, i in itens) + extra + ")"
+        if dentro:
+            alerta.append(txt)
+        elif fonte == "TCU inabilitados":
+            info.append(txt + " [inabilitação encerrada]")
+        else:
+            info.append(txt + f" [fora da janela de {JANELA_CONTAS_IRREGULARES_ANOS} anos]")
+    # Homônimos só por nome (6 dígitos ou DV diferentes): informação, nunca achado.
+    for s in socios:
+        nn = mod.normalizar_nome(s["nome_socio"])
+        meio = _digitos(s["cnpj_cpf_socio"])
+        if len(meio) != 6:
+            continue
+        for m2, regs in _listas_por_nome().get(nn, []):
+            if m2 != meio:
+                so_nome += sum(1 for x in regs if x.fonte in validas)
+        for x in ix.tcesp_por_nome.get(nn, []):
+            p = _digitos(x.cpf_parcial)
+            if x.fonte in validas and mod.dv_cpf(p[:3] + meio) != p[3:]:
+                so_nome += 1
+    vencidas = [LISTAS_DIRIGENTES[f][0] for f in LISTAS_DIRIGENTES if f not in validas]
+    return {"alerta": alerta, "info": info, "so_nome": so_nome, "vencidas": vencidas}
 
 
 # ------------------------------------------------------------------ CEBAS (D16)
@@ -836,11 +955,11 @@ def avaliar(cnpj: str, ref: date, esfera: str | None) -> tuple[Avaliacao, dict]:
         e5 = ("ALERTA", f"{base5}: ainda não atinge o prazo mínimo para nenhuma esfera.")
     a.set("tempo", e5[0], e5[1], *amb5, depende=dep5)
 
-    # ---- dirigentes (D15, Q22 provisório, Q8 pendente)
+    # ---- dirigentes (D15 com a opção C do Q8, Q22 provisório)
     d = fatos.dirigentes(entidade["qsa"])
-    dep10 = ["PENDENTE Q8"]
+    dep10: list[str] = []
     if d["pf_no_qsa"] == 0:
-        a.set("dirigentes", "NAO_VERIFICADO", "O cadastro não informa dirigentes pessoas físicas (B22).", depende=dep10, propaga=False)
+        a.set("dirigentes", "NAO_VERIFICADO", "O cadastro não informa dirigentes pessoas físicas (B22).", propaga=False)
     else:
         alerta, info = [], []
         for x in d["fortes"]:
@@ -851,14 +970,22 @@ def avaliar(cnpj: str, ref: date, esfera: str | None) -> tuple[Avaliacao, dict]:
                 info.append(txt + (" [expirada]" if not vig else " [categoria fora do art. 39]"))
             elif vig:
                 alerta.append(txt)
-        if d["fortes"] or d["so_nome"]:
+        lst = dirigentes_listas(entidade["qsa"], raiz, ref)
+        alerta += lst["alerta"]
+        info += lst["info"]
+        so_nome = len(d["so_nome"]) + lst["so_nome"]
+        if alerta or info or so_nome:
             dep10.append("ORIENTADOR Q22")
-        extra_info = (f" Informação sem alerta: {'; '.join(info)}." if info else "") + (f" {len(d['so_nome'])} homônimo(s) só por nome, sem os dígitos do CPF: sem alerta." if d["so_nome"] else "")
+        fontes10 = "CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor"
+        extra_info = (f" Informação sem alerta: {'; '.join(info)}." if info else "") + (f" {so_nome} homônimo(s) só por nome, sem os dígitos do CPF: sem alerta." if so_nome else "")
+        if lst["vencidas"]:
+            extra_info += f" Base(s) mais velha(s) que o limite, não consultada(s): {', '.join(lst['vencidas'])}."
+        extra_info += " Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
         if alerta:
             a.set("dirigentes", "ALERTA", "Possível correspondência: " + "; ".join(alerta) + "; confira o CPF no documento oficial." + extra_info, "A12", depende=dep10)
         else:
-            a.set("dirigentes", "OK", f"{d['pf_no_qsa']} dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP." + extra_info,
-                  *(("A12",) if (info or d["so_nome"]) else ()), depende=dep10, propaga=bool(info or d["so_nome"]))
+            a.set("dirigentes", "OK", f"{d['pf_no_qsa']} dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em {fontes10}." + extra_info,
+                  *(("A12",) if (info or so_nome) else ()), depende=dep10, propaga=bool(info or so_nome))
 
     # ---- fan-out (Q1: sempre, com DV válido e cadastro encontrado)
     ceis = avaliar_sancao_datada(a, "ceis", "ceis", "CEIS", cnpj, matriz_resolvida, raiz, ref)
@@ -962,7 +1089,7 @@ def montar() -> dict:
             "tcu_contas_irregulares": "Plataforma de Certidões do TCU, CSV de responsáveis com contas irregulares de 01/10/2026 (Q21, provisório)",
             "mapa_osc": "https://mapaosc.ipea.gov.br/api/api/busca/cnpj/{cnpj sem zeros}",
             "cebas": "SisCEBAS Saúde (lista de 30/09/2026), planilhas MDS 24/10/2024 e MEC 2023 do Mapa das OSCs, DOU jun a ago/2026 (falta 12/2023 a 05/2026, X17)",
-            "dirigentes": "CSV CEIS e CNEP de 30/09/2026 (PF, CPF completo) x QSA do OpenCNPJ ([PENDENTE Q8] para outras fontes)",
+            "dirigentes": "QSA do OpenCNPJ x pessoas físicas do CSV CEIS e CNEP de 30/09/2026, das listas do TCU de contas irregulares e inabilitados de 01/10/2026 (Plataforma de Certidões) e da relação do TCE-SP de contas do Terceiro Setor julgadas irregulares (planilha com dados até 01/09/2026); D15, opção C do Q8",
         },
         "catalogo": [{"id": i, "spec": s, "nome": n, "tipo": t} for i, s, n, t in CATALOGO],
         "estados": ["OK", "RESTRICAO", "ALERTA", "INDISPONIVEL", "NAO_VERIFICADO"],
@@ -986,7 +1113,7 @@ NAO_ENCONTRADOS = """## Casos não encontrados
 |---|---|---|
 | Associação ATIVA e elegível ausente do Mapa das OSCs (D2 isolado) | Todas as associações ativas consultadas (mais de 30) estavam no Mapa. As 15 marcadas `removida_do_mosc = sim` e 'Ativa' nas fatias da base do Mapa estão BAIXADAS hoje na Receita. 300 raízes sorteadas depois da última carga do Mapa (`buscar_ausente_mapa.py`, sementes 20261001 e 7) não trouxeram nenhuma associação (só MEI, LTDA e afins). | C14 (cooperativa ausente do Mapa, ALERTA junto com a natureza) e C24 (filial ausente, matriz presente, Q28). |
 | OSC ATIVA declarada inidônea pelo TCU | A lista de inidôneos tem 128 CNPJs e só 2 OSCs (ITS e IMDC), ambas INAPTAS na Receita. | C40 e C42 cobrem `tcu_inidoneos` em RESTRICAO, agora avaliado mesmo com a entidade INAPTA (Q1). |
-| Dirigente com sanção em entidade sem sanção própria | 5 PJs do CEIS com todas as sanções expiradas e ativas na Receita: nenhum dirigente casou nome + CPF. | C36 tem dirigente com sanção, mas a própria entidade também é sancionada. |
+| Dirigente com sanção em entidade sem sanção própria | 5 PJs do CEIS com todas as sanções expiradas e ativas na Receita: nenhum dirigente casou nome + CPF. Com as listas do TCU e do TCE-SP (Q8), todos os achados caíram em entidades já sancionadas ou INAPTAS. | C36, C39 a C42, C44 e C46 têm dirigente com achado, mas a própria entidade também é sancionada ou INAPTA; C28 tem achado no TCU só fora da janela de 8 anos. |
 | Associação com situação NULA (código 1) | Não apareceu nas fatias da base do Mapa (o Mapa agrupa 'Nula ou Baixada'). | C08 a C10 cobrem BAIXADA, INAPTA e SUSPENSA. |
 | CEBAS da Educação (MEC) | Nenhum CNPJ do conjunto está na planilha MEC de 2023 nem em ato do MEC no DOU de jun a ago/2026. | CEBAS saúde (C47, C48, C25) e assistência social (C16). |
 | Certificado autodeclarado no Mapa | Pendência P4 (não procurado nesta rodada). | Perfil preenchido pela OSC em C16 e outros. |
@@ -1004,13 +1131,14 @@ Encontrados na rodada de 01/10/2026: associação INAPTA (C09), associação SUS
 - O OpenCNPJ devolve `data_situacao_cadastral` = '0' para a matriz do Instituto GRPCOM e registros de sanção duplicados no `?datasets=` (CNEP do IPCIM, CEIS da IDEAS).
 - O CNIA devolve só o número do processo, sem data; o mesmo número aparece no CEIS de origem CNJ com as datas (Q19, Q42).
 - A Consulta Consolidada do TCU devolve CEIS CONSTAM_REGISTROS também para sanções expiradas (D18), confirmado em C31 (variante de 23/11/2026), C32 e C44.
+- Dirigentes com as fontes do Q8 (opção C): TCU contas irregulares em C40 e C42 (em C42, todos os processos também condenaram a própria OSC), TCE-SP Terceiro Setor em C41, C44 e C46 (nome + DV), e só fora da janela de 8 anos em C28 e C36; nenhum achado na lista de inabilitados do TCU.
 
 ## Como reproduzir
 
 A partir da raiz do projeto:
 
 1. `.venv/Scripts/python fase0/casos/coletar.py` consulta OpenCNPJ, OpenCNPJ `?datasets=`, TCU e Mapa para todos os casos e salva em `fase0/casos/respostas/<cnpj>/`.
-2. `.venv/Scripts/python fase0/casos/montar_casos.py` aplica as regras e gera `fase0/casos_referencia.json` e este arquivo. As bases locais usadas são os CSVs da CGU em `fase0/portal/downloads/`, a lista de inidôneos em `fase0/tcu/respostas/`, a lista de contas irregulares em `fase0/dirigentes/downloads/` e as bases de CEBAS de `fase0/cebas_dou/` e `fase0/mapa_osc/`.
+2. `.venv/Scripts/python fase0/casos/montar_casos.py` aplica as regras e gera `fase0/casos_referencia.json` e este arquivo. As bases locais usadas são os CSVs da CGU em `fase0/portal/downloads/`, a lista de inidôneos em `fase0/tcu/respostas/`, as listas do TCU (contas irregulares e inabilitados) e a planilha do TCE-SP em `fase0/dirigentes/downloads/` (lidas com `fase0/dirigentes/casar_dirigentes.py`) e as bases de CEBAS de `fase0/cebas_dou/` e `fase0/mapa_osc/`.
 3. Para trocar uma regra provisória do orientador, mudar o valor em `REGRAS_ORIENTADOR` no início de `montar_casos.py` e rodar o passo 2.
 4. Scripts de busca usados para achar os casos: `amostra_mapa.py` (fatias da base do Mapa), `buscar_cnia.py`, `buscar_ativos.py`, `buscar_extras.py` e `buscar_ausente_mapa.py`.
 
@@ -1066,7 +1194,7 @@ def gerar_md(dados: dict) -> str:
     w("## Regras provisórias e pendentes")
     w("")
     w("Os esperados marcados com estes códigos (coluna 'Depende de' e campo `depende_de` do JSON) podem mudar se a regra mudar.")
-    w("Toda verificação `dirigentes` depende de [PENDENTE Q8] e toda `tcu_contas_irregulares` existe por [ORIENTADOR Q21]; no resumo esses dois marcadores só aparecem quando há achado.")
+    w("Toda `tcu_contas_irregulares` existe por [ORIENTADOR Q21] e toda `dirigentes` com achado ou homônimo depende de [ORIENTADOR Q22]; no resumo esses dois marcadores só aparecem quando há achado.")
     w("As regras do orientador ficam em `REGRAS_ORIENTADOR` no início de `montar_casos.py`; trocar a regra é mudar um valor e gerar de novo.")
     w("")
     w("| Marcador | Regra adotada agora | Parâmetro |")
@@ -1143,11 +1271,22 @@ def gerar_md(dados: dict) -> str:
     return "\n".join(linhas)
 
 
+def conferir_sem_cpf(texto: str) -> None:
+    """Nenhum CPF completo das listas nem CPF parcial do TCE-SP pode sair nos arquivos gerados."""
+    _, ix = _casar_dirigentes()
+    candidatos = set(re.findall(r"(?<!\d)\d{11}(?!\d)", texto))
+    candidatos |= {_digitos(c) for c in re.findall(r"\d{3}\.\d{3}\.\d{3}-\d{2}", texto)}
+    vazados = candidatos & set(ix.por_cpf)
+    assert not vazados, f"{len(vazados)} CPF(s) completo(s) no texto gerado"
+    assert not re.search(r"\d{3}\.XXX\.XXX-\d{2}", texto), "CPF parcial do TCE-SP no texto gerado"
+
+
 def main() -> None:
     dados = montar()
     SAIDA_JSON.write_text(json.dumps(dados, ensure_ascii=False, indent=1), encoding="utf-8")
     md = gerar_md(dados) + "\n" + NAO_ENCONTRADOS
     assert chr(0x2014) not in md and chr(0x2013) not in md, "travessão proibido no texto gerado"
+    conferir_sem_cpf(json.dumps(dados, ensure_ascii=False) + md)
     SAIDA_MD.write_text(md, encoding="utf-8")
     print(f"{len(dados['casos'])} casos -> {SAIDA_JSON.name}, {SAIDA_MD.name}")
     for c in dados["casos"]:

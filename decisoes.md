@@ -41,7 +41,7 @@ Objetivo imediato: MVP funcional para aprovação do projeto.
 | P3 | (Opcional) DevTools na Consulta Consolidada do TCU para conferir headers do navegador; conseguir CNPJ com ocorrência no CNIA (CNJ). Passo a passo em `fase0/tcu/ficha.md`. | - | CNIA com ocorrência obtido (C35, C36, C39, C46); resta só a conferência opcional de headers |
 | P4 | (Opcional) Mapa das OSCs: conferir no DevTools as chamadas da página da OSC; achar um certificado autodeclarado real; e-mail a mapaosc@gmail.com sobre limite de uso e periodicidade da carga de CEBAS. | - | Opcional |
 | P5 | (Opcional) Cadastro no INLABS para XML diário do DOU (passo a passo na seção 10 de `fase0/cebas_dou/ficha.md`). O XML mensal sem login basta para o MVP. Retestar `siscebas2.mec.gov.br` (sem DNS em 30/09/2026). | - | Opcional |
-| P6 | Dirigentes: pesquisa feita (`fase0/dirigentes/ficha.md`). Proposta de ampliar D15 com TCU contas irregulares (8 anos), TCU inabilitados e TCE-SP Terceiro Setor, sempre ALERTA; CNIA só com CPF completo (pós-MVP); incisos III e § 2º sem cobertura. Sugestão extra: lista de PJ condenadas do TCU para a própria OSC (inciso VI). | Pesquisa | Aguardando decisão do dono (Q8, marcada [PENDENTE Q8] no spec 13); inciso VI aplicado como provisório [ORIENTADOR Q21] |
+| P6 | Dirigentes: pesquisa feita (`fase0/dirigentes/ficha.md`). Proposta de ampliar D15 com TCU contas irregulares (8 anos), TCU inabilitados e TCE-SP Terceiro Setor, sempre ALERTA; CNIA só com CPF completo (pós-MVP); incisos III e § 2º sem cobertura. Sugestão extra: lista de PJ condenadas do TCU para a própria OSC (inciso VI). | Pesquisa | Resolvida: dono decidiu o Q8 pela opção C em 01/10/2026 (ver D15), aplicada no spec 1.2.1 (cap. 13), na arquitetura e nos casos; inciso VI aplicado como provisório [ORIENTADOR Q21] |
 
 ### Com o orientador
 
@@ -65,8 +65,8 @@ Objetivo imediato: MVP funcional para aprovação do projeto.
 
 | # | Pendência | Status |
 |---|---|---|
-| R1 | Dono decidir os 8 itens [DECIDIR]: T10 interface, T16 PDF, T14c onde demonstrar, T15a repositório público/privado e licença, T5d idade máxima das bases locais, T3h consultar sanções de quem já é INAPTA, T3c ALERTA indisponível, T3e filial baixada com matriz ativa. | Feito (D19: Q10, Q11, Q12, Q13, Q6, Q1, Q5, Q4); arquitetura sem [DECIDIR] abertos |
-| R2 | Revisão cruzada feita: `revisao_pre_codigo.md` (18 contradições X1-X18, 44 perguntas: Q1-Q13 DONO, Q14-Q24 ORIENTADOR, Q25-Q44 TECNICO, 22 buracos, correções mecânicas, checklist). | Feito e aplicado em 01/10/2026 (spec 1.2, arquitetura, casos); X1 a X18 resolvidas no texto, X17 depende da carga do DOU; restam Q8 (dono) e Q14 a Q24 (orientador, provisórias); ver "Status das correções" na revisão |
+| R1 | Dono decidir os 8 itens [DECIDIR]: T10 interface, T16 PDF, T14c onde demonstrar, T15a repositório público/privado e licença, T5d idade máxima das bases locais, T3h consultar sanções de quem já é INAPTA, T3c ALERTA indisponível, T3e filial baixada com matriz ativa. | Resolvida (D19: Q10, Q11, Q12, Q13, Q6, Q1, Q5, Q4); arquitetura sem [DECIDIR] abertos; T5d completado com as bases do Q8 (listas do TCU 7 dias, TCE-SP 45 dias) |
+| R2 | Revisão cruzada feita e aplicada (`revisao_pre_codigo.md`, seção 6). Q1-Q13 respondidas (D19, D15 para Q8); Q14-Q24 aguardam orientador como regras provisórias; Q25-Q44 adotadas (D20). | Feito |
 
 ### Depois da Fase 0
 
@@ -81,7 +81,6 @@ Objetivo imediato: MVP funcional para aprovação do projeto.
 ### Dependem de terceiros
 
 - Disponibilidade do orientador (O1 a O3 e Q14 a Q24).
->>>>
 
 - Resposta da LAI, até 30 dias (após F4).
 - Teste da chamada ao TCU a partir do IP do servidor (bloqueio de datacenter?), quando houver servidor.

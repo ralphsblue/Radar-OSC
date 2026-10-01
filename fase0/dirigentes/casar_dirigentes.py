@@ -32,7 +32,6 @@ from dataclasses import dataclass, field
 from datetime import date
 
 import openpyxl
-
 from comum import DOWNLOADS, RAIZ, cpf_valido, data_br, digitos, normalizar_nome
 
 PORTAL = RAIZ / "fase0" / "portal" / "downloads"

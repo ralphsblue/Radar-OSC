@@ -773,7 +773,7 @@ Nenhuma coleta de rede foi refeita: os casos usam as respostas salvas em `fase0/
 | X12 | Resolvida (Q37). | Spec 21, 23; arquitetura T6e. |
 | X13 | Resolvida (Q36): TTL de 24 h para a chamada com datasets. | Spec 24.4; arquitetura T7b. |
 | X14 | Resolvida: INAPTA, SUSPENSA, CNIA com ocorrência e `?datasets=` com registros documentados; pendências do spec 1.1 removidas. | Spec 5.3, 10.5, 12.4, 18.3, 18A.3, 25.1, 25.3; `decisoes.md` P3. |
-| X15 | Parcial: Q22 aplicada como provisória e citação do A12 corrigida; a ampliação de fontes continua [PENDENTE Q8]. | Spec 13.3; casos A12. |
+| X15 | Resolvida: Q22 aplicada como provisória, citação do A12 corrigida e fontes decididas pelo dono no Q8 (opção C, D15); P6 fechada. | Spec 13; arquitetura T3b, T5a, T5d, T8c, T13, T18; casos A12. |
 | X16 | Resolvida (Q34): Plataforma de Certidões como segunda observação; ORDS não usado. A contagem do CSV foi conferida (129 linhas, 121 CNPJs, nenhuma PF); a diferença para os 91 do ORDS fica para a carga. | Spec 12.4, 20.3; `decisoes.md` A2. |
 | X17 | Aberta: os dados do DOU de 12/2023 a 05/2026 não estão no disco (só jun a ago/2026). Os esperados de CEBAS afetados estão marcados [PENDENTE X17] (C16, C23, C25, C31, C44, C46). | Spec 22.5; casos. |
 | X18 | Resolvida no texto (Q43); a correção do `parser_cebas.py` fica para a fatia 6. | Spec 22.6. |
@@ -781,13 +781,16 @@ Nenhuma coleta de rede foi refeita: os casos usam as respostas salvas em `fase0/
 ### 6.2 Perguntas
 
 - Q1 a Q7 e Q9 a Q13 (DONO): aplicadas conforme D19 no spec, na arquitetura (selos [DECIDIDO Qxx]) e nos casos.
-- Q8 (DONO): em aberto; spec 13.3 descreve a opção C como proposta com o marcador [PENDENTE Q8], e toda verificação `dirigentes` dos casos traz o marcador.
+- Q8 (DONO): resolvida pela opção C (D15): CEIS/CNEP, TCU contas irregulares (trânsito em julgado nos últimos 8 anos), TCU inabilitados (vigentes) e TCE-SP Terceiro Setor (nome + DV, CPF reconstituído só em memória e garantido por teste), sempre ALERTA; CPF completo e CNIA por CPF no pós-MVP.
+  Aplicada no spec 1.2.1 (cap. 13 reescrito, fontes no cap. 17, idade máxima das listas do TCU de 7 dias e do TCE-SP de 45 dias), na arquitetura (T3b, T5a, T5d, T8c, T13 com o teste de proteção do CPF, T18 fatia 5) e nos casos; o marcador de pendência do Q8 saiu de todos os documentos.
 - Q14 a Q24 (ORIENTADOR): aplicadas como regra provisória com o marcador [ORIENTADOR Qxx] no spec e na arquitetura; nos casos, Q16 a Q24 são parâmetros de `REGRAS_ORIENTADOR` em `montar_casos.py`, e Q14 e Q15 ficam nas tabelas de natureza e CNAE; cada esperado afetado traz o marcador em `depende_de`.
 - Q25 a Q44 (TECNICO): fechadas pela recomendação e resumidas em D20.
 
 Efeitos nos casos de referência (49 casos e 11 variantes): status final APTA 7, APTA COM RESSALVAS 12, CNPJ INVÁLIDO 3, INAPTA 24, INCONCLUSIVA 3.
 Mudanças de status em relação à versão anterior: C02 a C04 viraram CNPJ_INVALIDO (Q3); C34 virou APTA COM RESSALVAS (CNEP só de multa, Q16); C38 virou INAPTA (sanção da filial pela raiz, Q20).
 C08 a C11 e C39 a C46 agora mostram todas as verificações (Q1), e C40, C42 e C46 têm ALERTA em `tcu_contas_irregulares` (Q21).
+Com o Q8, `dirigentes` passou de OK para ALERTA em C40 e C42 (TCU contas irregulares) e em C41, C44 e C46 (TCE-SP, nome + DV); C28 e C36 ganharam achado do TCU fora da janela de 8 anos, só como informação, e C29 um homônimo só por nome.
+Nenhum status final mudou, porque essas entidades já eram INAPTAS.
 
 ### 6.3 Buracos
 
@@ -798,7 +801,7 @@ Os que seguem a recomendação mas são escolhas de produto e podem ser revistos
 
 Checklist da seção 5:
 
-- [x] DONO responde Q1 a Q7 e Q9 (Q8 continua aberta).
+- [x] DONO responde Q1 a Q9 (Q8 respondida depois, opção C, D15).
 - [x] DONO responde Q10 a Q12 (e Q13).
 - [ ] ORIENTADOR responde Q14 a Q24; até lá as recomendações valem como regra provisória configurável e os casos marcam os esperados que dependem delas (feito).
 - [x] Agente fecha Q25 a Q44 com as recomendações (D20).
@@ -811,4 +814,4 @@ Checklist da seção 5:
 - [x] Política de CPF no banco definida (B13).
 - [ ] Checagem de wheels do Python 3.14 e Docker no ar (R8 da arquitetura), primeira tarefa da fatia 0.
 
-Veredito atualizado: a fatia 0 e as fatias 1 a 4 podem começar; a fatia 5 depende do Q8 só para as fontes extras de dirigentes, e a fatia 6 depende da carga do DOU.
+Veredito atualizado: as fatias 0 a 5 podem começar; só a fatia 6 depende da carga do DOU.

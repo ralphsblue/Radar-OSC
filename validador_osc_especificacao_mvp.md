@@ -6,7 +6,7 @@ Fluxo do motor de regras, critérios de conformidade por verificação, fontes d
 
 - **Disciplina:** Atividade de Extensão - TSI / IFSP
 - **Autor:** Rafael
-- **Versão:** 1.2 - 1 de outubro de 2026
+- **Versão:** 1.2.1 - 1 de outubro de 2026
 
 > Documento de trabalho.
 > Os endpoints de fontes governamentais mudam; a data do último teste de cada fonte está na sua ficha em `fase0/*/ficha.md`.
@@ -19,17 +19,17 @@ Fluxo do motor de regras, critérios de conformidade por verificação, fontes d
 |---|---|---|
 | 1.0 | 30/09/2026 | Versão inicial, escrita antes dos testes das fontes. |
 | 1.1 | 01/10/2026 | Incorpora as decisões D1 a D13 e os resultados da Fase 0. Remove o score (D8). Adiciona o parâmetro `esfera` (D6), o tratamento de filial (D5), a regra de divergência entre fontes (D3) e o CNPJ alfanumérico fora das consultas (D4). Troca a tabela CNAE pela proposta completa (D7). Reescreve a Parte III com o que foi executado e adiciona o capítulo 18A (OpenCNPJ). Remove o fallback Playwright/APEX do TCU (D13). Aplica D14 a D17 com marcador de proposta. A numeração dos capítulos da versão 1.0 foi mantida para não quebrar as referências de `decisoes.md` e das fichas. |
-| 1.2 | 01/10/2026 | Aplica a revisão cruzada (`revisao_pre_codigo.md`): resolve as contradições X1 a X18, as respostas do dono (D19: Q1 a Q7 e Q9 a Q13), as decisões técnicas Q25 a Q44 (D20) e define os buracos B1 a B22. D14 a D18 deixam de ser proposta: o CSV diário da CGU passa a ser a observação principal de CEPIM, CEIS e CNEP, o OpenCNPJ `?datasets=` e o TCU viram observações adicionais e a API do Portal com chave sai do motor (ferramenta manual de conferência). Novo catálogo de 15 verificações com id textual (Q25, cap. 2.6), status `CNPJ_INVALIDO` (Q3), sem parada antecipada (Q1), contrato do adapter e formato do resultado da arquitetura (cap. 24). Regras do orientador (Q14 a Q24) aplicadas como provisórias com o marcador `[ORIENTADOR Qxx]`; ampliação de dirigentes marcada `[PENDENTE Q8]`. |
+| 1.2 | 01/10/2026 | Aplica a revisão cruzada (`revisao_pre_codigo.md`): resolve as contradições X1 a X18, as respostas do dono (D19: Q1 a Q7 e Q9 a Q13), as decisões técnicas Q25 a Q44 (D20) e define os buracos B1 a B22. D14 a D18 deixam de ser proposta: o CSV diário da CGU passa a ser a observação principal de CEPIM, CEIS e CNEP, o OpenCNPJ `?datasets=` e o TCU viram observações adicionais e a API do Portal com chave sai do motor (ferramenta manual de conferência). Novo catálogo de 15 verificações com id textual (Q25, cap. 2.6), status `CNPJ_INVALIDO` (Q3), sem parada antecipada (Q1), contrato do adapter e formato do resultado da arquitetura (cap. 24). Regras do orientador (Q14 a Q24) aplicadas como provisórias com o marcador `[ORIENTADOR Qxx]`; ampliação de dirigentes deixada pendente com o dono (Q8). |
+| 1.2.1 | 01/10/2026 | Aplica a decisão do dono no Q8 (opção C, D15): `dirigentes` passa a casar o QSA também com as listas do TCU de contas irregulares (trânsito em julgado nos últimos 8 anos) e de inabilitados (vigentes) e com a relação do TCE-SP de contas do Terceiro Setor julgadas irregulares (nome + dígito verificador, CPF reconstituído só em memória e garantido por teste), sempre ALERTA. Capítulo 13 reescrito; capítulos 2, 3, 16, 17, 24.4, 25.1 e 26 alinhados; idade máxima das novas bases (Q6): listas do TCU 7 dias, TCE-SP 45 dias. Marcador de pendência do Q8 removido e casos de referência gerados de novo. |
 
 ## Marcadores deste documento
 
 Não há mais decisão em estado de proposta: D14 a D19 estão decididas em `decisoes.md`.
-Restam três marcadores, todos visíveis no texto:
+Restam dois marcadores, ambos visíveis no texto:
 
 | Marcador | Significado | O que acontece quando for resolvido |
 |---|---|---|
 | `[ORIENTADOR Qxx]` | Interpretação da Lei 13.019/2014 aplicada como regra provisória, igual à recomendação da revisão (Q14 a Q24). | O motor lê a regra de configuração versionada; se o orientador decidir diferente, muda o valor e os casos de referência são gerados de novo (`REGRAS_ORIENTADOR` em `fase0/casos/montar_casos.py`). |
-| `[PENDENTE Q8]` | Ampliação das fontes de dirigentes, ainda em aberto com o dono. O texto descreve a opção recomendada (C) como proposta. | Capítulo 13 reescrito com a opção escolhida. |
 | `[PENDENTE X17]` | Esperado do CEBAS de MDS e MEC sem os atos do DOU de 12/2023 a 05/2026 (Q39). | Carga do DOU e casos de CEBAS gerados de novo. |
 
 ## Sumário
@@ -174,7 +174,7 @@ O cache é por fonte e por chave (cap. 24.4), não da consulta inteira.
     |-- TCU Consulta Consolidada (Inidôneos TCU, CNIA, CEIS, CNEP)
     |-- Base local de inidôneos do TCU (Plataforma de Certidões, Q34)
     |-- Base local de contas irregulares do TCU [ORIENTADOR Q21]
-    |-- Dirigentes do QSA x pessoas físicas do CEIS/CNEP locais (nome + 6 dígitos) [PENDENTE Q8]
+    |-- Dirigentes do QSA x pessoas físicas de CEIS/CNEP, listas do TCU e TCE-SP locais (D15)
     |-- Mapa das OSCs (informativo; ausência = ALERTA)
     |-- CEBAS (bases locais: SisCEBAS Saúde, planilhas oficiais, DOU)
     |   cada fonte devolve fatos ou falha tipada; quem decide o estado é o motor (Q41)
@@ -248,7 +248,7 @@ O número do spec (coluna "Spec") é atributo, para manter a ligação com os ca
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | ELIMINATÓRIA | 12 |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | ELIMINATÓRIA | 12 |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) [ORIENTADOR Q21] | ALERTA | 12.5 |
-| `dirigentes` | 10 | Dirigentes (QSA) [PENDENTE Q8] | ALERTA | 13 |
+| `dirigentes` | 10 | Dirigentes (QSA) | ALERTA | 13 |
 | `mapa_osc` | 11 | Mapa das OSCs | INFORMATIVA (ausente = ALERTA, D2) | 14 |
 | `cebas` | 12 | CEBAS | INFORMATIVA | 15 e 22 |
 
@@ -286,12 +286,12 @@ Bloco fixo "O que fazer quando o resultado é INCONCLUSIVA" (B8):
 
 Quando a falha é transitória (timeout, 5xx), o bloco acrescenta "tente de novo em alguns minutos"; quando é base vencida, "a base de DD/MM/AAAA está mais velha que o limite; o operador foi avisado".
 
-Bloco fixo "O que este relatório não verifica" (B9), sempre no fim do relatório: certidões do art. 34; art. 39, incisos III (dirigente que é agente político ou membro de Poder do ente parceiro) e § 2º (ressarcimento do dano); sanções estaduais e municipais que não chegam ao CEIS; tribunais de contas fora do TCU (e do TCE-SP, se Q8 for aceito); dirigentes que não estão no QSA; o que está no estatuto e na prestação de contas.
+Bloco fixo "O que este relatório não verifica" (B9), sempre no fim do relatório: certidões do art. 34; art. 39, incisos III (dirigente que é agente político ou membro de Poder do ente parceiro) e § 2º (ressarcimento do dano); sanções estaduais e municipais que não chegam ao CEIS; tribunais de contas fora do TCU e do TCE-SP; improbidade só com suspensão de direitos políticos (está só no CNIA, que exige CPF completo); dirigentes que não estão no QSA, que costuma trazer só o presidente; o que está no estatuto e na prestação de contas.
 
 Contestação de falso positivo (B17): no MVP não há canal próprio.
 Cada achado traz o órgão responsável pelo registro e o link oficial, com a frase "se o registro estiver errado ou já tiver sido revisto, a correção é pedida ao órgão que o publicou".
 
-Atribuição das fontes (B18): rodapé com a fonte, a data da base usada e o link de cada uma (Receita via OpenCNPJ ou BrasilAPI, CGU/Portal da Transparência, TCU, CNJ, Ipea/Mapa das OSCs, Ministérios da Saúde, da Educação e do Desenvolvimento e Assistência Social, Imprensa Nacional).
+Atribuição das fontes (B18): rodapé com a fonte, a data da base usada e o link de cada uma (Receita via OpenCNPJ ou BrasilAPI, CGU/Portal da Transparência, TCU, TCE-SP, CNJ, Ipea/Mapa das OSCs, Ministérios da Saúde, da Educação e do Desenvolvimento e Assistência Social, Imprensa Nacional).
 
 Relatório de consulta feita por filial (B20): o título mostra a razão social e o CNPJ da entidade avaliada (matriz); logo abaixo, "Consulta feita a partir do estabelecimento XX.XXX.XXX/XXXX-XX (filial, situação ...)".
 A API traz os dois campos (`cnpj` informado e `cnpj_avaliado`) e `estabelecimento` (`MATRIZ` ou `FILIAL`).
@@ -317,13 +317,12 @@ A primeira fonte de cada linha é a observação principal; as demais são obser
 | 9 | `tcu_inidoneos` | Eliminatória | TCU Consulta Consolidada + lista de inidôneos da Plataforma de Certidões (local, Q34) | 12 |
 | 9 | `cnj_cnia` | Eliminatória | TCU Consulta Consolidada (item CNIA) + CEIS de origem CNJ para as datas (Q19) | 12 |
 | 9 | `tcu_contas_irregulares` | Alerta [ORIENTADOR Q21] | Lista de contas irregulares da Plataforma de Certidões (local) | 12.5 |
-| 10 | `dirigentes` | Alerta | QSA da fonte cadastral + pessoas físicas dos CSVs de CEIS/CNEP (D15) [PENDENTE Q8] | 13 |
+| 10 | `dirigentes` | Alerta | QSA da fonte cadastral + pessoas físicas dos CSVs de CEIS/CNEP, das listas do TCU de contas irregulares e inabilitados e da relação do TCE-SP do Terceiro Setor (D15, Q8) | 13 |
 | 11 | `mapa_osc` | Informativa (ausência = Alerta, D2) | API pública do Ipea | 14 |
 | 12 | `cebas` | Informativa | SisCEBAS Saúde, planilhas oficiais MDS/MEC, DOU (bases locais, D16) | 15 e 22 |
 
 A API do Portal da Transparência com chave não entra no motor nem na configuração (D14).
 A chave é vinculada ao CPF de uma pessoa física e o teste de 01/10/2026 mostrou que a API não é mais fresca que o CSV diário nem busca por raiz; ela fica só como ferramenta manual de conferência (cap. 19).
->>>>
 
 
 ---
@@ -795,7 +794,6 @@ Regra provisória (verificação `tcu_contas_irregulares`, tipo ALERTA):
 RESTRICAO seria injusto, porque a natureza da conta é desconhecida.
 As alternativas em análise são não usar a lista (sem a verificação) ou RESTRICAO; o dono também pode tirar a verificação do MVP.
 Casos de referência com achado: C40 (ITS), C42 (IMDC) e C46 (AVAPE).
->>>>
 
 
 # 13. Verificação 10 - Dirigentes (QSA)
@@ -810,35 +808,58 @@ Nos dados abertos, o CPF vem mascarado e só os 6 dígitos do meio aparecem (ex.
 O art. 39 também impede parcerias quando dirigentes estão em situações vedadas, como condenação por improbidade ou contas rejeitadas.
 Checar a pessoa jurídica sem olhar para quem a dirige deixa um buraco.
 
-## 13.3 Fonte e regra de correspondência
+## 13.3 Fontes e regra de correspondência
 
-Base decidida (D15): os arquivos CSV de CEIS e CNEP da CGU (capítulo 19.5) trazem o CPF completo, sem máscara, das pessoas físicas sancionadas (9.148 no CEIS e 28 no CNEP, todos com DV válido), e o nome sempre preenchido.
-O motor casa o nome do dirigente no QSA e os 6 dígitos do meio do CPF mascarado com esses registros.
-É uma correspondência forte, com bem menos falso positivo do que a busca só por nome que a versão 1.0 previa.
+Decisão D15, com a opção C do Q8 (dono, 01/10/2026): o motor casa cada dirigente pessoa física do QSA com cinco listas públicas de pessoas físicas, todas importadas como bases locais.
+Detalhes técnicos, volumes e teste ponta a ponta em `fase0/dirigentes/ficha.md`.
+
+| Fonte | Hipótese do art. 39 | Casamento | Janela | Atualização e idade máxima (Q6) |
+|---|---|---|---|---|
+| CEIS e CNEP, CSV diário da CGU (cap. 19.5): 9.148 linhas de PF no CEIS e 28 no CNEP, CPF completo | VII, c (CEIS de origem CNJ); demais categorias como indício | Nome + 6 dígitos do meio do CPF | Sanção vigente na data de referência | Diária; 3 dias |
+| TCU, responsáveis com contas julgadas irregulares (CADIRREG): 23.665 CPFs | VII, a, parcial (a lista não diz se a conta é de parceria) | Nome + 6 dígitos do meio do CPF | Trânsito em julgado nos últimos 8 anos | Diária; 7 dias |
+| TCU, inabilitados para cargo em comissão ou função de confiança: 599 CPFs | VII, b | Nome + 6 dígitos do meio do CPF | Data final da inabilitação igual ou posterior à data de referência | Diária; 7 dias |
+| TCE-SP, prestação de contas de repasses ao Terceiro Setor julgadas irregulares: cerca de 4.100 pessoas | VII, a (parcerias fiscalizadas pelo TCE-SP) | Nome + dígito verificador do CPF | Trânsito em julgado nos últimos 8 anos | Mensal; 45 dias |
+
+As listas do TCU acrescentam cerca de 22.700 CPFs que não estão no CEIS/CNEP, e o TCE-SP cobre exatamente o art. 39, VII, a para as parcerias paulistas, que são o público do projeto.
+Endereços, formatos e papel de cada lista no capítulo 17.
+
+Regra de correspondência (protótipo em `fase0/dirigentes/casar_dirigentes.py`):
+
+1. Só entram sócios do QSA com CPF mascarado de 6 dígitos (pessoa física); o nome é normalizado (maiúsculas, sem acento, só letras e espaços simples).
+2. CEIS, CNEP e as duas listas do TCU trazem o CPF completo: há correspondência quando o nome normalizado e os 6 dígitos do meio são iguais aos do QSA.
+3. O TCE-SP publica o CPF como `999.XXX.XXX-99`, máscara complementar à do QSA (`***999999**`): há correspondência quando o nome normalizado é igual e o dígito verificador calculado com os 3 primeiros dígitos do TCE-SP e os 6 do QSA é igual aos 2 últimos do TCE-SP.
+   Um homônimo passa por acaso com chance de cerca de 1 em 100.
+4. Correspondência só por nome (6 dígitos ou DV diferentes) nunca gera achado; aparece só como contagem de homônimos, sem alerta.
+5. Quando o processo do TCU em que o dirigente foi condenado também condenou a própria OSC, o texto diz isso, porque reforça que a pessoa é a mesma.
+6. Qualificação e data de entrada no QSA aparecem no resultado, mas não mudam o achado: a lei olha quem é dirigente hoje.
 
 [ORIENTADOR Q22] Regra provisória sobre o que conta como possível impedimento:
 
 - CEIS e CNEP: só sanção vigente na data de referência.
 - Categorias de pessoa física do CEIS que não são hipótese do art. 39 (Demissão, Suspensão de servidor) aparecem como informação, sem ALERTA.
+- TCU contas irregulares e TCE-SP: só trânsito em julgado nos últimos 8 anos; achado mais antigo aparece como informação, sem ALERTA.
+- TCU inabilitados: só inabilitação vigente.
 - Correspondência só por nome nunca gera achado; fica registrada como informação.
-- Se a ampliação do Q8 for aceita: TCU contas irregulares e TCE-SP só com trânsito em julgado nos últimos 8 anos; TCU inabilitados só vigentes.
 
-[PENDENTE Q8] Ampliação das fontes de dirigentes, ainda em aberto com o dono.
-O texto abaixo descreve a opção recomendada pela revisão (C) como proposta, não como regra:
+CPF reconstituído (risco aceito com a opção C): juntar a máscara do TCE-SP e a do QSA reconstitui o CPF completo, o que é tratamento de dado pessoal mesmo sem gravar.
+Esse CPF só existe em memória, durante o cálculo do dígito verificador, e o motor guarda apenas o resultado booleano.
+Ele nunca é persistido (banco, arquivo, cache ou evidência), logado nem exibido, e um teste automatizado garante isso (`arquitetura.md` T13).
+O CPF completo das listas do TCU e do CEIS/CNEP segue a política B13: o banco guarda só o nome normalizado, os 6 dígitos do meio e os 2 finais.
 
-| Opção | Fontes |
-|---|---|
-| A | Só CEIS/CNEP (D15, o que vale hoje). |
-| B | A + TCU contas irregulares (janela de 8 anos) + TCU inabilitados (vigentes). |
-| C (recomendada) | B + TCE-SP Terceiro Setor (casamento por nome + DV que reconstitui o CPF só em memória). |
-| D | C + CPF completo opcional informado pelo usuário e CNIA on-line por CPF (pós-MVP, junto com a LGPD, D9). |
+Base vencida: cada lista tem a sua idade máxima (Q6); lista vencida não é consultada e o texto da verificação diz qual faltou.
+Se todas as listas estiverem vencidas, `dirigentes` fica INDISPONIVEL, com o aviso em destaque (Q5), sem mudar o status.
 
-Proposta C: download diário das listas do TCU (24 MB e 0,4 MB, segundos) e mensal do TCE-SP (0,6 MB), índice local por (nome normalizado, 6 dígitos do meio), o mesmo casamento já aprovado e sempre ALERTA.
-Ganho: cerca de 22.700 CPFs que não estão no CEIS/CNEP e cobertura do art. 39, VII, a para o público do projeto (SP).
-Risco a aceitar em C: reconstituir o CPF em memória é tratamento de dado pessoal mesmo sem gravar; a regra "nunca persistir nem exibir" vira teste automatizado.
-Enquanto Q8 não for decidido, o motor e os casos de referência usam só CEIS/CNEP, e toda verificação `dirigentes` traz o marcador [PENDENTE Q8].
+Limites a comunicar no relatório (bloco B9, cap. 2.7):
 
-Limite a comunicar no relatório: o QSA de associações costuma trazer só o presidente (23 de 25 no teste de `fase0/dirigentes/ficha.md`); dirigentes fora do QSA não são verificados.
+- O QSA de associações costuma trazer só o presidente (23 de 25 no teste de `fase0/dirigentes/ficha.md`); dirigentes fora do QSA não são verificados.
+- Contas julgadas por outros tribunais de contas (TCEs fora de SP, TCM-SP e TCM-RJ) não têm base agregada e não são verificadas.
+- Condenação por improbidade só com suspensão de direitos políticos está só no CNIA, que exige CPF completo; o MVP vê apenas a que chega ao CEIS.
+- Art. 39, inciso III e § 2º não têm fonte pública.
+
+Fica para o pós-MVP (opção D do Q8, junto com a LGPD, D9): CPF completo dos dirigentes informado pelo usuário, com casamento por CPF exato e consulta ao CNIA por CPF, e o levantamento dos demais tribunais de contas.
+
+Casos de referência: C36 e C39 (CEIS, origem CNJ), C40 e C42 (TCU contas irregulares; em C42 todos os processos também condenaram a própria OSC), C41, C44 e C46 (TCE-SP, nome + DV); C28 e C36 têm achado no TCU só fora da janela de 8 anos (informação, sem ALERTA).
+Nenhum caso do conjunto aparece na lista de inabilitados do TCU.
 
 ## 13.4 Por que continua sendo só ALERTA
 
@@ -850,7 +871,7 @@ O sistema apenas sinaliza "possível correspondência" e mostra o que encontrou 
 
 | **CONFORME (passa)** | **NÃO CONFORME (falha)** |
 |---|---|
-| Nenhum dirigente do QSA com correspondência vigente nos cadastros consultados. Estado: OK. | Correspondência por nome e pelos 6 dígitos do meio do CPF, com sanção vigente de categoria que é hipótese do art. 39. Estado: ALERTA "Possível correspondência: [nome] aparece no [cadastro]; confira o CPF no documento oficial". Nunca INAPTA. |
+| Nenhum dirigente do QSA com correspondência dentro da janela nas cinco listas (CEIS, CNEP, TCU contas irregulares, TCU inabilitados e TCE-SP Terceiro Setor). Estado: OK, com a lista do que foi verificado e do que não foi. Achado fora da janela (sanção expirada, trânsito em julgado há mais de 8 anos, inabilitação encerrada) aparece como informação, sem mudar o estado. | Correspondência por nome e 6 dígitos do meio do CPF (no TCE-SP, nome e dígito verificador), com sanção vigente ou trânsito em julgado nos últimos 8 anos, em hipótese do art. 39. Estado: ALERTA "Possível correspondência: [qualificação] [nome] aparece em [fonte] (art. 39, VII, [alínea]; processo [n], [datas]); confira o CPF no documento oficial". Na lista de contas irregulares do TCU o texto acrescenta "a lista não informa se a conta é de parceria, confira o acórdão" e, quando for o caso, que o processo também condenou a própria OSC. Nunca INAPTA. |
 
 QSA sem pessoa física (B22): quando o QSA está vazio ou só tem pessoas jurídicas, o estado é NAO_VERIFICADO com a mensagem "o cadastro não informa dirigentes pessoas físicas"; não é OK, porque nada foi verificado.
 
@@ -860,6 +881,7 @@ QSA sem pessoa física (B22): quando o QSA está vazio ou só tem pessoas juríd
 > O tratamento completo de LGPD (retenção, base legal, direitos do titular) fica para depois da aprovação do projeto (F5).
 > Mesmo no MVP: o link permanente da consulta é aberto, mas os nomes de dirigentes com possível correspondência só aparecem para o operador autenticado por token; o público vê "possível correspondência em 1 dirigente; consulte o operador" (Q9).
 > As amostras versionadas mascaram o CPF, o arquivo bruto completo fica fora do versionamento, e o banco guarda das pessoas físicas só o nome normalizado e os 6 dígitos do meio (B13, `arquitetura.md` T8c).
+> O CPF reconstituído com o TCE-SP nunca sai da memória do processo (cap. 13.3).
 
 # 14. Verificação 11 - Mapa das OSCs (Ipea)
 
@@ -936,13 +958,13 @@ Para o relatório ser honesto, é importante listar o que o MROSC exige e o sist
 | Art. 39, III: dirigente que é membro de Poder, do Ministério Público ou dirigente de órgão da administração do ente parceiro | Folhas e cadastros de cada ente | Não existe base pública agregada que cruze o QSA com os agentes de cada ente. |
 | Art. 39, § 2º: ressarcimento do dano, que afasta o impedimento | Processos de cada tribunal | Nenhuma lista informa se o dano foi ressarcido; a lista do TCU para fins eleitorais (com débito) é só indício. |
 | Sanções estaduais e municipais fora do CEIS | Cadastros próprios de cada ente | Só aparecem quando o ente alimenta o CEIS. |
-| Contas julgadas por tribunais de contas fora do TCU | Um site por TCE e TCM | Não há base agregada nacional; o TCE-SP depende da decisão do Q8 [PENDENTE Q8]. |
+| Contas julgadas por tribunais de contas fora do TCU e do TCE-SP | Um site por TCE e TCM | Não há base agregada nacional; cada tribunal publica em formato próprio. O TCE-SP (Terceiro Setor) já entra em `dirigentes` (Q8); os demais ficam para o pós-MVP, uma ficha por tribunal. |
+| CNIA por CPF (improbidade só com suspensão de direitos políticos) e CPF completo dos dirigentes | CNJ e a própria OSC | Exige CPF completo informado pelo usuário, o que depende da LGPD (D9); opção D do Q8, pós-MVP. |
 | Página de detalhe do CNIA (penas e prazos) | CNJ | O motor usa as datas do CEIS de origem CNJ (Q19); a consulta ao detalhe fica para depois do MVP. |
 | Tratamento completo de LGPD (D9) | - | Adiado para depois da aprovação do projeto (retenção, base legal, direitos do titular); o MVP já restringe nomes de dirigentes ao operador (Q9). |
 | Score de qualidade (D8) | - | Volta quando houver casos reais para calibrar. |
 
 Essas lacunas também aparecem para o usuário no bloco fixo "O que este relatório não verifica" (cap. 2.7, B9).
->>>>
 
 
 Uma evolução natural para depois do MVP é permitir que a OSC anexe essas certidões e o sistema apenas registre validade e data, compondo um dossiê completo.
@@ -966,7 +988,9 @@ Em 01/10/2026 os 49 casos de referência foram consultados de novo em OpenCNPJ, 
 | OpenCNPJ `?datasets=cepim,ceis,cnep` | `cepim`, `ceis`, `cnep` | Observação adicional, na mesma chamada do cadastro (Q36) | Dados da CGU anexados pela API comunitária | Nenhuma | EXECUTADO (registros com datas nos 49 casos; campos no 18A.3) |
 | TCU Consulta Consolidada | `tcu_inidoneos`, `cnj_cnia`, e `ceis`, `cnep` | Principal de `cnj_cnia`; observação de `tcu_inidoneos`, `ceis` e `cnep` (D13) | API oficial JSON documentada | Nenhuma | EXECUTADO |
 | TCU Plataforma de Certidões, lista de inidôneos (CSV) | `tcu_inidoneos` | Segunda observação, base local diária (Q34) | API oficial JSON e CSV | Nenhuma | EXECUTADO |
-| TCU Plataforma de Certidões, lista de contas irregulares (CSV) | `tcu_contas_irregulares` | Base local diária [ORIENTADOR Q21] (e dirigentes, se Q8) | API oficial JSON e CSV | Nenhuma | EXECUTADO (`fase0/dirigentes/ficha.md`) |
+| TCU Plataforma de Certidões, lista de responsáveis com contas julgadas irregulares (`POST https://certidoes.apps.tcu.gov.br/api/publico/responsaveis-contas-irregulares`, corpo `{}`; JSON de 24 MB ou CSV de 11 MB) | `tcu_contas_irregulares` (CNPJ), `dirigentes` (CPF, trânsito em julgado nos últimos 8 anos) | Base local diária, idade máxima de 7 dias (Q6) [ORIENTADOR Q21] (D15, Q8) | API oficial JSON e CSV | Nenhuma | EXECUTADO (`fase0/dirigentes/ficha.md`) |
+| TCU Plataforma de Certidões, lista de inabilitados para cargo em comissão ou função de confiança (`POST https://certidoes.apps.tcu.gov.br/api/publico/responsaveis-inabilitados`, corpo `{}`; JSON de 0,4 MB) | `dirigentes` (CPF, inabilitação vigente) | Base local diária, idade máxima de 7 dias (Q6) (D15, Q8) | API oficial JSON e CSV | Nenhuma | EXECUTADO (`fase0/dirigentes/ficha.md`) |
+| TCE-SP, relação de responsáveis por contas de repasses ao Terceiro Setor julgadas irregulares (xlsx mensal de 0,6 MB, link descoberto na página https://www.tce.sp.gov.br/relacao-de-responsaveis-por-contas-julgadas-irregulares) | `dirigentes` (nome + dígito verificador, trânsito em julgado nos últimos 8 anos) | Base local mensal, idade máxima de 45 dias (Q6) (D15, Q8) | Arquivo oficial XLSX, CPF publicado como `999.XXX.XXX-99` | Nenhuma | EXECUTADO (`fase0/dirigentes/ficha.md`) |
 | Portal da Transparência, API de dados | nenhuma | Ferramenta manual de conferência, fora do motor e da configuração (D14) | API oficial REST/JSON | Chave vinculada a CPF | EXECUTADO com chave em 01/10/2026 (roteiro 19.4) |
 | Mapa das OSCs (Ipea) | `mapa_osc`, e apoio a `natureza` e `cebas` | Único | API REST pública do Ipea | Nenhuma | EXECUTADO |
 | SisCEBAS Saúde, lista de situação atual | `cebas` (saúde) | Principal da saúde, base local diária (D16) | Arquivo oficial XLS gerado na hora | Nenhuma | EXECUTADO |
@@ -1542,7 +1566,6 @@ Parser em `fase0/cebas_dou/parser_cebas.py`; limitações conhecidas: município
 |---|---|
 | Sempre procurar primeiro o JSON por trás da página (DevTools ou bundle JS) antes de fazer parsing de HTML. | JSON muda menos que layout e é mais fácil de validar. Foi assim que TCU e Mapa das OSCs foram resolvidos na Fase 0. |
 | Intervalo mínimo por host para chamadas em sequência de uma mesma consulta e em lote: 1 s para TCU e Mapa das OSCs; APIs servidas por CDN (OpenCNPJ, BrasilAPI) só com limite de concorrência. Downloads de bases locais no máximo 1 por dia por arquivo. User-Agent identificando o projeto em todas as chamadas (Q37). | Respeito ao serviço público e menor chance de bloqueio. Uma consulta faz no máximo 2 chamadas ao OpenCNPJ (filial e matriz); o espírito da regra é não sobrecarregar serviço público. |
->>>>
 
 | Nunca burlar CAPTCHA, login ou controle de acesso. Fonte com CAPTCHA vira verificação manual. | Ética, termos de uso e credibilidade do projeto acadêmico. Por isso não são usadas a certidão individual do TCU (ALTCHA), a consulta individual do SisCEBAS Saúde (reCAPTCHA) nem o desafio do Cloudflare de `dadosabertos.mec.gov.br`. |
 | Não usar rotas que exponham dados pessoais sem necessidade. | Ex.: `representantes/...` do Mapa das OSCs. |
@@ -1572,24 +1595,29 @@ Isso permite aplicar D3, D5, D13 e D18, que precisam ver dados de mais de uma fo
 @dataclass(frozen=True, slots=True)
 class Obtido(Generic[T]):
     dados: T
-    evidencia: RefEvidencia        # id + sha256 + recebida_em + de_cache
+    evidencia: RefEvidencia  # id + sha256 + recebida_em + de_cache
+
 
 @dataclass(frozen=True, slots=True)
 class NaoEncontrado:
     evidencia: RefEvidencia
 
+
 @dataclass(frozen=True, slots=True)
 class Falha:
-    motivo: MotivoFalha            # TIMEOUT, HTTP_5XX, HTTP_4XX, FORMATO_INESPERADO,
-                                   # NAO_SUPORTADO, BASE_VENCIDA
+    motivo: MotivoFalha  # TIMEOUT, HTTP_5XX, HTTP_4XX, FORMATO_INESPERADO,
+    # NAO_SUPORTADO, BASE_VENCIDA
     detalhe: str
     evidencia: RefEvidencia | None
 
+
 type Coleta[T] = Obtido[T] | NaoEncontrado | Falha
+
 
 class FonteCadastral(Protocol):
     nome: str
     aceita_alfanumerico: bool
+
     async def consultar(self, cnpj: str) -> Coleta[CadastroComDatasets]: ...
 ```
 
@@ -1651,7 +1679,7 @@ O cache é por fonte e por chave, guardado na mesma tabela das evidências; uma 
 | Mapa das OSCs | 30 dias | Muda pouco; base mensal. |
 | Não encontrado (404) | 6 horas | Evita repetir 404 em sequência sem congelar um CNPJ recém-criado. |
 | Falhas | nunca | Erro não é cacheado (o 401 do Portal vinha com `max-age=7200`). |
-| Bases locais (CSV da CGU, listas do TCU, SisCEBAS, planilhas, DOU) | sem cache | Consulta direta à carga ativa, com download no máximo diário e idade máxima (Q6): CEIS e CNEP 3 dias, CEPIM 7, inidôneos do TCU 3, contas irregulares do TCU 7, SisCEBAS Saúde 7, DOU 75, planilhas MDS/MEC sem limite. |
+| Bases locais (CSV da CGU, listas do TCU, SisCEBAS, planilhas, DOU) | sem cache | Consulta direta à carga ativa, com download no máximo diário e idade máxima (Q6): CEIS e CNEP 3 dias, CEPIM 7, inidôneos do TCU 3, contas irregulares do TCU 7, inabilitados do TCU 7, TCE-SP Terceiro Setor 45 (base mensal), SisCEBAS Saúde 7, DOU 75, planilhas MDS/MEC sem limite. |
 
 O parâmetro `atualizar=true` ignora o cache das fontes on-line (relatório de auditoria sempre fresco).
 
@@ -1664,8 +1692,8 @@ Se outra observação da mesma verificação responder, a verificação conclui 
 ## 25.1 Conjunto de CNPJs de referência
 
 O conjunto de casos de referência, com um caso por linha e o resultado esperado de cada uma das verificações do catálogo (cap. 2.6), fica em `fase0/casos_referencia.md` e `fase0/casos_referencia.json`, gerados por `fase0/casos/montar_casos.py` (F1).
-São 49 casos e 11 variantes, consultados de novo em 01/10/2026, já com as regras desta versão (Q1, Q3, Q4, Q20 por raiz, Q25 e as provisórias do orientador).
-Cada esperado que depende de regra provisória ou pendente traz o marcador (`[ORIENTADOR Qxx]`, `[PENDENTE Q8]`, `[PENDENTE X17]`); trocar uma regra do orientador é mudar um valor em `REGRAS_ORIENTADOR` e gerar de novo.
+São 49 casos e 11 variantes, consultados de novo em 01/10/2026, já com as regras desta versão (Q1, Q3, Q4, Q20 por raiz, Q25, as fontes de dirigentes do Q8 e as provisórias do orientador).
+Cada esperado que depende de regra provisória ou pendente traz o marcador (`[ORIENTADOR Qxx]`, `[PENDENTE X17]`); trocar uma regra do orientador é mudar um valor em `REGRAS_ORIENTADOR` e gerar de novo.
 Esse conjunto vira o teste de regressão automatizado do projeto.
 
 Ele reúne os casos já encontrados na Fase 0:
@@ -1729,15 +1757,15 @@ Falta para os testes de contrato das bases locais o limite de sanidade de cada c
 | 10 | Revisão cruzada e respostas do dono (D19) e decisões técnicas (D20) aplicadas; pendências do spec 1.1 (alfanumérico, filial, vigência do CEIS no TCU, campos de `?datasets=`, fonte alternativa de inidôneos, vigência do CEBAS como data) fechadas. | `revisao_pre_codigo.md`, este documento. |
 | 11 | Conjunto de referência gerado de novo com o catálogo de 15 ids, incluindo associação INAPTA (C09) e CNIA com ocorrência (C35). | `fase0/casos_referencia.md` e `.json`. |
 | 12 | API do Portal com chave testada (T1 a T8) para documentar os trade-offs (P2). | Cap. 19.4. |
+| 13 | Ampliação de dirigentes decidida pelo dono (Q8, opção C, D15) e capítulo 13 reescrito; casos de referência gerados de novo com as listas do TCU e do TCE-SP (versão 1.2.1). | Cap. 13; `fase0/casos_referencia.md` e `.json`. |
 
 ## 26.2 O que falta
 
 | Passo | Tarefa | Depende de | Entrega |
 |---|---|---|---|
-| 13 | Decidir a ampliação de dirigentes (Q8) e reescrever o capítulo 13. | Dono do projeto | Marcador `[PENDENTE Q8]` resolvido. |
 | 14 | Validar Q14 a Q24 (natureza, CNAE, CNEP de multa, abrangência, CEPIM por esfera, CNIA, raiz, contas irregulares, dirigentes, reativação, CEBAS vencido) e informar a saída do score (O3). | Orientador | Marcadores `[ORIENTADOR Qxx]` resolvidos; casos gerados de novo se alguma regra mudar. |
 | 15 | Carga do DOU desde 12/2023 e casos de CEBAS gerados de novo (Q39). | - | Marcador `[PENDENTE X17]` resolvido. |
-| 16 | Codar o motor em fatias (`arquitetura.md` T18): fatia 0 já pode começar. | Passo 13 só para a fatia 5 (dirigentes); passo 15 só para a fatia 6 (CEBAS) | MVP. |
+| 16 | Codar o motor em fatias (`arquitetura.md` T18): fatia 0 já pode começar. | Passo 15 só para a fatia 6 (CEBAS) | MVP. |
 | 17 | Completar T3 e T5r na BrasilAPI (`retentar_pendentes.sh`). | Minha Receita no ar | Ficha da BrasilAPI completa. |
 | 18 | Testar a Consulta Consolidada do TCU a partir do IP do servidor. | Servidor do projeto | Confirmação de que não há bloqueio de datacenter. |
 | 19 | (Opcional) DevTools no TCU e no Mapa, INLABS, retestar `siscebas2.mec.gov.br` (P3, P4, P5). | - | Fichas complementadas. |
@@ -1819,6 +1847,5 @@ Para rodar os testes: `.\.venv\Scripts\python -m pytest -q`.
 - Fala.BR (pedidos de acesso à informação): falabr.cgu.gov.br
 
 *Versão 1.2, atualizada em 01/10/2026 com a revisão cruzada (`revisao_pre_codigo.md`) e as decisões D14 a D20.*
->>>>
 
 *Endpoints e limites de fontes governamentais mudam; a data do último teste de cada fonte deve constar da sua ficha.*

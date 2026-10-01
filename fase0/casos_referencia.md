@@ -41,7 +41,7 @@ Ele é a fonte do teste de regressão e E2E do motor; a versão para máquina é
 | tcu_contas_irregulares | Plataforma de Certidões do TCU, CSV de responsáveis com contas irregulares de 01/10/2026 (Q21, provisório) |
 | mapa_osc | https://mapaosc.ipea.gov.br/api/api/busca/cnpj/{cnpj sem zeros} |
 | cebas | SisCEBAS Saúde (lista de 30/09/2026), planilhas MDS 24/10/2024 e MEC 2023 do Mapa das OSCs, DOU jun a ago/2026 (falta 12/2023 a 05/2026, X17) |
-| dirigentes | CSV CEIS e CNEP de 30/09/2026 (PF, CPF completo) x QSA do OpenCNPJ ([PENDENTE Q8] para outras fontes) |
+| dirigentes | QSA do OpenCNPJ x pessoas físicas do CSV CEIS e CNEP de 30/09/2026, das listas do TCU de contas irregulares e inabilitados de 01/10/2026 (Plataforma de Certidões) e da relação do TCE-SP de contas do Terceiro Setor julgadas irregulares (planilha com dados até 01/09/2026); D15, opção C do Q8 |
 
 ## Regras adotadas na geração
 
@@ -56,7 +56,7 @@ Ele é a fonte do teste de regressão e E2E do motor; a versão para máquina é
 ## Regras provisórias e pendentes
 
 Os esperados marcados com estes códigos (coluna 'Depende de' e campo `depende_de` do JSON) podem mudar se a regra mudar.
-Toda verificação `dirigentes` depende de [PENDENTE Q8] e toda `tcu_contas_irregulares` existe por [ORIENTADOR Q21]; no resumo esses dois marcadores só aparecem quando há achado.
+Toda `tcu_contas_irregulares` existe por [ORIENTADOR Q21] e toda `dirigentes` com achado ou homônimo depende de [ORIENTADOR Q22]; no resumo esses dois marcadores só aparecem quando há achado.
 As regras do orientador ficam em `REGRAS_ORIENTADOR` no início de `montar_casos.py`; trocar a regra é mudar um valor e gerar de novo.
 
 | Marcador | Regra adotada agora | Parâmetro |
@@ -69,10 +69,9 @@ As regras do orientador ficam em `REGRAS_ORIENTADOR` no início de `montar_casos
 | [ORIENTADOR Q19] | CNIA = RESTRICAO só com proibição vigente achada no CEIS pelo processo; senão ALERTA. | `Q19_cnia` = `vigencia` |
 | [ORIENTADOR Q20] | Sanção em outro estabelecimento da raiz = RESTRICAO, indicando o estabelecimento. | `Q20_raiz` = `restricao` |
 | [ORIENTADOR Q21] | Verificação `tcu_contas_irregulares` (OSC na lista do TCU com trânsito em julgado nos últimos 8 anos) = ALERTA. | `Q21_contas_irregulares_osc` = `alerta` |
-| [ORIENTADOR Q22] | Dirigentes: só sanção vigente e categoria que é hipótese do art. 39. | `Q22_dirigentes` = `ficha` |
+| [ORIENTADOR Q22] | Dirigentes: só sanção vigente (CEIS, CNEP, TCU inabilitados) ou trânsito em julgado nos últimos 8 anos (TCU contas irregulares, TCE-SP) e categoria que é hipótese do art. 39. | `Q22_dirigentes` = `ficha` |
 | [ORIENTADOR Q23] | Tempo desde data_inicio_atividade, citando a data da situação. | `Q23_tempo` = `inicio_atividade` |
 | [ORIENTADOR Q24] | CEBAS vencido sem ato novo = possível renovação, sem limite, com a idade no texto. | `Q24_cebas_limite_anos` = `None` |
-| [PENDENTE Q8] | Fontes de dirigentes além de CEIS/CNEP (TCU contas irregulares e inabilitados, TCE-SP) aguardam o dono. | - |
 | [PENDENTE X17] | Esperado de CEBAS MDS/MEC sem os atos do DOU de 12/2023 a 05/2026 (Q39); gerar de novo depois da carga. | - |
 
 ## Resumo
@@ -108,25 +107,25 @@ Legenda: `OK` ok, `R` restrição, `A` alerta, `I` indisponível, `-` não verif
 | C25 | 62.779.145/0001-90 | Matriz da Santa Casa de SP (CEBAS em renovação tempestiva) | OK | OK | OK | OK | OK | OK | OK | OK | OK | OK | OK | OK | OK | OK | OK | OK | **APTA** | O-Q24, P-X17 |
 | C26 | 24.006.302/0004-88 | Matriz com ordem 0004 (IDEAS) e CEIS vigente | OK | OK | OK | OK | OK | OK | OK | OK | R | OK | OK | OK | OK | OK | OK | OK | **INAPTA** | O-Q20 |
 | C27 | 24.006.302/0001-35 | Filial com ordem 0001 (IDEAS) | OK | OK | OK | OK | OK | OK | A | OK | R | OK | OK | OK | OK | OK | OK | OK | **INAPTA** | O-Q20 |
-| C28 | 02.203.539/0001-73 | CEPIM (fundação ativa) | OK | OK | OK | OK | OK | OK | OK | R | OK | OK | OK | OK | OK | OK | OK | - | **INAPTA** | O-Q18 |
-| C29 | 00.688.001/0001-70 | CEIS vigente sem data final | OK | OK | OK | OK | OK | OK | OK | OK | R | OK | OK | OK | OK | OK | OK | - | **INAPTA** | O-Q17, O-Q23 |
+| C28 | 02.203.539/0001-73 | CEPIM (fundação ativa) | OK | OK | OK | OK | OK | OK | OK | R | OK | OK | OK | OK | OK | OK | OK | - | **INAPTA** | O-Q18, O-Q22 |
+| C29 | 00.688.001/0001-70 | CEIS vigente sem data final | OK | OK | OK | OK | OK | OK | OK | OK | R | OK | OK | OK | OK | OK | OK | - | **INAPTA** | O-Q17, O-Q22, O-Q23 |
 | C30 | 30.994.499/0001-60 | CEIS vigente com fim futuro | OK | OK | OK | OK | OK | OK | OK | OK | R | OK | OK | OK | OK | OK | OK | OK | **INAPTA** | O-Q15, O-Q17 |
 | C31 | 02.393.242/0001-18 | CEIS vencendo em 22/11/2026 | OK | OK | OK | OK | OK | OK | OK | OK | R | OK | OK | OK | OK | OK | OK | - | **INAPTA** | O-Q17, P-X17 |
 | C32 | 07.408.449/0001-32 | CEIS expirado | OK | OK | OK | OK | OK | OK | OK | OK | OK | OK | OK | OK | OK | OK | OK | OK | **APTA** | - |
 | C33 | 09.058.351/0001-28 | CEIS 'com prazo determinado' sem data final | OK | OK | OK | OK | OK | OK | OK | OK | R | OK | OK | OK | OK | OK | OK | - | **INAPTA** | O-Q15 |
 | C34 | 13.144.375/0001-77 | CNEP | OK | OK | OK | OK | OK | OK | OK | OK | OK | A | OK | OK | OK | OK | OK | - | **APTA COM RESSALVAS** | O-Q16 |
 | C35 | 05.051.898/0001-40 | Ocorrência no CNIA (CNJ) | OK | OK | OK | OK | OK | OK | OK | OK | R | OK | OK | R | OK | OK | OK | - | **INAPTA** | O-Q19, O-Q23 |
-| C36 | 01.081.476/0001-67 | CNIA + dirigente com sanção (nome e CPF) | OK | OK | OK | OK | OK | OK | OK | R | R | OK | OK | R | OK | A | OK | - | **INAPTA** | O-Q18, O-Q19, O-Q22, O-Q23, P-Q8 |
+| C36 | 01.081.476/0001-67 | CNIA + dirigente com sanção (nome e CPF) | OK | OK | OK | OK | OK | OK | OK | R | R | OK | OK | R | OK | A | OK | - | **INAPTA** | O-Q18, O-Q19, O-Q22, O-Q23 |
 | C37 | 44.551.605/0005-70 | Sanção só na filial, consulta pela filial | OK | OK | OK | OK | OK | OK | OK | OK | R | OK | OK | OK | OK | OK | OK | - | **INAPTA** | O-Q15, O-Q17 |
 | C38 | 44.551.605/0001-46 | Sanção só na filial, consulta pela matriz | OK | OK | OK | OK | OK | OK | OK | OK | R | OK | OK | OK | OK | OK | OK | - | **INAPTA** | O-Q15, O-Q17, O-Q20 |
-| C39 | 06.287.661/0001-26 | INAPTA com CEIS vigente, CNIA e dirigente | OK | R | OK | OK | OK | OK | OK | OK | R | OK | OK | R | OK | A | OK | - | **INAPTA** | O-Q19, O-Q22, P-Q8 |
-| C40 | 03.463.763/0001-67 | INAPTA com inidoneidade TCU | OK | R | OK | OK | OK | OK | OK | OK | R | OK | R | OK | A | OK | OK | - | **INAPTA** | O-Q17, O-Q21 |
-| C41 | 53.524.534/0001-83 | INAPTA com CEPIM + CEIS + CNEP (Santa Casa de Pacaembu) | OK | R | OK | OK | OK | OK | OK | R | R | A | OK | OK | OK | OK | OK | OK | **INAPTA** | O-Q15, O-Q16, O-Q18 |
-| C42 | 21.145.289/0001-07 | INAPTA com CEPIM + CEIS + TCU (IMDC) | OK | R | OK | OK | OK | OK | OK | R | R | OK | R | OK | A | OK | OK | - | **INAPTA** | O-Q17, O-Q18, O-Q21 |
+| C39 | 06.287.661/0001-26 | INAPTA com CEIS vigente, CNIA e dirigente | OK | R | OK | OK | OK | OK | OK | OK | R | OK | OK | R | OK | A | OK | - | **INAPTA** | O-Q19, O-Q22 |
+| C40 | 03.463.763/0001-67 | INAPTA com inidoneidade TCU | OK | R | OK | OK | OK | OK | OK | OK | R | OK | R | OK | A | A | OK | - | **INAPTA** | O-Q17, O-Q21, O-Q22 |
+| C41 | 53.524.534/0001-83 | INAPTA com CEPIM + CEIS + CNEP (Santa Casa de Pacaembu) | OK | R | OK | OK | OK | OK | OK | R | R | A | OK | OK | OK | A | OK | OK | **INAPTA** | O-Q15, O-Q16, O-Q18, O-Q22 |
+| C42 | 21.145.289/0001-07 | INAPTA com CEPIM + CEIS + TCU (IMDC) | OK | R | OK | OK | OK | OK | OK | R | R | OK | R | OK | A | A | OK | - | **INAPTA** | O-Q17, O-Q18, O-Q21, O-Q22 |
 | C43 | 14.112.015/0001-56 | BAIXADA com CEPIM | OK | R | OK | OK | OK | OK | OK | R | OK | OK | OK | OK | OK | OK | A | - | **INAPTA** | O-Q18 |
-| C44 | 03.126.200/0001-83 | INAPTA com CEIS expirado | OK | R | OK | OK | OK | OK | OK | OK | OK | OK | OK | OK | OK | OK | OK | - | **INAPTA** | P-X17 |
+| C44 | 03.126.200/0001-83 | INAPTA com CEIS expirado | OK | R | OK | OK | OK | OK | OK | OK | OK | OK | OK | OK | OK | A | OK | - | **INAPTA** | O-Q22, P-X17 |
 | C45 | 08.928.169/0001-18 | INAPTA com CNEP | OK | R | OK | OK | OK | OK | OK | OK | OK | A | OK | OK | OK | OK | OK | - | **INAPTA** | O-Q16, O-Q17 |
-| C46 | 43.337.682/0001-35 | INAPTA com CNIA + CEIS + CEPIM (AVAPE) | OK | R | OK | OK | OK | OK | OK | R | R | OK | OK | R | A | OK | OK | - | **INAPTA** | O-Q17, O-Q18, O-Q19, O-Q20, O-Q21, P-X17 |
+| C46 | 43.337.682/0001-35 | INAPTA com CNIA + CEIS + CEPIM (AVAPE) | OK | R | OK | OK | OK | OK | OK | R | R | OK | OK | R | A | A | OK | - | **INAPTA** | O-Q17, O-Q18, O-Q19, O-Q20, O-Q21, O-Q22, P-X17 |
 | C47 | 50.798.453/0001-83 | CEBAS Saúde ativo (Santa Casa de Cerquilho) | OK | OK | OK | OK | OK | OK | OK | OK | OK | OK | OK | OK | OK | OK | OK | OK | **APTA** | O-Q15 |
 | C48 | 00.001.297/0001-00 | CEBAS não vigente (concessão indeferida) | OK | OK | OK | OK | OK | OK | OK | OK | OK | OK | OK | OK | OK | OK | OK | OK | **APTA** | O-Q23 |
 | C49 | 26.447.003/0001-61 | Associação profissional (CNAE 94.12) com CEPIM | OK | OK | OK | A | OK | OK | OK | R | OK | OK | OK | OK | OK | OK | OK | - | **INAPTA** | O-Q18 |
@@ -159,7 +158,7 @@ Distribuição do status final: APTA 7, APTA COM RESSALVAS 12, CNPJ INVÁLIDO 3,
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | OK | CNIA: NADA_CONSTA na Consulta Consolidada do TCU. |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | OK | Nada na lista de contas irregulares do TCU de 01/10/2026 nos últimos 8 anos. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. |
 | `mapa_osc` | 11 | Mapa das OSCs | OK | Presente no Mapa (id_osc 621480), só dados automáticos da Receita (sugerir que a OSC complete o perfil). |
 | `cebas` | 12 | CEBAS | NAO_VERIFICADO | Não foi encontrada certificação CEBAS nas bases consultadas (SisCEBAS Saúde 30/09/2026, planilhas MDS 2024 e MEC 2023, DOU jun a ago/2026); isso não significa que a entidade não possui CEBAS. |
 
@@ -338,7 +337,7 @@ Distribuição do status final: APTA 7, APTA COM RESSALVAS 12, CNPJ INVÁLIDO 3,
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | OK | CNIA: NADA_CONSTA na Consulta Consolidada do TCU. |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | OK | Nada na lista de contas irregulares do TCU de 01/10/2026 nos últimos 8 anos. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 6 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | OK | 6 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. |
 | `mapa_osc` | 11 | Mapa das OSCs | ALERTA | CNPJ ausente do Mapa das OSCs: possível divergência de classificação; conferir natureza (D2). |
 | `cebas` | 12 | CEBAS | NAO_VERIFICADO | Não foi encontrada certificação CEBAS nas bases consultadas (SisCEBAS Saúde 30/09/2026, planilhas MDS 2024 e MEC 2023, DOU jun a ago/2026); isso não significa que a entidade não possui CEBAS. |
 
@@ -364,7 +363,7 @@ Distribuição do status final: APTA 7, APTA COM RESSALVAS 12, CNPJ INVÁLIDO 3,
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | OK | CNIA: NADA_CONSTA na Consulta Consolidada do TCU. |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | OK | Nada na lista de contas irregulares do TCU de 01/10/2026 nos últimos 8 anos. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. |
 | `mapa_osc` | 11 | Mapa das OSCs | OK | Presente no Mapa (id_osc 1211375), só dados automáticos da Receita (sugerir que a OSC complete o perfil). |
 | `cebas` | 12 | CEBAS | NAO_VERIFICADO | Não foi encontrada certificação CEBAS nas bases consultadas (SisCEBAS Saúde 30/09/2026, planilhas MDS 2024 e MEC 2023, DOU jun a ago/2026); isso não significa que a entidade não possui CEBAS. |
 
@@ -390,7 +389,7 @@ Distribuição do status final: APTA 7, APTA COM RESSALVAS 12, CNPJ INVÁLIDO 3,
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | OK | CNIA: NADA_CONSTA na Consulta Consolidada do TCU. |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | OK | Nada na lista de contas irregulares do TCU de 01/10/2026 nos últimos 8 anos. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. |
 | `mapa_osc` | 11 | Mapa das OSCs | OK | Presente no Mapa (id_osc 1192102), perfil preenchido pela OSC (tx_email). |
 | `cebas` | 12 | CEBAS | NAO_VERIFICADO | Não foi encontrada certificação CEBAS nas bases consultadas (SisCEBAS Saúde 30/09/2026, planilhas MDS 2024 e MEC 2023, DOU jun a ago/2026); isso não significa que a entidade não possui CEBAS. |
 
@@ -416,7 +415,7 @@ Distribuição do status final: APTA 7, APTA COM RESSALVAS 12, CNPJ INVÁLIDO 3,
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | OK | CNIA: NADA_CONSTA na Consulta Consolidada do TCU. |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | OK | Nada na lista de contas irregulares do TCU de 01/10/2026 nos últimos 8 anos. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 41 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | OK | 41 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. |
 | `mapa_osc` | 11 | Mapa das OSCs | ALERTA | CNPJ ausente do Mapa das OSCs: possível divergência de classificação; conferir natureza (D2). |
 | `cebas` | 12 | CEBAS | NAO_VERIFICADO | Não foi encontrada certificação CEBAS nas bases consultadas (SisCEBAS Saúde 30/09/2026, planilhas MDS 2024 e MEC 2023, DOU jun a ago/2026); isso não significa que a entidade não possui CEBAS. |
 
@@ -443,7 +442,7 @@ Distribuição do status final: APTA 7, APTA COM RESSALVAS 12, CNPJ INVÁLIDO 3,
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | OK | CNIA: NADA_CONSTA na Consulta Consolidada do TCU. |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | OK | Nada na lista de contas irregulares do TCU de 01/10/2026 nos últimos 8 anos. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. |
 | `mapa_osc` | 11 | Mapa das OSCs | OK | Presente no Mapa (id_osc 781757), só dados automáticos da Receita (sugerir que a OSC complete o perfil). |
 | `cebas` | 12 | CEBAS | NAO_VERIFICADO | Não foi encontrada certificação CEBAS nas bases consultadas (SisCEBAS Saúde 30/09/2026, planilhas MDS 2024 e MEC 2023, DOU jun a ago/2026); isso não significa que a entidade não possui CEBAS. |
 
@@ -471,7 +470,7 @@ Distribuição do status final: APTA 7, APTA COM RESSALVAS 12, CNPJ INVÁLIDO 3,
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | OK | CNIA: NADA_CONSTA na Consulta Consolidada do TCU. |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | OK | Nada na lista de contas irregulares do TCU de 01/10/2026 nos últimos 8 anos. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. |
 | `mapa_osc` | 11 | Mapa das OSCs | OK | Presente no Mapa (id_osc 1191914), perfil preenchido pela OSC (tx_email). |
 | `cebas` | 12 | CEBAS | NAO_VERIFICADO | Não foi encontrada certificação CEBAS nas bases consultadas (SisCEBAS Saúde 30/09/2026, planilhas MDS 2024 e MEC 2023, DOU jun a ago/2026); isso não significa que a entidade não possui CEBAS. |
 
@@ -498,7 +497,7 @@ Distribuição do status final: APTA 7, APTA COM RESSALVAS 12, CNPJ INVÁLIDO 3,
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | OK | CNIA: NADA_CONSTA na Consulta Consolidada do TCU. |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | OK | Nada na lista de contas irregulares do TCU de 01/10/2026 nos últimos 8 anos. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 4 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | OK | 4 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. |
 | `mapa_osc` | 11 | Mapa das OSCs | ALERTA | CNPJ ausente do Mapa das OSCs: possível divergência de classificação; conferir natureza (D2). |
 | `cebas` | 12 | CEBAS | NAO_VERIFICADO | Não foi encontrada certificação CEBAS nas bases consultadas (SisCEBAS Saúde 30/09/2026, planilhas MDS 2024 e MEC 2023, DOU jun a ago/2026); isso não significa que a entidade não possui CEBAS. |
 
@@ -525,7 +524,7 @@ Distribuição do status final: APTA 7, APTA COM RESSALVAS 12, CNPJ INVÁLIDO 3,
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | OK | CNIA: NADA_CONSTA na Consulta Consolidada do TCU. |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | OK | Nada na lista de contas irregulares do TCU de 01/10/2026 nos últimos 8 anos. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. |
 | `mapa_osc` | 11 | Mapa das OSCs | OK | Presente no Mapa (id_osc 1203083), só dados automáticos da Receita (sugerir que a OSC complete o perfil). |
 | `cebas` | 12 | CEBAS | NAO_VERIFICADO | Não foi encontrada certificação CEBAS nas bases consultadas (SisCEBAS Saúde 30/09/2026, planilhas MDS 2024 e MEC 2023, DOU jun a ago/2026); isso não significa que a entidade não possui CEBAS. |
 
@@ -553,7 +552,7 @@ Distribuição do status final: APTA 7, APTA COM RESSALVAS 12, CNPJ INVÁLIDO 3,
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | OK | CNIA: NADA_CONSTA na Consulta Consolidada do TCU. |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | OK | Nada na lista de contas irregulares do TCU de 01/10/2026 nos últimos 8 anos. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 2 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | OK | 2 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. |
 | `mapa_osc` | 11 | Mapa das OSCs | OK | Presente no Mapa (id_osc 594130), perfil preenchido pela OSC (tx_missao_osc, tx_site, tx_visao_osc). |
 | `cebas` | 12 | CEBAS | OK | Planilha MDS de 24/10/2024: CEBAS VÁLIDA com vigência até 31/12/2023, vencida há 2 ano(s) e 9 mês(es), sem ato posterior encontrado no DOU carregado (só jun a ago/2026): possível renovação em análise; o requerimento tempestivo mantém a validade até a decisão; confirme com o ministério (D16). [PENDENTE X17]: faltam os atos do DOU de 12/2023 a 05/2026. [ORIENTADOR Q24] [PENDENTE X17] |
 
@@ -581,7 +580,7 @@ Distribuição do status final: APTA 7, APTA COM RESSALVAS 12, CNPJ INVÁLIDO 3,
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | OK | CNIA: NADA_CONSTA na Consulta Consolidada do TCU. |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | OK | Nada na lista de contas irregulares do TCU de 01/10/2026 nos últimos 8 anos. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. |
 | `mapa_osc` | 11 | Mapa das OSCs | OK | Presente no Mapa (id_osc 415974), só dados automáticos da Receita (sugerir que a OSC complete o perfil). |
 | `cebas` | 12 | CEBAS | NAO_VERIFICADO | Não foi encontrada certificação CEBAS nas bases consultadas (SisCEBAS Saúde 30/09/2026, planilhas MDS 2024 e MEC 2023, DOU jun a ago/2026); isso não significa que a entidade não possui CEBAS. |
 
@@ -607,7 +606,7 @@ Distribuição do status final: APTA 7, APTA COM RESSALVAS 12, CNPJ INVÁLIDO 3,
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | OK | CNIA: NADA_CONSTA na Consulta Consolidada do TCU. |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | OK | Nada na lista de contas irregulares do TCU de 01/10/2026 nos últimos 8 anos. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 4 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | OK | 4 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. |
 | `mapa_osc` | 11 | Mapa das OSCs | OK | Presente no Mapa (id_osc 1499597), só dados automáticos da Receita (sugerir que a OSC complete o perfil). |
 | `cebas` | 12 | CEBAS | NAO_VERIFICADO | Não foi encontrada certificação CEBAS nas bases consultadas (SisCEBAS Saúde 30/09/2026, planilhas MDS 2024 e MEC 2023, DOU jun a ago/2026); isso não significa que a entidade não possui CEBAS. |
 
@@ -636,7 +635,7 @@ Variante (data_referencia = 2026-10-01, esfera = municipio): status **APTA COM R
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | OK | CNIA: NADA_CONSTA na Consulta Consolidada do TCU. |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | OK | Nada na lista de contas irregulares do TCU de 01/10/2026 nos últimos 8 anos. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. |
 | `mapa_osc` | 11 | Mapa das OSCs | OK | Presente no Mapa (id_osc 1441050), só dados automáticos da Receita (sugerir que a OSC complete o perfil). |
 | `cebas` | 12 | CEBAS | NAO_VERIFICADO | Não foi encontrada certificação CEBAS nas bases consultadas (SisCEBAS Saúde 30/09/2026, planilhas MDS 2024 e MEC 2023, DOU jun a ago/2026); isso não significa que a entidade não possui CEBAS. |
 
@@ -668,7 +667,7 @@ Variante (data_referencia = 2026-10-01, esfera = estado): status **APTA COM RESS
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | OK | CNIA: NADA_CONSTA na Consulta Consolidada do TCU. |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | OK | Nada na lista de contas irregulares do TCU de 01/10/2026 nos últimos 8 anos. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. |
 | `mapa_osc` | 11 | Mapa das OSCs | OK | Presente no Mapa (id_osc 1422391), só dados automáticos da Receita (sugerir que a OSC complete o perfil). |
 | `cebas` | 12 | CEBAS | NAO_VERIFICADO | Não foi encontrada certificação CEBAS nas bases consultadas (SisCEBAS Saúde 30/09/2026, planilhas MDS 2024 e MEC 2023, DOU jun a ago/2026); isso não significa que a entidade não possui CEBAS. |
 
@@ -701,7 +700,7 @@ Variante (data_referencia = 2026-10-01, esfera = uniao): status **APTA COM RESSA
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | OK | CNIA: NADA_CONSTA na Consulta Consolidada do TCU. |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | OK | Nada na lista de contas irregulares do TCU de 01/10/2026 nos últimos 8 anos. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. |
 | `mapa_osc` | 11 | Mapa das OSCs | OK | Presente no Mapa (id_osc 1482595), só dados automáticos da Receita (sugerir que a OSC complete o perfil). |
 | `cebas` | 12 | CEBAS | NAO_VERIFICADO | Não foi encontrada certificação CEBAS nas bases consultadas (SisCEBAS Saúde 30/09/2026, planilhas MDS 2024 e MEC 2023, DOU jun a ago/2026); isso não significa que a entidade não possui CEBAS. |
 
@@ -735,7 +734,7 @@ Variante (data_referencia = 2026-09-30, esfera = municipio): status **APTA COM R
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | OK | CNIA: NADA_CONSTA na Consulta Consolidada do TCU. |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | OK | Nada na lista de contas irregulares do TCU de 01/10/2026 nos últimos 8 anos. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. |
 | `mapa_osc` | 11 | Mapa das OSCs | OK | Presente no Mapa (id_osc 1443295), só dados automáticos da Receita (sugerir que a OSC complete o perfil). |
 | `cebas` | 12 | CEBAS | NAO_VERIFICADO | Não foi encontrada certificação CEBAS nas bases consultadas (SisCEBAS Saúde 30/09/2026, planilhas MDS 2024 e MEC 2023, DOU jun a ago/2026); isso não significa que a entidade não possui CEBAS. |
 
@@ -769,7 +768,7 @@ Variante (data_referencia = 2026-10-02, esfera = estado): status **APTA**.
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | OK | CNIA: NADA_CONSTA na Consulta Consolidada do TCU. |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | OK | Nada na lista de contas irregulares do TCU de 01/10/2026 nos últimos 8 anos. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 2 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | OK | 2 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. |
 | `mapa_osc` | 11 | Mapa das OSCs | OK | Presente no Mapa (id_osc 614393, CNPJ da matriz), só dados automáticos da Receita (sugerir que a OSC complete o perfil). |
 | `cebas` | 12 | CEBAS | OK | CEBAS = SIM no SisCEBAS de 30/09/2026, situação 'TEMPESTIVO - MANIFESTAÇÃO MEC (DIGAD)', vigência até -: possível renovação em análise; o requerimento tempestivo mantém a validade até a decisão; confirme com o ministério (D16). (CNPJ usado: 62.779.145/0001-90; consultados matriz e estabelecimento, Q28.) [ORIENTADOR Q24] [PENDENTE X17] |
 
@@ -796,7 +795,7 @@ Variante (data_referencia = 2026-10-02, esfera = estado): status **APTA**.
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | OK | CNIA: NADA_CONSTA na Consulta Consolidada do TCU. |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | OK | Nada na lista de contas irregulares do TCU de 01/10/2026 nos últimos 8 anos. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 2 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | OK | 2 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. |
 | `mapa_osc` | 11 | Mapa das OSCs | OK | Presente no Mapa (id_osc 678768, CNPJ da matriz), só dados automáticos da Receita (sugerir que a OSC complete o perfil). |
 | `cebas` | 12 | CEBAS | NAO_VERIFICADO | Não foi encontrada certificação CEBAS nas bases consultadas (SisCEBAS Saúde 30/09/2026, planilhas MDS 2024 e MEC 2023, DOU jun a ago/2026); isso não significa que a entidade não possui CEBAS. (CNPJ usado: 04.955.882/0001-08; consultados matriz e estabelecimento, Q28.) |
 
@@ -824,7 +823,7 @@ Variante (data_referencia = 2026-10-02, esfera = estado): status **APTA**.
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | OK | CNIA: NADA_CONSTA na Consulta Consolidada do TCU. |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | OK | Nada na lista de contas irregulares do TCU de 01/10/2026 nos últimos 8 anos. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 2 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | OK | 2 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. |
 | `mapa_osc` | 11 | Mapa das OSCs | OK | Presente no Mapa (id_osc 614393), só dados automáticos da Receita (sugerir que a OSC complete o perfil). |
 | `cebas` | 12 | CEBAS | OK | CEBAS = SIM no SisCEBAS de 30/09/2026, situação 'TEMPESTIVO - MANIFESTAÇÃO MEC (DIGAD)', vigência até -: possível renovação em análise; o requerimento tempestivo mantém a validade até a decisão; confirme com o ministério (D16). [ORIENTADOR Q24] [PENDENTE X17] |
 
@@ -852,7 +851,7 @@ Variante (data_referencia = 2026-10-02, esfera = estado): status **APTA**.
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | OK | CNIA: NADA_CONSTA na Consulta Consolidada do TCU. |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | OK | Nada na lista de contas irregulares do TCU de 01/10/2026 nos últimos 8 anos. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 2 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | OK | 2 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. |
 | `mapa_osc` | 11 | Mapa das OSCs | OK | Presente no Mapa (id_osc 1241257), só dados automáticos da Receita (sugerir que a OSC complete o perfil). |
 | `cebas` | 12 | CEBAS | OK | CEBAS ativo (saúde) segundo SisCEBAS de 30/09/2026: portaria 1535 publicada em 18/03/2024, vigência 01/01/2024 a 31/12/2026. |
 
@@ -880,7 +879,7 @@ Variante (data_referencia = 2026-10-02, esfera = estado): status **APTA**.
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | OK | CNIA: NADA_CONSTA na Consulta Consolidada do TCU. |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | OK | Nada na lista de contas irregulares do TCU de 01/10/2026 nos últimos 8 anos. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 2 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | OK | 2 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. |
 | `mapa_osc` | 11 | Mapa das OSCs | OK | Presente no Mapa (id_osc 841432), só dados automáticos da Receita (sugerir que a OSC complete o perfil). |
 | `cebas` | 12 | CEBAS | OK | CEBAS não vigente (saúde): último ato 'INDEFERIDO' (REQUERIMENTO>>CONCESSÃO), publicado em 18/10/2018; situação 'PUBLICADO INDEFERIDO' no SisCEBAS de 30/09/2026. |
 
@@ -890,7 +889,8 @@ Variante (data_referencia = 2026-10-02, esfera = estado): status **APTA**.
 - Entidade: FUNDACAO ASSIS GURGACZ.
 - O que testa: `cepim` positiva.
 - Status final esperado: **INAPTA**, motivos: `cepim`.
-- Depende de: [ORIENTADOR Q18].
+- Ambiguidades envolvidas: A12.
+- Depende de: [ORIENTADOR Q18], [ORIENTADOR Q22].
 
 | id | Spec | Verificação | Estado esperado | Justificativa |
 |---|---|---|---|---|
@@ -907,7 +907,7 @@ Variante (data_referencia = 2026-10-02, esfera = estado): status **APTA**.
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | OK | CNIA: NADA_CONSTA na Consulta Consolidada do TCU. |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | OK | Nada na lista de contas irregulares do TCU de 01/10/2026 nos últimos 8 anos (histórico fora da janela: processo 024.114/2006-6, trânsito em julgado 06/11/2012). [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Informação sem alerta: Presidente ASSIS GURGACZ aparece na lista de contas irregulares do TCU com os mesmos 6 dígitos centrais do CPF (art. 39, VII, a; processo 024.114/2006-6, trânsito em julgado 09/08/2012, também condenou a própria OSC; a lista não informa se a conta é de parceria, confira o acórdão) [fora da janela de 8 anos]. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. [ORIENTADOR Q22] |
 | `mapa_osc` | 11 | Mapa das OSCs | OK | Presente no Mapa (id_osc 672362), só dados automáticos da Receita (sugerir que a OSC complete o perfil). |
 | `cebas` | 12 | CEBAS | NAO_VERIFICADO | Não foi encontrada certificação CEBAS nas bases consultadas (SisCEBAS Saúde 30/09/2026, planilhas MDS 2024 e MEC 2023, DOU jun a ago/2026); isso não significa que a entidade não possui CEBAS. |
 
@@ -917,8 +917,8 @@ Variante (data_referencia = 2026-10-02, esfera = estado): status **APTA**.
 - Entidade: ASSOCIACAO DE MULHERES DE TAIPAS.
 - O que testa: `ceis`: vigência por ausência de data final.
 - Status final esperado: **INAPTA**, motivos: `ceis`.
-- Ambiguidades envolvidas: A09.
-- Depende de: [ORIENTADOR Q17], [ORIENTADOR Q23].
+- Ambiguidades envolvidas: A09, A12.
+- Depende de: [ORIENTADOR Q17], [ORIENTADOR Q22], [ORIENTADOR Q23].
 
 | id | Spec | Verificação | Estado esperado | Justificativa |
 |---|---|---|---|---|
@@ -935,7 +935,7 @@ Variante (data_referencia = 2026-10-02, esfera = estado): status **APTA**.
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | OK | CNIA: NADA_CONSTA na Consulta Consolidada do TCU. |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | OK | Nada na lista de contas irregulares do TCU de 01/10/2026 nos últimos 8 anos. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. 1 homônimo(s) só por nome, sem os dígitos do CPF: sem alerta. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. [ORIENTADOR Q22] |
 | `mapa_osc` | 11 | Mapa das OSCs | OK | Presente no Mapa (id_osc 962662), perfil preenchido pela OSC (tx_email). |
 | `cebas` | 12 | CEBAS | NAO_VERIFICADO | Não foi encontrada certificação CEBAS nas bases consultadas (SisCEBAS Saúde 30/09/2026, planilhas MDS 2024 e MEC 2023, DOU jun a ago/2026); isso não significa que a entidade não possui CEBAS. |
 
@@ -962,7 +962,7 @@ Variante (data_referencia = 2026-10-02, esfera = estado): status **APTA**.
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | OK | CNIA: NADA_CONSTA na Consulta Consolidada do TCU. |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | OK | Nada na lista de contas irregulares do TCU de 01/10/2026 nos últimos 8 anos. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. |
 | `mapa_osc` | 11 | Mapa das OSCs | OK | Presente no Mapa (id_osc 1276649), só dados automáticos da Receita (sugerir que a OSC complete o perfil). |
 | `cebas` | 12 | CEBAS | OK | CEBAS não vigente (saúde): último ato 'INDEFERIDO' (REQUERIMENTO>>CONCESSÃO), publicado em 15/08/2024; situação 'PUBLICADO INDEFERIDO' no SisCEBAS de 30/09/2026. |
 
@@ -990,7 +990,7 @@ Variante (data_referencia = 2026-10-02, esfera = estado): status **APTA**.
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | OK | CNIA: NADA_CONSTA na Consulta Consolidada do TCU. |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | OK | Nada na lista de contas irregulares do TCU de 01/10/2026 nos últimos 8 anos. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. |
 | `mapa_osc` | 11 | Mapa das OSCs | OK | Presente no Mapa (id_osc 476342), só dados automáticos da Receita (sugerir que a OSC complete o perfil). |
 | `cebas` | 12 | CEBAS | NAO_VERIFICADO | Não foi encontrada decisão de certificação CEBAS (SisCEBAS Saúde 30/09/2026, planilhas MDS 2024 e MEC 2023, DOU jun a ago/2026); o CNPJ aparece só na aba de processos da planilha MDS, sem decisão [PENDENTE X17: o DOU de 12/2023 a 05/2026 pode ter a decisão]. [PENDENTE X17] |
 
@@ -1025,7 +1025,7 @@ Variante (data_referencia = 2026-11-23): status **APTA**.
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | OK | CNIA: NADA_CONSTA na Consulta Consolidada do TCU. |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | OK | Nada na lista de contas irregulares do TCU de 01/10/2026 nos últimos 8 anos. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. |
 | `mapa_osc` | 11 | Mapa das OSCs | OK | Presente no Mapa (id_osc 496622), só dados automáticos da Receita (sugerir que a OSC complete o perfil). |
 | `cebas` | 12 | CEBAS | OK | CEBAS não vigente (saúde): último ato 'INDEFERIDO' (REQUERIMENTO>>CONCESSÃO), publicado em 21/05/2018; situação 'PUBLICADO INDEFERIDO' no SisCEBAS de 30/09/2026. |
 
@@ -1053,7 +1053,7 @@ Variante (data_referencia = 2026-11-23): status **APTA**.
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | OK | CNIA: NADA_CONSTA na Consulta Consolidada do TCU. |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | OK | Nada na lista de contas irregulares do TCU de 01/10/2026 nos últimos 8 anos. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. |
 | `mapa_osc` | 11 | Mapa das OSCs | OK | Presente no Mapa (id_osc 498007), só dados automáticos da Receita (sugerir que a OSC complete o perfil). |
 | `cebas` | 12 | CEBAS | NAO_VERIFICADO | Não foi encontrada certificação CEBAS nas bases consultadas (SisCEBAS Saúde 30/09/2026, planilhas MDS 2024 e MEC 2023, DOU jun a ago/2026); isso não significa que a entidade não possui CEBAS. |
 
@@ -1081,7 +1081,7 @@ Variante (data_referencia = 2026-11-23): status **APTA**.
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | OK | CNIA: NADA_CONSTA na Consulta Consolidada do TCU. |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | OK | Nada na lista de contas irregulares do TCU de 01/10/2026 nos últimos 8 anos. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. |
 | `mapa_osc` | 11 | Mapa das OSCs | OK | Presente no Mapa (id_osc 784813), só dados automáticos da Receita (sugerir que a OSC complete o perfil). |
 | `cebas` | 12 | CEBAS | NAO_VERIFICADO | Não foi encontrada certificação CEBAS nas bases consultadas (SisCEBAS Saúde 30/09/2026, planilhas MDS 2024 e MEC 2023, DOU jun a ago/2026); isso não significa que a entidade não possui CEBAS. |
 
@@ -1109,7 +1109,7 @@ Variante (data_referencia = 2026-11-23): status **APTA**.
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | RESTRICAO | CNIA com registro: processo 09000212620168240040 (05.051.898/0001-40): proibição de contratar vigente até 16/04/2037 (mesma decisão já listada em ceis) => RESTRICAO. [ORIENTADOR Q19] |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | OK | Nada na lista de contas irregulares do TCU de 01/10/2026 nos últimos 8 anos. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. |
 | `mapa_osc` | 11 | Mapa das OSCs | OK | Presente no Mapa (id_osc 724878), só dados automáticos da Receita (sugerir que a OSC complete o perfil). |
 | `cebas` | 12 | CEBAS | NAO_VERIFICADO | Não foi encontrada certificação CEBAS nas bases consultadas (SisCEBAS Saúde 30/09/2026, planilhas MDS 2024 e MEC 2023, DOU jun a ago/2026); isso não significa que a entidade não possui CEBAS. |
 
@@ -1120,7 +1120,7 @@ Variante (data_referencia = 2026-11-23): status **APTA**.
 - O que testa: `ceis`, `cnj_cnia` e `dirigentes` (D15) juntas.
 - Status final esperado: **INAPTA**, motivos: `cepim`, `ceis`, `cnj_cnia`.
 - Ambiguidades envolvidas: A09, A11, A12.
-- Depende de: [ORIENTADOR Q18], [ORIENTADOR Q19], [ORIENTADOR Q22], [ORIENTADOR Q23], [PENDENTE Q8].
+- Depende de: [ORIENTADOR Q18], [ORIENTADOR Q19], [ORIENTADOR Q22], [ORIENTADOR Q23].
 
 | id | Spec | Verificação | Estado esperado | Justificativa |
 |---|---|---|---|---|
@@ -1137,7 +1137,7 @@ Variante (data_referencia = 2026-11-23): status **APTA**.
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | RESTRICAO | CNIA com registro: processo 00011059620134058304 (01.081.476/0001-67): proibição de contratar vigente até 16/12/2031 (mesma decisão já listada em ceis) => RESTRICAO. [ORIENTADOR Q19] |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | OK | Nada na lista de contas irregulares do TCU de 01/10/2026 nos últimos 8 anos. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | ALERTA | Possível correspondência: Presidente JOSE CARLOS MENDES aparece no CEIS com os mesmos 6 dígitos centrais do CPF (Impedimento/proibição de contratar com prazo determinado, 16/12/2021 a 16/12/2031); confira o CPF no documento oficial. [ORIENTADOR Q22] [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | ALERTA | Possível correspondência: Presidente JOSE CARLOS MENDES aparece no CEIS com os mesmos 6 dígitos centrais do CPF (Impedimento/proibição de contratar com prazo determinado, 16/12/2021 a 16/12/2031); confira o CPF no documento oficial. Informação sem alerta: Presidente JOSE CARLOS MENDES aparece na lista de contas irregulares do TCU com os mesmos 6 dígitos centrais do CPF (art. 39, VII, a; processo 012.775/2011-8, trânsito em julgado 16/07/2013; a lista não informa se a conta é de parceria, confira o acórdão) [fora da janela de 8 anos]. 3 homônimo(s) só por nome, sem os dígitos do CPF: sem alerta. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. [ORIENTADOR Q22] |
 | `mapa_osc` | 11 | Mapa das OSCs | OK | Presente no Mapa (id_osc 960715), perfil preenchido pela OSC (tx_email). |
 | `cebas` | 12 | CEBAS | NAO_VERIFICADO | Não foi encontrada certificação CEBAS nas bases consultadas (SisCEBAS Saúde 30/09/2026, planilhas MDS 2024 e MEC 2023, DOU jun a ago/2026); isso não significa que a entidade não possui CEBAS. |
 
@@ -1165,7 +1165,7 @@ Variante (data_referencia = 2026-11-23): status **APTA**.
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | OK | CNIA: NADA_CONSTA na Consulta Consolidada do TCU. |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | OK | Nada na lista de contas irregulares do TCU de 01/10/2026 nos últimos 8 anos. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. |
 | `mapa_osc` | 11 | Mapa das OSCs | OK | Presente no Mapa (id_osc 1371493, CNPJ da matriz), só dados automáticos da Receita (sugerir que a OSC complete o perfil). |
 | `cebas` | 12 | CEBAS | NAO_VERIFICADO | Não foi encontrada certificação CEBAS nas bases consultadas (SisCEBAS Saúde 30/09/2026, planilhas MDS 2024 e MEC 2023, DOU jun a ago/2026); isso não significa que a entidade não possui CEBAS. (CNPJ usado: 44.551.605/0001-46; consultados matriz e estabelecimento, Q28.) |
 
@@ -1193,7 +1193,7 @@ Variante (data_referencia = 2026-11-23): status **APTA**.
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | OK | CNIA: NADA_CONSTA na Consulta Consolidada do TCU. |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | OK | Nada na lista de contas irregulares do TCU de 01/10/2026 nos últimos 8 anos. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. |
 | `mapa_osc` | 11 | Mapa das OSCs | OK | Presente no Mapa (id_osc 1371493), só dados automáticos da Receita (sugerir que a OSC complete o perfil). |
 | `cebas` | 12 | CEBAS | NAO_VERIFICADO | Não foi encontrada certificação CEBAS nas bases consultadas (SisCEBAS Saúde 30/09/2026, planilhas MDS 2024 e MEC 2023, DOU jun a ago/2026); isso não significa que a entidade não possui CEBAS. |
 
@@ -1204,7 +1204,7 @@ Variante (data_referencia = 2026-11-23): status **APTA**.
 - O que testa: Q1: sem parada antecipada, o relatório mostra CEIS, CNIA e dirigente de entidade já INAPTA.
 - Status final esperado: **INAPTA**, motivos: `situacao`, `ceis`, `cnj_cnia`.
 - Ambiguidades envolvidas: A11, A12.
-- Depende de: [ORIENTADOR Q19], [ORIENTADOR Q22], [PENDENTE Q8].
+- Depende de: [ORIENTADOR Q19], [ORIENTADOR Q22].
 
 | id | Spec | Verificação | Estado esperado | Justificativa |
 |---|---|---|---|---|
@@ -1221,7 +1221,7 @@ Variante (data_referencia = 2026-11-23): status **APTA**.
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | RESTRICAO | CNIA com registro: processo 08005101620174058307 (06.287.661/0001-26): proibição de contratar vigente até 11/10/2027 (mesma decisão já listada em ceis) => RESTRICAO. [ORIENTADOR Q19] |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | OK | Nada na lista de contas irregulares do TCU de 01/10/2026 nos últimos 8 anos. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | ALERTA | Possível correspondência: Presidente MARIA MARGARETH PEIXOTO aparece no CEIS com os mesmos 6 dígitos centrais do CPF (Impedimento/proibição de contratar com prazo determinado, 11/10/2022 a 11/10/2032); confira o CPF no documento oficial. [ORIENTADOR Q22] [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | ALERTA | Possível correspondência: Presidente MARIA MARGARETH PEIXOTO aparece no CEIS com os mesmos 6 dígitos centrais do CPF (Impedimento/proibição de contratar com prazo determinado, 11/10/2022 a 11/10/2032); confira o CPF no documento oficial. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. [ORIENTADOR Q22] |
 | `mapa_osc` | 11 | Mapa das OSCs | OK | Presente no Mapa (id_osc 925074), perfil preenchido pela OSC (tx_email). |
 | `cebas` | 12 | CEBAS | NAO_VERIFICADO | Não foi encontrada certificação CEBAS nas bases consultadas (SisCEBAS Saúde 30/09/2026, planilhas MDS 2024 e MEC 2023, DOU jun a ago/2026); isso não significa que a entidade não possui CEBAS. |
 
@@ -1231,7 +1231,8 @@ Variante (data_referencia = 2026-11-23): status **APTA**.
 - Entidade: I T S - INSTITUTO TERRA SOCIAL.
 - O que testa: Único tipo de OSC inidônea no TCU; Q1 mostra `tcu_inidoneos` mesmo com a entidade INAPTA.
 - Status final esperado: **INAPTA**, motivos: `situacao`, `ceis`, `tcu_inidoneos`.
-- Depende de: [ORIENTADOR Q17], [ORIENTADOR Q21].
+- Ambiguidades envolvidas: A12.
+- Depende de: [ORIENTADOR Q17], [ORIENTADOR Q21], [ORIENTADOR Q22].
 
 | id | Spec | Verificação | Estado esperado | Justificativa |
 |---|---|---|---|---|
@@ -1248,7 +1249,7 @@ Variante (data_referencia = 2026-11-23): status **APTA**.
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | RESTRICAO | TCU Consulta Consolidada (03.463.763/0001-67): Data da Decisão: 13/03/2019 - 016.537/2007-6 - 478/2019-PL [mesma decisão já listada em ceis: Declaração de Inidoneidade com prazo determinado até 01/03/2028]; Lista de inidôneos (03.463.763/0001-67): processo 016.537/2007-6, acórdão 478/2019-PL, sanção até 26/01/2029. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | OK | CNIA: NADA_CONSTA na Consulta Consolidada do TCU. |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | ALERTA | CNPJ na lista de contas irregulares do TCU de 01/10/2026 com trânsito em julgado nos últimos 8 anos: processo 016.537/2007-6, trânsito em julgado 26/01/2024; processo 017.162/2007-1, trânsito em julgado 22/10/2022. A lista não informa se a conta é de parceria (art. 39, VI); confira o acórdão. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 3 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | ALERTA | Possível correspondência: Diretor EUDES COSTA DE HOLANDA JUNIOR aparece na lista de contas irregulares do TCU com os mesmos 6 dígitos centrais do CPF (art. 39, VII, a; processo 017.894/2015-8, trânsito em julgado 07/06/2025; processo 027.324/2017-6, trânsito em julgado 01/06/2020; a lista não informa se a conta é de parceria, confira o acórdão); confira o CPF no documento oficial. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. [ORIENTADOR Q22] |
 | `mapa_osc` | 11 | Mapa das OSCs | OK | Presente no Mapa (id_osc 429481), só dados automáticos da Receita (sugerir que a OSC complete o perfil). |
 | `cebas` | 12 | CEBAS | NAO_VERIFICADO | Não foi encontrada certificação CEBAS nas bases consultadas (SisCEBAS Saúde 30/09/2026, planilhas MDS 2024 e MEC 2023, DOU jun a ago/2026); isso não significa que a entidade não possui CEBAS. |
 
@@ -1258,7 +1259,8 @@ Variante (data_referencia = 2026-11-23): status **APTA**.
 - Entidade: ASSOCIACAO DA IRMANDADE DA SANTA CASA DE MISERICORDIA DE PACAEMBU.
 - O que testa: Q1 com várias restrições; CNEP de multa (Q16).
 - Status final esperado: **INAPTA**, motivos: `situacao`, `cepim`, `ceis`.
-- Depende de: [ORIENTADOR Q15], [ORIENTADOR Q16], [ORIENTADOR Q18].
+- Ambiguidades envolvidas: A12.
+- Depende de: [ORIENTADOR Q15], [ORIENTADOR Q16], [ORIENTADOR Q18], [ORIENTADOR Q22].
 
 | id | Spec | Verificação | Estado esperado | Justificativa |
 |---|---|---|---|---|
@@ -1275,7 +1277,7 @@ Variante (data_referencia = 2026-11-23): status **APTA**.
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | OK | CNIA: NADA_CONSTA na Consulta Consolidada do TCU. |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | OK | Nada na lista de contas irregulares do TCU de 01/10/2026 nos últimos 8 anos. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | ALERTA | Possível correspondência: Presidente JOSE RODRIGUES ARAUJO aparece na relação do TCE-SP de contas do Terceiro Setor julgadas irregulares com nome e dígito verificador do CPF conferidos (art. 39, VII, a; processo 15951/989/21, trânsito em julgado 22/06/2026; processo 11297/989/20, trânsito em julgado 19/08/2025; processo 11234/989/20, trânsito em julgado 05/11/2024); confira o CPF no documento oficial. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. [ORIENTADOR Q22] |
 | `mapa_osc` | 11 | Mapa das OSCs | OK | Presente no Mapa (id_osc 602125), só dados automáticos da Receita (sugerir que a OSC complete o perfil). |
 | `cebas` | 12 | CEBAS | OK | CEBAS não vigente (saúde): último ato 'DEFERIDO PRORROGAÇÃO PARÁGRAFO 1° ART 40 LC 187/2021' (REQUERIMENTO>>RENOVAÇÃO), publicado em 27/02/2023; situação 'PUBLICADO DEFERIDO PRORROGAÇÃO PARÁGRAFO 1° ART 40 LC 187/2021 - NÃO VIGENTE - SUPERVISÃO CANCELAMENTO' no SisCEBAS de 30/09/2026. |
 
@@ -1285,7 +1287,8 @@ Variante (data_referencia = 2026-11-23): status **APTA**.
 - Entidade: INSTITUTO MUNDIAL DE DESENVOLVIMENTO E DA CIDADANIA - IMDC..
 - O que testa: Q1 com `cepim`, `ceis` e `tcu_inidoneos`.
 - Status final esperado: **INAPTA**, motivos: `situacao`, `cepim`, `ceis`, `tcu_inidoneos`.
-- Depende de: [ORIENTADOR Q17], [ORIENTADOR Q18], [ORIENTADOR Q21].
+- Ambiguidades envolvidas: A12.
+- Depende de: [ORIENTADOR Q17], [ORIENTADOR Q18], [ORIENTADOR Q21], [ORIENTADOR Q22].
 
 | id | Spec | Verificação | Estado esperado | Justificativa |
 |---|---|---|---|---|
@@ -1302,7 +1305,7 @@ Variante (data_referencia = 2026-11-23): status **APTA**.
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | RESTRICAO | TCU Consulta Consolidada (21.145.289/0001-07): Data da Decisão: 14/08/2019 - 010.925/2015-5 - 1897/2019-PL [mesma decisão já listada em ceis: Declaração de Inidoneidade com prazo determinado até 16/04/2029]; Lista de inidôneos (21.145.289/0001-07): processo 010.925/2015-5, acórdão 1897/2019-PL, sanção até 16/04/2029. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | OK | CNIA: NADA_CONSTA na Consulta Consolidada do TCU. |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | ALERTA | CNPJ na lista de contas irregulares do TCU de 01/10/2026 com trânsito em julgado nos últimos 8 anos: processo 008.554/2020-0, trânsito em julgado 06/07/2024; processo 025.369/2017-2, trânsito em julgado 19/06/2024; processo 024.291/2020-0, trânsito em julgado 22/05/2024; processo 010.925/2015-5, trânsito em julgado 16/04/2024; processo 034.869/2016-6, trânsito em julgado 31/12/2022; processo 022.853/2015-4, trânsito em julgado 29/11/2022; processo 002.773/2015-5, trânsito em julgado 04/03/2022; processo 002.327/2015-5, trânsito em julgado 15/08/2020; processo 000.708/2015-1, trânsito em julgado 06/06/2020; processo 027.360/2012-1, trânsito em julgado 16/07/2019; processo 032.780/2014-1, trânsito em julgado 23/04/2019; processo 020.154/2015-1, trânsito em julgado 05/01/2019. A lista não informa se a conta é de parceria (art. 39, VI); confira o acórdão. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | ALERTA | Possível correspondência: Presidente DEIVSON OLIVEIRA VIDAL aparece na lista de contas irregulares do TCU com os mesmos 6 dígitos centrais do CPF (art. 39, VII, a; processo 008.554/2020-0, trânsito em julgado 17/04/2024, também condenou a própria OSC; processo 025.369/2017-2, trânsito em julgado 21/07/2023, também condenou a própria OSC; processo 010.925/2015-5, trânsito em julgado 15/06/2023, também condenou a própria OSC; processo 022.853/2015-4, trânsito em julgado 25/08/2022, também condenou a própria OSC; processo 002.773/2015-5, trânsito em julgado 21/12/2021, também condenou a própria OSC; processo 002.327/2015-5, trânsito em julgado 15/08/2020, também condenou a própria OSC; processo 000.708/2015-1, trânsito em julgado 14/12/2019, também condenou a própria OSC; processo 027.360/2012-1, trânsito em julgado 13/07/2019, também condenou a própria OSC; processo 032.780/2014-1, trânsito em julgado 23/04/2019, também condenou a própria OSC; processo 020.154/2015-1, trânsito em julgado 03/01/2019, também condenou a própria OSC; a lista não informa se a conta é de parceria, confira o acórdão); confira o CPF no documento oficial. Informação sem alerta: Presidente DEIVSON OLIVEIRA VIDAL aparece na lista de contas irregulares do TCU com os mesmos 6 dígitos centrais do CPF (art. 39, VII, a; processo 009.434/2016-0, trânsito em julgado 19/10/2017, também condenou a própria OSC; processo 017.864/2014-3, trânsito em julgado 07/01/2016, também condenou a própria OSC; processo 001.239/2015-5, trânsito em julgado 08/08/2015, também condenou a própria OSC; a lista não informa se a conta é de parceria, confira o acórdão) [fora da janela de 8 anos]. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. [ORIENTADOR Q22] |
 | `mapa_osc` | 11 | Mapa das OSCs | OK | Presente no Mapa (id_osc 506146), só dados automáticos da Receita (sugerir que a OSC complete o perfil). |
 | `cebas` | 12 | CEBAS | NAO_VERIFICADO | Não foi encontrada certificação CEBAS nas bases consultadas (SisCEBAS Saúde 30/09/2026, planilhas MDS 2024 e MEC 2023, DOU jun a ago/2026); isso não significa que a entidade não possui CEBAS. |
 
@@ -1329,7 +1332,7 @@ Variante (data_referencia = 2026-11-23): status **APTA**.
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | OK | CNIA: NADA_CONSTA na Consulta Consolidada do TCU. |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | OK | Nada na lista de contas irregulares do TCU de 01/10/2026 nos últimos 8 anos. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. |
 | `mapa_osc` | 11 | Mapa das OSCs | ALERTA | CNPJ ausente do Mapa das OSCs: possível divergência de classificação; conferir natureza (D2). |
 | `cebas` | 12 | CEBAS | NAO_VERIFICADO | Não foi encontrada certificação CEBAS nas bases consultadas (SisCEBAS Saúde 30/09/2026, planilhas MDS 2024 e MEC 2023, DOU jun a ago/2026); isso não significa que a entidade não possui CEBAS. |
 
@@ -1339,8 +1342,8 @@ Variante (data_referencia = 2026-11-23): status **APTA**.
 - Entidade: ASSOCIACAO PLURAL.
 - O que testa: Q1: categoria 'sem prazo' com data final passada (OK com histórico).
 - Status final esperado: **INAPTA**, motivos: `situacao`.
-- Ambiguidades envolvidas: A14, A15.
-- Depende de: [PENDENTE X17].
+- Ambiguidades envolvidas: A12, A14, A15.
+- Depende de: [ORIENTADOR Q22], [PENDENTE X17].
 
 | id | Spec | Verificação | Estado esperado | Justificativa |
 |---|---|---|---|---|
@@ -1357,7 +1360,7 @@ Variante (data_referencia = 2026-11-23): status **APTA**.
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | OK | CNIA: NADA_CONSTA na Consulta Consolidada do TCU. |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | OK | Nada na lista de contas irregulares do TCU de 01/10/2026 nos últimos 8 anos. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | ALERTA | Possível correspondência: Diretor LIGIA RIBEIRO DE CARVALHO aparece na relação do TCE-SP de contas do Terceiro Setor julgadas irregulares com nome e dígito verificador do CPF conferidos (art. 39, VII, a; processo 27121/026/16, trânsito em julgado 24/10/2023; processo 12903/026/17, trânsito em julgado 24/10/2023); confira o CPF no documento oficial. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. [ORIENTADOR Q22] |
 | `mapa_osc` | 11 | Mapa das OSCs | OK | Presente no Mapa (id_osc 591615), só dados automáticos da Receita (sugerir que a OSC complete o perfil). |
 | `cebas` | 12 | CEBAS | NAO_VERIFICADO | Há pedido em análise sem decisão publicada (SisCEBAS: 'CONCESSÃO - MANIFESTAÇÃO MEC (DIGAD)'). Ausência de decisão não significa que a entidade não possui CEBAS (SisCEBAS Saúde 30/09/2026, planilhas MDS 2024 e MEC 2023, DOU jun a ago/2026). [PENDENTE X17] |
 
@@ -1384,7 +1387,7 @@ Variante (data_referencia = 2026-11-23): status **APTA**.
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | OK | CNIA: NADA_CONSTA na Consulta Consolidada do TCU. |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | OK | Nada na lista de contas irregulares do TCU de 01/10/2026 nos últimos 8 anos. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. |
 | `mapa_osc` | 11 | Mapa das OSCs | OK | Presente no Mapa (id_osc 586692), só dados automáticos da Receita (sugerir que a OSC complete o perfil). |
 | `cebas` | 12 | CEBAS | NAO_VERIFICADO | Não foi encontrada certificação CEBAS nas bases consultadas (SisCEBAS Saúde 30/09/2026, planilhas MDS 2024 e MEC 2023, DOU jun a ago/2026); isso não significa que a entidade não possui CEBAS. |
 
@@ -1394,8 +1397,8 @@ Variante (data_referencia = 2026-11-23): status **APTA**.
 - Entidade: ASSOCIACAO PARA VALORIZACAO DE PESSOAS COM DEFICIENCIA.
 - O que testa: Q1 com CNIA (Q19) e sanção em outro estabelecimento (Q20).
 - Status final esperado: **INAPTA**, motivos: `situacao`, `cepim`, `ceis`, `cnj_cnia`.
-- Ambiguidades envolvidas: A11, A14, A16.
-- Depende de: [ORIENTADOR Q17], [ORIENTADOR Q18], [ORIENTADOR Q19], [ORIENTADOR Q20], [ORIENTADOR Q21], [PENDENTE X17].
+- Ambiguidades envolvidas: A11, A12, A14, A16.
+- Depende de: [ORIENTADOR Q17], [ORIENTADOR Q18], [ORIENTADOR Q19], [ORIENTADOR Q20], [ORIENTADOR Q21], [ORIENTADOR Q22], [PENDENTE X17].
 
 | id | Spec | Verificação | Estado esperado | Justificativa |
 |---|---|---|---|---|
@@ -1412,7 +1415,7 @@ Variante (data_referencia = 2026-11-23): status **APTA**.
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | RESTRICAO | CNIA com registro: processo 10021337720158260032 (43.337.682/0001-35): proibição de contratar vigente até 11/05/2027 (mesma decisão já listada em ceis) => RESTRICAO; processo 00031114620128260624 (43.337.682/0001-35): proibição de contratar vigente até 17/11/2027 (mesma decisão já listada em ceis) => RESTRICAO. [ORIENTADOR Q19] |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | ALERTA | CNPJ na lista de contas irregulares do TCU de 01/10/2026 com trânsito em julgado nos últimos 8 anos: processo 025.809/2021-0, trânsito em julgado 27/03/2024. A lista não informa se a conta é de parceria (art. 39, VI); confira o acórdão. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 4 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | ALERTA | Possível correspondência: Presidente CARLOS EDUARDO FERRARI aparece na relação do TCE-SP de contas do Terceiro Setor julgadas irregulares com nome e dígito verificador do CPF conferidos (art. 39, VII, a; processo 867/014/14, trânsito em julgado 06/09/2019); confira o CPF no documento oficial. Informação sem alerta: Presidente CARLOS EDUARDO FERRARI aparece na relação do TCE-SP de contas do Terceiro Setor julgadas irregulares com nome e dígito verificador do CPF conferidos (art. 39, VII, a; processo 1293/001/14, trânsito em julgado 20/09/2018) [fora da janela de 8 anos]. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. [ORIENTADOR Q22] |
 | `mapa_osc` | 11 | Mapa das OSCs | OK | Presente no Mapa (id_osc 594761), perfil preenchido pela OSC (tx_email). |
 | `cebas` | 12 | CEBAS | NAO_VERIFICADO | Não foi encontrada decisão de certificação CEBAS (SisCEBAS Saúde 30/09/2026, planilhas MDS 2024 e MEC 2023, DOU jun a ago/2026); o CNPJ aparece só na aba de processos da planilha MDS, sem decisão [PENDENTE X17: o DOU de 12/2023 a 05/2026 pode ter a decisão]. [PENDENTE X17] |
 
@@ -1439,7 +1442,7 @@ Variante (data_referencia = 2026-11-23): status **APTA**.
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | OK | CNIA: NADA_CONSTA na Consulta Consolidada do TCU. |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | OK | Nada na lista de contas irregulares do TCU de 01/10/2026 nos últimos 8 anos (histórico fora da janela: processo 010.034/2008-8, trânsito em julgado 22/10/2010). [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. |
 | `mapa_osc` | 11 | Mapa das OSCs | OK | Presente no Mapa (id_osc 598928), só dados automáticos da Receita (sugerir que a OSC complete o perfil). |
 | `cebas` | 12 | CEBAS | OK | CEBAS ativo (saúde) segundo SisCEBAS de 30/09/2026: portaria 4683 publicada em 14/08/2026, vigência 01/01/2024 a 31/12/2026. |
 
@@ -1467,7 +1470,7 @@ Variante (data_referencia = 2026-11-23): status **APTA**.
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | OK | CNIA: NADA_CONSTA na Consulta Consolidada do TCU. |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | OK | Nada na lista de contas irregulares do TCU de 01/10/2026 nos últimos 8 anos. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. |
 | `mapa_osc` | 11 | Mapa das OSCs | OK | Presente no Mapa (id_osc 955838), só dados automáticos da Receita (sugerir que a OSC complete o perfil). |
 | `cebas` | 12 | CEBAS | OK | CEBAS não vigente (saúde): último ato 'INDEFERIDO' (REQUERIMENTO>>CONCESSÃO), publicado em 30/01/2023; situação 'PUBLICADO INDEFERIDO' no SisCEBAS de 30/09/2026. |
 
@@ -1494,7 +1497,7 @@ Variante (data_referencia = 2026-11-23): status **APTA**.
 | `tcu_inidoneos` | 9 | Licitantes inidôneos (TCU) | OK | Nada consta (TCU Consulta Consolidada, lista de inidôneos do TCU de 30/09/2026); vale para hoje, com as ressalvas do spec 12.4. |
 | `cnj_cnia` | 9 | Improbidade (CNJ, CNIA) | OK | CNIA: NADA_CONSTA na Consulta Consolidada do TCU. |
 | `tcu_contas_irregulares` | 9 | Contas julgadas irregulares (TCU, art. 39, VI) | OK | Nada na lista de contas irregulares do TCU de 01/10/2026 nos últimos 8 anos. [ORIENTADOR Q21] |
-| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP. [PENDENTE Q8] |
+| `dirigentes` | 10 | Dirigentes (QSA) | OK | 1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados. |
 | `mapa_osc` | 11 | Mapa das OSCs | OK | Presente no Mapa (id_osc 784332), só dados automáticos da Receita (sugerir que a OSC complete o perfil). |
 | `cebas` | 12 | CEBAS | NAO_VERIFICADO | Não foi encontrada certificação CEBAS nas bases consultadas (SisCEBAS Saúde 30/09/2026, planilhas MDS 2024 e MEC 2023, DOU jun a ago/2026); isso não significa que a entidade não possui CEBAS. |
 
@@ -1572,8 +1575,8 @@ A resolução cita a pergunta da revisão pré-código (`revisao_pre_codigo.md`)
 ### A12 - Dirigentes: correspondência só por nome e sanção expirada (provisória)
 
 - Regra antes: Spec 13.5 usa nome + 6 dígitos do meio do CPF (a v1.1 dos casos citava por engano o 13.4 como busca só por nome).
-- Resolução: [ORIENTADOR Q22] provisório: ALERTA só para nome + 6 dígitos com sanção vigente e categoria que é hipótese do art. 39; categorias de servidor (Demissão, Suspensão) e só nome ficam como informação. [PENDENTE Q8]: fontes além de CEIS/CNEP.
-- Casos afetados: C36, C39.
+- Resolução: [ORIENTADOR Q22] provisório: ALERTA só para nome + 6 dígitos (TCE-SP: nome + DV) com sanção vigente ou trânsito em julgado nos últimos 8 anos e hipótese do art. 39; categorias de servidor (Demissão, Suspensão), achados fora da janela e só nome ficam como informação. Fontes do Q8 (DONO, opção C, D15): CEIS, CNEP, TCU contas irregulares, TCU inabilitados e TCE-SP Terceiro Setor.
+- Casos afetados: C28, C29, C36, C39, C40, C41, C42, C44, C46.
 
 ### A13 - CEBAS com renovação tempestiva pendente ou vigência vencida (provisória)
 
@@ -1611,7 +1614,7 @@ A resolução cita a pergunta da revisão pré-código (`revisao_pre_codigo.md`)
 |---|---|---|
 | Associação ATIVA e elegível ausente do Mapa das OSCs (D2 isolado) | Todas as associações ativas consultadas (mais de 30) estavam no Mapa. As 15 marcadas `removida_do_mosc = sim` e 'Ativa' nas fatias da base do Mapa estão BAIXADAS hoje na Receita. 300 raízes sorteadas depois da última carga do Mapa (`buscar_ausente_mapa.py`, sementes 20261001 e 7) não trouxeram nenhuma associação (só MEI, LTDA e afins). | C14 (cooperativa ausente do Mapa, ALERTA junto com a natureza) e C24 (filial ausente, matriz presente, Q28). |
 | OSC ATIVA declarada inidônea pelo TCU | A lista de inidôneos tem 128 CNPJs e só 2 OSCs (ITS e IMDC), ambas INAPTAS na Receita. | C40 e C42 cobrem `tcu_inidoneos` em RESTRICAO, agora avaliado mesmo com a entidade INAPTA (Q1). |
-| Dirigente com sanção em entidade sem sanção própria | 5 PJs do CEIS com todas as sanções expiradas e ativas na Receita: nenhum dirigente casou nome + CPF. | C36 tem dirigente com sanção, mas a própria entidade também é sancionada. |
+| Dirigente com sanção em entidade sem sanção própria | 5 PJs do CEIS com todas as sanções expiradas e ativas na Receita: nenhum dirigente casou nome + CPF. Com as listas do TCU e do TCE-SP (Q8), todos os achados caíram em entidades já sancionadas ou INAPTAS. | C36, C39 a C42, C44 e C46 têm dirigente com achado, mas a própria entidade também é sancionada ou INAPTA; C28 tem achado no TCU só fora da janela de 8 anos. |
 | Associação com situação NULA (código 1) | Não apareceu nas fatias da base do Mapa (o Mapa agrupa 'Nula ou Baixada'). | C08 a C10 cobrem BAIXADA, INAPTA e SUSPENSA. |
 | CEBAS da Educação (MEC) | Nenhum CNPJ do conjunto está na planilha MEC de 2023 nem em ato do MEC no DOU de jun a ago/2026. | CEBAS saúde (C47, C48, C25) e assistência social (C16). |
 | Certificado autodeclarado no Mapa | Pendência P4 (não procurado nesta rodada). | Perfil preenchido pela OSC em C16 e outros. |
@@ -1629,13 +1632,14 @@ Encontrados na rodada de 01/10/2026: associação INAPTA (C09), associação SUS
 - O OpenCNPJ devolve `data_situacao_cadastral` = '0' para a matriz do Instituto GRPCOM e registros de sanção duplicados no `?datasets=` (CNEP do IPCIM, CEIS da IDEAS).
 - O CNIA devolve só o número do processo, sem data; o mesmo número aparece no CEIS de origem CNJ com as datas (Q19, Q42).
 - A Consulta Consolidada do TCU devolve CEIS CONSTAM_REGISTROS também para sanções expiradas (D18), confirmado em C31 (variante de 23/11/2026), C32 e C44.
+- Dirigentes com as fontes do Q8 (opção C): TCU contas irregulares em C40 e C42 (em C42, todos os processos também condenaram a própria OSC), TCE-SP Terceiro Setor em C41, C44 e C46 (nome + DV), e só fora da janela de 8 anos em C28 e C36; nenhum achado na lista de inabilitados do TCU.
 
 ## Como reproduzir
 
 A partir da raiz do projeto:
 
 1. `.venv/Scripts/python fase0/casos/coletar.py` consulta OpenCNPJ, OpenCNPJ `?datasets=`, TCU e Mapa para todos os casos e salva em `fase0/casos/respostas/<cnpj>/`.
-2. `.venv/Scripts/python fase0/casos/montar_casos.py` aplica as regras e gera `fase0/casos_referencia.json` e este arquivo. As bases locais usadas são os CSVs da CGU em `fase0/portal/downloads/`, a lista de inidôneos em `fase0/tcu/respostas/`, a lista de contas irregulares em `fase0/dirigentes/downloads/` e as bases de CEBAS de `fase0/cebas_dou/` e `fase0/mapa_osc/`.
+2. `.venv/Scripts/python fase0/casos/montar_casos.py` aplica as regras e gera `fase0/casos_referencia.json` e este arquivo. As bases locais usadas são os CSVs da CGU em `fase0/portal/downloads/`, a lista de inidôneos em `fase0/tcu/respostas/`, as listas do TCU (contas irregulares e inabilitados) e a planilha do TCE-SP em `fase0/dirigentes/downloads/` (lidas com `fase0/dirigentes/casar_dirigentes.py`) e as bases de CEBAS de `fase0/cebas_dou/` e `fase0/mapa_osc/`.
 3. Para trocar uma regra provisória do orientador, mudar o valor em `REGRAS_ORIENTADOR` no início de `montar_casos.py` e rodar o passo 2.
 4. Scripts de busca usados para achar os casos: `amostra_mapa.py` (fatias da base do Mapa), `buscar_cnia.py`, `buscar_ativos.py`, `buscar_extras.py` e `buscar_ausente_mapa.py`.
 

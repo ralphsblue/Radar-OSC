@@ -14,7 +14,7 @@
   "tcu_contas_irregulares": "Plataforma de Certidões do TCU, CSV de responsáveis com contas irregulares de 01/10/2026 (Q21, provisório)",
   "mapa_osc": "https://mapaosc.ipea.gov.br/api/api/busca/cnpj/{cnpj sem zeros}",
   "cebas": "SisCEBAS Saúde (lista de 30/09/2026), planilhas MDS 24/10/2024 e MEC 2023 do Mapa das OSCs, DOU jun a ago/2026 (falta 12/2023 a 05/2026, X17)",
-  "dirigentes": "CSV CEIS e CNEP de 30/09/2026 (PF, CPF completo) x QSA do OpenCNPJ ([PENDENTE Q8] para outras fontes)"
+  "dirigentes": "QSA do OpenCNPJ x pessoas físicas do CSV CEIS e CNEP de 30/09/2026, das listas do TCU de contas irregulares e inabilitados de 01/10/2026 (Plataforma de Certidões) e da relação do TCE-SP de contas do Terceiro Setor julgadas irregulares (planilha com dados até 01/09/2026); D15, opção C do Q8"
  },
  "catalogo": [
   {
@@ -154,10 +154,9 @@
   "ORIENTADOR Q19": "CNIA = RESTRICAO só com proibição vigente achada no CEIS pelo processo; senão ALERTA.",
   "ORIENTADOR Q20": "Sanção em outro estabelecimento da raiz = RESTRICAO, indicando o estabelecimento.",
   "ORIENTADOR Q21": "Verificação `tcu_contas_irregulares` (OSC na lista do TCU com trânsito em julgado nos últimos 8 anos) = ALERTA.",
-  "ORIENTADOR Q22": "Dirigentes: só sanção vigente e categoria que é hipótese do art. 39.",
+  "ORIENTADOR Q22": "Dirigentes: só sanção vigente (CEIS, CNEP, TCU inabilitados) ou trânsito em julgado nos últimos 8 anos (TCU contas irregulares, TCE-SP) e categoria que é hipótese do art. 39.",
   "ORIENTADOR Q23": "Tempo desde data_inicio_atividade, citando a data da situação.",
   "ORIENTADOR Q24": "CEBAS vencido sem ato novo = possível renovação, sem limite, com a idade no texto.",
-  "PENDENTE Q8": "Fontes de dirigentes além de CEIS/CNEP (TCU contas irregulares e inabilitados, TCE-SP) aguardam o dono.",
   "PENDENTE X17": "Esperado de CEBAS MDS/MEC sem os atos do DOU de 12/2023 a 05/2026 (Q39); gerar de novo depois da carga."
  },
  "ambiguidades": [
@@ -242,7 +241,7 @@
    "id": "A12",
    "titulo": "Dirigentes: correspondência só por nome e sanção expirada",
    "regra": "Spec 13.5 usa nome + 6 dígitos do meio do CPF (a v1.1 dos casos citava por engano o 13.4 como busca só por nome).",
-   "resolucao": "[ORIENTADOR Q22] provisório: ALERTA só para nome + 6 dígitos com sanção vigente e categoria que é hipótese do art. 39; categorias de servidor (Demissão, Suspensão) e só nome ficam como informação. [PENDENTE Q8]: fontes além de CEIS/CNEP.",
+   "resolucao": "[ORIENTADOR Q22] provisório: ALERTA só para nome + 6 dígitos (TCE-SP: nome + DV) com sanção vigente ou trânsito em julgado nos últimos 8 anos e hipótese do art. 39; categorias de servidor (Demissão, Suspensão), achados fora da janela e só nome ficam como informação. Fontes do Q8 (DONO, opção C, D15): CEIS, CNEP, TCU contas irregulares, TCU inabilitados e TCE-SP Terceiro Setor.",
    "situacao": "provisória"
   },
   {
@@ -435,10 +434,7 @@
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
      "estado": "OK",
-     "motivo": "1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-     "depende_de": [
-      "PENDENTE Q8"
-     ]
+     "motivo": "1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
     },
     {
      "id": "mapa_osc",
@@ -1708,10 +1704,7 @@
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
      "estado": "OK",
-     "motivo": "6 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-     "depende_de": [
-      "PENDENTE Q8"
-     ]
+     "motivo": "6 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
     },
     {
      "id": "mapa_osc",
@@ -1902,10 +1895,7 @@
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
      "estado": "OK",
-     "motivo": "1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-     "depende_de": [
-      "PENDENTE Q8"
-     ]
+     "motivo": "1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
     },
     {
      "id": "mapa_osc",
@@ -2098,10 +2088,7 @@
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
      "estado": "OK",
-     "motivo": "1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-     "depende_de": [
-      "PENDENTE Q8"
-     ]
+     "motivo": "1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
     },
     {
      "id": "mapa_osc",
@@ -2294,10 +2281,7 @@
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
      "estado": "OK",
-     "motivo": "41 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-     "depende_de": [
-      "PENDENTE Q8"
-     ]
+     "motivo": "41 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
     },
     {
      "id": "mapa_osc",
@@ -2491,10 +2475,7 @@
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
      "estado": "OK",
-     "motivo": "1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-     "depende_de": [
-      "PENDENTE Q8"
-     ]
+     "motivo": "1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
     },
     {
      "id": "mapa_osc",
@@ -2695,10 +2676,7 @@
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
      "estado": "OK",
-     "motivo": "1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-     "depende_de": [
-      "PENDENTE Q8"
-     ]
+     "motivo": "1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
     },
     {
      "id": "mapa_osc",
@@ -2902,10 +2880,7 @@
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
      "estado": "OK",
-     "motivo": "4 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-     "depende_de": [
-      "PENDENTE Q8"
-     ]
+     "motivo": "4 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
     },
     {
      "id": "mapa_osc",
@@ -3102,10 +3077,7 @@
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
      "estado": "OK",
-     "motivo": "1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-     "depende_de": [
-      "PENDENTE Q8"
-     ]
+     "motivo": "1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
     },
     {
      "id": "mapa_osc",
@@ -3298,10 +3270,7 @@
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
      "estado": "OK",
-     "motivo": "2 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-     "depende_de": [
-      "PENDENTE Q8"
-     ]
+     "motivo": "2 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
     },
     {
      "id": "mapa_osc",
@@ -3515,10 +3484,7 @@
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
      "estado": "OK",
-     "motivo": "1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-     "depende_de": [
-      "PENDENTE Q8"
-     ]
+     "motivo": "1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
     },
     {
      "id": "mapa_osc",
@@ -3715,10 +3681,7 @@
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
      "estado": "OK",
-     "motivo": "4 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-     "depende_de": [
-      "PENDENTE Q8"
-     ]
+     "motivo": "4 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
     },
     {
      "id": "mapa_osc",
@@ -3915,10 +3878,7 @@
        "nome": "Dirigentes (QSA)",
        "tipo": "ALERTA",
        "estado": "OK",
-       "motivo": "4 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-       "depende_de": [
-        "PENDENTE Q8"
-       ]
+       "motivo": "4 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
       },
       {
        "id": "mapa_osc",
@@ -4098,10 +4058,7 @@
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
      "estado": "OK",
-     "motivo": "1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-     "depende_de": [
-      "PENDENTE Q8"
-     ]
+     "motivo": "1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
     },
     {
      "id": "mapa_osc",
@@ -4296,10 +4253,7 @@
        "nome": "Dirigentes (QSA)",
        "tipo": "ALERTA",
        "estado": "OK",
-       "motivo": "1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-       "depende_de": [
-        "PENDENTE Q8"
-       ]
+       "motivo": "1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
       },
       {
        "id": "mapa_osc",
@@ -4482,10 +4436,7 @@
        "nome": "Dirigentes (QSA)",
        "tipo": "ALERTA",
        "estado": "OK",
-       "motivo": "1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-       "depende_de": [
-        "PENDENTE Q8"
-       ]
+       "motivo": "1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
       },
       {
        "id": "mapa_osc",
@@ -4665,10 +4616,7 @@
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
      "estado": "OK",
-     "motivo": "1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-     "depende_de": [
-      "PENDENTE Q8"
-     ]
+     "motivo": "1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
     },
     {
      "id": "mapa_osc",
@@ -4863,10 +4811,7 @@
        "nome": "Dirigentes (QSA)",
        "tipo": "ALERTA",
        "estado": "OK",
-       "motivo": "1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-       "depende_de": [
-        "PENDENTE Q8"
-       ]
+       "motivo": "1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
       },
       {
        "id": "mapa_osc",
@@ -5049,10 +4994,7 @@
        "nome": "Dirigentes (QSA)",
        "tipo": "ALERTA",
        "estado": "OK",
-       "motivo": "1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-       "depende_de": [
-        "PENDENTE Q8"
-       ]
+       "motivo": "1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
       },
       {
        "id": "mapa_osc",
@@ -5235,10 +5177,7 @@
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
      "estado": "OK",
-     "motivo": "1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-     "depende_de": [
-      "PENDENTE Q8"
-     ]
+     "motivo": "1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
     },
     {
      "id": "mapa_osc",
@@ -5441,10 +5380,7 @@
        "nome": "Dirigentes (QSA)",
        "tipo": "ALERTA",
        "estado": "OK",
-       "motivo": "1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-       "depende_de": [
-        "PENDENTE Q8"
-       ]
+       "motivo": "1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
       },
       {
        "id": "mapa_osc",
@@ -5633,10 +5569,7 @@
        "nome": "Dirigentes (QSA)",
        "tipo": "ALERTA",
        "estado": "OK",
-       "motivo": "1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-       "depende_de": [
-        "PENDENTE Q8"
-       ]
+       "motivo": "1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
       },
       {
        "id": "mapa_osc",
@@ -5823,10 +5756,7 @@
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
      "estado": "OK",
-     "motivo": "1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-     "depende_de": [
-      "PENDENTE Q8"
-     ]
+     "motivo": "1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
     },
     {
      "id": "mapa_osc",
@@ -6042,10 +5972,7 @@
        "nome": "Dirigentes (QSA)",
        "tipo": "ALERTA",
        "estado": "OK",
-       "motivo": "1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-       "depende_de": [
-        "PENDENTE Q8"
-       ]
+       "motivo": "1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
       },
       {
        "id": "mapa_osc",
@@ -6242,10 +6169,7 @@
        "nome": "Dirigentes (QSA)",
        "tipo": "ALERTA",
        "estado": "OK",
-       "motivo": "1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-       "depende_de": [
-        "PENDENTE Q8"
-       ]
+       "motivo": "1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
       },
       {
        "id": "mapa_osc",
@@ -6425,10 +6349,7 @@
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
      "estado": "OK",
-     "motivo": "2 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-     "depende_de": [
-      "PENDENTE Q8"
-     ]
+     "motivo": "2 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
     },
     {
      "id": "mapa_osc",
@@ -6650,10 +6571,7 @@
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
      "estado": "OK",
-     "motivo": "2 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-     "depende_de": [
-      "PENDENTE Q8"
-     ]
+     "motivo": "2 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
     },
     {
      "id": "mapa_osc",
@@ -6857,10 +6775,7 @@
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
      "estado": "OK",
-     "motivo": "2 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-     "depende_de": [
-      "PENDENTE Q8"
-     ]
+     "motivo": "2 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
     },
     {
      "id": "mapa_osc",
@@ -7085,10 +7000,7 @@
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
      "estado": "OK",
-     "motivo": "2 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-     "depende_de": [
-      "PENDENTE Q8"
-     ]
+     "motivo": "2 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
     },
     {
      "id": "mapa_osc",
@@ -7308,10 +7220,7 @@
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
      "estado": "OK",
-     "motivo": "2 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-     "depende_de": [
-      "PENDENTE Q8"
-     ]
+     "motivo": "2 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
     },
     {
      "id": "mapa_osc",
@@ -7523,9 +7432,12 @@
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
      "estado": "OK",
-     "motivo": "1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
+     "motivo": "1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Informação sem alerta: Presidente ASSIS GURGACZ aparece na lista de contas irregulares do TCU com os mesmos 6 dígitos centrais do CPF (art. 39, VII, a; processo 024.114/2006-6, trânsito em julgado 09/08/2012, também condenou a própria OSC; a lista não informa se a conta é de parceria, confira o acórdão) [fora da janela de 8 anos]. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados.",
+     "ambiguidades": [
+      "A12"
+     ],
      "depende_de": [
-      "PENDENTE Q8"
+      "ORIENTADOR Q22"
      ]
     },
     {
@@ -7547,9 +7459,12 @@
      "situacao_cebas": "NAO_ENCONTRADO"
     }
    ],
-   "ambiguidades": [],
+   "ambiguidades": [
+    "A12"
+   ],
    "depende_de": [
-    "ORIENTADOR Q18"
+    "ORIENTADOR Q18",
+    "ORIENTADOR Q22"
    ],
    "contexto": {
     "filial": false,
@@ -7732,9 +7647,12 @@
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
      "estado": "OK",
-     "motivo": "1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
+     "motivo": "1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. 1 homônimo(s) só por nome, sem os dígitos do CPF: sem alerta. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados.",
+     "ambiguidades": [
+      "A12"
+     ],
      "depende_de": [
-      "PENDENTE Q8"
+      "ORIENTADOR Q22"
      ]
     },
     {
@@ -7757,10 +7675,12 @@
     }
    ],
    "ambiguidades": [
-    "A09"
+    "A09",
+    "A12"
    ],
    "depende_de": [
     "ORIENTADOR Q17",
+    "ORIENTADOR Q22",
     "ORIENTADOR Q23"
    ],
    "contexto": {
@@ -7941,10 +7861,7 @@
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
      "estado": "OK",
-     "motivo": "1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-     "depende_de": [
-      "PENDENTE Q8"
-     ]
+     "motivo": "1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
     },
     {
      "id": "mapa_osc",
@@ -8148,10 +8065,7 @@
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
      "estado": "OK",
-     "motivo": "1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-     "depende_de": [
-      "PENDENTE Q8"
-     ]
+     "motivo": "1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
     },
     {
      "id": "mapa_osc",
@@ -8387,10 +8301,7 @@
        "nome": "Dirigentes (QSA)",
        "tipo": "ALERTA",
        "estado": "OK",
-       "motivo": "1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-       "depende_de": [
-        "PENDENTE Q8"
-       ]
+       "motivo": "1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
       },
       {
        "id": "mapa_osc",
@@ -8608,10 +8519,7 @@
        "nome": "Dirigentes (QSA)",
        "tipo": "ALERTA",
        "estado": "OK",
-       "motivo": "1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-       "depende_de": [
-        "PENDENTE Q8"
-       ]
+       "motivo": "1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
       },
       {
        "id": "mapa_osc",
@@ -8802,10 +8710,7 @@
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
      "estado": "OK",
-     "motivo": "1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-     "depende_de": [
-      "PENDENTE Q8"
-     ]
+     "motivo": "1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
     },
     {
      "id": "mapa_osc",
@@ -9011,10 +8916,7 @@
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
      "estado": "OK",
-     "motivo": "1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-     "depende_de": [
-      "PENDENTE Q8"
-     ]
+     "motivo": "1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
     },
     {
      "id": "mapa_osc",
@@ -9220,10 +9122,7 @@
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
      "estado": "OK",
-     "motivo": "1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-     "depende_de": [
-      "PENDENTE Q8"
-     ]
+     "motivo": "1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
     },
     {
      "id": "mapa_osc",
@@ -9435,10 +9334,7 @@
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
      "estado": "OK",
-     "motivo": "1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-     "depende_de": [
-      "PENDENTE Q8"
-     ]
+     "motivo": "1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
     },
     {
      "id": "mapa_osc",
@@ -9663,13 +9559,12 @@
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
      "estado": "ALERTA",
-     "motivo": "Possível correspondência: Presidente JOSE CARLOS MENDES aparece no CEIS com os mesmos 6 dígitos centrais do CPF (Impedimento/proibição de contratar com prazo determinado, 16/12/2021 a 16/12/2031); confira o CPF no documento oficial.",
+     "motivo": "Possível correspondência: Presidente JOSE CARLOS MENDES aparece no CEIS com os mesmos 6 dígitos centrais do CPF (Impedimento/proibição de contratar com prazo determinado, 16/12/2021 a 16/12/2031); confira o CPF no documento oficial. Informação sem alerta: Presidente JOSE CARLOS MENDES aparece na lista de contas irregulares do TCU com os mesmos 6 dígitos centrais do CPF (art. 39, VII, a; processo 012.775/2011-8, trânsito em julgado 16/07/2013; a lista não informa se a conta é de parceria, confira o acórdão) [fora da janela de 8 anos]. 3 homônimo(s) só por nome, sem os dígitos do CPF: sem alerta. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados.",
      "ambiguidades": [
       "A12"
      ],
      "depende_de": [
-      "ORIENTADOR Q22",
-      "PENDENTE Q8"
+      "ORIENTADOR Q22"
      ]
     },
     {
@@ -9700,8 +9595,7 @@
     "ORIENTADOR Q18",
     "ORIENTADOR Q19",
     "ORIENTADOR Q22",
-    "ORIENTADOR Q23",
-    "PENDENTE Q8"
+    "ORIENTADOR Q23"
    ],
    "contexto": {
     "filial": false,
@@ -9881,10 +9775,7 @@
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
      "estado": "OK",
-     "motivo": "1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-     "depende_de": [
-      "PENDENTE Q8"
-     ]
+     "motivo": "1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
     },
     {
      "id": "mapa_osc",
@@ -10106,10 +9997,7 @@
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
      "estado": "OK",
-     "motivo": "1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-     "depende_de": [
-      "PENDENTE Q8"
-     ]
+     "motivo": "1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
     },
     {
      "id": "mapa_osc",
@@ -10318,13 +10206,12 @@
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
      "estado": "ALERTA",
-     "motivo": "Possível correspondência: Presidente MARIA MARGARETH PEIXOTO aparece no CEIS com os mesmos 6 dígitos centrais do CPF (Impedimento/proibição de contratar com prazo determinado, 11/10/2022 a 11/10/2032); confira o CPF no documento oficial.",
+     "motivo": "Possível correspondência: Presidente MARIA MARGARETH PEIXOTO aparece no CEIS com os mesmos 6 dígitos centrais do CPF (Impedimento/proibição de contratar com prazo determinado, 11/10/2022 a 11/10/2032); confira o CPF no documento oficial. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados.",
      "ambiguidades": [
       "A12"
      ],
      "depende_de": [
-      "ORIENTADOR Q22",
-      "PENDENTE Q8"
+      "ORIENTADOR Q22"
      ]
     },
     {
@@ -10352,8 +10239,7 @@
    ],
    "depende_de": [
     "ORIENTADOR Q19",
-    "ORIENTADOR Q22",
-    "PENDENTE Q8"
+    "ORIENTADOR Q22"
    ],
    "contexto": {
     "filial": false,
@@ -10531,10 +10417,13 @@
      "spec": 10,
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
-     "estado": "OK",
-     "motivo": "3 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
+     "estado": "ALERTA",
+     "motivo": "Possível correspondência: Diretor EUDES COSTA DE HOLANDA JUNIOR aparece na lista de contas irregulares do TCU com os mesmos 6 dígitos centrais do CPF (art. 39, VII, a; processo 017.894/2015-8, trânsito em julgado 07/06/2025; processo 027.324/2017-6, trânsito em julgado 01/06/2020; a lista não informa se a conta é de parceria, confira o acórdão); confira o CPF no documento oficial. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados.",
+     "ambiguidades": [
+      "A12"
+     ],
      "depende_de": [
-      "PENDENTE Q8"
+      "ORIENTADOR Q22"
      ]
     },
     {
@@ -10556,10 +10445,13 @@
      "situacao_cebas": "NAO_ENCONTRADO"
     }
    ],
-   "ambiguidades": [],
+   "ambiguidades": [
+    "A12"
+   ],
    "depende_de": [
     "ORIENTADOR Q17",
-    "ORIENTADOR Q21"
+    "ORIENTADOR Q21",
+    "ORIENTADOR Q22"
    ],
    "contexto": {
     "filial": false,
@@ -10755,10 +10647,13 @@
      "spec": 10,
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
-     "estado": "OK",
-     "motivo": "1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
+     "estado": "ALERTA",
+     "motivo": "Possível correspondência: Presidente JOSE RODRIGUES ARAUJO aparece na relação do TCE-SP de contas do Terceiro Setor julgadas irregulares com nome e dígito verificador do CPF conferidos (art. 39, VII, a; processo 15951/989/21, trânsito em julgado 22/06/2026; processo 11297/989/20, trânsito em julgado 19/08/2025; processo 11234/989/20, trânsito em julgado 05/11/2024); confira o CPF no documento oficial. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados.",
+     "ambiguidades": [
+      "A12"
+     ],
      "depende_de": [
-      "PENDENTE Q8"
+      "ORIENTADOR Q22"
      ]
     },
     {
@@ -10783,11 +10678,14 @@
      }
     }
    ],
-   "ambiguidades": [],
+   "ambiguidades": [
+    "A12"
+   ],
    "depende_de": [
     "ORIENTADOR Q15",
     "ORIENTADOR Q16",
-    "ORIENTADOR Q18"
+    "ORIENTADOR Q18",
+    "ORIENTADOR Q22"
    ],
    "contexto": {
     "filial": false,
@@ -10978,10 +10876,13 @@
      "spec": 10,
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
-     "estado": "OK",
-     "motivo": "1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
+     "estado": "ALERTA",
+     "motivo": "Possível correspondência: Presidente DEIVSON OLIVEIRA VIDAL aparece na lista de contas irregulares do TCU com os mesmos 6 dígitos centrais do CPF (art. 39, VII, a; processo 008.554/2020-0, trânsito em julgado 17/04/2024, também condenou a própria OSC; processo 025.369/2017-2, trânsito em julgado 21/07/2023, também condenou a própria OSC; processo 010.925/2015-5, trânsito em julgado 15/06/2023, também condenou a própria OSC; processo 022.853/2015-4, trânsito em julgado 25/08/2022, também condenou a própria OSC; processo 002.773/2015-5, trânsito em julgado 21/12/2021, também condenou a própria OSC; processo 002.327/2015-5, trânsito em julgado 15/08/2020, também condenou a própria OSC; processo 000.708/2015-1, trânsito em julgado 14/12/2019, também condenou a própria OSC; processo 027.360/2012-1, trânsito em julgado 13/07/2019, também condenou a própria OSC; processo 032.780/2014-1, trânsito em julgado 23/04/2019, também condenou a própria OSC; processo 020.154/2015-1, trânsito em julgado 03/01/2019, também condenou a própria OSC; a lista não informa se a conta é de parceria, confira o acórdão); confira o CPF no documento oficial. Informação sem alerta: Presidente DEIVSON OLIVEIRA VIDAL aparece na lista de contas irregulares do TCU com os mesmos 6 dígitos centrais do CPF (art. 39, VII, a; processo 009.434/2016-0, trânsito em julgado 19/10/2017, também condenou a própria OSC; processo 017.864/2014-3, trânsito em julgado 07/01/2016, também condenou a própria OSC; processo 001.239/2015-5, trânsito em julgado 08/08/2015, também condenou a própria OSC; a lista não informa se a conta é de parceria, confira o acórdão) [fora da janela de 8 anos]. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados.",
+     "ambiguidades": [
+      "A12"
+     ],
      "depende_de": [
-      "PENDENTE Q8"
+      "ORIENTADOR Q22"
      ]
     },
     {
@@ -11003,11 +10904,14 @@
      "situacao_cebas": "NAO_ENCONTRADO"
     }
    ],
-   "ambiguidades": [],
+   "ambiguidades": [
+    "A12"
+   ],
    "depende_de": [
     "ORIENTADOR Q17",
     "ORIENTADOR Q18",
-    "ORIENTADOR Q21"
+    "ORIENTADOR Q21",
+    "ORIENTADOR Q22"
    ],
    "contexto": {
     "filial": false,
@@ -11190,10 +11094,7 @@
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
      "estado": "OK",
-     "motivo": "1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-     "depende_de": [
-      "PENDENTE Q8"
-     ]
+     "motivo": "1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
     },
     {
      "id": "mapa_osc",
@@ -11390,10 +11291,13 @@
      "spec": 10,
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
-     "estado": "OK",
-     "motivo": "1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
+     "estado": "ALERTA",
+     "motivo": "Possível correspondência: Diretor LIGIA RIBEIRO DE CARVALHO aparece na relação do TCE-SP de contas do Terceiro Setor julgadas irregulares com nome e dígito verificador do CPF conferidos (art. 39, VII, a; processo 27121/026/16, trânsito em julgado 24/10/2023; processo 12903/026/17, trânsito em julgado 24/10/2023); confira o CPF no documento oficial. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados.",
+     "ambiguidades": [
+      "A12"
+     ],
      "depende_de": [
-      "PENDENTE Q8"
+      "ORIENTADOR Q22"
      ]
     },
     {
@@ -11422,10 +11326,12 @@
     }
    ],
    "ambiguidades": [
+    "A12",
     "A14",
     "A15"
    ],
    "depende_de": [
+    "ORIENTADOR Q22",
     "PENDENTE X17"
    ],
    "contexto": {
@@ -11604,10 +11510,7 @@
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
      "estado": "OK",
-     "motivo": "1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-     "depende_de": [
-      "PENDENTE Q8"
-     ]
+     "motivo": "1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
     },
     {
      "id": "mapa_osc",
@@ -11834,10 +11737,13 @@
      "spec": 10,
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
-     "estado": "OK",
-     "motivo": "4 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
+     "estado": "ALERTA",
+     "motivo": "Possível correspondência: Presidente CARLOS EDUARDO FERRARI aparece na relação do TCE-SP de contas do Terceiro Setor julgadas irregulares com nome e dígito verificador do CPF conferidos (art. 39, VII, a; processo 867/014/14, trânsito em julgado 06/09/2019); confira o CPF no documento oficial. Informação sem alerta: Presidente CARLOS EDUARDO FERRARI aparece na relação do TCE-SP de contas do Terceiro Setor julgadas irregulares com nome e dígito verificador do CPF conferidos (art. 39, VII, a; processo 1293/001/14, trânsito em julgado 20/09/2018) [fora da janela de 8 anos]. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados.",
+     "ambiguidades": [
+      "A12"
+     ],
      "depende_de": [
-      "PENDENTE Q8"
+      "ORIENTADOR Q22"
      ]
     },
     {
@@ -11867,6 +11773,7 @@
    ],
    "ambiguidades": [
     "A11",
+    "A12",
     "A14",
     "A16"
    ],
@@ -11876,6 +11783,7 @@
     "ORIENTADOR Q19",
     "ORIENTADOR Q20",
     "ORIENTADOR Q21",
+    "ORIENTADOR Q22",
     "PENDENTE X17"
    ],
    "contexto": {
@@ -12049,10 +11957,7 @@
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
      "estado": "OK",
-     "motivo": "1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-     "depende_de": [
-      "PENDENTE Q8"
-     ]
+     "motivo": "1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
     },
     {
      "id": "mapa_osc",
@@ -12272,10 +12177,7 @@
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
      "estado": "OK",
-     "motivo": "1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-     "depende_de": [
-      "PENDENTE Q8"
-     ]
+     "motivo": "1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
     },
     {
      "id": "mapa_osc",
@@ -12485,10 +12387,7 @@
      "nome": "Dirigentes (QSA)",
      "tipo": "ALERTA",
      "estado": "OK",
-     "motivo": "1 dirigente(s) pessoa física sem correspondência vigente (nome + 6 dígitos do CPF) no CEIS/CNEP.",
-     "depende_de": [
-      "PENDENTE Q8"
-     ]
+     "motivo": "1 dirigente(s) pessoa física sem correspondência (nome + 6 dígitos do CPF; no TCE-SP, nome + DV) em CEIS, CNEP, TCU (contas irregulares nos últimos 8 anos e inabilitados) e TCE-SP Terceiro Setor. Dirigentes fora do QSA, que costuma trazer só o presidente, não são verificados."
     },
     {
      "id": "mapa_osc",
