@@ -1,0 +1,272 @@
+{
+ "responsaveis-contas-irregulares": {
+  "itens": 47889,
+  "campos": {
+   "numeroProcessoFormatado": 47889,
+   "nome": 47889,
+   "tipoRegistro": 47889,
+   "numeroRegistro": 47889,
+   "municipio": 47889,
+   "uf": 47889,
+   "dataTransitoEmJulgado": 47889,
+   "linkDeliberacoesProcesso": 47889,
+   "linkAcompanhamentoProcesso": 47889,
+   "codigoProcesso": 47889,
+   "seProcessoGestao": 47889,
+   "numeroAcordaoFormatado": 47889
+  },
+  "tipoRegistro": {
+   "CNPJ": 6817,
+   "CPF": 41072
+  },
+  "formato_documento": {
+   "cnpj": 6817,
+   "cpf_formatado": 41071,
+   "outro_0": 1
+  },
+  "cpf_total": 41071,
+  "cpf_dv_valido": 41071,
+  "cpf_distintos": 23665,
+  "nome_vazio": 0,
+  "chaves_nome_meio": 23665,
+  "chaves_nome_meio_com_mais_de_um_cpf": 0,
+  "meio_com_mais_de_um_cpf": 296,
+  "dataTransitoEmJulgado": {
+   "preenchidos": 47889,
+   "min": "0202-04-13",
+   "max": "2026-09-23",
+   "futuras": 0,
+   "ultimos_8_anos": 14702,
+   "por_decada": {
+    "1980s": 100,
+    "1990s": 3696,
+    "2000s": 13513,
+    "200s": 3,
+    "2010s": 18190,
+    "2020s": 12387
+   }
+  },
+  "uf": {
+   "MA": 4307,
+   "SP": 4208,
+   "BA": 3742,
+   "RJ": 3502,
+   "MG": 2990,
+   "PA": 2561,
+   "CE": 2355,
+   "PB": 2225,
+   "PE": 2192,
+   "DF": 2117,
+   "AM": 1918,
+   "GO": 1692,
+   "PI": 1532,
+   "PR": 1459,
+   "RS": 1281,
+   "RN": 1233,
+   "MT": 1082,
+   "AL": 1072,
+   "SE": 880,
+   "TO": 879,
+   "SC": 798,
+   "AP": 749,
+   "MS": 674,
+   "RO": 623,
+   "RR": 622,
+   "ES": 569,
+   "AC": 482,
+   "null": 142,
+   "EX": 3
+  },
+  "processos_distintos": 30960,
+  "csv_encoding": "cp1252",
+  "csv_primeiras_linhas_sem_dados": [
+   "sep=|",
+   "Nome|CPF/CNPJ|UF|Município|Processo|Link do processo|Acórdãos|Trânsito em julgado|"
+  ],
+  "csv_linhas": 47891
+ },
+ "responsaveis-inabilitados": {
+  "itens": 774,
+  "campos": {
+   "numeroProcessoFormatado": 774,
+   "nome": 774,
+   "tipoRegistro": 774,
+   "numeroRegistro": 774,
+   "municipio": 774,
+   "uf": 774,
+   "numeroAcordaoFormatado": 774,
+   "dataAcordao": 774,
+   "dataTransitoEmJulgado": 774,
+   "dataFinalSancao": 774,
+   "linkDeliberacoesProcesso": 774,
+   "linkAcompanhamentoProcesso": 774,
+   "codigoProcesso": 774,
+   "seProcessoGestao": 774
+  },
+  "tipoRegistro": {
+   "CPF": 774
+  },
+  "formato_documento": {
+   "cpf_formatado": 773,
+   "outro_0": 1
+  },
+  "cpf_total": 773,
+  "cpf_dv_valido": 773,
+  "cpf_distintos": 599,
+  "nome_vazio": 0,
+  "chaves_nome_meio": 599,
+  "chaves_nome_meio_com_mais_de_um_cpf": 0,
+  "meio_com_mais_de_um_cpf": 0,
+  "dataTransitoEmJulgado": {
+   "preenchidos": 774,
+   "min": "2018-01-27",
+   "max": "2026-09-19",
+   "futuras": 0,
+   "ultimos_8_anos": 773,
+   "por_decada": {
+    "2010s": 61,
+    "2020s": 713
+   }
+  },
+  "dataFinalSancao": {
+   "preenchidos": 774,
+   "min": "2026-10-01",
+   "max": "2034-09-15",
+   "futuras": 773
+  },
+  "dataAcordao": {
+   "preenchidos": 774,
+   "min": "2008-11-26",
+   "max": "2026-08-25",
+   "futuras": 0
+  },
+  "uf": {
+   "RJ": 107,
+   "PB": 71,
+   "SP": 70,
+   "AM": 67,
+   "MA": 65,
+   "CE": 55,
+   "DF": 51,
+   "PR": 37,
+   "GO": 29,
+   "MT": 25,
+   "RS": 25,
+   "PA": 21,
+   "MG": 20,
+   "MS": 20,
+   "BA": 16,
+   "PE": 15,
+   "SC": 15,
+   "AL": 15,
+   "PI": 13,
+   "RN": 8,
+   "RO": 7,
+   "TO": 6,
+   "RR": 5,
+   "AP": 4,
+   "SE": 3,
+   "ES": 2,
+   "null": 1,
+   "AC": 1
+  },
+  "processos_distintos": 480,
+  "csv_encoding": "cp1252",
+  "csv_primeiras_linhas_sem_dados": [
+   "sep=|",
+   "Nome|CPF|UF|Município|Processo|Link do processo|Acórdão|Data do acórdão|Link dos acórdãos|Trânsito em julgado|Data final da sanção|"
+  ],
+  "csv_linhas": 776
+ },
+ "responsaveis-fins-eleitorais": {
+  "itens": 9145,
+  "campos": {
+   "numeroProcessoFormatado": 9145,
+   "nome": 9145,
+   "numeroRegistro": 9145,
+   "municipio": 9145,
+   "uf": 9145,
+   "dataTransitoEmJulgado": 9145,
+   "dataFinalFinsEleitorais": 9145,
+   "linkDeliberacoesProcesso": 9145,
+   "linkAcompanhamentoProcesso": 9145,
+   "codigoProcesso": 9145,
+   "seProcessoGestao": 9145,
+   "numeroAcordaoFormatado": 9145
+  },
+  "tipoRegistro": {
+   "null": 9145
+  },
+  "formato_documento": {
+   "cpf_formatado": 9144,
+   "outro_0": 1
+  },
+  "cpf_total": 9144,
+  "cpf_dv_valido": 9144,
+  "cpf_distintos": 6291,
+  "nome_vazio": 0,
+  "chaves_nome_meio": 6291,
+  "chaves_nome_meio_com_mais_de_um_cpf": 0,
+  "meio_com_mais_de_um_cpf": 23,
+  "dataTransitoEmJulgado": {
+   "preenchidos": 9145,
+   "min": "2018-10-04",
+   "max": "2026-09-23",
+   "futuras": 0,
+   "ultimos_8_anos": 9145,
+   "por_decada": {
+    "2010s": 1354,
+    "2020s": 7791
+   }
+  },
+  "dataFinalFinsEleitorais": {
+   "preenchidos": 9145,
+   "min": "2026-10-04",
+   "max": "2034-09-23",
+   "futuras": 9145
+  },
+  "uf": {
+   "MA": 952,
+   "SP": 878,
+   "RJ": 574,
+   "BA": 572,
+   "CE": 570,
+   "PA": 546,
+   "MG": 499,
+   "PE": 475,
+   "AM": 464,
+   "PB": 435,
+   "DF": 406,
+   "PR": 331,
+   "GO": 324,
+   "RS": 310,
+   "PI": 268,
+   "SC": 192,
+   "RN": 184,
+   "AL": 173,
+   "SE": 148,
+   "TO": 131,
+   "AP": 117,
+   "MT": 115,
+   "RO": 106,
+   "RR": 100,
+   "MS": 82,
+   "ES": 75,
+   "AC": 74,
+   "null": 44
+  },
+  "processos_distintos": 6956,
+  "csv_encoding": "cp1252",
+  "csv_primeiras_linhas_sem_dados": [
+   "sep=|",
+   "Nome|CPF|UF|Município|Processo|Link do processo|Acórdãos|Trânsito em julgado|Data final"
+  ],
+  "csv_linhas": 9147
+ },
+ "sobreposicao_cpf": {
+  "fins_eleitorais_dentro_de_contas_irregulares": 6291,
+  "fins_eleitorais_total": 6291,
+  "inabilitados_dentro_de_contas_irregulares": 542,
+  "inabilitados_total": 599
+ }
+}

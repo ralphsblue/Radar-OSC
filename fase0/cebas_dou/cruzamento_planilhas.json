@@ -1,0 +1,592 @@
+{
+  "siscebas_saude_lista_atual": {
+    "arquivo": "siscebas_saude_20260930_ListaEntidadeSituacaoAtual.xls",
+    "colunas": [
+      "CNPJ REQUERENTE",
+      "NOME",
+      "UF",
+      "MUNICÍPIO",
+      "PROTOCOLO",
+      "ASSUNTO",
+      "DATA PROTOCOLO",
+      "CONDIÇÃO DE BENEFICÊNCIA",
+      "TIPO DE DECISÃO",
+      "NÚMERO DA PORTARIA",
+      "DATA DA PORTARIA",
+      "DATA DA PUBLICAÇÃO",
+      "DATA DE INÍCIO DA VIGÊNCIA",
+      "DATA FINAL DA VIGÊNCIA",
+      "CEBAS",
+      "SITUAÇÃO ATUAL",
+      "DATA ATUALIZAÇÃO"
+    ],
+    "linhas_requerimentos": 4458,
+    "cnpjs_unicos": 4458,
+    "cnpjs_com_cebas_sim": 1642,
+    "situacoes_top": [
+      [
+        "PUBLICADO INDEFERIDO",
+        1073
+      ],
+      [
+        "PUBLICADO DEFERIDO - VIGENTE",
+        734
+      ],
+      [
+        "TEMPESTIVO - REANÁLISE TÉCNICA (CGCER)",
+        477
+      ],
+      [
+        "CONCESSÃO - MEC / MDS (DIGAD)",
+        312
+      ],
+      [
+        "TEMPESTIVO - MEC / MDS (DIGAD)",
+        225
+      ],
+      [
+        "PUBLICADO INDEFERIDO COM RECURSO",
+        202
+      ],
+      [
+        "INTEMPESTIVO - MEC / MDS (DIGAD)",
+        152
+      ],
+      [
+        "PUBLICADO DEFERIDO EM GRAU DE RECONSIDERAÇÃO COM RECURSO - VIGENTE",
+        143
+      ],
+      [
+        "CONCESSÃO - EXPEDIDO MDS (DIGAD)",
+        140
+      ],
+      [
+        "PUBLICADO DEFERIDO - NÃO VIGENTE - SUPERVISÃO CANCELAMENTO",
+        72
+      ],
+      [
+        "TEMPESTIVO - MANIFESTAÇÃO MEC (DIGAD)",
+        64
+      ],
+      [
+        "CONCESSÃO - REANÁLISE TÉCNICA SEM RESPOSTA (CGCER)",
+        63
+      ],
+      [
+        "PUBLICADO DEFERIDO - NÃO VIGENTE",
+        57
+      ],
+      [
+        "TEMPESTIVO - EXPEDIDO MDS (DIGAD)",
+        48
+      ],
+      [
+        "CONCESSÃO - DELIBERAÇÃO SAES (DIGAD)",
+        48
+      ],
+      [
+        "CONCESSÃO - MANIFESTAÇÃO MEC (DIGAD)",
+        46
+      ],
+      [
+        "CONCESSÃO - SEM PUBLICAÇÃO (DIGAD)",
+        44
+      ],
+      [
+        "CONCESSÃO - DILIGÊNCIA (DIGAD)",
+        44
+      ],
+      [
+        "PUBLICADO DEFERIDO PRORROGAÇÃO PARÁGRAFO 1° ART 40 LC 187/2021 - VIGENTE",
+        39
+      ],
+      [
+        "PUBLICADO DEFERIDO PRORROGAÇÃO PARÁGRAFO 1° ART 40 LC 187/2021 - NÃO VIGENTE",
+        30
+      ]
+    ],
+    "cebas": [
+      [
+        "NÃO",
+        1871
+      ],
+      [
+        "SIM",
+        1642
+      ],
+      [
+        "ENCAMINHADO PARA OUTRO MINISTÉRIO",
+        945
+      ]
+    ],
+    "data_atualizacao": [
+      [
+        "30/09/2026",
+        4458
+      ]
+    ],
+    "publicacao_mais_recente": "2026-09-30",
+    "dou_ms_cnpjs": 287,
+    "dou_ms_na_lista": 287,
+    "dou_ms_por_tipo_na_lista": {
+      "CANCELAMENTO/N": "7/7",
+      "CONCESSAO/S": "18/18",
+      "INDEFERIMENTO/N": "86/86",
+      "OUTRO/-": "14/14",
+      "RECONSIDERACAO/S": "21/21",
+      "RENOVACAO/S": "141/141"
+    },
+    "dou_ms_ato_refletido_mesma_data_publicacao": 236,
+    "exemplos_t3": {
+      "50798453000183": [
+        {
+          "CNPJ REQUERENTE": "50.798.453/0001-83",
+          "NOME": "SANTA CASA DE MISERICORDIA DE CERQUILHO",
+          "UF": "SP",
+          "MUNICÍPIO": "CERQUILHO",
+          "PROTOCOLO": "25000.194125/2023-17 ",
+          "ASSUNTO": "REQUERIMENTO>>RENOVAÇÃO",
+          "DATA PROTOCOLO": "29/12/2023",
+          "CONDIÇÃO DE BENEFICÊNCIA": "MINIMO DE 60 AO SUS",
+          "TIPO DE DECISÃO": "DEFERIDO EM GRAU DE RECONSIDERAÇÃO",
+          "NÚMERO DA PORTARIA": 4683.0,
+          "DATA DA PORTARIA": "11/08/2026",
+          "DATA DA PUBLICAÇÃO": "14/08/2026",
+          "DATA DE INÍCIO DA VIGÊNCIA": "01/01/2024",
+          "DATA FINAL DA VIGÊNCIA": "31/12/2026",
+          "CEBAS": "SIM",
+          "SITUAÇÃO ATUAL": "PUBLICADO DEFERIDO EM GRAU DE RECONSIDERAÇÃO COM RECURSO - VIGENTE",
+          "DATA ATUALIZAÇÃO": "30/09/2026"
+        }
+      ],
+      "03163888000171": [
+        {
+          "CNPJ REQUERENTE": "03.163.888/0001-71",
+          "NOME": "SANTA CASA DE MISERICORDIA DE PARANAIBA",
+          "UF": "MS",
+          "MUNICÍPIO": "PARANAIBA",
+          "PROTOCOLO": "25000.086303/2024-18 ",
+          "ASSUNTO": "REQUERIMENTO>>RENOVAÇÃO",
+          "DATA PROTOCOLO": "12/06/2024",
+          "CONDIÇÃO DE BENEFICÊNCIA": "MINIMO DE 60 AO SUS",
+          "TIPO DE DECISÃO": "DEFERIDO",
+          "NÚMERO DA PORTARIA": 4597.0,
+          "DATA DA PORTARIA": "31/07/2026",
+          "DATA DA PUBLICAÇÃO": "04/08/2026",
+          "DATA DE INÍCIO DA VIGÊNCIA": "23/10/2024",
+          "DATA FINAL DA VIGÊNCIA": "21/10/2027",
+          "CEBAS": "SIM",
+          "SITUAÇÃO ATUAL": "PUBLICADO DEFERIDO - VIGENTE",
+          "DATA ATUALIZAÇÃO": "30/09/2026"
+        }
+      ]
+    }
+  },
+  "planilhas": {
+    "SAUDE": {
+      "arquivo": "1434-cebassaude.xlsx",
+      "aba": "TB_ENTIDADE_CEBAS",
+      "registros": 1641,
+      "colunas": [
+        "NU_CNPJ",
+        "NO_PESSOA",
+        "NO_FANTASIA",
+        "NO_REGIAO",
+        "SG_UF",
+        "CO_MUNICIPIO_IBGE",
+        "NO_MUNICIPIO",
+        "DS_SITUACAO_ATUAL",
+        "DT_INICIO_VIGENCIA",
+        "DT_FIM_VIGENCIA",
+        "ST_CEBAS",
+        "DT_INICIO_VALIDADE_ANTERIOR",
+        "DT_FIM_VALIDADE_ANTERIOR"
+      ],
+      "situacoes": [
+        [
+          "PUBLICADO DEFERIDO - VIGENTE",
+          827
+        ],
+        [
+          "PUBLICADO DEFERIDO PRORROGAÇÃO PARÁGRAFO 1° ART 40 LC 187/2021 - VIGENTE",
+          493
+        ],
+        [
+          "TEMPESTIVO - MANIFESTAÇÃO MEC (DIVAD)",
+          82
+        ],
+        [
+          "PUBLICADO DEFERIDO PRORROGAÇÃO PARÁGRAFO 1° ART 40 LC 187/2021 COM RECURSO - VIGENTE",
+          55
+        ],
+        [
+          "PUBLICADO DEFERIDO EM GRAU DE RECONSIDERAÇÃO COM RECURSO - VIGENTE",
+          40
+        ],
+        [
+          "TEMPESTIVO - ANÁLISE TÉCNICA (CGCER)",
+          39
+        ],
+        [
+          "PUBLICADO DEFERIDO COM RECURSO - VIGENTE",
+          34
+        ],
+        [
+          "TEMPESTIVO - APROVAÇÃO DO(A) COORDENADOR(A) (CGCER)",
+          18
+        ],
+        [
+          "PUBLICADO DEFERIDO PRORROGAÇÃO - VIGENTE",
+          8
+        ],
+        [
+          "PUBLICADO DEFERIDO SUB JUDICE - VIGENTE",
+          7
+        ],
+        [
+          "TEMPESTIVO - MANIFESTAÇÃO MDS (DIVAD)",
+          7
+        ],
+        [
+          "TEMPESTIVO - CIHA - CERTIFICAÇÃO ANÁLISE TÉCNICA (CGAGIC)",
+          7
+        ],
+        [
+          "PUBLICADO DEFERIDO SUB JUDICE COM RECURSO - VIGENTE",
+          6
+        ],
+        [
+          "TEMPESTIVO - SOBRESTADO - DECISÃO JUDICIAL (DIVAD)",
+          3
+        ],
+        [
+          "TEMPESTIVO - ANALISE TÉCNICA - ANTES DA LEI COMPLEMENTAR 187 (CGCER)",
+          3
+        ],
+        [
+          "PUBLICADO DEFERIDO PRORROGAÇÃO COM RECURSO - VIGENTE",
+          2
+        ],
+        [
+          "TEMPESTIVO - EXPEDIDO MDS (DIVAD)",
+          2
+        ],
+        [
+          "TEMPESTIVO - MANIFESTAÇÃO MEC/MDS (DIVAD)",
+          2
+        ],
+        [
+          "TEMPESTIVO - EXPEDIDO MEC (DIVAD)",
+          1
+        ],
+        [
+          "TEMPESTIVO - DELIBERAÇÃO SAES (DIVAD)",
+          1
+        ],
+        [
+          "TEMPESTIVO - PARA ASSINATURA COORDENADOR (CGAGIC)",
+          1
+        ],
+        [
+          "TEMPESTIVO - ANÁLISE PENDENTE - AG. ENVIO DE DOCUMENTO - TELEFONE E E-MAIL (CGCER)",
+          1
+        ],
+        [
+          "TEMPESTIVO - SOBRESTADO DECISÃO DO ANTERIOR (DIVAD)",
+          1
+        ],
+        [
+          "TEMPESTIVO - ENCAMINHAR OFÍCIO (CGCER)",
+          1
+        ]
+      ],
+      "st_cebas": [
+        [
+          "SIM",
+          1641
+        ]
+      ],
+      "datas": {
+        "DT_INICIO_VIGENCIA": {
+          "min": "2014-12-02",
+          "max": "2023-11-23",
+          "preenchidos": 1472
+        },
+        "DT_FIM_VIGENCIA": {
+          "min": "2023-11-30",
+          "max": "2027-08-29",
+          "preenchidos": 1472
+        }
+      },
+      "cnpjs_unicos": 1641
+    },
+    "ASSISTENCIA": {
+      "arquivo": "7684-cebassuas.xlsx",
+      "aba": "SITUAÇÃO CNPJ CEBAS (+ aba PRINCIPAL com processos)",
+      "registros": 6076,
+      "registros_processos": 30712,
+      "colunas": [
+        "PROTOCOLO",
+        "ENTIDADE",
+        "CNPJ",
+        "MUNICIPIO",
+        "UF",
+        "STATUS DE CERTIFICAÇÃO",
+        "DT_INICIO_CERTIFICACAO_ATUAL",
+        "DT_FIM_CERTIFICACAO_ATUAL"
+      ],
+      "colunas_processos": [
+        "PROTOCOLO",
+        "ENTIDADE",
+        "CNPJ",
+        "MUNICIPIO",
+        "UF",
+        "DT_PROTOCOLO",
+        "ORGAO_ORIGEM",
+        "DT_RECEBIMENTO_MDS",
+        "MOTIVO_RECEBIMENTO",
+        "TIPO_PROCESSO",
+        "DT_CERTIFICACAO_ANTERIOR_INICIO",
+        "DT_CERTIFICACAO_ANTERIOR_FIM",
+        "TEMPESTIVIDADE",
+        "DT_PUBLICACAO_CERTIFICACAO_ANTERIOR_DOU",
+        "ORGAO_CERTIFICACAO_ANTERIOR",
+        "ORGAO_ENCAMINHAMENTO",
+        "OFICIO_ENCAMINHAMENTO",
+        "DT_ENCAMINHAMENTO",
+        "MOTIVO_ENCAMINHAMENTO",
+        "DT_RETORNO_MDS",
+        "OFICIO_RETORNO",
+        "PORTARIAS_SNAS",
+        "DT_DECISAO_SNAS",
+        "DT_PUBLICACAO_PORTARIA_SNAS_DOU",
+        "ITEM_PORTARIA_DECISAO_SNAS",
+        "PROTOCOLO_RECURSO_SNAS",
+        "DT_PROTOCOLO_RECURSO_SNAS",
+        "PORTARIA_DECISAO_RECURSO_SNAS",
+        "DT_PORTARIA_RECONSIDERACAO_SNAS",
+        "DT_PUBLICACAO_DOU_RECONSIDERACAO_SNAS",
+        "PORTARIA_DECISAO_RECURSO_GM",
+        "DT_PORTARIA_DECISAO_RECURSO_GM",
+        "DT_PUBLICACAO_DOU_PORTARIA_DECISAO_RECURSO_GM",
+        "FASE_PROCESSO",
+        "DT_INICIO_CERTIFICACAO_ATUAL",
+        "DT_FIM_CERTIFICACAO_ATUAL"
+      ],
+      "situacoes": [
+        [
+          "VIGENTE",
+          5276
+        ],
+        [
+          "VÁLIDA",
+          800
+        ]
+      ],
+      "fases_processo": [
+        [
+          "DEFERIDO",
+          16838
+        ],
+        [
+          "ANÁLISE TÉCNICA",
+          3118
+        ],
+        [
+          "INDEFERIDO",
+          2770
+        ],
+        [
+          "ARQUIVAMENTO",
+          2430
+        ],
+        [
+          "FINALIZADO",
+          2247
+        ],
+        [
+          "ENCAMINHADO",
+          2220
+        ],
+        [
+          "EM DILIGÊNCIA",
+          540
+        ],
+        [
+          "AGUARDANDO DECISÃO ANTERIOR",
+          168
+        ],
+        [
+          "AGUARDANDO ANÁLISE DO RECURSO SNAS",
+          153
+        ],
+        [
+          "AGUARDANDO MANIFESTAÇÃO",
+          135
+        ],
+        [
+          "AGUARDANDO ANÁLISE DO RECURSO PELO MINISTRO",
+          47
+        ],
+        [
+          "CANCELADO",
+          31
+        ],
+        [
+          "MODULAÇÃO DOS EFEITOS",
+          15
+        ]
+      ],
+      "datas": {
+        "DT_INICIO_CERTIFICACAO_ATUAL": {
+          "min": "2009-12-30",
+          "max": "2024-09-06",
+          "preenchidos": 6076
+        },
+        "DT_FIM_CERTIFICACAO_ATUAL": {
+          "min": "2014-12-29",
+          "max": "2028-12-31",
+          "preenchidos": 6076
+        },
+        "DT_PROTOCOLO": {
+          "min": "2000-05-18",
+          "max": "2024-10-23",
+          "preenchidos": 30712
+        },
+        "DT_PUBLICACAO_PORTARIA_SNAS_DOU": {
+          "min": "2009-02-04",
+          "max": "2024-09-06",
+          "preenchidos": 19840
+        }
+      },
+      "cnpjs_unicos": 6076
+    },
+    "EDUCACAO": {
+      "arquivo": "8420-cebaseducacao.xlsx",
+      "aba": "SITUAÇÃO 2023",
+      "abas": [
+        "SITUAÇÃO 2023"
+      ],
+      "registros": 1330,
+      "colunas": [
+        "CNPJ",
+        "PROCESSO SEI",
+        "SITUAÇÃO DA CERTIFICAÇÃO",
+        "col3",
+        "Nº DA PORTARIA",
+        "DATA DA PORTARIA",
+        "DATA DA PUBLICAÇÃO",
+        "INICIO DA VALIDADE",
+        "FIM DA VALIDADE"
+      ],
+      "situacoes": [
+        [
+          "COM CEBAS",
+          1329
+        ],
+        [
+          "SEM CEBAS",
+          1
+        ]
+      ],
+      "datas": {
+        "DATA DA PORTARIA": {
+          "min": "2011-09-08",
+          "max": "2023-12-19",
+          "preenchidos": 1330
+        },
+        "DATA DA PUBLICAÇÃO": {
+          "min": "2011-09-09",
+          "max": "2023-12-20",
+          "preenchidos": 1330
+        },
+        "INICIO DA VALIDADE": {
+          "min": "2001-01-01",
+          "max": "2023-12-19",
+          "preenchidos": 1330
+        },
+        "FIM DA VALIDADE": {
+          "min": "2003-12-31",
+          "max": "2027-06-25",
+          "preenchidos": 1330
+        }
+      },
+      "cnpjs_unicos": 1329
+    }
+  },
+  "cobertura_dou_jun_ago_2026": {
+    "SAUDE": {
+      "cnpjs_dou": 287,
+      "na_planilha_do_mesmo_ministerio": 195,
+      "pct": 67.9,
+      "em_qualquer_planilha": 195,
+      "por_tipo_no_dou": {
+        "CANCELAMENTO/N": "7/7",
+        "CONCESSAO/S": "4/18",
+        "INDEFERIMENTO/N": "19/86",
+        "OUTRO/-": "8/14",
+        "RECONSIDERACAO/S": "17/21",
+        "RENOVACAO/S": "140/141"
+      }
+    },
+    "ASSISTENCIA": {
+      "cnpjs_dou": 957,
+      "na_planilha_do_mesmo_ministerio": 571,
+      "pct": 59.7,
+      "em_qualquer_planilha": 575,
+      "por_tipo_no_dou": {
+        "CONCESSAO/S": "0/109",
+        "INDEFERIMENTO/N": "178/442",
+        "OUTRO/-": "8/16",
+        "RECONSIDERACAO/S": "0/2",
+        "RENOVACAO/S": "385/388"
+      },
+      "na_aba_processos": 922
+    },
+    "EDUCACAO": {
+      "cnpjs_dou": 19,
+      "na_planilha_do_mesmo_ministerio": 3,
+      "pct": 15.8,
+      "em_qualquer_planilha": 10,
+      "por_tipo_no_dou": {
+        "CONCESSAO/S": "0/1",
+        "INDEFERIMENTO/N": "1/4",
+        "OUTRO/-": "2/10",
+        "RECONSIDERACAO/N": "0/1",
+        "RENOVACAO/S": "0/3"
+      }
+    }
+  },
+  "exemplos_t3_na_planilha_ms": {
+    "50798453000183": {
+      "NU_CNPJ": "50798453000183",
+      "NO_PESSOA": "SANTA CASA DE MISERICORDIA DE CERQUILHO",
+      "NO_FANTASIA": "NULL",
+      "NO_REGIAO": "SUDESTE",
+      "SG_UF": "SP",
+      "CO_MUNICIPIO_IBGE": 351150,
+      "NO_MUNICIPIO": "CERQUILHO",
+      "DS_SITUACAO_ATUAL": "PUBLICADO DEFERIDO PRORROGAÇÃO PARÁGRAFO 1° ART 40 LC 187/2021 - VIGENTE",
+      "DT_INICIO_VIGENCIA": "2019-11-10T00:00:00",
+      "DT_FIM_VIGENCIA": "2023-12-31T00:00:00",
+      "ST_CEBAS": "SIM",
+      "DT_INICIO_VALIDADE_ANTERIOR": "2016-11-10T00:00:00",
+      "DT_FIM_VALIDADE_ANTERIOR": "2019-11-09T00:00:00"
+    },
+    "03163888000171": {
+      "NU_CNPJ": "03163888000171",
+      "NO_PESSOA": "SANTA CASA DE MISERICORDIA DE PARANAIBA",
+      "NO_FANTASIA": "IRMANDADE DA SANTA CASA DE MISERICORDIA DE PARANAIBA",
+      "NO_REGIAO": "CENTRO-OESTE",
+      "SG_UF": "MS",
+      "CO_MUNICIPIO_IBGE": 500630,
+      "NO_MUNICIPIO": "PARANAIBA",
+      "DS_SITUACAO_ATUAL": "PUBLICADO DEFERIDO - VIGENTE",
+      "DT_INICIO_VIGENCIA": "2021-10-23T00:00:00",
+      "DT_FIM_VIGENCIA": "2024-10-22T00:00:00",
+      "ST_CEBAS": "SIM",
+      "DT_INICIO_VALIDADE_ANTERIOR": "2018-10-23T00:00:00",
+      "DT_FIM_VALIDADE_ANTERIOR": "2021-10-22T00:00:00"
+    }
+  }
+}

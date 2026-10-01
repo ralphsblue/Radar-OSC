@@ -1,0 +1,7 @@
+url=https://mapaosc.ipea.gov.br/api/docs
+final=https://mapaosc.ipea.gov.br/api/docs
+status=200
+tempo_s=1.07
+data=2026-09-30T22:02:08.484481
+sha256=36a183abf461c704dc05ceac1bbf8685b4c583192081879dd2e809c3889dea3d
+headers={'date': 'Thu, 01 Oct 2026 01:02:20 GMT', 'server': 'Apache/2.4.29 (Ubuntu)', 'content-security-policy': 'upgrade-insecure-requests;', 'cache-control': 'no-cache, private', 'access-control-allow-origin': '*', 'access-control-allow-methods': 'POST, GET, OPTIONS, PUT, DELETE', 'access-control-allow-credentials': 'true', 'access-control-max-age': '86400', 'access-control-allow-headers': 'Content-Type, Authorization, X-Requested-With, x-csrf-token', 'vary': 'Accept-Encoding', 'content-encoding': 'gzip', 'content-length': '6501', 'content-type': 'application/json', 'via': '1.1 mapaosc.ipea.gov.br', 'keep-alive': 'timeout=15, max=100', 'connection': 'Keep-Alive'}

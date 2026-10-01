@@ -1,0 +1,19 @@
+GET https://api.portaldatransparencia.gov.br/api-de-dados/ceis?codigoSancionado=19131243000197&pagina=1
+headers extras: {'chave-api-dados': '00000000000000000000000000000000'}
+HTTP 401 em 0.03s
+content-type: application/json
+transfer-encoding: chunked
+connection: keep-alive
+date: Thu, 01 Oct 2026 01:06:17 GMT
+strict-transport-security: max-age=31536000 ; includeSubDomains
+content-encoding: gzip
+cache-control: public, max-age=7200, must-revalidate
+vary: origin,access-control-request-method,access-control-request-headers,accept-encoding
+x-content-type-options: nosniff
+x-xss-protection: 1; mode=block
+x-cache: Error from cloudfront
+via: 1.1 9cedf3d2b4720a40f34ec5bb749a2d48.cloudfront.net (CloudFront)
+x-amz-cf-pop: GRU3-P13
+x-amz-cf-id: pszorDC9PzC1HgMxFqZ5BJH9xKyr-H95cx8EMAEe8y_GqXrkYjbqgA==
+
+{"Erro na API":"Chave de API inválida!"}

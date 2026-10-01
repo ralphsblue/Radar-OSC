@@ -1,0 +1,152 @@
+{
+ "cnpj": "03483568000107",
+ "id_osc": 604546,
+ "chamadas": [
+  {
+   "path": "busca/osc-autocomplete",
+   "params": {
+    "texto_busca": "03483568000107"
+   },
+   "status": 200,
+   "tempo_s": 15.93,
+   "bytes": 645,
+   "sha256": "a11432da376fa6e261b69ed4c2ab98115e568e0a0109a3303e99aa22a30511f5",
+   "data": "2026-09-30T22:11:55"
+  },
+  {
+   "path": "busca/cnpj/03483568000107",
+   "params": null,
+   "status": 200,
+   "tempo_s": 0.15,
+   "bytes": 2,
+   "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+   "data": "2026-09-30T22:11:57"
+  },
+  {
+   "path": "osc/604546",
+   "params": null,
+   "status": 200,
+   "tempo_s": 0.05,
+   "bytes": 742,
+   "sha256": "7ad0017df0a232bf3c35783a2d16f4627a1f5af431a904063854f88cbeb9461c",
+   "data": "2026-09-30T22:11:59"
+  },
+  {
+   "path": "osc/cabecalho/604546",
+   "params": null,
+   "status": 200,
+   "tempo_s": 0.06,
+   "bytes": 399,
+   "sha256": "370612bd4defb8758de8b1b3cf61da008257fcd065de85450f69e6a615302a2d",
+   "data": "2026-09-30T22:12:00"
+  },
+  {
+   "path": "osc/dados_gerais/604546",
+   "params": null,
+   "status": 200,
+   "tempo_s": 0.08,
+   "bytes": 1654,
+   "sha256": "c0fcb589078da837f48c8f02cb2409ed1696be523098d8c15f340d07bfd446b9",
+   "data": "2026-09-30T22:12:02"
+  },
+  {
+   "path": "osc/indice_preenchimento/604546",
+   "params": null,
+   "status": 200,
+   "tempo_s": 0.12,
+   "bytes": 636,
+   "sha256": "aeb44ab9115093f3063de4b2c2bdfb49dd7b7b6bd4426fa22adcf7c5595ba634",
+   "data": "2026-09-30T22:12:03"
+  },
+  {
+   "path": "osc/areas_atuacao/604546",
+   "params": null,
+   "status": 200,
+   "tempo_s": 0.05,
+   "bytes": 377,
+   "sha256": "24a265f057ab99491add05831fcd46ef6947e202d7ccf9469c3f05c89f8b9a70",
+   "data": "2026-09-30T22:12:05"
+  },
+  {
+   "path": "osc/areas_atuacao_rep/604546",
+   "params": null,
+   "status": 200,
+   "tempo_s": 0.05,
+   "bytes": 2,
+   "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+   "data": "2026-09-30T22:12:07"
+  },
+  {
+   "path": "osc/descricao/604546",
+   "params": null,
+   "status": 200,
+   "tempo_s": 0.05,
+   "bytes": 141,
+   "sha256": "25519fa2dd776d521c4352c2988500990fd024b7589cf48683f2e6e3f0e0ffa9",
+   "data": "2026-09-30T22:12:08"
+  },
+  {
+   "path": "osc/certificados/604546",
+   "params": null,
+   "status": 200,
+   "tempo_s": 0.05,
+   "bytes": 448,
+   "sha256": "e6a01c6508fd8c4387e3013c652b06406d226c779ab424a68056ffc163898afe",
+   "data": "2026-09-30T22:12:10"
+  },
+  {
+   "path": "osc/rel_trabalho_e_governanca/604546",
+   "params": null,
+   "status": 200,
+   "tempo_s": 0.05,
+   "bytes": 416,
+   "sha256": "468aa244ecfd62ab7b1a9aa39896bf4af298f8cc2643a335afa1f3c85251895d",
+   "data": "2026-09-30T22:12:11"
+  },
+  {
+   "path": "osc/participacao_social/604546",
+   "params": null,
+   "status": 200,
+   "tempo_s": 0.07,
+   "bytes": 112,
+   "sha256": "3155c66ee70772f5b8c7eb03ad24f36f05e54bb2de72722b29560d0763eeff08",
+   "data": "2026-09-30T22:12:13"
+  },
+  {
+   "path": "osc/projetos/604546",
+   "params": null,
+   "status": 200,
+   "tempo_s": 0.06,
+   "bytes": 157,
+   "sha256": "015dd41ee9e6ae528ba0f9ffb7875ddbbcbe46b403b3c2d74ba76b50d52e820b",
+   "data": "2026-09-30T22:12:14"
+  },
+  {
+   "path": "osc/anos_recursos/604546",
+   "params": null,
+   "status": 200,
+   "tempo_s": 0.06,
+   "bytes": 2,
+   "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+   "data": "2026-09-30T22:12:16"
+  },
+  {
+   "path": "osc/quadro-societario-por-osc/604546",
+   "params": null,
+   "status": 200,
+   "tempo_s": 0.5,
+   "bytes": 597,
+   "sha256": "4cbcbdd4d08f1bb57c3195e27e42e693e60c566b8cbfbc80272735d24a651237",
+   "data": "2026-09-30T22:12:18"
+  },
+  {
+   "path": "osc/popup/604546",
+   "params": null,
+   "status": 200,
+   "tempo_s": 0.05,
+   "bytes": 337,
+   "sha256": "1003689e2f1c7df0437c532e1be5347ef1a2e6066c389458a5afcc966d9bd988",
+   "data": "2026-09-30T22:12:19"
+  }
+ ]
+}

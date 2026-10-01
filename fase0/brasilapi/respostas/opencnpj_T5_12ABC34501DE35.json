@@ -1,0 +1,18 @@
+{
+  "caso": "T5",
+  "cnpj_consultado": "12ABC34501DE35",
+  "fonte": "opencnpj",
+  "url": "https://api.opencnpj.org/12ABC34501DE35",
+  "consultado_em": "2026-10-01T01:07:04+00:00",
+  "http": 404,
+  "ms": 248,
+  "headers_relevantes": {
+    "content-type": "application/json; charset=utf-8",
+    "cf-cache-status": "BYPASS",
+    "cache-control": "no-store",
+    "server": "cloudflare"
+  },
+  "corpo": {
+    "error": "not found"
+  }
+}

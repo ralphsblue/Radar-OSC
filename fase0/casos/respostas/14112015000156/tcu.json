@@ -1,0 +1,60 @@
+{
+ "meta": {
+  "url": "https://certidoes-apf.apps.tcu.gov.br/api/rest/publico/certidoes/14112015000156?seEmitirPDF=false",
+  "data_utc": "2026-10-01T03:10:06.136599+00:00",
+  "status": 200,
+  "sha256": "098d11191978478760138793125290e3eddb880f06ede67e612956c927123b61",
+  "tempo_ms": 5858
+ },
+ "corpo": {
+  "certidaoPDF": null,
+  "certidoes": [
+   {
+    "dataHoraEmissao": "01/10/2026 00:10",
+    "descricao": "Licitantes Inidôneos",
+    "emissor": "TCU",
+    "linkConsultaManual": "https://certidoes.apps.tcu.gov.br/lista-inidoneos",
+    "observacao": null,
+    "situacao": "NADA_CONSTA",
+    "tempoGeracao": 21,
+    "tipo": "Inidôneos"
+   },
+   {
+    "dataHoraEmissao": "01/10/2026 00:10",
+    "descricao": "CNIA - Cadastro Nacional de Condenações Cíveis por Ato de Improbidade Administrativa e Inelegibilidade",
+    "emissor": "CNJ",
+    "linkConsultaManual": "http://www.cnj.jus.br/improbidade_adm/consultar_requerido.php",
+    "observacao": null,
+    "situacao": "NADA_CONSTA",
+    "tempoGeracao": 161,
+    "tipo": "CNIA"
+   },
+   {
+    "dataHoraEmissao": "01/10/2026 00:10",
+    "descricao": "Cadastro Nacional de Empresas Inidôneas e Suspensas",
+    "emissor": "Portal da Transparência",
+    "linkConsultaManual": "http://www.portaltransparencia.gov.br/sancoes/ceis",
+    "observacao": null,
+    "situacao": "NADA_CONSTA",
+    "tempoGeracao": 240,
+    "tipo": "CEIS"
+   },
+   {
+    "dataHoraEmissao": "01/10/2026 00:10",
+    "descricao": "CNEP - Cadastro Nacional de Empresas Punidas",
+    "emissor": "Portal da Transparência",
+    "linkConsultaManual": "http://www.portaltransparencia.gov.br/sancoes/cnep",
+    "observacao": null,
+    "situacao": "NADA_CONSTA",
+    "tempoGeracao": 187,
+    "tipo": "CNEP"
+   }
+  ],
+  "cnpj": "14.112.015/0001-56",
+  "dataHoraGeracaoInMillis": 1790824212350,
+  "nomeFantasia": null,
+  "razaoSocial": "ASSOCIACAO DOS PAIS DE BOM JESUS DO TOCANTINS",
+  "seCnpjEncontradoNaBaseTcu": true,
+  "uf": null
+ }
+}

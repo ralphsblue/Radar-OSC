@@ -1,0 +1,17 @@
+{
+ "meta": {
+  "url": "https://mapaosc.ipea.gov.br/api/api/osc/descricao/955838",
+  "data_utc": "2026-10-01T03:12:59.197143+00:00",
+  "status": 200,
+  "sha256": "a7805f5b22d261cdea98fdb6594b8428da44d216f1268fdc81d62d56b36329e3",
+  "tempo_ms": 45
+ },
+ "corpo": {
+  "id_osc": 955838,
+  "tx_finalidades_estatutarias": null,
+  "tx_historico": null,
+  "tx_link_estatuto_osc": null,
+  "tx_missao_osc": null,
+  "tx_visao_osc": null
+ }
+}

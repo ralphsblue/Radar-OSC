@@ -1,0 +1,85 @@
+{
+ "meta": {
+  "url": "https://api.opencnpj.org/77537843000156",
+  "data_utc": "2026-10-01T03:16:48.102488+00:00",
+  "status": 200,
+  "sha256": "a95ba5754eb0e2f37e02a5d1918903f694ed4e35fb3e6581fda796d87e5876e1",
+  "tempo_ms": 367
+ },
+ "corpo": {
+  "cnpj": "77537843000156",
+  "razao_social": "ASSOCIACAO COMERCIAL, INDUSTRIAL, AGRICOLA E DE PRESTACAO DE SERVICOS DE S.J.P.",
+  "nome_fantasia": "ASSOCIACAO COMERCIAL",
+  "situacao_cadastral": "Ativa",
+  "data_situacao_cadastral": "2000-12-09",
+  "matriz_filial": "Matriz",
+  "data_inicio_atividade": "1977-09-09",
+  "cnae_principal": "9411100",
+  "cnaes_secundarios": [],
+  "cnaes": [
+   {
+    "codigo": "9411100",
+    "descricao": "Atividades de organizações associativas patronais e empresariais",
+    "is_principal": true
+   }
+  ],
+  "natureza_juridica": "Associação Privada",
+  "tipo_logradouro": "",
+  "logradouro": "JOAQUIM NABUCO",
+  "numero": "1869",
+  "complemento": "",
+  "bairro": "CENTRO",
+  "cep": "83040210",
+  "uf": "PR",
+  "municipio": "SAO JOSE DOS PINHAIS",
+  "codigo_municipio": "7885",
+  "email": "",
+  "telefones": [],
+  "capital_social": "0,00",
+  "qualificacao_responsavel": {
+   "codigo": "16",
+   "descricao": "Presidente"
+  },
+  "ente_federativo": "",
+  "porte_empresa": "Demais",
+  "opcao_simples": "",
+  "data_opcao_simples": "",
+  "data_exclusao_simples": "",
+  "opcao_mei": "",
+  "data_opcao_mei": "",
+  "data_exclusao_mei": "",
+  "motivo_situacao_cadastral": {
+   "codigo": "00",
+   "descricao": "SEM MOTIVO"
+  },
+  "nome_cidade_exterior": "",
+  "codigo_pais": "",
+  "pais": {
+   "codigo": "",
+   "descricao": ""
+  },
+  "situacao_especial": "",
+  "data_situacao_especial": "",
+  "QSA": [
+   {
+    "nome_socio": "SOLANGE APARECIDA LEAL PADILHA GIBRIM",
+    "cnpj_cpf_socio": "***043099**",
+    "qualificacao_socio": "Presidente",
+    "data_entrada_sociedade": "2022-12-22",
+    "identificador_socio": "Pessoa Física",
+    "codigo_pais": "",
+    "pais": {
+     "codigo": "",
+     "descricao": ""
+    },
+    "representante_legal": "***000000**",
+    "nome_representante": "",
+    "qualificacao_representante": {
+     "codigo": "00",
+     "descricao": "Não informada"
+    },
+    "faixa_etaria": "51 a 60 anos"
+   }
+  ]
+ }
+}

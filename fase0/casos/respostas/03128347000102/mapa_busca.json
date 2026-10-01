@@ -1,0 +1,34 @@
+{
+ "meta": {
+  "url": "https://mapaosc.ipea.gov.br/api/api/busca/cnpj/3128347000102",
+  "data_utc": "2026-10-01T03:07:42.201657+00:00",
+  "status": 200,
+  "sha256": "6f57cdebdaddaa64463e6cdb6be682c0d5e1724c960c634d235bc8212e670c0e",
+  "tempo_ms": 254
+ },
+ "corpo": [
+  {
+   "id_osc": 1191914,
+   "cd_identificador_osc": "3128347000102",
+   "cd_situacao_cadastral": 2,
+   "tx_nome_osc": "IGREJA BATISTA JERUSALEM",
+   "tx_razao_social_osc": "IGREJA BATISTA JERUSALEM",
+   "tx_nome_fantasia_osc": null,
+   "document": "'batist':2A 'igrej':1A 'jerusal':3A",
+   "tx_nome_natureza_juridica_osc": "Associação Privada",
+   "dt_fundacao_osc": "1999-05-05",
+   "cd_situacao_imovel_osc": null,
+   "cd_municipio": "2112233",
+   "tx_nome_municipio": "Trizidela do Vale",
+   "cd_uf": "21",
+   "tx_sigla_uf": "MA",
+   "tx_nome_uf": "Maranhão",
+   "cd_regiao": "2",
+   "tx_nome_regiao": "Nordeste",
+   "total_trabalhadores": 0,
+   "nr_trabalhadores_vinculo": null,
+   "nr_trabalhadores_deficiencia": null,
+   "nr_trabalhadores_voluntarios": null
+  }
+ ]
+}

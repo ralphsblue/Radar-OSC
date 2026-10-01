@@ -1,0 +1,60 @@
+{
+ "meta": {
+  "url": "https://certidoes-apf.apps.tcu.gov.br/api/rest/publico/certidoes/44551605000146?seEmitirPDF=false",
+  "data_utc": "2026-10-01T03:12:27.798466+00:00",
+  "status": 200,
+  "sha256": "73de097c2e079d61a9097bfb0a0801d2203a9fcfa9c8be201b3032f9e8562234",
+  "tempo_ms": 5782
+ },
+ "corpo": {
+  "certidaoPDF": null,
+  "certidoes": [
+   {
+    "dataHoraEmissao": "01/10/2026 00:12",
+    "descricao": "Licitantes Inidôneos",
+    "emissor": "TCU",
+    "linkConsultaManual": "https://certidoes.apps.tcu.gov.br/lista-inidoneos",
+    "observacao": null,
+    "situacao": "NADA_CONSTA",
+    "tempoGeracao": 18,
+    "tipo": "Inidôneos"
+   },
+   {
+    "dataHoraEmissao": "01/10/2026 00:12",
+    "descricao": "CNIA - Cadastro Nacional de Condenações Cíveis por Ato de Improbidade Administrativa e Inelegibilidade",
+    "emissor": "CNJ",
+    "linkConsultaManual": "http://www.cnj.jus.br/improbidade_adm/consultar_requerido.php",
+    "observacao": null,
+    "situacao": "NADA_CONSTA",
+    "tempoGeracao": 158,
+    "tipo": "CNIA"
+   },
+   {
+    "dataHoraEmissao": "01/10/2026 00:12",
+    "descricao": "Cadastro Nacional de Empresas Inidôneas e Suspensas",
+    "emissor": "Portal da Transparência",
+    "linkConsultaManual": "http://www.portaltransparencia.gov.br/sancoes/ceis",
+    "observacao": null,
+    "situacao": "NADA_CONSTA",
+    "tempoGeracao": 239,
+    "tipo": "CEIS"
+   },
+   {
+    "dataHoraEmissao": "01/10/2026 00:12",
+    "descricao": "CNEP - Cadastro Nacional de Empresas Punidas",
+    "emissor": "Portal da Transparência",
+    "linkConsultaManual": "http://www.portaltransparencia.gov.br/sancoes/cnep",
+    "observacao": null,
+    "situacao": "NADA_CONSTA",
+    "tempoGeracao": 143,
+    "tipo": "CNEP"
+   }
+  ],
+  "cnpj": "44.551.605/0001-46",
+  "dataHoraGeracaoInMillis": 1790824353933,
+  "nomeFantasia": null,
+  "razaoSocial": "INSTITUTO GLOBAL GESTAO EM MEDICINA E SAUDE",
+  "seCnpjEncontradoNaBaseTcu": true,
+  "uf": null
+ }
+}

@@ -1,0 +1,34 @@
+{
+ "meta": {
+  "url": "https://mapaosc.ipea.gov.br/api/api/busca/cnpj/688001000170",
+  "data_utc": "2026-10-01T03:10:20.375122+00:00",
+  "status": 200,
+  "sha256": "1f3112b2ef393d4999277c5441fbb97674613e50d2399298c6d5835a0829e3bf",
+  "tempo_ms": 241
+ },
+ "corpo": [
+  {
+   "id_osc": 962662,
+   "cd_identificador_osc": "688001000170",
+   "cd_situacao_cadastral": 2,
+   "tx_nome_osc": "ASSOCIACAO DE MULHERES DE TAIPAS",
+   "tx_razao_social_osc": "ASSOCIACAO DE MULHERES DE TAIPAS",
+   "tx_nome_fantasia_osc": null,
+   "document": "'associaca':1A 'mulh':3A 'taip':5A",
+   "tx_nome_natureza_juridica_osc": "Associação Privada",
+   "dt_fundacao_osc": "1995-07-06",
+   "cd_situacao_imovel_osc": null,
+   "cd_municipio": "3550308",
+   "tx_nome_municipio": "São Paulo",
+   "cd_uf": "35",
+   "tx_sigla_uf": "SP",
+   "tx_nome_uf": "São Paulo",
+   "cd_regiao": "3",
+   "tx_nome_regiao": "Sudeste",
+   "total_trabalhadores": 0,
+   "nr_trabalhadores_vinculo": null,
+   "nr_trabalhadores_deficiencia": null,
+   "nr_trabalhadores_voluntarios": null
+  }
+ ]
+}

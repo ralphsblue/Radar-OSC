@@ -1,0 +1,30 @@
+{
+  "url": "https://certidoes-apf.apps.tcu.gov.br/api/publico/url-pesquisa-integrada",
+  "metodo": "GET",
+  "headers_enviados": {
+    "host": "certidoes-apf.apps.tcu.gov.br",
+    "accept": "*/*",
+    "accept-encoding": "gzip, deflate",
+    "connection": "keep-alive",
+    "user-agent": "validador-osc-ifsp/0.1 (projeto academico de extensao)",
+    "cookie": "TS012f1624=01615f296d1e2bf64f45263c0660163cccd9a6c4ef51b904f1db4660157ac48de16ed04c5fd3213b90ea7e03a578212edea823001f"
+  },
+  "status": 200,
+  "headers_resposta": {
+    "date": "Thu, 01 Oct 2026 01:07:16 GMT",
+    "content-type": "text/plain;charset=UTF-8",
+    "content-length": "53",
+    "x-content-type-options": "nosniff",
+    "x-xss-protection": "0",
+    "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+    "pragma": "no-cache",
+    "expires": "0",
+    "strict-transport-security": "max-age=31536000; includeSubDomains",
+    "x-frame-options": "DENY",
+    "keep-alive": "timeout=15, max=2047",
+    "connection": "Keep-Alive"
+  },
+  "tempo_s": 0.038,
+  "data_utc": "2026-10-01T01:07:15.995166+00:00",
+  "sha256": "900f9ac3ad999375ec25f3fe59beb8eab78302aad12d640f3de1daa43d6b8102"
+}

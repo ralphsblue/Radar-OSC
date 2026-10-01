@@ -1,0 +1,67 @@
+{
+  "caso": "T3_cnep_ilumina",
+  "url": "https://api.portaldatransparencia.gov.br/api-de-dados/cnep",
+  "params": {
+    "pagina": 1,
+    "codigoSancionado": "08928169000118"
+  },
+  "http": 200,
+  "ms": 99,
+  "headers_resposta": {
+    "content-type": "application/json",
+    "cache-control": "public, max-age=7200, must-revalidate"
+  },
+  "corpo": [
+    {
+      "id": 280233,
+      "dataReferencia": "30/09/2026",
+      "dataInicioSancao": "10/01/2023",
+      "dataFimSancao": "Sem informação",
+      "dataPublicacaoSancao": "23/12/2022",
+      "dataTransitadoJulgado": "Sem informação",
+      "dataOrigemInformacao": "27/02/2023",
+      "tipoSancao": {
+        "descricaoResumida": "Multa",
+        "descricaoPortal": "Multa"
+      },
+      "fonteSancao": {
+        "nomeExibicao": "Controladoria-Geral do Município de São Paulo - SP",
+        "telefoneContato": "(11) 3113-8234",
+        "enderecoContato": "Viaduto do Chá, nº 15 - 10º andar, São Paulo - SP, CEP: 01020-900"
+      },
+      "fundamentacao": [
+        {
+          "codigo": "LEI 12846 - ART. 6º, I - MULTA, NO VALOR DE 0,1% (UM DÉCIMO POR CENTO) A 20% (VINTE POR CENTO) DO FATURAMENTO BRUTO DO ÚLTIMO EXERCÍCIO ANTERIOR AO DA INSTAURAÇÃO DO PROCESSO ADMINISTRATIVO, EXCLUÍDOS OS TRIBUTOS, A QUAL NUNCA SERÁ INFERIOR À VANTAGEM AUFERIDA, QUANDO FOR POSSÍVEL SUA ESTIMAÇÃO",
+          "descricao": "LEI 12846 - ART. 6º, I - MULTA, NO VALOR DE 0,1% (UM DÉCIMO POR CENTO) A 20% (VINTE POR CENTO) DO FATURAMENTO BRUTO DO ÚLTIMO EXERCÍCIO ANTERIOR AO DA INSTAURAÇÃO DO PROCESSO ADMINISTRATIVO, EXCLUÍDOS OS TRIBUTOS, A QUAL NUNCA SERÁ INFERIOR À VANTAGEM AUFERIDA, QUANDO FOR POSSÍVEL SUA ESTIMAÇÃO"
+        }
+      ],
+      "orgaoSancionador": {
+        "nome": "Controladoria-Geral do Município de São Paulo - SP",
+        "siglaUf": "SP",
+        "poder": "Executivo",
+        "esfera": "MUNICIPAL"
+      },
+      "sancionado": {
+        "nome": "INSTITUTO ILUMINA TERRA AÇÃO PARA DESENVOLVIMENTO SOCIAL",
+        "codigoFormatado": "08.928.169/0001-18"
+      },
+      "valorMulta": "6.000,00",
+      "pessoa": {
+        "id": 563320036,
+        "cpfFormatado": "",
+        "cnpjFormatado": "08.928.169/0001-18",
+        "numeroInscricaoSocial": "",
+        "nome": "INSTITUTO ILUMINA TERRA ACAO PARA DESENVOLVIMENTO SOCIAL",
+        "razaoSocialReceita": "INSTITUTO ILUMINA TERRA ACAO PARA DESENVOLVIMENTO SOCIAL",
+        "nomeFantasiaReceita": "ILUMINA TERRA",
+        "tipo": "Entidades Sem Fins Lucrativos"
+      },
+      "textoPublicacao": "Diário Oficial do Município Seção Secretarias Pagina 37",
+      "linkPublicacao": "",
+      "detalhamentoPublicacao": "",
+      "numeroProcesso": "6067.2019/0025524-5",
+      "abrangenciaDefinidaDecisaoJudicial": "Em todos os Poderes da Esfera do órgão sancionador",
+      "informacoesAdicionaisDoOrgaoSancionador": ""
+    }
+  ]
+}

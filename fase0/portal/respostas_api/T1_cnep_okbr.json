@@ -1,0 +1,15 @@
+{
+  "caso": "T1_cnep_okbr",
+  "url": "https://api.portaldatransparencia.gov.br/api-de-dados/cnep",
+  "params": {
+    "pagina": 1,
+    "codigoSancionado": "19131243000197"
+  },
+  "http": 200,
+  "ms": 87,
+  "headers_resposta": {
+    "content-type": "application/json",
+    "cache-control": "public, max-age=7200, must-revalidate"
+  },
+  "corpo": []
+}

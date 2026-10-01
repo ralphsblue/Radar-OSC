@@ -1,0 +1,60 @@
+{
+ "meta": {
+  "url": "https://certidoes-apf.apps.tcu.gov.br/api/rest/publico/certidoes/01081476000167?seEmitirPDF=false",
+  "data_utc": "2026-10-01T03:24:02.916149+00:00",
+  "status": 200,
+  "sha256": "69b33cf6b6f5ba9ac3c26affef979006f8cd8767fe4cf40655ee9eb6055ee12b",
+  "tempo_ms": 5792
+ },
+ "corpo": {
+  "certidaoPDF": null,
+  "certidoes": [
+   {
+    "dataHoraEmissao": "01/10/2026 00:24",
+    "descricao": "Licitantes Inidôneos",
+    "emissor": "TCU",
+    "linkConsultaManual": "https://certidoes.apps.tcu.gov.br/lista-inidoneos",
+    "observacao": null,
+    "situacao": "NADA_CONSTA",
+    "tempoGeracao": 24,
+    "tipo": "Inidôneos"
+   },
+   {
+    "dataHoraEmissao": "01/10/2026 00:24",
+    "descricao": "CNIA - Cadastro Nacional de Condenações Cíveis por Ato de Improbidade Administrativa e Inelegibilidade",
+    "emissor": "CNJ",
+    "linkConsultaManual": "http://www.cnj.jus.br/improbidade_adm/consultar_requerido.php",
+    "observacao": "Existe(m) o(s) processo(s) a seguir para a empresa consultada: 00011059620134058304",
+    "situacao": "CONSTAM_REGISTROS",
+    "tempoGeracao": 137,
+    "tipo": "CNIA"
+   },
+   {
+    "dataHoraEmissao": "01/10/2026 00:24",
+    "descricao": "Cadastro Nacional de Empresas Inidôneas e Suspensas",
+    "emissor": "Portal da Transparência",
+    "linkConsultaManual": "http://www.portaltransparencia.gov.br/sancoes/ceis",
+    "observacao": "Impedimento/proibição de contratar com prazo determinado (16/12/2031) - 1º Grau - TRF5 / Seção Judiciária de Pernambuco / Varas / Juízo / 20ª VARA FEDERAL - SALGUEIRO/PE",
+    "situacao": "CONSTAM_REGISTROS",
+    "tempoGeracao": 248,
+    "tipo": "CEIS"
+   },
+   {
+    "dataHoraEmissao": "01/10/2026 00:24",
+    "descricao": "CNEP - Cadastro Nacional de Empresas Punidas",
+    "emissor": "Portal da Transparência",
+    "linkConsultaManual": "http://www.portaltransparencia.gov.br/sancoes/cnep",
+    "observacao": null,
+    "situacao": "NADA_CONSTA",
+    "tempoGeracao": 137,
+    "tipo": "CNEP"
+   }
+  ],
+  "cnpj": "01.081.476/0001-67",
+  "dataHoraGeracaoInMillis": 1790825049057,
+  "nomeFantasia": null,
+  "razaoSocial": "ASSOCIAÇAO MUSICAL 10 DE AGOSTO",
+  "seCnpjEncontradoNaBaseTcu": true,
+  "uf": null
+ }
+}

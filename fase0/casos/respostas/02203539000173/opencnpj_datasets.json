@@ -1,0 +1,25 @@
+{
+ "meta": {
+  "url": "https://api.opencnpj.org/02203539000173?datasets=ceis,cepim,cnep",
+  "data_utc": "2026-10-01T03:22:54.590825+00:00",
+  "status": 200,
+  "sha256": "2b3c92f80645ef85d97b91936062ba70b813e0f6945898e9f72e2f029a95ccc1",
+  "tempo_ms": 733
+ },
+ "corpo": {
+  "ceis": null,
+  "cepim": {
+   "cnpj": "02203539000173",
+   "updated_at": "2026-09-30T13:35:47.0000000+00:00",
+   "impedimentos": [
+    {
+     "nome_entidade": "FUNDACAO ASSIS GURGACZ",
+     "numero_convenio": "522242",
+     "orgao_concedente": "Ministério das Comunicações - Unidades com vínculo direto",
+     "motivo": "INSTAURACAO DE TOMADA DE CONTAS ESPECIAL"
+    }
+   ]
+  },
+  "cnep": null
+ }
+}

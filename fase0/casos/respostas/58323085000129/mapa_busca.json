@@ -1,0 +1,34 @@
+{
+ "meta": {
+  "url": "https://mapaosc.ipea.gov.br/api/api/busca/cnpj/58323085000129",
+  "data_utc": "2026-10-01T03:08:46.552667+00:00",
+  "status": 200,
+  "sha256": "539e71a6b2b425702b10a5215f6444591ae60d1715a6832c25623bb89f86559c",
+  "tempo_ms": 237
+ },
+ "corpo": [
+  {
+   "id_osc": 1441050,
+   "cd_identificador_osc": "58323085000129",
+   "cd_situacao_cadastral": 2,
+   "tx_nome_osc": "CASA DE ACOLHIMENTO VILA AVIVA",
+   "tx_razao_social_osc": "CASA DE ACOLHIMENTO VILA AVIVA",
+   "tx_nome_fantasia_osc": "CASA DE ACOLHIMENTO VILA AVIVA",
+   "document": "'acolh':3A,8B 'aviv':5A,10B 'cas':1A,6B 'vil':4A,9B",
+   "tx_nome_natureza_juridica_osc": "Associação Privada",
+   "dt_fundacao_osc": "2024-11-01",
+   "cd_situacao_imovel_osc": null,
+   "cd_municipio": "1502400",
+   "tx_nome_municipio": "Castanhal",
+   "cd_uf": "15",
+   "tx_sigla_uf": "PA",
+   "tx_nome_uf": "Pará",
+   "cd_regiao": "1",
+   "tx_nome_regiao": "Norte",
+   "total_trabalhadores": 0,
+   "nr_trabalhadores_vinculo": null,
+   "nr_trabalhadores_deficiencia": null,
+   "nr_trabalhadores_voluntarios": null
+  }
+ ]
+}

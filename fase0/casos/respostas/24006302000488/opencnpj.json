@@ -1,0 +1,243 @@
+{
+ "meta": {
+  "url": "https://api.opencnpj.org/24006302000488",
+  "data_utc": "2026-10-01T03:23:15.885028+00:00",
+  "status": 200,
+  "sha256": "ad711534cd2c15207e4396838307316c475b3c14e38143d5f7b07089f8b286eb",
+  "tempo_ms": 60
+ },
+ "corpo": {
+  "cnpj": "24006302000488",
+  "razao_social": "INSTITUTO DE DESENVOLVIMENTO, ENSINO E ASSISTENCIA A SAUDE - IDEAS",
+  "nome_fantasia": "INSTITUTO IDEAS",
+  "situacao_cadastral": "Ativa",
+  "data_situacao_cadastral": "2018-01-19",
+  "matriz_filial": "Matriz",
+  "data_inicio_atividade": "2018-01-19",
+  "cnae_principal": "8660700",
+  "cnaes_secundarios": [
+   "7490199",
+   "7810800",
+   "7820500",
+   "7830200",
+   "8111700",
+   "8121400",
+   "8129000",
+   "8211300",
+   "8550302",
+   "8599699",
+   "8610101",
+   "8610102",
+   "8630501",
+   "8630502",
+   "8630503",
+   "8630504",
+   "8630599",
+   "8640210",
+   "8650001",
+   "8690901",
+   "8690999",
+   "9499500"
+  ],
+  "cnaes": [
+   {
+    "codigo": "8660700",
+    "descricao": "Atividades de apoio à gestão de saúde",
+    "is_principal": true
+   },
+   {
+    "codigo": "7490199",
+    "descricao": "Outras atividades profissionais, científicas e técnicas não especificadas anteriormente",
+    "is_principal": false
+   },
+   {
+    "codigo": "7810800",
+    "descricao": "Seleção e agenciamento de mão-de-obra",
+    "is_principal": false
+   },
+   {
+    "codigo": "7820500",
+    "descricao": "Locação de mão-de-obra temporária",
+    "is_principal": false
+   },
+   {
+    "codigo": "7830200",
+    "descricao": "Fornecimento e gestão de recursos humanos para terceiros",
+    "is_principal": false
+   },
+   {
+    "codigo": "8111700",
+    "descricao": "Serviços combinados para apoio a edifícios, exceto condomínios prediais",
+    "is_principal": false
+   },
+   {
+    "codigo": "8121400",
+    "descricao": "Limpeza em prédios e em domicílios",
+    "is_principal": false
+   },
+   {
+    "codigo": "8129000",
+    "descricao": "Atividades de limpeza não especificadas anteriormente",
+    "is_principal": false
+   },
+   {
+    "codigo": "8211300",
+    "descricao": "Serviços combinados de escritório e apoio administrativo",
+    "is_principal": false
+   },
+   {
+    "codigo": "8550302",
+    "descricao": "Atividades de apoio à educação, exceto caixas escolares",
+    "is_principal": false
+   },
+   {
+    "codigo": "8599699",
+    "descricao": "Outras atividades de ensino não especificadas anteriormente",
+    "is_principal": false
+   },
+   {
+    "codigo": "8610101",
+    "descricao": "Atividades de atendimento hospitalar, exceto pronto-socorro e unidades para atendimento a urgências",
+    "is_principal": false
+   },
+   {
+    "codigo": "8610102",
+    "descricao": "Atividades de atendimento em pronto-socorro e unidades hospitalares para atendimento a urgências",
+    "is_principal": false
+   },
+   {
+    "codigo": "8630501",
+    "descricao": "Atividade médica ambulatorial com recursos para realização de procedimentos cirúrgicos",
+    "is_principal": false
+   },
+   {
+    "codigo": "8630502",
+    "descricao": "Atividade médica ambulatorial com recursos para realização de exames complementares",
+    "is_principal": false
+   },
+   {
+    "codigo": "8630503",
+    "descricao": "Atividade médica ambulatorial restrita a consultas",
+    "is_principal": false
+   },
+   {
+    "codigo": "8630504",
+    "descricao": "Atividade odontológica",
+    "is_principal": false
+   },
+   {
+    "codigo": "8630599",
+    "descricao": "Atividades de atenção ambulatorial não especificadas anteriormente",
+    "is_principal": false
+   },
+   {
+    "codigo": "8640210",
+    "descricao": "Serviços de quimioterapia",
+    "is_principal": false
+   },
+   {
+    "codigo": "8650001",
+    "descricao": "Atividades de enfermagem",
+    "is_principal": false
+   },
+   {
+    "codigo": "8690901",
+    "descricao": "Atividades de práticas integrativas e complementares em saúde humana",
+    "is_principal": false
+   },
+   {
+    "codigo": "8690999",
+    "descricao": "Outras atividades de atenção à saúde humana não especificadas anteriormente",
+    "is_principal": false
+   },
+   {
+    "codigo": "9499500",
+    "descricao": "Atividades associativas não especificadas anteriormente",
+    "is_principal": false
+   }
+  ],
+  "natureza_juridica": "Associação Privada",
+  "tipo_logradouro": "RUA",
+  "logradouro": "DEPUTADO JOAQUIM RAMOS",
+  "numero": "125",
+  "complemento": "",
+  "bairro": "CENTRO",
+  "cep": "88715000",
+  "uf": "SC",
+  "municipio": "JAGUARUNA",
+  "codigo_municipio": "8173",
+  "email": "PROTOCOLO@IDEAS.MED.BR",
+  "telefones": [
+   {
+    "ddd": "48",
+    "numero": "30276200",
+    "is_fax": false
+   }
+  ],
+  "capital_social": "0,00",
+  "qualificacao_responsavel": {
+   "codigo": "10",
+   "descricao": "Diretor"
+  },
+  "ente_federativo": "",
+  "porte_empresa": "Demais",
+  "opcao_simples": "",
+  "data_opcao_simples": "",
+  "data_exclusao_simples": "",
+  "opcao_mei": "",
+  "data_opcao_mei": "",
+  "data_exclusao_mei": "",
+  "motivo_situacao_cadastral": {
+   "codigo": "00",
+   "descricao": "SEM MOTIVO"
+  },
+  "nome_cidade_exterior": "",
+  "codigo_pais": "",
+  "pais": {
+   "codigo": "",
+   "descricao": ""
+  },
+  "situacao_especial": "",
+  "data_situacao_especial": "",
+  "QSA": [
+   {
+    "nome_socio": "SANDRO NATALINO DEMETRIO",
+    "cnpj_cpf_socio": "***689649**",
+    "qualificacao_socio": "Diretor",
+    "data_entrada_sociedade": "2019-08-28",
+    "identificador_socio": "Pessoa Física",
+    "codigo_pais": "",
+    "pais": {
+     "codigo": "",
+     "descricao": ""
+    },
+    "representante_legal": "***000000**",
+    "nome_representante": "",
+    "qualificacao_representante": {
+     "codigo": "00",
+     "descricao": "Não informada"
+    },
+    "faixa_etaria": "41 a 50 anos"
+   },
+   {
+    "nome_socio": "DIEGO GOTARDO",
+    "cnpj_cpf_socio": "***735419**",
+    "qualificacao_socio": "Presidente",
+    "data_entrada_sociedade": "2023-02-24",
+    "identificador_socio": "Pessoa Física",
+    "codigo_pais": "",
+    "pais": {
+     "codigo": "",
+     "descricao": ""
+    },
+    "representante_legal": "***000000**",
+    "nome_representante": "",
+    "qualificacao_representante": {
+     "codigo": "00",
+     "descricao": "Não informada"
+    },
+    "faixa_etaria": "41 a 50 anos"
+   }
+  ]
+ }
+}

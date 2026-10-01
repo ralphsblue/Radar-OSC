@@ -1,0 +1,17 @@
+{
+ "meta": {
+  "url": "https://mapaosc.ipea.gov.br/api/api/osc/descricao/598928",
+  "data_utc": "2026-10-01T03:12:48.259913+00:00",
+  "status": 200,
+  "sha256": "cfd89a90e13c2f7df3618bd92ee12cf7b0dfe85da7e981a78188c3bbe9b59d91",
+  "tempo_ms": 47
+ },
+ "corpo": {
+  "id_osc": 598928,
+  "tx_finalidades_estatutarias": null,
+  "tx_historico": null,
+  "tx_link_estatuto_osc": null,
+  "tx_missao_osc": null,
+  "tx_visao_osc": null
+ }
+}

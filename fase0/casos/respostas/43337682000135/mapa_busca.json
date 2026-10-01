@@ -1,0 +1,34 @@
+{
+ "meta": {
+  "url": "https://mapaosc.ipea.gov.br/api/api/busca/cnpj/43337682000135",
+  "data_utc": "2026-10-01T03:11:48.448146+00:00",
+  "status": 200,
+  "sha256": "43236638680757a62773ecbe8f4a4a7b745353886adcf5c73e5c0a1024c66f53",
+  "tempo_ms": 156
+ },
+ "corpo": [
+  {
+   "id_osc": 594761,
+   "cd_identificador_osc": "43337682000135",
+   "cd_situacao_cadastral": 4,
+   "tx_nome_osc": "ASSOCIACAO PARA VALORIZACAO DE PESSOAS COM DEFICIENCIA",
+   "tx_razao_social_osc": "ASSOCIACAO PARA VALORIZACAO DE PESSOAS COM DEFICIENCIA",
+   "tx_nome_fantasia_osc": null,
+   "document": "'associaca':1A 'deficienc':7A 'pesso':5A 'valorizaca':3A",
+   "tx_nome_natureza_juridica_osc": "Associação Privada",
+   "dt_fundacao_osc": "1982-10-06",
+   "cd_situacao_imovel_osc": null,
+   "cd_municipio": "3548708",
+   "tx_nome_municipio": "São Bernardo do Campo",
+   "cd_uf": "35",
+   "tx_sigla_uf": "SP",
+   "tx_nome_uf": "São Paulo",
+   "cd_regiao": "3",
+   "tx_nome_regiao": "Sudeste",
+   "total_trabalhadores": 0,
+   "nr_trabalhadores_vinculo": null,
+   "nr_trabalhadores_deficiencia": null,
+   "nr_trabalhadores_voluntarios": null
+  }
+ ]
+}

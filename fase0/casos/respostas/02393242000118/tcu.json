@@ -1,0 +1,60 @@
+{
+ "meta": {
+  "url": "https://certidoes-apf.apps.tcu.gov.br/api/rest/publico/certidoes/02393242000118?seEmitirPDF=false",
+  "data_utc": "2026-10-01T03:10:38.052771+00:00",
+  "status": 200,
+  "sha256": "09300d894759aba84d3296af86cf0cf43deda32890ae4ec8040d8231976e41b9",
+  "tempo_ms": 5856
+ },
+ "corpo": {
+  "certidaoPDF": null,
+  "certidoes": [
+   {
+    "dataHoraEmissao": "01/10/2026 00:10",
+    "descricao": "Licitantes Inidôneos",
+    "emissor": "TCU",
+    "linkConsultaManual": "https://certidoes.apps.tcu.gov.br/lista-inidoneos",
+    "observacao": null,
+    "situacao": "NADA_CONSTA",
+    "tempoGeracao": 17,
+    "tipo": "Inidôneos"
+   },
+   {
+    "dataHoraEmissao": "01/10/2026 00:10",
+    "descricao": "CNIA - Cadastro Nacional de Condenações Cíveis por Ato de Improbidade Administrativa e Inelegibilidade",
+    "emissor": "CNJ",
+    "linkConsultaManual": "http://www.cnj.jus.br/improbidade_adm/consultar_requerido.php",
+    "observacao": null,
+    "situacao": "NADA_CONSTA",
+    "tempoGeracao": 141,
+    "tipo": "CNIA"
+   },
+   {
+    "dataHoraEmissao": "01/10/2026 00:10",
+    "descricao": "Cadastro Nacional de Empresas Inidôneas e Suspensas",
+    "emissor": "Portal da Transparência",
+    "linkConsultaManual": "http://www.portaltransparencia.gov.br/sancoes/ceis",
+    "observacao": "Suspensão (22/11/2026) - Governo do Estado da Bahia (BA)",
+    "situacao": "CONSTAM_REGISTROS",
+    "tempoGeracao": 299,
+    "tipo": "CEIS"
+   },
+   {
+    "dataHoraEmissao": "01/10/2026 00:10",
+    "descricao": "CNEP - Cadastro Nacional de Empresas Punidas",
+    "emissor": "Portal da Transparência",
+    "linkConsultaManual": "http://www.portaltransparencia.gov.br/sancoes/cnep",
+    "observacao": null,
+    "situacao": "NADA_CONSTA",
+    "tempoGeracao": 150,
+    "tipo": "CNEP"
+   }
+  ],
+  "cnpj": "02.393.242/0001-18",
+  "dataHoraGeracaoInMillis": 1790824244264,
+  "nomeFantasia": null,
+  "razaoSocial": "ASSOCIACAO REGIONAL DA ESCOLA FAMILIA AGRICOLA DO SERTAO",
+  "seCnpjEncontradoNaBaseTcu": true,
+  "uf": null
+ }
+}

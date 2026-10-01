@@ -1,0 +1,66 @@
+{
+  "caso": "T3_ceis_vence_2026",
+  "url": "https://api.portaldatransparencia.gov.br/api-de-dados/ceis",
+  "params": {
+    "pagina": 1,
+    "codigoSancionado": "02393242000118"
+  },
+  "http": 200,
+  "ms": 172,
+  "headers_resposta": {
+    "content-type": "application/json",
+    "cache-control": "public, max-age=7200, must-revalidate"
+  },
+  "corpo": [
+    {
+      "id": 378910,
+      "dataReferencia": "30/09/2026",
+      "dataInicioSancao": "25/02/2026",
+      "dataFimSancao": "22/11/2026",
+      "dataPublicacaoSancao": "28/01/2026",
+      "dataTransitadoJulgado": "25/02/2026",
+      "dataOrigemInformacao": "25/02/2026",
+      "tipoSancao": {
+        "descricaoResumida": "Suspensão",
+        "descricaoPortal": "Suspensão"
+      },
+      "fonteSancao": {
+        "nomeExibicao": "Governo do Estado da Bahia (BA)",
+        "telefoneContato": "71 3115-1782",
+        "enderecoContato": "2º AVENIDA Nº 200 - CENTRO ADMINISTRATIVO DA BAHIA"
+      },
+      "fundamentacao": [
+        {
+          "codigo": "LEI 9433 (BA) - ART. 186, II - AO CANDIDATO A CADASTRAMENTO, AO LICITANTE E AO CONTRATADO, QUE INCORRAM NAS FALTAS PREVISTAS NESTA LEI, APLICAM-SE, SEGUNDO A NATUREZA E A GRAVIDADE DA FALTA, ASSEGURADA A DEFESA PRÉVIA, AS SEGUINTES SANÇÕES: II- SUSPENSÃO TEMPORÁRIA DE PARTICIPAÇÃO EM LICITAÇÃO E IMPEDIMENTO DE CONTRATAR COM A ADMINISTRAÇÃO, POR PRAZO NÃO EXCEDENTE A 05 (CINCO) ANOS",
+          "descricao": "LEI 9433 (BA) - ART. 186, II - AO CANDIDATO A CADASTRAMENTO, AO LICITANTE E AO CONTRATADO, QUE INCORRAM NAS FALTAS PREVISTAS NESTA LEI, APLICAM-SE, SEGUNDO A NATUREZA E A GRAVIDADE DA FALTA, ASSEGURADA A DEFESA PRÉVIA, AS SEGUINTES SANÇÕES: II- SUSPENSÃO TEMPORÁRIA DE PARTICIPAÇÃO EM LICITAÇÃO E IMPEDIMENTO DE CONTRATAR COM A ADMINISTRAÇÃO, POR PRAZO NÃO EXCEDENTE A 05 (CINCO) ANOS"
+        }
+      ],
+      "orgaoSancionador": {
+        "nome": "Governo do Estado da Bahia (BA)",
+        "siglaUf": "BA",
+        "poder": "Executivo",
+        "esfera": "ESTADUAL"
+      },
+      "sancionado": {
+        "nome": "ASSOCIACAO REGIONAL DA ESCOLA FAMILIA AGRICOLA DO SERTAO",
+        "codigoFormatado": "02.393.242/0001-18"
+      },
+      "pessoa": {
+        "id": 9020338,
+        "cpfFormatado": "",
+        "cnpjFormatado": "02.393.242/0001-18",
+        "numeroInscricaoSocial": "",
+        "nome": "ASSOCIACAO REGIONAL DA ESCOLA FAMILIA AGRICOLA DO SERTAO",
+        "razaoSocialReceita": "ASSOCIACAO REGIONAL DA ESCOLA FAMILIA AGRICOLA DO SERTAO",
+        "nomeFantasiaReceita": "",
+        "tipo": "Entidades Sem Fins Lucrativos"
+      },
+      "textoPublicacao": "Diário Oficial do Estado Seção LICITAÇÕES Pagina 17",
+      "linkPublicacao": "",
+      "detalhamentoPublicacao": "",
+      "numeroProcesso": "009.0243.2021.0032370-42",
+      "abrangenciaDefinidaDecisaoJudicial": "Na Esfera e no Poder do órgão sancionador",
+      "informacoesAdicionaisDoOrgaoSancionador": ""
+    }
+  ]
+}

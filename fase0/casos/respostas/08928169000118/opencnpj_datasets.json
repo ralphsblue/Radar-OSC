@@ -1,0 +1,45 @@
+{
+ "meta": {
+  "url": "https://api.opencnpj.org/08928169000118?datasets=ceis,cepim,cnep",
+  "data_utc": "2026-10-01T03:11:23.727245+00:00",
+  "status": 200,
+  "sha256": "34e4c02699756c8de9b04d5fdccfac7acad434a09faa1be23b8468d59087004f",
+  "tempo_ms": 608
+ },
+ "corpo": {
+  "ceis": null,
+  "cepim": null,
+  "cnep": {
+   "cnpj": "08928169000118",
+   "updated_at": "2026-09-30T21:15:12.0000000+00:00",
+   "sancoes": [
+    {
+     "cadastro": "CNEP",
+     "codigo": "280233",
+     "tipo_pessoa": "J",
+     "nome_sancionado": "INSTITUTO ILUMINA TERRA AÇÃO PARA DESENVOLVIMENTO SOCIAL",
+     "nome_informado_orgao": "INSTITUTO ILUMINA TERRA AÇÃO PARA DESENVOLVIMENTO SOCIAL",
+     "razao_social_receita": "INSTITUTO ILUMINA TERRA ACAO PARA DESENVOLVIMENTO SOCIAL",
+     "nome_fantasia_receita": "ILUMINA TERRA",
+     "numero_processo": "6067.2019/0025524-5",
+     "categoria": "Multa",
+     "valor_multa": "6000,00",
+     "data_inicio": "10/01/2023",
+     "data_final": "",
+     "data_publicacao": "23/12/2022",
+     "publicacao": "Diário Oficial do Município Seção Secretarias Pagina 37",
+     "detalhamento_publicacao": "",
+     "data_transito_julgado": "",
+     "abrangencia": "Em todos os Poderes da Esfera do órgão sancionador",
+     "orgao_sancionador": "Controladoria-Geral do Município de São Paulo - SP",
+     "uf_orgao_sancionador": "SP",
+     "esfera_orgao_sancionador": "MUNICIPAL",
+     "fundamentacao_legal": "LEI 12846 - ART. 6º, I - MULTA, NO VALOR DE 0,1% (UM DÉCIMO POR CENTO) A 20% (VINTE POR CENTO) DO FATURAMENTO BRUTO DO ÚLTIMO EXERCÍCIO ANTERIOR AO DA INSTAURAÇÃO DO PROCESSO ADMINISTRATIVO, EXCLUÍDOS OS TRIBUTOS, A QUAL NUNCA SERÁ INFERIOR À VANTAGEM AUFERIDA, QUANDO FOR POSSÍVEL SUA ESTIMAÇÃO",
+     "data_origem_informacao": "27/02/2023",
+     "origem_informacoes": "Controladoria-Geral do Município de São Paulo - SP",
+     "observacoes": ""
+    }
+   ]
+  }
+ }
+}

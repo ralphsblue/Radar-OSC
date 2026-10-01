@@ -1,0 +1,17 @@
+{
+ "meta": {
+  "url": "https://mapaosc.ipea.gov.br/api/api/osc/descricao/429481",
+  "data_utc": "2026-10-01T03:11:45.488250+00:00",
+  "status": 200,
+  "sha256": "c05ba120c5bb5db231a3c5fecbd05b387e493865de11575c0c5b70c1a6c12e23",
+  "tempo_ms": 48
+ },
+ "corpo": {
+  "id_osc": 429481,
+  "tx_finalidades_estatutarias": null,
+  "tx_historico": null,
+  "tx_link_estatuto_osc": null,
+  "tx_missao_osc": null,
+  "tx_visao_osc": null
+ }
+}

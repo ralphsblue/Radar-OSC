@@ -1,0 +1,91 @@
+{
+ "meta": {
+  "url": "https://api.opencnpj.org/53071884000131",
+  "data_utc": "2026-10-01T03:08:49.941072+00:00",
+  "status": 200,
+  "sha256": "9ae0d511d79872e5020c593ca5d7c22a23c93de312e92f98bbeb2001e75a17a7",
+  "tempo_ms": 224
+ },
+ "corpo": {
+  "cnpj": "53071884000131",
+  "razao_social": "INSTITUTO AVALANCHE AZUL",
+  "nome_fantasia": "",
+  "situacao_cadastral": "Ativa",
+  "data_situacao_cadastral": "2023-12-01",
+  "matriz_filial": "Matriz",
+  "data_inicio_atividade": "2023-12-01",
+  "cnae_principal": "8800600",
+  "cnaes_secundarios": [],
+  "cnaes": [
+   {
+    "codigo": "8800600",
+    "descricao": "Serviços de assistência social sem alojamento",
+    "is_principal": true
+   }
+  ],
+  "natureza_juridica": "Associação Privada",
+  "tipo_logradouro": "PRAIA",
+  "logradouro": "DO ZUMBI",
+  "numero": "00028",
+  "complemento": "SALA",
+  "bairro": "ZUMBI",
+  "cep": "21930155",
+  "uf": "RJ",
+  "municipio": "RIO DE JANEIRO",
+  "codigo_municipio": "6001",
+  "email": "INSTITUTOAVALANCHEAZUL@GMAIL.COM",
+  "telefones": [
+   {
+    "ddd": "21",
+    "numero": "91684552",
+    "is_fax": false
+   }
+  ],
+  "capital_social": "0,00",
+  "qualificacao_responsavel": {
+   "codigo": "16",
+   "descricao": "Presidente"
+  },
+  "ente_federativo": "",
+  "porte_empresa": "Demais",
+  "opcao_simples": "",
+  "data_opcao_simples": "",
+  "data_exclusao_simples": "",
+  "opcao_mei": "",
+  "data_opcao_mei": "",
+  "data_exclusao_mei": "",
+  "motivo_situacao_cadastral": {
+   "codigo": "00",
+   "descricao": "SEM MOTIVO"
+  },
+  "nome_cidade_exterior": "",
+  "codigo_pais": "",
+  "pais": {
+   "codigo": "",
+   "descricao": ""
+  },
+  "situacao_especial": "",
+  "data_situacao_especial": "",
+  "QSA": [
+   {
+    "nome_socio": "VINICIUS AUGUSTO CARDOSO MONTEIRO",
+    "cnpj_cpf_socio": "***854527**",
+    "qualificacao_socio": "Presidente",
+    "data_entrada_sociedade": "2026-03-24",
+    "identificador_socio": "Pessoa Física",
+    "codigo_pais": "",
+    "pais": {
+     "codigo": "",
+     "descricao": ""
+    },
+    "representante_legal": "***000000**",
+    "nome_representante": "",
+    "qualificacao_representante": {
+     "codigo": "00",
+     "descricao": "Não informada"
+    },
+    "faixa_etaria": "31 a 40 anos"
+   }
+  ]
+ }
+}

@@ -1,0 +1,123 @@
+{
+ "meta": {
+  "url": "https://api.opencnpj.org/01301271000140",
+  "data_utc": "2026-10-01T03:15:42.585312+00:00",
+  "status": 200,
+  "sha256": "64ecfa8dedf7a62e0064d6690f8fec573710432b94b402254aa26c5dc199d13e",
+  "tempo_ms": 420
+ },
+ "corpo": {
+  "cnpj": "01301271000140",
+  "razao_social": "CENTRO AUTOMOTIVO AGUIA AZUL LTDA",
+  "nome_fantasia": "POSTO AGUIA AZUL",
+  "situacao_cadastral": "Ativa",
+  "data_situacao_cadastral": "2005-11-03",
+  "matriz_filial": "Matriz",
+  "data_inicio_atividade": "1996-06-28",
+  "cnae_principal": "4731800",
+  "cnaes_secundarios": [
+   "4732600",
+   "4729602"
+  ],
+  "cnaes": [
+   {
+    "codigo": "4731800",
+    "descricao": "Comércio varejista de combustíveis para veículos automotores",
+    "is_principal": true
+   },
+   {
+    "codigo": "4732600",
+    "descricao": "Comércio varejista de lubrificantes",
+    "is_principal": false
+   },
+   {
+    "codigo": "4729602",
+    "descricao": "Comércio varejista de mercadorias em lojas de conveniência",
+    "is_principal": false
+   }
+  ],
+  "natureza_juridica": "Sociedade Empresária Limitada",
+  "tipo_logradouro": "AVENIDA",
+  "logradouro": "PROF ABRAAO DE MORAIS",
+  "numero": "258",
+  "complemento": "",
+  "bairro": "BOSQUE DA SAUDE",
+  "cep": "04123000",
+  "uf": "SP",
+  "municipio": "SAO PAULO",
+  "codigo_municipio": "7107",
+  "email": "CONTABIL@NEXUSPARTICIPACOES.COM.BR",
+  "telefones": [
+   {
+    "ddd": "11",
+    "numero": "44879042",
+    "is_fax": false
+   }
+  ],
+  "capital_social": "300000,00",
+  "qualificacao_responsavel": {
+   "codigo": "05",
+   "descricao": "Administrador"
+  },
+  "ente_federativo": "",
+  "porte_empresa": "Demais",
+  "opcao_simples": "",
+  "data_opcao_simples": "",
+  "data_exclusao_simples": "",
+  "opcao_mei": "",
+  "data_opcao_mei": "",
+  "data_exclusao_mei": "",
+  "motivo_situacao_cadastral": {
+   "codigo": "00",
+   "descricao": "SEM MOTIVO"
+  },
+  "nome_cidade_exterior": "",
+  "codigo_pais": "",
+  "pais": {
+   "codigo": "",
+   "descricao": ""
+  },
+  "situacao_especial": "",
+  "data_situacao_especial": "",
+  "QSA": [
+   {
+    "nome_socio": "GUILHERME DA SILVA OLIVEIRA",
+    "cnpj_cpf_socio": "***800748**",
+    "qualificacao_socio": "Administrador",
+    "data_entrada_sociedade": "2025-06-06",
+    "identificador_socio": "Pessoa Física",
+    "codigo_pais": "",
+    "pais": {
+     "codigo": "",
+     "descricao": ""
+    },
+    "representante_legal": "***000000**",
+    "nome_representante": "",
+    "qualificacao_representante": {
+     "codigo": "00",
+     "descricao": "Não informada"
+    },
+    "faixa_etaria": "31 a 40 anos"
+   },
+   {
+    "nome_socio": "NEXUS PARTICIPACOES E INVESTIMENTOS SA",
+    "cnpj_cpf_socio": "49583486",
+    "qualificacao_socio": "Sócio",
+    "data_entrada_sociedade": "2025-06-06",
+    "identificador_socio": "Pessoa Jurídica",
+    "codigo_pais": "",
+    "pais": {
+     "codigo": "",
+     "descricao": ""
+    },
+    "representante_legal": "***800748**",
+    "nome_representante": "GUILHERME DA SILVA OLIVEIRA",
+    "qualificacao_representante": {
+     "codigo": "05",
+     "descricao": "Administrador"
+    },
+    "faixa_etaria": "Não se aplica"
+   }
+  ]
+ }
+}

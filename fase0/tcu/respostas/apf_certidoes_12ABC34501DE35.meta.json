@@ -1,0 +1,30 @@
+{
+  "url": "https://certidoes-apf.apps.tcu.gov.br/api/rest/publico/certidoes/12ABC34501DE35?seEmitirPDF=false",
+  "metodo": "GET",
+  "headers_enviados": {
+    "host": "certidoes-apf.apps.tcu.gov.br",
+    "accept-encoding": "gzip, deflate",
+    "connection": "keep-alive",
+    "user-agent": "validador-osc-ifsp/0.1 (projeto academico de extensao)",
+    "accept": "application/json",
+    "cookie": "TS012f1624=01615f296d1e2bf64f45263c0660163cccd9a6c4ef51b904f1db4660157ac48de16ed04c5fd3213b90ea7e03a578212edea823001f"
+  },
+  "status": 200,
+  "headers_resposta": {
+    "date": "Thu, 01 Oct 2026 01:07:31 GMT",
+    "content-type": "application/json",
+    "content-length": "1357",
+    "x-content-type-options": "nosniff",
+    "x-xss-protection": "0",
+    "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+    "pragma": "no-cache",
+    "expires": "0",
+    "strict-transport-security": "max-age=31536000; includeSubDomains",
+    "x-frame-options": "DENY",
+    "keep-alive": "timeout=15, max=2042",
+    "connection": "Keep-Alive"
+  },
+  "tempo_s": 5.359,
+  "data_utc": "2026-10-01T01:07:31.559042+00:00",
+  "sha256": "7a517abbdac8a8188355765b7134c3c50d80803eb61fe6b87b5f1ddb82403b56"
+}

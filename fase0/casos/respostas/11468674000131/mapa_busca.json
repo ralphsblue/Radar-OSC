@@ -1,0 +1,34 @@
+{
+ "meta": {
+  "url": "https://mapaosc.ipea.gov.br/api/api/busca/cnpj/11468674000131",
+  "data_utc": "2026-10-01T03:07:00.744649+00:00",
+  "status": 200,
+  "sha256": "5feeeb5fa7248065a4662eafad3d4490e6da181a973fb0475f88b014c4cf8c44",
+  "tempo_ms": 249
+ },
+ "corpo": [
+  {
+   "id_osc": 1211375,
+   "cd_identificador_osc": "11468674000131",
+   "cd_situacao_cadastral": 4,
+   "tx_nome_osc": "CAPH",
+   "tx_razao_social_osc": "CENTRO DE APOIO AOS PORTADORES DE HIV - CAPH",
+   "tx_nome_fantasia_osc": "CAPH",
+   "document": "'apoi':3A 'caph':8A,9B 'centr':1A 'hiv':7A 'portador':5A",
+   "tx_nome_natureza_juridica_osc": "Associação Privada",
+   "dt_fundacao_osc": "2010-01-07",
+   "cd_situacao_imovel_osc": null,
+   "cd_municipio": "3552205",
+   "tx_nome_municipio": "Sorocaba",
+   "cd_uf": "35",
+   "tx_sigla_uf": "SP",
+   "tx_nome_uf": "São Paulo",
+   "cd_regiao": "3",
+   "tx_nome_regiao": "Sudeste",
+   "total_trabalhadores": 0,
+   "nr_trabalhadores_vinculo": null,
+   "nr_trabalhadores_deficiencia": null,
+   "nr_trabalhadores_voluntarios": null
+  }
+ ]
+}

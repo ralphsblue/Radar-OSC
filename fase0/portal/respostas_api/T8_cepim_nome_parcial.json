@@ -1,0 +1,496 @@
+{
+  "caso": "T8_cepim_nome_parcial",
+  "url": "https://api.portaldatransparencia.gov.br/api-de-dados/cepim",
+  "params": {
+    "pagina": 1,
+    "nomeSancionado": "SANTA CASA"
+  },
+  "http": 200,
+  "ms": 53,
+  "headers_resposta": {
+    "content-type": "application/json",
+    "cache-control": "public, max-age=7200, must-revalidate"
+  },
+  "corpo": [
+    {
+      "id": 143079165,
+      "dataReferencia": "28/09/2026",
+      "motivo": "NAO APRESENTACAO DE DOCUMENTACAO COMPLEMENTAR",
+      "orgaoSuperior": {
+        "nome": "Ministério da Saúde - Unidades com vínculo direto",
+        "codigoSIAFI": "36000",
+        "cnpj": "00394544000185",
+        "sigla": "SAÚDE",
+        "descricaoPoder": "EXECUTIVO",
+        "orgaoMaximo": {
+          "codigo": "36000",
+          "sigla": "SAÚDE",
+          "nome": "Ministério da Saúde"
+        }
+      },
+      "pessoaJuridica": {
+        "id": 3620012,
+        "cpfFormatado": "",
+        "cnpjFormatado": "44.690.238/0001-61",
+        "numeroInscricaoSocial": "",
+        "nome": "IRMANDADE DA SANTA CASA DE MISERICORDIA DE BARIRI",
+        "razaoSocialReceita": "IRMANDADE DA SANTA CASA DE MISERICORDIA DE BARIRI",
+        "nomeFantasiaReceita": "SANTA CASA DE BARIRI",
+        "tipo": "Entidades Sem Fins Lucrativos"
+      },
+      "convenio": {
+        "codigo": "807955",
+        "objeto": "AQUISICAO DE EQUIPAMENTO E MATERIAL PERMANENTE PARA UNIDADE DE ATENCAO ESPECIALIZADA EM SAUDE",
+        "numero": "42823/2014"
+      }
+    },
+    {
+      "id": 143744821,
+      "dataReferencia": "28/09/2026",
+      "motivo": "MOTIVO NÃO ESPECIFICADO",
+      "orgaoSuperior": {
+        "nome": "Ministério da Saúde - Unidades com vínculo direto",
+        "codigoSIAFI": "36000",
+        "cnpj": "00394544000185",
+        "sigla": "SAÚDE",
+        "descricaoPoder": "EXECUTIVO",
+        "orgaoMaximo": {
+          "codigo": "36000",
+          "sigla": "SAÚDE",
+          "nome": "Ministério da Saúde"
+        }
+      },
+      "pessoaJuridica": {
+        "id": 3018907,
+        "cpfFormatado": "",
+        "cnpjFormatado": "51.261.998/0001-19",
+        "numeroInscricaoSocial": "",
+        "nome": "IRMANDADE DA SANTA CASA DE MISERICORDIA DE SUZANO",
+        "razaoSocialReceita": "IRMANDADE DA SANTA CASA DE MISERICORDIA DE SUZANO",
+        "nomeFantasiaReceita": "",
+        "tipo": "Entidades Sem Fins Lucrativos"
+      },
+      "convenio": {
+        "codigo": "759522",
+        "objeto": "Aquisicao de equipamento e material permanente para estruturacao de Unidade de Atencao Especializada em Saude.",
+        "numero": "32425/2011"
+      }
+    },
+    {
+      "id": 143820833,
+      "dataReferencia": "28/09/2026",
+      "motivo": "INSTAURACAO DE TOMADA DE CONTAS ESPECIAL",
+      "orgaoSuperior": {
+        "nome": "Ministério da Saúde - Unidades com vínculo direto",
+        "codigoSIAFI": "36000",
+        "cnpj": "00394544000185",
+        "sigla": "SAÚDE",
+        "descricaoPoder": "EXECUTIVO",
+        "orgaoMaximo": {
+          "codigo": "36000",
+          "sigla": "SAÚDE",
+          "nome": "Ministério da Saúde"
+        }
+      },
+      "pessoaJuridica": {
+        "id": 6518622,
+        "cpfFormatado": "",
+        "cnpjFormatado": "14.104.293/0001-61",
+        "numeroInscricaoSocial": "",
+        "nome": "SANTA CASA MATER MISERICORDIAE",
+        "razaoSocialReceita": "SANTA CASA MATER MISERICORDIAE",
+        "nomeFantasiaReceita": "",
+        "tipo": "Entidades Sem Fins Lucrativos"
+      },
+      "convenio": {
+        "codigo": "471095",
+        "objeto": "AQUISICAO DE EQUIPAMENTOS E MATERIAIS PERMANENTES - SANTA CASA DE MISERICORDIA DE UNA - BA",
+        "numero": "3879/2002"
+      }
+    },
+    {
+      "id": 143845613,
+      "dataReferencia": "28/09/2026",
+      "motivo": "TEVE A PRESTACAO DE CONTAS IMPUGNADA",
+      "orgaoSuperior": {
+        "nome": "Ministério da Saúde - Unidades com vínculo direto",
+        "codigoSIAFI": "36000",
+        "cnpj": "00394544000185",
+        "sigla": "SAÚDE",
+        "descricaoPoder": "EXECUTIVO",
+        "orgaoMaximo": {
+          "codigo": "36000",
+          "sigla": "SAÚDE",
+          "nome": "Ministério da Saúde"
+        }
+      },
+      "pessoaJuridica": {
+        "id": 1118947,
+        "cpfFormatado": "",
+        "cnpjFormatado": "04.358.503/0001-94",
+        "numeroInscricaoSocial": "",
+        "nome": "SANTA CASA DE MISERICORDIA DE MANAUS",
+        "razaoSocialReceita": "SANTA CASA DE MISERICORDIA DE MANAUS",
+        "nomeFantasiaReceita": "",
+        "tipo": "Entidades Sem Fins Lucrativos"
+      },
+      "convenio": {
+        "codigo": "497713",
+        "objeto": "REFORMA E AMPLIACAO DA SANTA CASA DE MISERICORDIA DE MANAUS",
+        "numero": "1908/2003"
+      }
+    },
+    {
+      "id": 143846125,
+      "dataReferencia": "28/09/2026",
+      "motivo": "ATRASO NA ENTREGA DA PRESTACAO DE CONTAS",
+      "orgaoSuperior": {
+        "nome": "Ministério da Saúde - Unidades com vínculo direto",
+        "codigoSIAFI": "36000",
+        "cnpj": "00394544000185",
+        "sigla": "SAÚDE",
+        "descricaoPoder": "EXECUTIVO",
+        "orgaoMaximo": {
+          "codigo": "36000",
+          "sigla": "SAÚDE",
+          "nome": "Ministério da Saúde"
+        }
+      },
+      "pessoaJuridica": {
+        "id": 8918881,
+        "cpfFormatado": "",
+        "cnpjFormatado": "52.439.072/0001-33",
+        "numeroInscricaoSocial": "",
+        "nome": "IRMANDADE DA SANTA CASA DE MISERICORDIA DE MIRASSOL",
+        "razaoSocialReceita": "IRMANDADE DA SANTA CASA DE MISERICORDIA DE MIRASSOL",
+        "nomeFantasiaReceita": "",
+        "tipo": "Entidades Sem Fins Lucrativos"
+      },
+      "convenio": {
+        "codigo": "386650",
+        "objeto": "ASSISTENCIA FINANCEIRA A MANUTENCAO DA SANTA CASA DE MISERICORDIA EM MIRASSOL - SP",
+        "numero": "2456/1999"
+      }
+    },
+    {
+      "id": 143892761,
+      "dataReferencia": "28/09/2026",
+      "motivo": "TEVE A PRESTACAO DE CONTAS IMPUGNADA",
+      "orgaoSuperior": {
+        "nome": "Ministério da Saúde - Unidades com vínculo direto",
+        "codigoSIAFI": "36000",
+        "cnpj": "00394544000185",
+        "sigla": "SAÚDE",
+        "descricaoPoder": "EXECUTIVO",
+        "orgaoMaximo": {
+          "codigo": "36000",
+          "sigla": "SAÚDE",
+          "nome": "Ministério da Saúde"
+        }
+      },
+      "pessoaJuridica": {
+        "id": 1120337,
+        "cpfFormatado": "",
+        "cnpjFormatado": "19.082.452/0001-98",
+        "numeroInscricaoSocial": "",
+        "nome": "SANTA CASA DE MISERICORDIA DA CAMPANHA",
+        "razaoSocialReceita": "SANTA CASA DE MISERICORDIA DA CAMPANHA",
+        "nomeFantasiaReceita": "",
+        "tipo": "Entidades Sem Fins Lucrativos"
+      },
+      "convenio": {
+        "codigo": "835251",
+        "objeto": "AQUISICAO DE PRODUTOS MEDICOS DE USO UNICO",
+        "numero": "24932/2016"
+      }
+    },
+    {
+      "id": 144102067,
+      "dataReferencia": "28/09/2026",
+      "motivo": "TEVE A PRESTACAO DE CONTAS IMPUGNADA",
+      "orgaoSuperior": {
+        "nome": "Ministério da Saúde - Unidades com vínculo direto",
+        "codigoSIAFI": "36000",
+        "cnpj": "00394544000185",
+        "sigla": "SAÚDE",
+        "descricaoPoder": "EXECUTIVO",
+        "orgaoMaximo": {
+          "codigo": "36000",
+          "sigla": "SAÚDE",
+          "nome": "Ministério da Saúde"
+        }
+      },
+      "pessoaJuridica": {
+        "id": 7818630,
+        "cpfFormatado": "",
+        "cnpjFormatado": "49.270.671/0001-61",
+        "numeroInscricaoSocial": "",
+        "nome": "SANTA CASA DE CARIDADE E MATERNIDADE DE IBITINGA",
+        "razaoSocialReceita": "SANTA CASA DE CARIDADE E MATERNIDADE DE IBITINGA",
+        "nomeFantasiaReceita": "",
+        "tipo": "Entidades Sem Fins Lucrativos"
+      },
+      "convenio": {
+        "codigo": "649841",
+        "objeto": "AQUISICAO DE EQUIPAMENTOS E MATERIAIS PERMANENTES PARA UNIDADE DE ATENCAO ESPECIALIZADA EM SAUDE",
+        "numero": "2188/2008"
+      }
+    },
+    {
+      "id": 144253595,
+      "dataReferencia": "28/09/2026",
+      "motivo": "IRREGULARIDADE NA EXECUCAO FINANCEIRA",
+      "orgaoSuperior": {
+        "nome": "Ministério da Saúde - Unidades com vínculo direto",
+        "codigoSIAFI": "36000",
+        "cnpj": "00394544000185",
+        "sigla": "SAÚDE",
+        "descricaoPoder": "EXECUTIVO",
+        "orgaoMaximo": {
+          "codigo": "36000",
+          "sigla": "SAÚDE",
+          "nome": "Ministério da Saúde"
+        }
+      },
+      "pessoaJuridica": {
+        "id": 6519875,
+        "cpfFormatado": "",
+        "cnpjFormatado": "16.731.630/0001-76",
+        "numeroInscricaoSocial": "",
+        "nome": "SANTA CASA DE MISERICORDIA DE ANDRADAS",
+        "razaoSocialReceita": "SANTA CASA DE MISERICORDIA DE ANDRADAS",
+        "nomeFantasiaReceita": "SACMA",
+        "tipo": "Entidades Sem Fins Lucrativos"
+      },
+      "convenio": {
+        "codigo": "757911",
+        "objeto": "Aquisicao de equipamneto e material permanente para unidade de atencao especializada em saude.",
+        "numero": "24676/2011"
+      }
+    },
+    {
+      "id": 144362447,
+      "dataReferencia": "28/09/2026",
+      "motivo": "DESCUMPRIMENTO DE CLAUSULA/CONDICAO DO INSTR.",
+      "orgaoSuperior": {
+        "nome": "Ministério da Saúde - Unidades com vínculo direto",
+        "codigoSIAFI": "36000",
+        "cnpj": "00394544000185",
+        "sigla": "SAÚDE",
+        "descricaoPoder": "EXECUTIVO",
+        "orgaoMaximo": {
+          "codigo": "36000",
+          "sigla": "SAÚDE",
+          "nome": "Ministério da Saúde"
+        }
+      },
+      "pessoaJuridica": {
+        "id": 4218706,
+        "cpfFormatado": "",
+        "cnpjFormatado": "27.443.985/0001-86",
+        "numeroInscricaoSocial": "",
+        "nome": "SANTA CASA DE MISERICORDIA DE CASTELO",
+        "razaoSocialReceita": "SANTA CASA DE MISERICORDIA DE CASTELO",
+        "nomeFantasiaReceita": "",
+        "tipo": "Entidades Sem Fins Lucrativos"
+      },
+      "convenio": {
+        "codigo": "456498",
+        "objeto": "REFORMA DE UNIDADE DE SAUDE - SANTA CASA DE MISERICORDIA DE CASTELO/ES",
+        "numero": "1373/2002"
+      }
+    },
+    {
+      "id": 144743986,
+      "dataReferencia": "28/09/2026",
+      "motivo": "ATRASO NA ENTREGA DA PRESTACAO DE CONTAS",
+      "orgaoSuperior": {
+        "nome": "Ministério da Saúde - Unidades com vínculo direto",
+        "codigoSIAFI": "36000",
+        "cnpj": "00394544000185",
+        "sigla": "SAÚDE",
+        "descricaoPoder": "EXECUTIVO",
+        "orgaoMaximo": {
+          "codigo": "36000",
+          "sigla": "SAÚDE",
+          "nome": "Ministério da Saúde"
+        }
+      },
+      "pessoaJuridica": {
+        "id": 9318776,
+        "cpfFormatado": "",
+        "cnpjFormatado": "45.889.623/0001-03",
+        "numeroInscricaoSocial": "",
+        "nome": "ASSOCIACAO BENEF.SAO JOSE E SANTA CASA DE MISERICORDIA SAO JOSE",
+        "razaoSocialReceita": "ASSOCIACAO BENEF.SAO JOSE E SANTA CASA DE MISERICORDIA SAO JOSE",
+        "nomeFantasiaReceita": "",
+        "tipo": "Entidades Sem Fins Lucrativos"
+      },
+      "convenio": {
+        "codigo": "342505",
+        "objeto": "MANUTENCAO DA SANTA CASA DE MISERICORDIA DE CACHOEIRA PAULISTA.",
+        "numero": "2216/97"
+      }
+    },
+    {
+      "id": 145221355,
+      "dataReferencia": "28/09/2026",
+      "motivo": "INSTAURACAO DE TOMADA DE CONTAS ESPECIAL",
+      "orgaoSuperior": {
+        "nome": "Ministério da Saúde - Unidades com vínculo direto",
+        "codigoSIAFI": "36000",
+        "cnpj": "00394544000185",
+        "sigla": "SAÚDE",
+        "descricaoPoder": "EXECUTIVO",
+        "orgaoMaximo": {
+          "codigo": "36000",
+          "sigla": "SAÚDE",
+          "nome": "Ministério da Saúde"
+        }
+      },
+      "pessoaJuridica": {
+        "id": 1220052,
+        "cpfFormatado": "",
+        "cnpjFormatado": "43.974.666/0001-53",
+        "numeroInscricaoSocial": "",
+        "nome": "SANTA CASA DE MISERICORDIA SAO VICENTE DE PAULO",
+        "razaoSocialReceita": "SANTA CASA DE MISERICORDIA SAO VICENTE DE PAULO",
+        "nomeFantasiaReceita": "",
+        "tipo": "Entidades Sem Fins Lucrativos"
+      },
+      "convenio": {
+        "codigo": "758749",
+        "objeto": "AQUISICAO DE EQUIPAMENTO E MATERIAL PERMANENTE PARA UNIDADE DE ATENCAO ESPECIALIZADA EM SAUDE.",
+        "numero": "23616/2011"
+      }
+    },
+    {
+      "id": 145387340,
+      "dataReferencia": "28/09/2026",
+      "motivo": "NAO APRESENTACAO DE DOCUMENTACAO COMPLEMENTAR",
+      "orgaoSuperior": {
+        "nome": "Ministério da Saúde - Unidades com vínculo direto",
+        "codigoSIAFI": "36000",
+        "cnpj": "00394544000185",
+        "sigla": "SAÚDE",
+        "descricaoPoder": "EXECUTIVO",
+        "orgaoMaximo": {
+          "codigo": "36000",
+          "sigla": "SAÚDE",
+          "nome": "Ministério da Saúde"
+        }
+      },
+      "pessoaJuridica": {
+        "id": 5518920,
+        "cpfFormatado": "",
+        "cnpjFormatado": "44.215.341/0001-50",
+        "numeroInscricaoSocial": "",
+        "nome": "IRMANDADE DA SANTA CASA DE MISERICORDIA DE ARARAS",
+        "razaoSocialReceita": "IRMANDADE DA SANTA CASA DE MISERICORDIA DE ARARAS",
+        "nomeFantasiaReceita": "HOSPITAL SAO LUIZ",
+        "tipo": "Entidades Sem Fins Lucrativos"
+      },
+      "convenio": {
+        "codigo": "904793",
+        "objeto": "AQUISICAO DE EQUIPAMENTO E MATERIAL PERMANENTE PARA ATENCAO ESPECIALIZADA EM SAUDE",
+        "numero": "18821/2020"
+      }
+    },
+    {
+      "id": 145760111,
+      "dataReferencia": "28/09/2026",
+      "motivo": "NAO APRESENTACAO DE DOCUMENTACAO COMPLEMENTAR",
+      "orgaoSuperior": {
+        "nome": "Ministério da Saúde - Unidades com vínculo direto",
+        "codigoSIAFI": "36000",
+        "cnpj": "00394544000185",
+        "sigla": "SAÚDE",
+        "descricaoPoder": "EXECUTIVO",
+        "orgaoMaximo": {
+          "codigo": "36000",
+          "sigla": "SAÚDE",
+          "nome": "Ministério da Saúde"
+        }
+      },
+      "pessoaJuridica": {
+        "id": 4720260,
+        "cpfFormatado": "",
+        "cnpjFormatado": "53.524.534/0001-83",
+        "numeroInscricaoSocial": "",
+        "nome": "ASSOCIACAO DA IRMANDADE DA SANTA CASA DE MISERICORDIA DE PACAEMBU",
+        "razaoSocialReceita": "ASSOCIACAO DA IRMANDADE DA SANTA CASA DE MISERICORDIA DE PACAEMBU",
+        "nomeFantasiaReceita": "",
+        "tipo": "Entidades Sem Fins Lucrativos"
+      },
+      "convenio": {
+        "codigo": "871244",
+        "objeto": "AQUISICAO DE EQUIPAMENTO E MATERIAL PERMANENTE PARA UNIDADE DE ATENCAO ESPECIALIZADA EM SAUDE",
+        "numero": "48802/2018"
+      }
+    },
+    {
+      "id": 145760175,
+      "dataReferencia": "28/09/2026",
+      "motivo": "TEVE A PRESTACAO DE CONTAS IMPUGNADA",
+      "orgaoSuperior": {
+        "nome": "Ministério da Saúde - Unidades com vínculo direto",
+        "codigoSIAFI": "36000",
+        "cnpj": "00394544000185",
+        "sigla": "SAÚDE",
+        "descricaoPoder": "EXECUTIVO",
+        "orgaoMaximo": {
+          "codigo": "36000",
+          "sigla": "SAÚDE",
+          "nome": "Ministério da Saúde"
+        }
+      },
+      "pessoaJuridica": {
+        "id": 4720260,
+        "cpfFormatado": "",
+        "cnpjFormatado": "53.524.534/0001-83",
+        "numeroInscricaoSocial": "",
+        "nome": "ASSOCIACAO DA IRMANDADE DA SANTA CASA DE MISERICORDIA DE PACAEMBU",
+        "razaoSocialReceita": "ASSOCIACAO DA IRMANDADE DA SANTA CASA DE MISERICORDIA DE PACAEMBU",
+        "nomeFantasiaReceita": "",
+        "tipo": "Entidades Sem Fins Lucrativos"
+      },
+      "convenio": {
+        "codigo": "834105",
+        "objeto": "AQUISICAO DE PRODUTOS MEDICOS DE USO UNICO",
+        "numero": "24246/2016"
+      }
+    },
+    {
+      "id": 145943075,
+      "dataReferencia": "28/09/2026",
+      "motivo": "NAO APRESENTACAO DE DOCUMENTACAO COMPLEMENTAR",
+      "orgaoSuperior": {
+        "nome": "Ministério da Saúde - Unidades com vínculo direto",
+        "codigoSIAFI": "36000",
+        "cnpj": "00394544000185",
+        "sigla": "SAÚDE",
+        "descricaoPoder": "EXECUTIVO",
+        "orgaoMaximo": {
+          "codigo": "36000",
+          "sigla": "SAÚDE",
+          "nome": "Ministério da Saúde"
+        }
+      },
+      "pessoaJuridica": {
+        "id": 9319956,
+        "cpfFormatado": "",
+        "cnpjFormatado": "53.723.870/0001-55",
+        "numeroInscricaoSocial": "",
+        "nome": "SANTA CASA DE MISERICORDIA DE PATROCINIO PAULISTA",
+        "razaoSocialReceita": "SANTA CASA DE MISERICORDIA DE PATROCINIO PAULISTA",
+        "nomeFantasiaReceita": "",
+        "tipo": "Entidades Sem Fins Lucrativos"
+      },
+      "convenio": {
+        "codigo": "871801",
+        "objeto": "AQUISICAO DE EQUIPAMENTO E MATERIAL PERMANENTE PARA UNIDADE DE ATENCAO ESPECIALIZADA EM SAUDE",
+        "numero": "45395/2018"
+      }
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+ "meta": {
+  "url": "https://mapaosc.ipea.gov.br/api/api/busca/cnpj/108217000110",
+  "data_utc": "2026-10-01T03:07:31.279437+00:00",
+  "status": 200,
+  "sha256": "1d2c16d6cdace66c079f4db1d823d2f6c3142d115acbfbf1e78b8bcb09dce922",
+  "tempo_ms": 234
+ },
+ "corpo": [
+  {
+   "id_osc": 781757,
+   "cd_identificador_osc": "108217000110",
+   "cd_situacao_cadastral": 2,
+   "tx_nome_osc": "MITRA ARQUIDIOCESANA DE BRASILIA",
+   "tx_razao_social_osc": "MITRA ARQUIDIOCESANA DE BRASILIA",
+   "tx_nome_fantasia_osc": "MITRA ARQUIDIOCESANA DE BRASILIA",
+   "document": "'arquidiocesan':2A,6B 'brasil':4A,8B 'mitr':1A,5B",
+   "tx_nome_natureza_juridica_osc": "Organização Religiosa",
+   "dt_fundacao_osc": "1970-11-13",
+   "cd_situacao_imovel_osc": null,
+   "cd_municipio": "5300108",
+   "tx_nome_municipio": "Brasília",
+   "cd_uf": "53",
+   "tx_sigla_uf": "DF",
+   "tx_nome_uf": "Distrito Federal",
+   "cd_regiao": "5",
+   "tx_nome_regiao": "Centro Oeste",
+   "total_trabalhadores": 124,
+   "nr_trabalhadores_vinculo": 100,
+   "nr_trabalhadores_deficiencia": 24,
+   "nr_trabalhadores_voluntarios": null
+  }
+ ]
+}

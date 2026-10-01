@@ -1,0 +1,17 @@
+{
+ "meta": {
+  "url": "https://mapaosc.ipea.gov.br/api/api/osc/descricao/602125",
+  "data_utc": "2026-10-01T03:12:02.377483+00:00",
+  "status": 200,
+  "sha256": "5ec51fe509a5266d69cbb8f0b4995476904a4ba97626c091ce3b92c7f072540c",
+  "tempo_ms": 48
+ },
+ "corpo": {
+  "id_osc": 602125,
+  "tx_finalidades_estatutarias": null,
+  "tx_historico": null,
+  "tx_link_estatuto_osc": null,
+  "tx_missao_osc": null,
+  "tx_visao_osc": null
+ }
+}

@@ -1,0 +1,15 @@
+{
+  "caso": "T7_cepim_imdc_p2",
+  "url": "https://api.portaldatransparencia.gov.br/api-de-dados/cepim",
+  "params": {
+    "pagina": 2,
+    "cnpjSancionado": "21145289000107"
+  },
+  "http": 200,
+  "ms": 36,
+  "headers_resposta": {
+    "content-type": "application/json",
+    "cache-control": "public, max-age=7200, must-revalidate"
+  },
+  "corpo": []
+}

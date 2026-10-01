@@ -1,0 +1,2729 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Mapa OSC Data API",
+        "description": "É uma API REST que alimenta o website https://www.mapaosc.ipea.gov.br/",
+        "contact": {
+            "name": "Mapa das OSCs",
+            "email": "mapaosc@gmail.com"
+        },
+        "version": "1.0"
+    },
+    "paths": {
+        "/api": {
+            "get": {
+                "tags": [
+                    "Api"
+                ],
+                "summary": "Api do Mapa do Mapa v3",
+                "operationId": "cd34c3b6e1cfbcfb266b06167c5f59b2",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/api/osc/assinatura-termos": {
+            "get": {
+                "tags": [
+                    "Assinaturas de Termo"
+                ],
+                "operationId": "getAll",
+                "responses": {
+                    "200": {
+                        "description": "Retorna todos as Assinaturas da Base",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/AssinaturaTermo"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/osc/assinatura-termos/{id}": {
+            "get": {
+                "tags": [
+                    "Assinaturas de Termo"
+                ],
+                "operationId": "get",
+                "responses": {
+                    "200": {
+                        "description": "Retorna a Assinatura pelo Identificador",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/AssinaturaTermo"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/confocos/conselheiro": {
+            "get": {
+                "tags": [
+                    "Conselheiro"
+                ],
+                "operationId": "getAll",
+                "responses": {
+                    "200": {
+                        "description": "Retorna todos os Conselhos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Confocos"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/confocos/conselheiro/{osc_id}": {
+            "get": {
+                "tags": [
+                    "Conselheiro"
+                ],
+                "operationId": "get",
+                "parameters": [
+                    {
+                        "name": "osc_id",
+                        "in": "path",
+                        "description": "Número de identificação do CONSELHO",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna um Conselheiro de acordo com o ID",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Confocos"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/conselho": {
+            "get": {
+                "tags": [
+                    "Conselho"
+                ],
+                "operationId": "getAll",
+                "responses": {
+                    "200": {
+                        "description": "Retorna todos os Conselhos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Confocos"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/conselho/{osc_id}": {
+            "get": {
+                "tags": [
+                    "Conselho"
+                ],
+                "operationId": "get",
+                "parameters": [
+                    {
+                        "name": "osc_id",
+                        "in": "path",
+                        "description": "Número de identificação do CONSELHO",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna um Conselho de acordo com o ID",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Confocos"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/confocos/nivel_federativo": {
+            "get": {
+                "tags": [
+                    "Nivel Federativo"
+                ],
+                "operationId": "getAll",
+                "responses": {
+                    "200": {
+                        "description": "Retorna todos os Niveis Federativos.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/DCNivelFederativo"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/confocos/nivel_federativo/{id_nivel_federativo}": {
+            "get": {
+                "tags": [
+                    "Tipo participação"
+                ],
+                "operationId": "get",
+                "parameters": [
+                    {
+                        "name": "id_nivel_federativo",
+                        "in": "path",
+                        "description": "Número de identificação do Nivel Federativo.",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna dados do nivel federativo de acordo com o número de identificação informado.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DCNivelFederativo"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/confocos/documento_conselho": {
+            "get": {
+                "tags": [
+                    "DocumentoConselho"
+                ],
+                "operationId": "getAll",
+                "responses": {
+                    "200": {
+                        "description": "Retorna todos os Documentos de Conselho",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Confocos"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/confocos/documento_conselho/{id_documento_conselho}": {
+            "get": {
+                "tags": [
+                    "DocumentoConselho"
+                ],
+                "operationId": "get",
+                "parameters": [
+                    {
+                        "name": "osc_id",
+                        "in": "path",
+                        "description": "Número de identificação do CONSELHO",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna um DocumentoConselho de acordo com o ID",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Confocos"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/abrangencia_projeto": {
+            "get": {
+                "tags": [
+                    "Abrangência projeto"
+                ],
+                "operationId": "getAll",
+                "responses": {
+                    "200": {
+                        "description": "Retorna todos as abrangências do projeto.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/DCAbrangenciaProjeto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/abrangencia_projeto/{id_abrangencia_projeto}": {
+            "get": {
+                "tags": [
+                    "Abrangência projeto"
+                ],
+                "operationId": "get",
+                "parameters": [
+                    {
+                        "name": "id_abrangencia_projeto",
+                        "in": "path",
+                        "description": "Número de identificação da abrangência do projeto.",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna dados da abrangência do projeto de acordo com o número de identificação informado.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DCAbrangenciaProjeto"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/area_atuacao": {
+            "get": {
+                "tags": [
+                    "Area e subarea de atuação"
+                ],
+                "operationId": "getAll",
+                "responses": {
+                    "200": {
+                        "description": "Retorna todas areas de atuação.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/DCAreaAtuacao"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/busca/municipio/{texto_busca}": {
+            "get": {
+                "tags": [
+                    "Busca"
+                ],
+                "operationId": "getListaMunicipios",
+                "parameters": [
+                    {
+                        "name": "texto_busca",
+                        "in": "path",
+                        "description": "Texto que irá procurar nos municípios.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna todos os municípios de acordo com o texto.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ListaMunicipio"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/busca/estado/{texto_busca}": {
+            "get": {
+                "tags": [
+                    "Busca"
+                ],
+                "operationId": "getListaEstados",
+                "parameters": [
+                    {
+                        "name": "texto_busca",
+                        "in": "path",
+                        "description": "Texto que irá procurar nos estados.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna todos os estados de acordo com o texto.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ListaEstado"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/busca/regiao/{texto_busca}": {
+            "get": {
+                "tags": [
+                    "Busca"
+                ],
+                "operationId": "getListaRegioes",
+                "parameters": [
+                    {
+                        "name": "texto_busca",
+                        "in": "path",
+                        "description": "Texto que irá procurar nas regiões.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna todas as regiões de acordo com o texto.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ListaRegiao"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/busca/todas_localizacoes/{texto_busca}": {
+            "get": {
+                "tags": [
+                    "Busca"
+                ],
+                "operationId": "getListaTodasLocalizacoes",
+                "parameters": [
+                    {
+                        "name": "texto_busca",
+                        "in": "path",
+                        "description": "Texto que irá procurar as localizações.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna todas as localizações de acordo com o texto.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ListaLocalizacao"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/certificado": {
+            "get": {
+                "tags": [
+                    "Certificado"
+                ],
+                "operationId": "getAll",
+                "responses": {
+                    "200": {
+                        "description": "Retorna todos os certificados.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/DCCertificado"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/certificado/{id_certificado}": {
+            "get": {
+                "tags": [
+                    "Certificado"
+                ],
+                "operationId": "get",
+                "parameters": [
+                    {
+                        "name": "id_certificado",
+                        "in": "path",
+                        "description": "Número de identificação do certificado",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna dados do certificado de acordo com o número de identificação informado.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DCCertificado"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/classe_economica/autocomplete/{nome_classe_atividade_economica}": {
+            "get": {
+                "tags": [
+                    "Classe econômica"
+                ],
+                "operationId": "getAutocomplete",
+                "parameters": [
+                    {
+                        "name": "nome_classe_atividade_economica",
+                        "in": "path",
+                        "description": "Nome classe atividade econômica.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna dados da classe econômica.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DCClasseAtividadeEconomica"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/ps_conferencias": {
+            "get": {
+                "tags": [
+                    "Conferência"
+                ],
+                "operationId": "getAll",
+                "responses": {
+                    "200": {
+                        "description": "Retorna todas as conferência.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/DCConferencia"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/ps_conferencias/{id_ps_conferencias}": {
+            "get": {
+                "tags": [
+                    "Conferência"
+                ],
+                "operationId": "get",
+                "parameters": [
+                    {
+                        "name": "id_ps_conferencias",
+                        "in": "path",
+                        "description": "Número de identificação da conferência.",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna dados da conferência de acordo com o número de identificação informado.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DCConferencia"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/ps_conselhos": {
+            "get": {
+                "tags": [
+                    "Participação social"
+                ],
+                "operationId": "getAll",
+                "responses": {
+                    "200": {
+                        "description": "Retorna todas as participações sociais conselho.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/DCConselho"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/ps_conselhos/{id_ps_conselhos}": {
+            "get": {
+                "tags": [
+                    "Participação social"
+                ],
+                "operationId": "get",
+                "parameters": [
+                    {
+                        "name": "id_ps_conselhos",
+                        "in": "path",
+                        "description": "Número de identificação da participação social conselho.",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna dados da participação social conselho de acordo com o número de identificação informado.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DCConselho"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/ps_conferencias_formas": {
+            "get": {
+                "tags": [
+                    "Conferência"
+                ],
+                "operationId": "getAll",
+                "responses": {
+                    "200": {
+                        "description": "Retorna todas as formas de participação da conferência.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/DCFormaParticipacaoConferencia"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/ps_conferencia_forma/{id_ps_conferencia_forma}": {
+            "get": {
+                "tags": [
+                    "Conferência"
+                ],
+                "operationId": "get",
+                "parameters": [
+                    {
+                        "name": "id_ps_conferencia_forma",
+                        "in": "path",
+                        "description": "Número de identificação da forma de participação da conferência.",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna dados da forma de participação da conferência de acordo com o número de identificação informado.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DCFormaParticipacaoConferencia"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/geo/municipios/estado/{id_estado}": {
+            "get": {
+                "tags": [
+                    "Geo"
+                ],
+                "operationId": "getMunicipiosPorEstado",
+                "parameters": [
+                    {
+                        "name": "id_estado",
+                        "in": "path",
+                        "description": "Número de identificação do estado",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna os municípios de acordo com o estado informado.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/DCGeoCluster"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/geo/estados/regiao/{id_regiao}": {
+            "get": {
+                "tags": [
+                    "Geo"
+                ],
+                "operationId": "getEstadosPorRegiao",
+                "parameters": [
+                    {
+                        "name": "id_regiao",
+                        "in": "path",
+                        "description": "Número de identificação da região",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna os estados de acordo com a região informado.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/DCGeoCluster"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/geo/oscs/estado/{id_estado}": {
+            "get": {
+                "tags": [
+                    "Geo"
+                ],
+                "operationId": "getOSCsPorEstado",
+                "parameters": [
+                    {
+                        "name": "id_estado",
+                        "in": "path",
+                        "description": "Número de identificação do estado",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna todas OSCs de acordo com o estado informado.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/OSCsPorEstado"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/geo/oscs/municipio/{id_municipio}": {
+            "get": {
+                "tags": [
+                    "Geo"
+                ],
+                "operationId": "getOSCsPorMunicipio",
+                "parameters": [
+                    {
+                        "name": "id_municipio",
+                        "in": "path",
+                        "description": "Número de identificação do municipio",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna todas OSCs de acordo com o municipio informado.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/OSCsPorEstado"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/geo/regioes": {
+            "get": {
+                "tags": [
+                    "Geo"
+                ],
+                "operationId": "getRegiaoAll",
+                "responses": {
+                    "200": {
+                        "description": "Retorna todas as regiões.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/DCGeoCluster"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/geo/estados": {
+            "get": {
+                "tags": [
+                    "Geo"
+                ],
+                "operationId": "getEstadoAll",
+                "responses": {
+                    "200": {
+                        "description": "Retorna todos os estados.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/DCGeoCluster"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/indice_ipeadata": {
+            "get": {
+                "tags": [
+                    "Indices"
+                ],
+                "operationId": "getAll",
+                "responses": {
+                    "200": {
+                        "description": "Retorna todos os indices do IPEA Data.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/DCIndice"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/objetivos/metas/{id_obj}": {
+            "get": {
+                "tags": [
+                    "Objetivos"
+                ],
+                "operationId": "get",
+                "parameters": [
+                    {
+                        "name": "id_obj",
+                        "in": "path",
+                        "description": "Número de identificação do objetivo.",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna dados de metas de acordo com o número de identificação informado.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/DCMetaProjeto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/objetivos": {
+            "get": {
+                "tags": [
+                    "Objetivos"
+                ],
+                "operationId": "getAll",
+                "responses": {
+                    "200": {
+                        "description": "Retorna todos os objetivos de projeto.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/DCObjetivoProjeto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/origem_fonte_recurso_projeto": {
+            "get": {
+                "tags": [
+                    "Fonte de recursos do projeto"
+                ],
+                "operationId": "getAll",
+                "responses": {
+                    "200": {
+                        "description": "Retorna todos as fontes de recursos do projeto.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/DCOrigemFonteRecursosProjeto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/origem_fonte_recurso_projeto/{id_origem_fonte_recurso_projeto}": {
+            "get": {
+                "tags": [
+                    "Fonte de recursos do projeto"
+                ],
+                "operationId": "get",
+                "parameters": [
+                    {
+                        "name": "id_origem_fonte_recurso_projeto",
+                        "in": "path",
+                        "description": "Número de identificação da fonte de recursos do projeto.",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna dados da fonte de recursos do projeto de acordo com o número de identificação informado.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DCOrigemFonteRecursosProjeto"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/ps_conselhos_periodicidade": {
+            "get": {
+                "tags": [
+                    "Participação social"
+                ],
+                "operationId": "getAll",
+                "responses": {
+                    "200": {
+                        "description": "Retorna todas as participações sociais concelhos periodicidade.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/DCPeriodicidadeReuniaoConselho"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/qualificacao-socio/{id_qualificacao-socio}": {
+            "get": {
+                "tags": [
+                    "Quadro societário"
+                ],
+                "operationId": "get",
+                "parameters": [
+                    {
+                        "name": "id_qualificacao-socio",
+                        "in": "path",
+                        "description": "Número de identificação das qualificações de sócio.",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna dados das qualificações de sócio de acordo com o número de identificação informado.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DCQualificacaoSocio"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/qualificacao-socio/all": {
+            "get": {
+                "tags": [
+                    "Quadro societário"
+                ],
+                "operationId": "getAll",
+                "responses": {
+                    "200": {
+                        "description": "Retorna todas as qualificações de sócio.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/DCQualificacaoSocio"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/situacao_cadastral": {
+            "get": {
+                "tags": [
+                    "Situação cadastral"
+                ],
+                "operationId": "getAll",
+                "responses": {
+                    "200": {
+                        "description": "Retorna todas as situações cadastrais.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/DCSituacaoCadastral"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/situacao_cadastral/{id_situacao_cadastral}": {
+            "get": {
+                "tags": [
+                    "Situação cadastral"
+                ],
+                "operationId": "get",
+                "parameters": [
+                    {
+                        "name": "id_situacao_cadastral",
+                        "in": "path",
+                        "description": "Número de identificação da sitação cadastral.",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna dados da situação cadastral de acordo com o número de identificação informado.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/DCSituacaoCadastral"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/situacao_imovel": {
+            "get": {
+                "tags": [
+                    "Situacao imovel"
+                ],
+                "operationId": "getAll",
+                "responses": {
+                    "200": {
+                        "description": "Retorna todas as situações do imovel.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/DCSituacaoImovel"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/situacao_imovel/{id_situacao_imovel}": {
+            "get": {
+                "tags": [
+                    "Situacao imovel"
+                ],
+                "operationId": "get",
+                "parameters": [
+                    {
+                        "name": "id_situacao_imovel",
+                        "in": "path",
+                        "description": "Número de identificação da situação do imovel",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna dados da situação do imovel de acordo com o número de identificação informado.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DCSituacaoImovel"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/status_projeto": {
+            "get": {
+                "tags": [
+                    "Status projeto"
+                ],
+                "operationId": "getAll",
+                "responses": {
+                    "200": {
+                        "description": "Retorna todos os status do projeto.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/DCStatusProjeto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/status_projeto/{id_status_projeto}": {
+            "get": {
+                "tags": [
+                    "Status projeto"
+                ],
+                "operationId": "get",
+                "parameters": [
+                    {
+                        "name": "id_certificado",
+                        "in": "path",
+                        "description": "Número de identificação do status projeto",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna dados status do projeto de acordo com o número de identificação informado.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DCStatusProjeto"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/subarea_atuacao": {
+            "get": {
+                "tags": [
+                    "Area e subarea de atuação"
+                ],
+                "operationId": "getAll",
+                "responses": {
+                    "200": {
+                        "description": "Retorna todas subareas de atuação.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/DCSubareaAtuacao"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/tipo_participacao": {
+            "get": {
+                "tags": [
+                    "Tipo participação"
+                ],
+                "operationId": "getAll",
+                "responses": {
+                    "200": {
+                        "description": "Retorna todos os tipo de participação.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/DCTipoParticipacao"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/tipo_participacao/{id_tipo_participacao}": {
+            "get": {
+                "tags": [
+                    "Tipo participação"
+                ],
+                "operationId": "get",
+                "parameters": [
+                    {
+                        "name": "id_tipo_participacao",
+                        "in": "path",
+                        "description": "Número de identificação do tipo participação.",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna dados do tipo participação de acordo com o número de identificação informado.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DCTipoParticipacao"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/tipo-socio/{id_tipo-socio}": {
+            "get": {
+                "tags": [
+                    "Quadro societário"
+                ],
+                "operationId": "get",
+                "parameters": [
+                    {
+                        "name": "id_tipo-socio",
+                        "in": "path",
+                        "description": "Número de identificação do tipo de sócio.",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna dados do tipo de sócio de acordo com o número de identificação informado.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DCTipoSocio"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/tipo-socio/all": {
+            "get": {
+                "tags": [
+                    "Quadro societário"
+                ],
+                "operationId": "getAll",
+                "responses": {
+                    "200": {
+                        "description": "Retorna todas os tipos de sócio.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/DCTipoSocio"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/zona_atuacao_projeto": {
+            "get": {
+                "tags": [
+                    "Atuação projeto"
+                ],
+                "operationId": "getAll",
+                "responses": {
+                    "200": {
+                        "description": "Retorna todos as atuações do projeto.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/DCZonaAtuacaoProjeto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/zona_atuacao_projeto/{id_zona_atuacao_projeto}": {
+            "get": {
+                "tags": [
+                    "Atuação projeto"
+                ],
+                "operationId": "get",
+                "parameters": [
+                    {
+                        "name": "id_abrangencia_projeto",
+                        "in": "path",
+                        "description": "Número de identificação da atuação do projeto.",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna dados da atuação do projeto de acordo com o número de identificação informado.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DCZonaAtuacaoProjeto"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/osc": {
+            "get": {
+                "tags": [
+                    "Osc"
+                ],
+                "operationId": "getAll",
+                "responses": {
+                    "200": {
+                        "description": "Retorna todos as OSCs",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Osc"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/osc/{osc_id}": {
+            "get": {
+                "tags": [
+                    "Osc"
+                ],
+                "operationId": "get",
+                "parameters": [
+                    {
+                        "name": "osc_id",
+                        "in": "path",
+                        "description": "Número de identificação da OSC",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna uma OSC de acordo com o ID",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Osc"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/osc/projetos/{id_osc}": {
+            "get": {
+                "tags": [
+                    "Projeto"
+                ],
+                "operationId": "getProjetos",
+                "parameters": [
+                    {
+                        "name": "id_osc",
+                        "in": "path",
+                        "description": "Número de identificação da OSC",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna dados e todos os projetos de acordo com a OSC informado.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Projeto"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/cnpj/{cnpj}": {
+            "get": {
+                "tags": [
+                    "Busca"
+                ],
+                "operationId": "getListaOscCnpjAutocomplete",
+                "parameters": [
+                    {
+                        "name": "cnpj",
+                        "in": "path",
+                        "description": "CNPJ para pesquisar.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna todos os CNJPs de acordo com o texto.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/ListaOscCnpjAutocomplete"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/osc/projeto/parceira/{id}": {
+            "get": {
+                "tags": [
+                    "Projeto"
+                ],
+                "operationId": "get",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Número de identificação da parceira",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna os dados da parceria do projeto de acordo com identificação da parceira informado.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/OscParceiraProjeto"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/osc/projeto/parceiras/{id_projeto}": {
+            "get": {
+                "tags": [
+                    "Projeto"
+                ],
+                "operationId": "getParceriasPorProjeto",
+                "parameters": [
+                    {
+                        "name": "id_projeto",
+                        "in": "path",
+                        "description": "Número de identificação do projeto",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna todas as parcerias dos projetos de acordo com o projeto informado.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/OSCsPorEstado"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/osc/projeto/{id}": {
+            "get": {
+                "tags": [
+                    "Projeto"
+                ],
+                "operationId": "get",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Número de identificação do projeto",
+                        "required": true,
+                        "schema": {
+                            "type": "int"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retorna dados do projeto",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Projeto"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/osc/termos": {
+            "get": {
+                "tags": [
+                    "Termo"
+                ],
+                "operationId": "getAll",
+                "responses": {
+                    "200": {
+                        "description": "Retorna todos as Termos da Base",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Termo"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/osc/termos/{id}": {
+            "get": {
+                "tags": [
+                    "Termo"
+                ],
+                "operationId": "get",
+                "responses": {
+                    "200": {
+                        "description": "Retorna Termo pelo Identificador",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Termo"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Conselheiro": {
+                "description": "Conselheiro model",
+                "properties": {
+                    "id_conselheiro": {
+                        "description": "Número de identificação da Conselheiro",
+                        "type": "integer"
+                    },
+                    "tx_nome_conselheiro": {
+                        "description": "Nome do Conselheiro",
+                        "type": "string"
+                    },
+                    "tx_orgao_origem": {
+                        "description": "Orgão de Origem do Conselheiro (Pode ser Governamental ou OSC)",
+                        "type": "string"
+                    },
+                    "cd_identificador_orgao": {
+                        "description": "CNPJ da Osc ou do Orgão de Origem",
+                        "type": "integer"
+                    },
+                    "cd_tipo_conselheiro": {
+                        "description": "Tipo de Conselheiro (1 - Titular, 2 - Suplente)",
+                        "type": "integer"
+                    },
+                    "bo_conselheiro_ativo": {
+                        "description": "Campo define se o Conselheiro está ativo ou não na Portal",
+                        "type": "boolean"
+                    },
+                    "dt_data_vinculo": {
+                        "description": "Data de entrada no Conselho",
+                        "type": "datetime"
+                    },
+                    "dt_data_final_vinculo": {
+                        "description": "Data de saída no Conselho",
+                        "type": "datetime"
+                    },
+                    "bo_eh_governamental": {
+                        "description": "Campo define se o Conselheiro é do Governo ou de uma OSC",
+                        "type": "boolean"
+                    },
+                    "id_conselho": {
+                        "description": "Id do Conselho ao qual o Conselheiro pertence",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "Confocos": {
+                "description": "Conselho model",
+                "properties": {
+                    "id_conselho": {
+                        "description": "Número de identificação da Conselho",
+                        "type": "integer"
+                    },
+                    "tx_nome_conselho": {
+                        "description": "Nome do Conselho",
+                        "type": "string"
+                    },
+                    "tx_ato_legal": {
+                        "description": "Ato legal de Criação do Conselho",
+                        "type": "string"
+                    },
+                    "tx_website": {
+                        "description": "Website do Conselho",
+                        "type": "string"
+                    },
+                    "bo_conselho_ativo": {
+                        "description": "Campo descreve ativação do Conselho no Portal",
+                        "type": "integer"
+                    },
+                    "nr_total_conselheiros_titulares": {
+                        "description": "Quantitativo de Conselheiros Titulares",
+                        "type": "integer"
+                    },
+                    "cd_nivel_federativo": {
+                        "description": "Codigo do Nível Federativo do Conselho",
+                        "type": "integer"
+                    },
+                    "cd_tipo_abrangencia": {
+                        "description": "Codigo do Tipo de Abragência do Conselho",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "DCNivelFederativo": {
+                "description": "Objeto do Nível Federativo do Conselho (Confocos). ",
+                "properties": {
+                    "cd_nivel_federativo": {
+                        "description": "Número de identificação do Nível Federativo.",
+                        "type": "integer"
+                    },
+                    "tx_nome_nivel_federativo": {
+                        "description": "Nome do Nível Federativo.",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "DocumentoConselho": {
+                "description": "DocumentoConselho model",
+                "properties": {
+                    "id_documento_conselho": {
+                        "description": "Número de identificação do Documento de Conselho",
+                        "type": "integer"
+                    },
+                    "tx_titulo_documento": {
+                        "description": "Nome do Documento",
+                        "type": "string"
+                    },
+                    "tx_imagem_capa": {
+                        "description": "Nome do Arquivo de Capa da Imagem",
+                        "type": "string"
+                    },
+                    "tx_caminho_arquivo": {
+                        "description": "Caminho do Arquivo (path completo)",
+                        "type": "string"
+                    },
+                    "tx_tipo_arquivo": {
+                        "description": "Nome do tipo do arquivo",
+                        "type": "string"
+                    },
+                    "dt_data_cadastro": {
+                        "description": "Data de cadastro do documento",
+                        "type": "string"
+                    },
+                    "tx_url_externa": {
+                        "description": "Url externa do documento",
+                        "type": "string"
+                    },
+                    "conselho_id": {
+                        "description": "ID do Conselho que o documento pertence",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "DCIndice": {
+                "description": "Objeto de indice ",
+                "properties": {
+                    "cd_certificado": {
+                        "description": "Número de identificação do certificado",
+                        "type": "integer"
+                    },
+                    "tx_nome_indice": {
+                        "description": "Nome do indice.",
+                        "type": "string"
+                    },
+                    "tx_sigla": {
+                        "description": "Sigla do indice.",
+                        "type": "string"
+                    },
+                    "tx_tema": {
+                        "description": "Tema do indice.",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "Osc": {
+                "description": "Osc model",
+                "properties": {
+                    "id_osc": {
+                        "description": "Número de identificação da Osc",
+                        "type": "integer"
+                    },
+                    "tx_apelido_osc": {
+                        "description": "Apelido da Osc",
+                        "type": "string"
+                    },
+                    "ft_apelido_osc": {
+                        "description": "Fonte de origem do Apelido da Osc",
+                        "type": "string"
+                    },
+                    "cd_identificador_osc": {
+                        "description": "CNPJ da Osc",
+                        "type": "integer"
+                    },
+                    "ft_identificador_osc": {
+                        "description": "Fonte da origem do CNPJ da Osc",
+                        "type": "string"
+                    },
+                    "bo_osc_ativa": {
+                        "description": "Campo descreve ativação da OSC no Portal",
+                        "type": "integer"
+                    },
+                    "bo_nao_possui_projeto": {
+                        "description": "Campo que diz se a OSC tem projeto ou não",
+                        "type": "integer"
+                    },
+                    "ft_nao_possui_projeto": {
+                        "description": "Fonte da origem do Campo que diz se a OSC tem projeto ou não",
+                        "type": "string"
+                    },
+                    "bo_nao_possui_certificacoes": {
+                        "description": "Campo que diz se a OSC tem Certificações ou não",
+                        "type": "integer"
+                    },
+                    "ft_nao_possui_certificacoes": {
+                        "description": "Fonte da origem do Campo que diz se a OSC tem Certificações ou não",
+                        "type": "string"
+                    },
+                    "bo_nao_possui_link_estatuto": {
+                        "description": "Campo que diz se a OSC tem Links para Estatuto ou não",
+                        "type": "integer"
+                    },
+                    "ft_nao_possui_link_estatuto": {
+                        "description": "Fonte da origem do Campo que diz se a OSC tem Links para Estatuto ou não",
+                        "type": "string"
+                    },
+                    "bo_nao_possui_ps_conselhos": {
+                        "description": "Campo que diz se a OSC tem conselhos ou não",
+                        "type": "integer"
+                    },
+                    "ft_nao_possui_ps_conselhos": {
+                        "description": "Fonte da origem do Campo que diz se a OSC tem conselhos ou não",
+                        "type": "string"
+                    },
+                    "bo_nao_possui_ps_conferencias": {
+                        "description": "Campo que diz se a OSC tem conferencias ou não",
+                        "type": "integer"
+                    },
+                    "ft_nao_possui_ps_conferencias": {
+                        "description": "Fonte da origem do Campo que diz se a OSC tem conferencias ou não",
+                        "type": "string"
+                    },
+                    "bo_nao_possui_ps_outros_espacos": {
+                        "description": "Campo que diz se a OSC tem outros espaços ou não",
+                        "type": "integer"
+                    },
+                    "ft_nao_possui_ps_outros_espacos": {
+                        "description": "Fonte da origem do Campo que diz se a OSC tem outros espaços ou não",
+                        "type": "string"
+                    },
+                    "cd_situacao_cadastral": {
+                        "description": "Codigo do Tipo de Situação Cadastral",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "OscParceiraProjeto": {
+                "description": "Objeto de OSC parceira de projeto ",
+                "properties": {
+                    "id_osc_parceira_projeto": {
+                        "description": "Número de identificação da OSC parceira de projeto",
+                        "type": "integer"
+                    },
+                    "id_osc": {
+                        "description": "Identificação da OSC.",
+                        "type": "integer"
+                    },
+                    "id_projeto": {
+                        "description": "Identificação de projeto.",
+                        "type": "integer"
+                    },
+                    "ft_osc_parceira_projeto": {
+                        "description": "Fonte de origem da OSC parceira de projeto.",
+                        "type": "integer"
+                    },
+                    "bo_oficial": {
+                        "description": "BO oficial.",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "Projeto": {
+                "description": "Projeto model",
+                "properties": {
+                    "id": {
+                        "description": "Número de identificação do projeto",
+                        "type": "string",
+                        "example": ""
+                    },
+                    "id_osc": {
+                        "description": "Identificação da OSC.",
+                        "type": "int"
+                    },
+                    "cd_status_projeto": {
+                        "description": "Identificação de status do projeto.",
+                        "type": "int"
+                    },
+                    "cd_abrangencia_projeto": {
+                        "description": "Identificação da abrangencia.",
+                        "type": "int"
+                    },
+                    "cd_zona_atuacao_projeto": {
+                        "description": "Identificação da zona de atuação.",
+                        "type": "int"
+                    },
+                    "cd_municipio": {
+                        "description": "Identificação do município.",
+                        "type": "int"
+                    },
+                    "cd_uf": {
+                        "description": "Identificação do estado.",
+                        "type": "string"
+                    },
+                    "tx_nome_projeto": {
+                        "description": "Nome do projeto.",
+                        "type": "string"
+                    },
+                    "ft_nome_projeto": {
+                        "description": "Fonte do dado sobre o nome do projeto.",
+                        "type": "string"
+                    },
+                    "ft_status_projeto": {
+                        "description": "Fonte do dado sobre o status do projeto.",
+                        "type": "string"
+                    },
+                    "dt_data_inicio_projeto": {
+                        "description": "Data de inicio do projeto.",
+                        "type": "string"
+                    },
+                    "ft_data_inicio_projeto": {
+                        "description": "Fonte do dado sobre data de inicio do projeto.",
+                        "type": "string"
+                    },
+                    "dt_data_fim_projeto": {
+                        "description": "Data de fim do projeto.",
+                        "type": "string"
+                    },
+                    "ft_data_fim_projeto": {
+                        "description": "Fonte do dado sobre data de inicio do projetoIdentificação da OSC.",
+                        "type": "string"
+                    },
+                    "tx_link_projeto": {
+                        "description": "Link do projeto.",
+                        "type": "string"
+                    },
+                    "ft_link_projeto": {
+                        "description": "Fonte do dado sobre link do projeto.",
+                        "type": "string"
+                    },
+                    "nr_total_beneficiarios": {
+                        "description": "Total de beneficiários.",
+                        "type": "string"
+                    },
+                    "ft_total_beneficiarios": {
+                        "description": "Fonte do dado sobre total de beneficiários.",
+                        "type": "string"
+                    },
+                    "nr_valor_captado_projeto": {
+                        "description": "Valor captado do projeto.",
+                        "type": "string"
+                    },
+                    "ft_valor_captado_projeto": {
+                        "description": "Fonte do dado sobre valor captado do projeto.",
+                        "type": "string"
+                    },
+                    "nr_valor_total_projeto": {
+                        "description": "Valor total do projeto.",
+                        "type": "string"
+                    },
+                    "ft_valor_total_projeto": {
+                        "description": "Fonte do dado sobre valor total do projeto.",
+                        "type": "string"
+                    },
+                    "ft_abrangencia_projeto": {
+                        "description": "Fonte do dado sobre abrangencia.",
+                        "type": "string"
+                    },
+                    "ft_zona_atuacao_projeto": {
+                        "description": "Fonte do dado sobre zona de atuação.",
+                        "type": "string"
+                    },
+                    "tx_descricao_projeto": {
+                        "description": "Descrição do projeto.",
+                        "type": "string"
+                    },
+                    "ft_descricao_projeto": {
+                        "description": "Fonte do dado sobre descrição do projeto.",
+                        "type": "string"
+                    },
+                    "ft_metodologia_monitoramento": {
+                        "description": "Fonte do dado sobre metodologia de monitoramento.",
+                        "type": "string"
+                    },
+                    "tx_metodologia_monitoramento": {
+                        "description": "Metodologia de monitoramento.",
+                        "type": "string"
+                    },
+                    "tx_identificador_projeto_externo": {
+                        "description": "Identificador do projeto externo.",
+                        "type": "string"
+                    },
+                    "ft_identificador_projeto_externo": {
+                        "description": "Fonte do dado sobre identificador do projeto externo.",
+                        "type": "string"
+                    },
+                    "bo_oficial": {
+                        "description": "BO oficial.",
+                        "type": "boolean"
+                    },
+                    "tx_status_projeto_outro": {
+                        "description": "Status de outro projeto.",
+                        "type": "string"
+                    },
+                    "ft_municipio": {
+                        "description": "Fonte do dado sobre município.",
+                        "type": "string"
+                    },
+                    "ft_uf": {
+                        "description": "Fonte do dado sobre estado.",
+                        "type": "string"
+                    },
+                    "ft_possui_emenda": {
+                        "description": "Fonte de quem marcou possui emenda.",
+                        "type": "string"
+                    },
+                    "bo_possui_emenda": {
+                        "description": "Campo que marca se possui emenda.",
+                        "type": "boolean"
+                    },
+                    "ft_numero_proposta": {
+                        "description": "Fonte de quem informou número da proposta.",
+                        "type": "string"
+                    },
+                    "nr_numero_proposta": {
+                        "description": "Número da proposta.",
+                        "type": "string"
+                    },
+                    "ft_numero_instrumento": {
+                        "description": "Fonte de quem informou número da instrumento.",
+                        "type": "string"
+                    },
+                    "nr_numero_instrumento": {
+                        "description": "Número do instrumento.",
+                        "type": "int"
+                    }
+                },
+                "type": "object"
+            },
+            "AssinaturaTermo": {
+                "description": "AssinaturaTermo model",
+                "properties": {
+                    "dt_assinatura_termo": {
+                        "description": "Data da Assinatura do Termo.",
+                        "type": "date"
+                    }
+                },
+                "type": "object"
+            },
+            "Representacao": {
+                "description": "Representacao model",
+                "properties": {
+                    "id_representacao": {
+                        "description": "ID da Representação gerado automaticamente pelo sistema",
+                        "type": "integer"
+                    },
+                    "id_osc": {
+                        "description": "ID da Osc ligada a Representação",
+                        "type": "integer"
+                    },
+                    "id_usuario": {
+                        "description": "ID da Usuário ligado a Representação",
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "RepresentacaoConselho": {
+                "description": "RepresentacaoConselho model",
+                "properties": {
+                    "id_usuario": {
+                        "description": "ID da Usuário ligado a Representação",
+                        "type": "integer"
+                    },
+                    "dt_data_vinculo": {
+                        "description": "Data que foi criado a Representação",
+                        "type": "datetime"
+                    }
+                },
+                "type": "object"
+            },
+            "Termo": {
+                "description": "Termo model"
+            },
+            "DCGeoCluster": {
+                "description": "Objeto de geolocalização ",
+                "properties": {
+                    "id_regiao": {
+                        "description": "Número de identificação da região",
+                        "type": "integer"
+                    },
+                    "cd_tipo_regiao": {
+                        "description": "Identificação do tipo da região.",
+                        "type": "string"
+                    },
+                    "tx_tipo_regiao": {
+                        "description": "Texto do tipo da região.",
+                        "type": "string"
+                    },
+                    "tx_nome_regiao": {
+                        "description": "Texto do nome da região.",
+                        "type": "string"
+                    },
+                    "tx_sigla_regiao": {
+                        "description": "Texto da sigla da região.",
+                        "type": "string"
+                    },
+                    "geo_lat_centroid_regiao": {
+                        "description": "Latitude da região.",
+                        "type": "string"
+                    },
+                    "geo_lng_centroid_regiao": {
+                        "description": "Longitude da região.",
+                        "type": "string"
+                    },
+                    "nr_quantidade_osc_regiao": {
+                        "description": "Quantidade de OSC na região.",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "DCAbrangenciaProjeto": {
+                "description": "Objeto de abrangência do projeto ",
+                "properties": {
+                    "cd_abrangencia_projeto": {
+                        "description": "Número de identificação da abrangência do projeto",
+                        "type": "integer"
+                    },
+                    "tx_nome_abrangencia_projeto": {
+                        "description": "Nome da abrangência do projeto",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "DCAreaAtuacao": {
+                "description": "Objeto da area de atuação. ",
+                "properties": {
+                    "cd_area_atuacao": {
+                        "description": "Número de identificação da area de atuação.",
+                        "type": "integer"
+                    },
+                    "tx_nome_area_atuacao": {
+                        "description": "Nome da area de atuação.",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "DCCertificado": {
+                "description": "Objeto de certificado ",
+                "properties": {
+                    "cd_certificado": {
+                        "description": "Número de identificação do certificado",
+                        "type": "integer"
+                    },
+                    "tx_nome_certificado": {
+                        "description": "Nome do certificado",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "DCClasseAtividadeEconomica": {
+                "description": "Objeto da classe de atividade econômica",
+                "properties": {
+                    "cd_classe_atividade_economica": {
+                        "description": "Número da classe de atividade econômica.",
+                        "type": "integer"
+                    },
+                    "tx_nome_classe_atividade_economica": {
+                        "description": "Nome da classe de atividade econômica.",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "DCConferencia": {
+                "description": "Conferência",
+                "properties": {
+                    "cd_conferencia": {
+                        "description": "Número de identificação da conferência.",
+                        "type": "integer"
+                    },
+                    "tx_nome_conferencia": {
+                        "description": "Nome da conferência.",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "DCConselho": {
+                "description": "Conselho",
+                "properties": {
+                    "cd_conselho": {
+                        "description": "Número de identificação do conselho",
+                        "type": "integer"
+                    },
+                    "tx_nome_conselho": {
+                        "description": "Nome do conselho",
+                        "type": "string"
+                    },
+                    "tx_nome_orgao_vinculado": {
+                        "description": "Nome do orgão vinculado",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "DCFormaParticipacaoConferencia": {
+                "description": "Forma de participação da conferência.",
+                "properties": {
+                    "cd_forma_participacao_conferencia": {
+                        "description": "Número de identificação da forma de participação da conferência.",
+                        "type": "integer"
+                    },
+                    "tx_nome_forma_participacao_conferencia": {
+                        "description": "Nome da forma de participação da conferência.",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "DCMetaProjeto": {
+                "description": "Objeto metas de projeto.",
+                "properties": {
+                    "cd_meta_projeto": {
+                        "description": "Número de meta de projeto.",
+                        "type": "integer"
+                    },
+                    "cd_objetivo_projeto": {
+                        "description": "Número de identificação do objetivo de projeto.",
+                        "type": "integer"
+                    },
+                    "tx_nome_meta_projeto": {
+                        "description": "Nome da meta de projeto.",
+                        "type": "string"
+                    },
+                    "tx_codigo_meta_projeto": {
+                        "description": "Nome do número da meta de projeto.",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "DCObjetivoProjeto": {
+                "description": "Objeto do objetivo de projeto.",
+                "properties": {
+                    "cd_objetivo_projeto": {
+                        "description": "Número do objetivo de projeto.",
+                        "type": "integer"
+                    },
+                    "tx_nome_objetivo_projeto": {
+                        "description": "Nome do objetivo de projeto.",
+                        "type": "string"
+                    },
+                    "tx_codigo_objetivo_projeto": {
+                        "description": "Nome do número do objetivo de projeto.",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "DCOrigemFonteRecursosProjeto": {
+                "description": "Objeto da fonte de recursos do projeto ",
+                "properties": {
+                    "cd_origem_fonte_recursos_projeto": {
+                        "description": "Número de identificação da fonte de recursos do projeto",
+                        "type": "integer"
+                    },
+                    "tx_nome_origem_fonte_recursos_projeto": {
+                        "description": "Nome da fonte de recursos do projeto",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "DCPeriodicidadeReuniaoConselho": {
+                "description": "Periodicidade Reunião do Conselho",
+                "properties": {
+                    "cd_periodicidade_reuniao_conselho": {
+                        "description": "Número de periodicidade reunião do conselho",
+                        "type": "integer"
+                    },
+                    "tx_nome_periodicidade_reuniao_conselho": {
+                        "description": "Nome da periodicidade reunião do conselho",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "DCQualificacaoSocio": {
+                "description": "Qualificação de sócio.",
+                "properties": {
+                    "cd_qualificacao_socio": {
+                        "description": "Número da qualificação de sócio.",
+                        "type": "integer"
+                    },
+                    "tx_qualificacao_socio": {
+                        "description": "Nome da qualificação de sócio.",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "DCSituacaoCadastral": {
+                "description": "Objeto da area de atuação. ",
+                "properties": {
+                    "cd_situacao_cadastral": {
+                        "description": "Número de identificação da siatuação cadastral.",
+                        "type": "integer"
+                    },
+                    "tx_nome_situacao_cadastral": {
+                        "description": "Nome da situação cadastral.",
+                        "type": "string"
+                    },
+                    "tx_descricao_situacao_cadastral": {
+                        "description": "Descrição da situação cadastral.",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "DCSituacaoImovel": {
+                "description": "Objeto de situação do imovel ",
+                "properties": {
+                    "cd_situacao_imovel": {
+                        "description": "Número de identificação da situação do imovel",
+                        "type": "integer"
+                    },
+                    "tx_nome_situacao_imovel": {
+                        "description": "Nome da situação do imovel.",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "DCStatusProjeto": {
+                "description": "Objeto de status do projeto ",
+                "properties": {
+                    "cd_status_projeto": {
+                        "description": "Número de identificação status do projeto",
+                        "type": "integer"
+                    },
+                    "tx_nome_status_projeto": {
+                        "description": "Nome do status do projeto",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "DCSubareaAtuacao": {
+                "description": "Objeto da subarea de atuação. ",
+                "properties": {
+                    "cd_subarea_atuacao": {
+                        "description": "Número de identificação da subarea de atuação.",
+                        "type": "integer"
+                    },
+                    "cd_area_atuacao": {
+                        "description": "Número de identificação da area de atuação.",
+                        "type": "integer"
+                    },
+                    "tx_nome_subarea_atuacao": {
+                        "description": "Nome da subarea de atuação.",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "DCTipoParticipacao": {
+                "description": "Objeto do tipo de participação ",
+                "properties": {
+                    "cd_tipo_participacao": {
+                        "description": "Número de identificação do tipo de participação",
+                        "type": "integer"
+                    },
+                    "tx_nome_tipo_participacao": {
+                        "description": "Nome do tipo de participação",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "DCTipoSocio": {
+                "description": "Tipo de sócio",
+                "properties": {
+                    "cd_tipo_socio": {
+                        "description": "Número de identificação do tipo de sócio.",
+                        "type": "integer"
+                    },
+                    "tx_tipo_socio": {
+                        "description": "Nome do tipo de sócio",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "DCZonaAtuacaoProjeto": {
+                "description": "Objeto da zona de atuação do projeto ",
+                "properties": {
+                    "cd_zona_atuacao_projeto": {
+                        "description": "Número de identificação da zona de atuação do projeto",
+                        "type": "integer"
+                    },
+                    "tx_nome_zona_atuacao": {
+                        "description": "Nome da zona de atuação do projeto",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "ListaOscCnpjAutocomplete": {
+                "properties": {
+                    "id_osc": {
+                        "type": "int",
+                        "example": "0"
+                    },
+                    "cd_identificador_osc": {
+                        "type": "int",
+                        "example": "0"
+                    },
+                    "tx_nome_osc": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "tx_razao_social_osc": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "tx_nome_fantasia_osc": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "document": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "tx_nome_natureza_juridica_osc": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "dt_fundacao_osc": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "cd_situacao_imovel_osc": {
+                        "type": "int",
+                        "example": "0"
+                    },
+                    "cd_municipio": {
+                        "type": "int",
+                        "example": "0"
+                    },
+                    "cd_uf": {
+                        "type": "int",
+                        "example": "0"
+                    },
+                    "tx_sigla_uf": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "tx_nome_uf": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "cd_regiao": {
+                        "type": "int",
+                        "example": "0"
+                    },
+                    "tx_nome_regiao": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "total_trabalhadores": {
+                        "type": "int",
+                        "example": "0"
+                    },
+                    "nr_trabalhadores_vinculo": {
+                        "type": "int",
+                        "example": "0"
+                    },
+                    "nr_trabalhadores_deficiencia": {
+                        "type": "int",
+                        "example": "0"
+                    },
+                    "nr_trabalhadores_voluntarios": {
+                        "type": "int",
+                        "example": "0"
+                    }
+                },
+                "type": "object"
+            },
+            "ListaMunicipio": {
+                "properties": {
+                    "edmu_cd_municipio": {
+                        "type": "int",
+                        "example": "0"
+                    },
+                    "edmu_nm_municipio": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "eduf_sg_uf": {
+                        "type": "string",
+                        "example": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "ListaEstado": {
+                "properties": {
+                    "eduf_cd_uf": {
+                        "type": "int",
+                        "example": "0"
+                    },
+                    "eduf_nm_uf": {
+                        "type": "string",
+                        "example": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "ListaRegiao": {
+                "properties": {
+                    "edre_cd_regiao": {
+                        "type": "int",
+                        "example": "0"
+                    },
+                    "edre_nm_regiao": {
+                        "type": "string",
+                        "example": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "ListaLocalizacao": {
+                "properties": {
+                    "eduf_cd_uf": {
+                        "type": "int",
+                        "example": "0"
+                    },
+                    "eduf_nm_uf": {
+                        "type": "string",
+                        "example": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "OSCsPorEstado": {
+                "properties": {
+                    "id_osc": {
+                        "type": "int",
+                        "example": "0"
+                    },
+                    "tx_apelido_osc": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "geo_lat": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "geo_lng": {
+                        "type": "string",
+                        "example": "string"
+                    },
+                    "geo_centroid_municipio": {
+                        "type": "string",
+                        "example": "string"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}

@@ -1,0 +1,96 @@
+{
+ "meta": {
+  "url": "https://api.opencnpj.org/09058351000128",
+  "data_utc": "2026-10-01T03:11:10.179621+00:00",
+  "status": 200,
+  "sha256": "290f1cf4b2878b70245a750714c259eea05dba2e78c862844093c54af7b85a5a",
+  "tempo_ms": 479
+ },
+ "corpo": {
+  "cnpj": "09058351000128",
+  "razao_social": "ASSOCIACAO RECREATIVA CULTURAL E CARNAVALESCA DE SAMBA MILLENAR",
+  "nome_fantasia": "SAMBA MILLENAR",
+  "situacao_cadastral": "Ativa",
+  "data_situacao_cadastral": "2006-08-24",
+  "matriz_filial": "Matriz",
+  "data_inicio_atividade": "2006-08-24",
+  "cnae_principal": "9493600",
+  "cnaes_secundarios": [],
+  "cnaes": [
+   {
+    "codigo": "9493600",
+    "descricao": "Atividades de organizações associativas ligadas à cultura e à arte",
+    "is_principal": true
+   }
+  ],
+  "natureza_juridica": "Associação Privada",
+  "tipo_logradouro": "RUA",
+  "logradouro": "VISCONDE DO ROSARIO",
+  "numero": "04",
+  "complemento": "EDIF  SENADOR DANTAS      SALA  710",
+  "bairro": "COMERCIO",
+  "cep": "40015050",
+  "uf": "BA",
+  "municipio": "SALVADOR",
+  "codigo_municipio": "3849",
+  "email": "TIAO-FERNANDES@HOTMAIL.COM",
+  "telefones": [
+   {
+    "ddd": "71",
+    "numero": "88397908",
+    "is_fax": false
+   },
+   {
+    "ddd": "71",
+    "numero": "33227237",
+    "is_fax": true
+   }
+  ],
+  "capital_social": "0,00",
+  "qualificacao_responsavel": {
+   "codigo": "16",
+   "descricao": "Presidente"
+  },
+  "ente_federativo": "",
+  "porte_empresa": "Demais",
+  "opcao_simples": "",
+  "data_opcao_simples": "",
+  "data_exclusao_simples": "",
+  "opcao_mei": "",
+  "data_opcao_mei": "",
+  "data_exclusao_mei": "",
+  "motivo_situacao_cadastral": {
+   "codigo": "00",
+   "descricao": "SEM MOTIVO"
+  },
+  "nome_cidade_exterior": "",
+  "codigo_pais": "",
+  "pais": {
+   "codigo": "",
+   "descricao": ""
+  },
+  "situacao_especial": "",
+  "data_situacao_especial": "",
+  "QSA": [
+   {
+    "nome_socio": "GEORGES FRANCISCO GOMES DOS SANTOS",
+    "cnpj_cpf_socio": "***745005**",
+    "qualificacao_socio": "Presidente",
+    "data_entrada_sociedade": "2008-12-30",
+    "identificador_socio": "Pessoa Física",
+    "codigo_pais": "",
+    "pais": {
+     "codigo": "",
+     "descricao": ""
+    },
+    "representante_legal": "***000000**",
+    "nome_representante": "",
+    "qualificacao_representante": {
+     "codigo": "00",
+     "descricao": "Não informada"
+    },
+    "faixa_etaria": "61 a 70 anos"
+   }
+  ]
+ }
+}

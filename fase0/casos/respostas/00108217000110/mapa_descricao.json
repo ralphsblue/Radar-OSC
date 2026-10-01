@@ -1,0 +1,17 @@
+{
+ "meta": {
+  "url": "https://mapaosc.ipea.gov.br/api/api/osc/descricao/781757",
+  "data_utc": "2026-10-01T03:07:34.592955+00:00",
+  "status": 200,
+  "sha256": "889ea6cd80c26efedaea67ad04986251d4bead3c28ca30639edf7ac1d8a83748",
+  "tempo_ms": 47
+ },
+ "corpo": {
+  "id_osc": 781757,
+  "tx_finalidades_estatutarias": null,
+  "tx_historico": null,
+  "tx_link_estatuto_osc": null,
+  "tx_missao_osc": null,
+  "tx_visao_osc": null
+ }
+}

@@ -1,0 +1,7 @@
+url=https://mapaosc.ipea.gov.br/api/api/certificado/
+final=https://mapaosc.ipea.gov.br/api/api/certificado
+status=200
+tempo_s=1.61
+data=2026-09-30T22:06:52.437221
+sha256=caaf7fc67310b11d3f15a09b76be8f6e4817a67982cc5abe88c75cd946d4e4b3
+headers={'date': 'Thu, 01 Oct 2026 01:07:04 GMT', 'server': 'Apache/2.4.29 (Ubuntu)', 'content-security-policy': 'upgrade-insecure-requests;', 'cache-control': 'no-cache, private', 'access-control-allow-origin': '*', 'access-control-allow-methods': 'POST, GET, OPTIONS, PUT, DELETE', 'access-control-allow-credentials': 'true', 'access-control-max-age': '86400', 'access-control-allow-headers': 'Content-Type, Authorization, X-Requested-With, x-csrf-token', 'vary': 'Accept-Encoding', 'content-encoding': 'gzip', 'content-length': '213', 'content-type': 'application/json', 'via': '1.1 mapaosc.ipea.gov.br', 'keep-alive': 'timeout=15, max=99', 'connection': 'Keep-Alive'}

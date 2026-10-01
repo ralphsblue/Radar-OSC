@@ -1,0 +1,85 @@
+{
+ "meta": {
+  "url": "https://api.opencnpj.org/64611999000198",
+  "data_utc": "2026-10-01T03:16:51.169442+00:00",
+  "status": 200,
+  "sha256": "887708dd638881913177b681862c0677a3f1b505bb2bdd99e4ead39881f729dd",
+  "tempo_ms": 362
+ },
+ "corpo": {
+  "cnpj": "64611999000198",
+  "razao_social": "ASSOCIACAO DOS BANCARIOS DA CEF DE PRES PRUDENTE",
+  "nome_fantasia": "",
+  "situacao_cadastral": "Baixada",
+  "data_situacao_cadastral": "2025-09-22",
+  "matriz_filial": "Matriz",
+  "data_inicio_atividade": "1991-06-19",
+  "cnae_principal": "9312300",
+  "cnaes_secundarios": [],
+  "cnaes": [
+   {
+    "codigo": "9312300",
+    "descricao": "Clubes sociais, esportivos e similares",
+    "is_principal": true
+   }
+  ],
+  "natureza_juridica": "Associação Privada",
+  "tipo_logradouro": "RUA",
+  "logradouro": "TENENTE NICOLAU MAFFEI",
+  "numero": "440",
+  "complemento": "",
+  "bairro": "CENTRO",
+  "cep": "19010010",
+  "uf": "SP",
+  "municipio": "PRESIDENTE PRUDENTE",
+  "codigo_municipio": "6929",
+  "email": "",
+  "telefones": [],
+  "capital_social": "0,00",
+  "qualificacao_responsavel": {
+   "codigo": "16",
+   "descricao": "Presidente"
+  },
+  "ente_federativo": "",
+  "porte_empresa": "Demais",
+  "opcao_simples": "",
+  "data_opcao_simples": "",
+  "data_exclusao_simples": "",
+  "opcao_mei": "",
+  "data_opcao_mei": "",
+  "data_exclusao_mei": "",
+  "motivo_situacao_cadastral": {
+   "codigo": "01",
+   "descricao": "EXTINCAO POR ENCERRAMENTO LIQUIDACAO VOLUNTARIA"
+  },
+  "nome_cidade_exterior": "",
+  "codigo_pais": "",
+  "pais": {
+   "codigo": "",
+   "descricao": ""
+  },
+  "situacao_especial": "",
+  "data_situacao_especial": "",
+  "QSA": [
+   {
+    "nome_socio": "CLAUDIO MARINHO GOMES",
+    "cnpj_cpf_socio": "***032568**",
+    "qualificacao_socio": "Presidente",
+    "data_entrada_sociedade": "2024-07-01",
+    "identificador_socio": "Pessoa Física",
+    "codigo_pais": "",
+    "pais": {
+     "codigo": "",
+     "descricao": ""
+    },
+    "representante_legal": "***000000**",
+    "nome_representante": "",
+    "qualificacao_representante": {
+     "codigo": "00",
+     "descricao": "Não informada"
+    },
+    "faixa_etaria": "61 a 70 anos"
+   }
+  ]
+ }
+}

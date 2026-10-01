@@ -1,0 +1,11 @@
+{
+ "semente": 20261001,
+ "consultas": 150,
+ "naturezas": {
+  "Empresário (Individual)": 79,
+  "Sociedade Empresária Limitada": 27,
+  "Sociedade Unipessoal de Advocacia": 1,
+  "Consórcio de Sociedades": 1
+ },
+ "achado": null
+}

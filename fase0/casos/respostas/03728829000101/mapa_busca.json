@@ -1,0 +1,34 @@
+{
+ "meta": {
+  "url": "https://mapaosc.ipea.gov.br/api/api/busca/cnpj/3728829000101",
+  "data_utc": "2026-10-01T03:07:11.784830+00:00",
+  "status": 200,
+  "sha256": "b653366cbc881475c9b6eb852c769de12a883c75c0c8887442c37f87e198fd8b",
+  "tempo_ms": 325
+ },
+ "corpo": [
+  {
+   "id_osc": 1192102,
+   "cd_identificador_osc": "3728829000101",
+   "cd_situacao_cadastral": 3,
+   "tx_nome_osc": "AGUA DOCE",
+   "tx_razao_social_osc": "ASSOCIACAO DOS PRODUTORES RURAIS DO SERINGAL",
+   "tx_nome_fantasia_osc": "AGUA DOCE",
+   "document": "'agu':7B 'associaca':1A 'doc':8B 'produtor':3A 'rur':4A 'seringal':6A",
+   "tx_nome_natureza_juridica_osc": "Associação Privada",
+   "dt_fundacao_osc": "2000-03-03",
+   "cd_situacao_imovel_osc": null,
+   "cd_municipio": "1200302",
+   "tx_nome_municipio": "Feijó",
+   "cd_uf": "12",
+   "tx_sigla_uf": "AC",
+   "tx_nome_uf": "Acre",
+   "cd_regiao": "1",
+   "tx_nome_regiao": "Norte",
+   "total_trabalhadores": 0,
+   "nr_trabalhadores_vinculo": null,
+   "nr_trabalhadores_deficiencia": null,
+   "nr_trabalhadores_voluntarios": null
+  }
+ ]
+}

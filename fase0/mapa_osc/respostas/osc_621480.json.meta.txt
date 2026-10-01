@@ -1,0 +1,7 @@
+url=https://mapaosc.ipea.gov.br/api/api/osc/621480
+final=https://mapaosc.ipea.gov.br/api/api/osc/621480
+status=200
+tempo_s=1.05
+data=2026-09-30T22:05:03.823161
+sha256=a8bff774f63d40a1fc7fa71bab80a286e4b4400e8c1156521118c7b4ef0c3bd7
+headers={'date': 'Thu, 01 Oct 2026 01:05:15 GMT', 'server': 'Apache/2.4.29 (Ubuntu)', 'content-security-policy': 'upgrade-insecure-requests;', 'cache-control': 'no-cache, private', 'access-control-allow-origin': '*', 'access-control-allow-methods': 'POST, GET, OPTIONS, PUT, DELETE', 'access-control-allow-credentials': 'true', 'access-control-max-age': '86400', 'access-control-allow-headers': 'Content-Type, Authorization, X-Requested-With, x-csrf-token', 'vary': 'Accept-Encoding', 'content-encoding': 'gzip', 'content-length': '266', 'content-type': 'application/json', 'via': '1.1 mapaosc.ipea.gov.br', 'keep-alive': 'timeout=15, max=100', 'connection': 'Keep-Alive'}

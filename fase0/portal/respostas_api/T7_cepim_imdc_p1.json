@@ -1,0 +1,336 @@
+{
+  "caso": "T7_cepim_imdc_p1",
+  "url": "https://api.portaldatransparencia.gov.br/api-de-dados/cepim",
+  "params": {
+    "pagina": 1,
+    "cnpjSancionado": "21145289000107"
+  },
+  "http": 200,
+  "ms": 37,
+  "headers_resposta": {
+    "content-type": "application/json",
+    "cache-control": "public, max-age=7200, must-revalidate"
+  },
+  "corpo": [
+    {
+      "id": 146403807,
+      "dataReferencia": "28/09/2026",
+      "motivo": "MOTIVO NÃO ESPECIFICADO",
+      "orgaoSuperior": {
+        "nome": "Ministério da Cultura - Unidades com vínculo direto",
+        "codigoSIAFI": "42000",
+        "cnpj": "01264142000129",
+        "sigla": "MINC",
+        "descricaoPoder": "EXECUTIVO",
+        "orgaoMaximo": {
+          "codigo": "42000",
+          "sigla": "MINC",
+          "nome": "Ministério da Cultura"
+        }
+      },
+      "pessoaJuridica": {
+        "id": 7218686,
+        "cpfFormatado": "",
+        "cnpjFormatado": "21.145.289/0001-07",
+        "numeroInscricaoSocial": "",
+        "nome": "INSTITUTO MUNDIAL DE DESENVOLVIMENTO E DA CIDADANIA - IMDC.",
+        "razaoSocialReceita": "INSTITUTO MUNDIAL DE DESENVOLVIMENTO E DA CIDADANIA - IMDC.",
+        "nomeFantasiaReceita": "IMDC",
+        "tipo": "Entidades Sem Fins Lucrativos"
+      },
+      "convenio": {
+        "codigo": "704323",
+        "objeto": "Realizar expedicao saindo do Oiapoque com destino ao Chui, atravessando o eixo do Brasil e registrando em documentario as diversas expressoes culturais encontradas.",
+        "numero": "00177/2009"
+      }
+    },
+    {
+      "id": 146403871,
+      "dataReferencia": "28/09/2026",
+      "motivo": "IRREGULARIDADE NA EXECUCAO FIS. E FINANCEIRA",
+      "orgaoSuperior": {
+        "nome": "Ministério do Turismo - Unidades com vínculo direto",
+        "codigoSIAFI": "54000",
+        "cnpj": "05457283000119",
+        "sigla": "MTUR",
+        "descricaoPoder": "EXECUTIVO",
+        "orgaoMaximo": {
+          "codigo": "54000",
+          "sigla": "MTUR",
+          "nome": "Ministério do Turismo"
+        }
+      },
+      "pessoaJuridica": {
+        "id": 7218686,
+        "cpfFormatado": "",
+        "cnpjFormatado": "21.145.289/0001-07",
+        "numeroInscricaoSocial": "",
+        "nome": "INSTITUTO MUNDIAL DE DESENVOLVIMENTO E DA CIDADANIA - IMDC.",
+        "razaoSocialReceita": "INSTITUTO MUNDIAL DE DESENVOLVIMENTO E DA CIDADANIA - IMDC.",
+        "nomeFantasiaReceita": "IMDC",
+        "tipo": "Entidades Sem Fins Lucrativos"
+      },
+      "convenio": {
+        "codigo": "650581",
+        "objeto": "EVENTO PROMOCIONAL DO ESTADO DE PERNAMBUCO",
+        "numero": "702246"
+      }
+    },
+    {
+      "id": 146403935,
+      "dataReferencia": "28/09/2026",
+      "motivo": "IRREGULARIDADE NA EXECUCAO FIS. E FINANCEIRA",
+      "orgaoSuperior": {
+        "nome": "Ministério do Turismo - Unidades com vínculo direto",
+        "codigoSIAFI": "54000",
+        "cnpj": "05457283000119",
+        "sigla": "MTUR",
+        "descricaoPoder": "EXECUTIVO",
+        "orgaoMaximo": {
+          "codigo": "54000",
+          "sigla": "MTUR",
+          "nome": "Ministério do Turismo"
+        }
+      },
+      "pessoaJuridica": {
+        "id": 7218686,
+        "cpfFormatado": "",
+        "cnpjFormatado": "21.145.289/0001-07",
+        "numeroInscricaoSocial": "",
+        "nome": "INSTITUTO MUNDIAL DE DESENVOLVIMENTO E DA CIDADANIA - IMDC.",
+        "razaoSocialReceita": "INSTITUTO MUNDIAL DE DESENVOLVIMENTO E DA CIDADANIA - IMDC.",
+        "nomeFantasiaReceita": "IMDC",
+        "tipo": "Entidades Sem Fins Lucrativos"
+      },
+      "convenio": {
+        "codigo": "638459",
+        "objeto": "ELABORACAO E EXECUCAO DE PESQUISA, PLNA DE MARKETING",
+        "numero": "700990"
+      }
+    },
+    {
+      "id": 146403999,
+      "dataReferencia": "28/09/2026",
+      "motivo": "IRREGULARIDADE NA EXECUCAO FIS. E FINANCEIRA",
+      "orgaoSuperior": {
+        "nome": "Ministério do Turismo - Unidades com vínculo direto",
+        "codigoSIAFI": "54000",
+        "cnpj": "05457283000119",
+        "sigla": "MTUR",
+        "descricaoPoder": "EXECUTIVO",
+        "orgaoMaximo": {
+          "codigo": "54000",
+          "sigla": "MTUR",
+          "nome": "Ministério do Turismo"
+        }
+      },
+      "pessoaJuridica": {
+        "id": 7218686,
+        "cpfFormatado": "",
+        "cnpjFormatado": "21.145.289/0001-07",
+        "numeroInscricaoSocial": "",
+        "nome": "INSTITUTO MUNDIAL DE DESENVOLVIMENTO E DA CIDADANIA - IMDC.",
+        "razaoSocialReceita": "INSTITUTO MUNDIAL DE DESENVOLVIMENTO E DA CIDADANIA - IMDC.",
+        "nomeFantasiaReceita": "IMDC",
+        "tipo": "Entidades Sem Fins Lucrativos"
+      },
+      "convenio": {
+        "codigo": "623751",
+        "objeto": "Objeto: Axé Brasil 2008.",
+        "numero": "54001257200800013"
+      }
+    },
+    {
+      "id": 146404063,
+      "dataReferencia": "28/09/2026",
+      "motivo": "MOTIVO NÃO ESPECIFICADO",
+      "orgaoSuperior": {
+        "nome": "Ministério do Turismo - Unidades com vínculo direto",
+        "codigoSIAFI": "54000",
+        "cnpj": "05457283000119",
+        "sigla": "MTUR",
+        "descricaoPoder": "EXECUTIVO",
+        "orgaoMaximo": {
+          "codigo": "54000",
+          "sigla": "MTUR",
+          "nome": "Ministério do Turismo"
+        }
+      },
+      "pessoaJuridica": {
+        "id": 7218686,
+        "cpfFormatado": "",
+        "cnpjFormatado": "21.145.289/0001-07",
+        "numeroInscricaoSocial": "",
+        "nome": "INSTITUTO MUNDIAL DE DESENVOLVIMENTO E DA CIDADANIA - IMDC.",
+        "razaoSocialReceita": "INSTITUTO MUNDIAL DE DESENVOLVIMENTO E DA CIDADANIA - IMDC.",
+        "nomeFantasiaReceita": "IMDC",
+        "tipo": "Entidades Sem Fins Lucrativos"
+      },
+      "convenio": {
+        "codigo": "742228",
+        "objeto": "Juninao de Arcos",
+        "numero": "01284/2010"
+      }
+    },
+    {
+      "id": 146404127,
+      "dataReferencia": "28/09/2026",
+      "motivo": "MOTIVO NÃO ESPECIFICADO",
+      "orgaoSuperior": {
+        "nome": "Ministério do Turismo - Unidades com vínculo direto",
+        "codigoSIAFI": "54000",
+        "cnpj": "05457283000119",
+        "sigla": "MTUR",
+        "descricaoPoder": "EXECUTIVO",
+        "orgaoMaximo": {
+          "codigo": "54000",
+          "sigla": "MTUR",
+          "nome": "Ministério do Turismo"
+        }
+      },
+      "pessoaJuridica": {
+        "id": 7218686,
+        "cpfFormatado": "",
+        "cnpjFormatado": "21.145.289/0001-07",
+        "numeroInscricaoSocial": "",
+        "nome": "INSTITUTO MUNDIAL DE DESENVOLVIMENTO E DA CIDADANIA - IMDC.",
+        "razaoSocialReceita": "INSTITUTO MUNDIAL DE DESENVOLVIMENTO E DA CIDADANIA - IMDC.",
+        "nomeFantasiaReceita": "IMDC",
+        "tipo": "Entidades Sem Fins Lucrativos"
+      },
+      "convenio": {
+        "codigo": "702976",
+        "objeto": "Exposicao de Pernambuco no Rio de Janeiro do dia 10/02/2009 a 12/02/2009.",
+        "numero": "00025/2009"
+      }
+    },
+    {
+      "id": 146404191,
+      "dataReferencia": "28/09/2026",
+      "motivo": "MOTIVO NÃO ESPECIFICADO",
+      "orgaoSuperior": {
+        "nome": "Ministério do Turismo - Unidades com vínculo direto",
+        "codigoSIAFI": "54000",
+        "cnpj": "05457283000119",
+        "sigla": "MTUR",
+        "descricaoPoder": "EXECUTIVO",
+        "orgaoMaximo": {
+          "codigo": "54000",
+          "sigla": "MTUR",
+          "nome": "Ministério do Turismo"
+        }
+      },
+      "pessoaJuridica": {
+        "id": 7218686,
+        "cpfFormatado": "",
+        "cnpjFormatado": "21.145.289/0001-07",
+        "numeroInscricaoSocial": "",
+        "nome": "INSTITUTO MUNDIAL DE DESENVOLVIMENTO E DA CIDADANIA - IMDC.",
+        "razaoSocialReceita": "INSTITUTO MUNDIAL DE DESENVOLVIMENTO E DA CIDADANIA - IMDC.",
+        "nomeFantasiaReceita": "IMDC",
+        "tipo": "Entidades Sem Fins Lucrativos"
+      },
+      "convenio": {
+        "codigo": "702558",
+        "objeto": "Evento Promocional do Estado de Pernambuco em Belo Horizonte, o evento acontecera entre os dias 28 de dezembro de 2008 a 30 de janeiro de 2009.",
+        "numero": "01535/2008"
+      }
+    },
+    {
+      "id": 146404255,
+      "dataReferencia": "28/09/2026",
+      "motivo": "MOTIVO NÃO ESPECIFICADO",
+      "orgaoSuperior": {
+        "nome": "Ministério do Turismo - Unidades com vínculo direto",
+        "codigoSIAFI": "54000",
+        "cnpj": "05457283000119",
+        "sigla": "MTUR",
+        "descricaoPoder": "EXECUTIVO",
+        "orgaoMaximo": {
+          "codigo": "54000",
+          "sigla": "MTUR",
+          "nome": "Ministério do Turismo"
+        }
+      },
+      "pessoaJuridica": {
+        "id": 7218686,
+        "cpfFormatado": "",
+        "cnpjFormatado": "21.145.289/0001-07",
+        "numeroInscricaoSocial": "",
+        "nome": "INSTITUTO MUNDIAL DE DESENVOLVIMENTO E DA CIDADANIA - IMDC.",
+        "razaoSocialReceita": "INSTITUTO MUNDIAL DE DESENVOLVIMENTO E DA CIDADANIA - IMDC.",
+        "nomeFantasiaReceita": "IMDC",
+        "tipo": "Entidades Sem Fins Lucrativos"
+      },
+      "convenio": {
+        "codigo": "702555",
+        "objeto": "Desfiles Promocionais do Estado de Pernambuco em Belo Horizonte e Rio de Janeiro",
+        "numero": "01532/2008"
+      }
+    },
+    {
+      "id": 146404319,
+      "dataReferencia": "28/09/2026",
+      "motivo": "MOTIVO NÃO ESPECIFICADO",
+      "orgaoSuperior": {
+        "nome": "Ministério do Turismo - Unidades com vínculo direto",
+        "codigoSIAFI": "54000",
+        "cnpj": "05457283000119",
+        "sigla": "MTUR",
+        "descricaoPoder": "EXECUTIVO",
+        "orgaoMaximo": {
+          "codigo": "54000",
+          "sigla": "MTUR",
+          "nome": "Ministério do Turismo"
+        }
+      },
+      "pessoaJuridica": {
+        "id": 7218686,
+        "cpfFormatado": "",
+        "cnpjFormatado": "21.145.289/0001-07",
+        "numeroInscricaoSocial": "",
+        "nome": "INSTITUTO MUNDIAL DE DESENVOLVIMENTO E DA CIDADANIA - IMDC.",
+        "razaoSocialReceita": "INSTITUTO MUNDIAL DE DESENVOLVIMENTO E DA CIDADANIA - IMDC.",
+        "nomeFantasiaReceita": "IMDC",
+        "tipo": "Entidades Sem Fins Lucrativos"
+      },
+      "convenio": {
+        "codigo": "702395",
+        "objeto": "EXPOSICAO DE PERNAMBUCO EM BELO HORIZONTE",
+        "numero": "01584/2008"
+      }
+    },
+    {
+      "id": 146404383,
+      "dataReferencia": "28/09/2026",
+      "motivo": "IRREGULARIDADE NA EXECUCAO FIS. E FINANCEIRA",
+      "orgaoSuperior": {
+        "nome": "Ministério do Turismo - Unidades com vínculo direto",
+        "codigoSIAFI": "54000",
+        "cnpj": "05457283000119",
+        "sigla": "MTUR",
+        "descricaoPoder": "EXECUTIVO",
+        "orgaoMaximo": {
+          "codigo": "54000",
+          "sigla": "MTUR",
+          "nome": "Ministério do Turismo"
+        }
+      },
+      "pessoaJuridica": {
+        "id": 7218686,
+        "cpfFormatado": "",
+        "cnpjFormatado": "21.145.289/0001-07",
+        "numeroInscricaoSocial": "",
+        "nome": "INSTITUTO MUNDIAL DE DESENVOLVIMENTO E DA CIDADANIA - IMDC.",
+        "razaoSocialReceita": "INSTITUTO MUNDIAL DE DESENVOLVIMENTO E DA CIDADANIA - IMDC.",
+        "nomeFantasiaReceita": "IMDC",
+        "tipo": "Entidades Sem Fins Lucrativos"
+      },
+      "convenio": {
+        "codigo": "596053",
+        "objeto": "\"POP ROCK BRASIL EM BELO HORIZONTE/MG\".",
+        "numero": "CV 550/2007"
+      }
+    }
+  ]
+}

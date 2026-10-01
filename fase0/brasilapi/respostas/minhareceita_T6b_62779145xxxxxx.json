@@ -1,0 +1,108 @@
+{
+  "caso": "T6b",
+  "cnpj_consultado": "distintos",
+  "fonte": "minhareceita",
+  "resumo": {
+    "n": 5,
+    "media_ms": 10149,
+    "mediana_ms": 10129,
+    "p95_ms": 10446,
+    "min_ms": 9840,
+    "max_ms": 10446,
+    "codigos_http": {
+      "503": 5
+    },
+    "houve_429": false,
+    "headers_rate_limit": []
+  },
+  "chamadas": [
+    {
+      "cnpj": "62779145010152",
+      "consultado_em": "2026-10-01T02:30:10+00:00",
+      "http": 503,
+      "ms": 10446,
+      "headers_relevantes": {
+        "content-type": "application/json",
+        "cache-control": "no-store",
+        "server": "cloudflare",
+        "via": "1.1 fly.io, 1.1 fly.io",
+        "cf-cache-status": "DYNAMIC"
+      },
+      "erro": null
+    },
+    {
+      "cnpj": "62779145010233",
+      "consultado_em": "2026-10-01T02:30:21+00:00",
+      "http": 503,
+      "ms": 9840,
+      "headers_relevantes": {
+        "content-type": "application/json",
+        "cache-control": "no-store",
+        "server": "cloudflare",
+        "via": "1.1 fly.io, 1.1 fly.io",
+        "cf-cache-status": "DYNAMIC"
+      },
+      "erro": null
+    },
+    {
+      "cnpj": "62779145010314",
+      "consultado_em": "2026-10-01T02:30:30+00:00",
+      "http": 503,
+      "ms": 9928,
+      "headers_relevantes": {
+        "content-type": "application/json",
+        "cache-control": "no-store",
+        "server": "cloudflare",
+        "via": "1.1 fly.io, 1.1 fly.io",
+        "cf-cache-status": "DYNAMIC"
+      },
+      "erro": null
+    },
+    {
+      "cnpj": "62779145010403",
+      "consultado_em": "2026-10-01T02:30:40+00:00",
+      "http": 503,
+      "ms": 10129,
+      "headers_relevantes": {
+        "content-type": "application/json",
+        "cache-control": "no-store",
+        "server": "cloudflare",
+        "via": "1.1 fly.io, 1.1 fly.io",
+        "cf-cache-status": "DYNAMIC"
+      },
+      "erro": null
+    },
+    {
+      "cnpj": "62779145010586",
+      "consultado_em": "2026-10-01T02:30:50+00:00",
+      "http": 503,
+      "ms": 10403,
+      "headers_relevantes": {
+        "content-type": "application/json",
+        "cache-control": "no-store",
+        "server": "cloudflare",
+        "via": "1.1 fly.io, 1.1 fly.io",
+        "cf-cache-status": "DYNAMIC"
+      },
+      "erro": null
+    }
+  ],
+  "amostra_primeira_resposta": {
+    "fonte": "minhareceita",
+    "url": "https://minhareceita.org/62779145010152",
+    "consultado_em": "2026-10-01T02:30:10+00:00",
+    "http": 503,
+    "ms": 10446,
+    "headers_relevantes": {
+      "content-type": "application/json",
+      "cache-control": "no-store",
+      "server": "cloudflare",
+      "via": "1.1 fly.io, 1.1 fly.io",
+      "cf-cache-status": "DYNAMIC"
+    },
+    "corpo": {
+      "message": "Serviço temporariamente indisponível, tente novamente."
+    },
+    "cnpj": "62779145010152"
+  }
+}

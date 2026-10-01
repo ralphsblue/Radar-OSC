@@ -1,0 +1,17 @@
+{
+ "meta": {
+  "url": "https://mapaosc.ipea.gov.br/api/api/osc/descricao/1192102",
+  "data_utc": "2026-10-01T03:07:15.201311+00:00",
+  "status": 200,
+  "sha256": "58542bcf648dcb98096cccdbe819a954d957a09813e12ce1affc11a797f28ff3",
+  "tempo_ms": 47
+ },
+ "corpo": {
+  "id_osc": 1192102,
+  "tx_finalidades_estatutarias": null,
+  "tx_historico": null,
+  "tx_link_estatuto_osc": null,
+  "tx_missao_osc": null,
+  "tx_visao_osc": null
+ }
+}

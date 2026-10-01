@@ -1,0 +1,150 @@
+{
+ "meta": {
+  "url": "https://api.opencnpj.org/07408449000132",
+  "data_utc": "2026-10-01T03:16:45.297688+00:00",
+  "status": 200,
+  "sha256": "fd5c824ce3130d2d3fffa7c23835e0198947268bd178a82c7956eac942f4d4ec",
+  "tempo_ms": 28
+ },
+ "corpo": {
+  "cnpj": "07408449000132",
+  "razao_social": "INSTITUTO ATUAR",
+  "nome_fantasia": "INSTITUTO ATUAR",
+  "situacao_cadastral": "Ativa",
+  "data_situacao_cadastral": "2005-02-14",
+  "matriz_filial": "Matriz",
+  "data_inicio_atividade": "2005-02-14",
+  "cnae_principal": "8660700",
+  "cnaes_secundarios": [
+   "8630502",
+   "8640203",
+   "8640299",
+   "8650099",
+   "8690999",
+   "9430800",
+   "9493600",
+   "9499500"
+  ],
+  "cnaes": [
+   {
+    "codigo": "8660700",
+    "descricao": "Atividades de apoio à gestão de saúde",
+    "is_principal": true
+   },
+   {
+    "codigo": "8630502",
+    "descricao": "Atividade médica ambulatorial com recursos para realização de exames complementares",
+    "is_principal": false
+   },
+   {
+    "codigo": "8640203",
+    "descricao": "Serviços de diálise e nefrologia",
+    "is_principal": false
+   },
+   {
+    "codigo": "8640299",
+    "descricao": "Atividades de serviços de complementação diagnóstica e terapêutica não especificadas anteriormente",
+    "is_principal": false
+   },
+   {
+    "codigo": "8650099",
+    "descricao": "Atividades de profissionais da área de saúde não especificadas anteriormente",
+    "is_principal": false
+   },
+   {
+    "codigo": "8690999",
+    "descricao": "Outras atividades de atenção à saúde humana não especificadas anteriormente",
+    "is_principal": false
+   },
+   {
+    "codigo": "9430800",
+    "descricao": "Atividades de associações de defesa de direitos sociais",
+    "is_principal": false
+   },
+   {
+    "codigo": "9493600",
+    "descricao": "Atividades de organizações associativas ligadas à cultura e à arte",
+    "is_principal": false
+   },
+   {
+    "codigo": "9499500",
+    "descricao": "Atividades associativas não especificadas anteriormente",
+    "is_principal": false
+   }
+  ],
+  "natureza_juridica": "Associação Privada",
+  "tipo_logradouro": "RUA",
+  "logradouro": "SAO DOMINGOS",
+  "numero": "588",
+  "complemento": "",
+  "bairro": "SANTA MONICA",
+  "cep": "44077465",
+  "uf": "BA",
+  "municipio": "FEIRA DE SANTANA",
+  "codigo_municipio": "3515",
+  "email": "INSTITUTOATUAROFICIAL@GMAIL.COM",
+  "telefones": [
+   {
+    "ddd": "75",
+    "numero": "32252934",
+    "is_fax": false
+   },
+   {
+    "ddd": "75",
+    "numero": "81044770",
+    "is_fax": false
+   },
+   {
+    "ddd": "75",
+    "numero": "00000000",
+    "is_fax": true
+   }
+  ],
+  "capital_social": "0,00",
+  "qualificacao_responsavel": {
+   "codigo": "16",
+   "descricao": "Presidente"
+  },
+  "ente_federativo": "",
+  "porte_empresa": "Demais",
+  "opcao_simples": "",
+  "data_opcao_simples": "",
+  "data_exclusao_simples": "",
+  "opcao_mei": "",
+  "data_opcao_mei": "",
+  "data_exclusao_mei": "",
+  "motivo_situacao_cadastral": {
+   "codigo": "00",
+   "descricao": "SEM MOTIVO"
+  },
+  "nome_cidade_exterior": "",
+  "codigo_pais": "",
+  "pais": {
+   "codigo": "",
+   "descricao": ""
+  },
+  "situacao_especial": "",
+  "data_situacao_especial": "",
+  "QSA": [
+   {
+    "nome_socio": "SAMILLY QUEIROZ MOREIRA",
+    "cnpj_cpf_socio": "***285345**",
+    "qualificacao_socio": "Presidente",
+    "data_entrada_sociedade": "2025-02-19",
+    "identificador_socio": "Pessoa Física",
+    "codigo_pais": "",
+    "pais": {
+     "codigo": "",
+     "descricao": ""
+    },
+    "representante_legal": "***000000**",
+    "nome_representante": "",
+    "qualificacao_representante": {
+     "codigo": "00",
+     "descricao": "Não informada"
+    },
+    "faixa_etaria": "21 a 30 anos"
+   }
+  ]
+ }
+}

@@ -1,0 +1,60 @@
+{
+ "meta": {
+  "url": "https://certidoes-apf.apps.tcu.gov.br/api/rest/publico/certidoes/04955882000108?seEmitirPDF=false",
+  "data_utc": "2026-10-01T03:09:54.686279+00:00",
+  "status": 200,
+  "sha256": "4523ebc5df0d9eaa67096a4f37672487f9463f5410a2ba05bd17ccb7f7e57530",
+  "tempo_ms": 5689
+ },
+ "corpo": {
+  "certidaoPDF": null,
+  "certidoes": [
+   {
+    "dataHoraEmissao": "01/10/2026 00:10",
+    "descricao": "Licitantes Inidôneos",
+    "emissor": "TCU",
+    "linkConsultaManual": "https://certidoes.apps.tcu.gov.br/lista-inidoneos",
+    "observacao": null,
+    "situacao": "NADA_CONSTA",
+    "tempoGeracao": 25,
+    "tipo": "Inidôneos"
+   },
+   {
+    "dataHoraEmissao": "01/10/2026 00:10",
+    "descricao": "CNIA - Cadastro Nacional de Condenações Cíveis por Ato de Improbidade Administrativa e Inelegibilidade",
+    "emissor": "CNJ",
+    "linkConsultaManual": "http://www.cnj.jus.br/improbidade_adm/consultar_requerido.php",
+    "observacao": null,
+    "situacao": "NADA_CONSTA",
+    "tempoGeracao": 131,
+    "tipo": "CNIA"
+   },
+   {
+    "dataHoraEmissao": "01/10/2026 00:10",
+    "descricao": "Cadastro Nacional de Empresas Inidôneas e Suspensas",
+    "emissor": "Portal da Transparência",
+    "linkConsultaManual": "http://www.portaltransparencia.gov.br/sancoes/ceis",
+    "observacao": null,
+    "situacao": "NADA_CONSTA",
+    "tempoGeracao": 269,
+    "tipo": "CEIS"
+   },
+   {
+    "dataHoraEmissao": "01/10/2026 00:10",
+    "descricao": "CNEP - Cadastro Nacional de Empresas Punidas",
+    "emissor": "Portal da Transparência",
+    "linkConsultaManual": "http://www.portaltransparencia.gov.br/sancoes/cnep",
+    "observacao": null,
+    "situacao": "NADA_CONSTA",
+    "tempoGeracao": 152,
+    "tipo": "CNEP"
+   }
+  ],
+  "cnpj": "04.955.882/0001-08",
+  "dataHoraGeracaoInMillis": 1790824200730,
+  "nomeFantasia": "INSTITUTO RPC",
+  "razaoSocial": "INSTITUTO GRPCOM",
+  "seCnpjEncontradoNaBaseTcu": true,
+  "uf": null
+ }
+}

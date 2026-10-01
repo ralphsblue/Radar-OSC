@@ -1,0 +1,6 @@
+{
+ "cpf_no_caminho": {
+  "status": 412,
+  "corpo": "{\"violacoes\":[{\"codigo\":null,\"mensagem\":\"Dígito verificador do CNPJ é inválido\",\"tipo\":\"ALERTA\"}]}"
+ }
+}

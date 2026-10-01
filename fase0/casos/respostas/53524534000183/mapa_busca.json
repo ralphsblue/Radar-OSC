@@ -1,0 +1,34 @@
+{
+ "meta": {
+  "url": "https://mapaosc.ipea.gov.br/api/api/busca/cnpj/53524534000183",
+  "data_utc": "2026-10-01T03:11:59.074861+00:00",
+  "status": 200,
+  "sha256": "b929ee16c2aefbfbe30eec8c32a7b2d5ca6a9363a5e0e8f795a6d26447fcc580",
+  "tempo_ms": 238
+ },
+ "corpo": [
+  {
+   "id_osc": 602125,
+   "cd_identificador_osc": "53524534000183",
+   "cd_situacao_cadastral": 4,
+   "tx_nome_osc": "ASSOCIACAO DA IRMANDADE DA SANTA CASA DE MISERICORDIA DE PACAEMBU",
+   "tx_razao_social_osc": "ASSOCIACAO DA IRMANDADE DA SANTA CASA DE MISERICORDIA DE PACAEMBU",
+   "tx_nome_fantasia_osc": null,
+   "document": "'associaca':1A 'cas':6A 'irmandad':3A 'misericord':8A 'pacaembu':10A 'sant':5A",
+   "tx_nome_natureza_juridica_osc": "Associação Privada",
+   "dt_fundacao_osc": "1969-12-31",
+   "cd_situacao_imovel_osc": null,
+   "cd_municipio": "3534906",
+   "tx_nome_municipio": "Pacaembu",
+   "cd_uf": "35",
+   "tx_sigla_uf": "SP",
+   "tx_nome_uf": "São Paulo",
+   "cd_regiao": "3",
+   "tx_nome_regiao": "Sudeste",
+   "total_trabalhadores": 818,
+   "nr_trabalhadores_vinculo": 818,
+   "nr_trabalhadores_deficiencia": 0,
+   "nr_trabalhadores_voluntarios": null
+  }
+ ]
+}

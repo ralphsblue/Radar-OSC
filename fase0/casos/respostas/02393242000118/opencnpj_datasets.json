@@ -1,0 +1,44 @@
+{
+ "meta": {
+  "url": "https://api.opencnpj.org/02393242000118?datasets=ceis,cepim,cnep",
+  "data_utc": "2026-10-01T03:10:37.280490+00:00",
+  "status": 200,
+  "sha256": "e1965216f14bd69ccf3e8769326eb98aac66041590ee9d2b4bd45d210e876d33",
+  "tempo_ms": 770
+ },
+ "corpo": {
+  "ceis": {
+   "cnpj": "02393242000118",
+   "updated_at": "2026-09-30T21:15:08.0000000+00:00",
+   "sancoes": [
+    {
+     "cadastro": "CEIS",
+     "codigo": "378910",
+     "tipo_pessoa": "J",
+     "nome_sancionado": "ASSOCIACAO REGIONAL DA ESCOLA FAMILIA AGRICOLA DO SERTAO",
+     "nome_informado_orgao": "ASSOCIACAO REGIONAL DA ESCOLA FAMILIA AGRICOLA DO SERTAO",
+     "razao_social_receita": "ASSOCIACAO REGIONAL DA ESCOLA FAMILIA AGRICOLA DO SERTAO",
+     "nome_fantasia_receita": "",
+     "numero_processo": "009.0243.2021.0032370-42",
+     "categoria": "Suspensão",
+     "data_inicio": "25/02/2026",
+     "data_final": "22/11/2026",
+     "data_publicacao": "28/01/2026",
+     "publicacao": "Diário Oficial do Estado Seção LICITAÇÕES Pagina 17",
+     "detalhamento_publicacao": "",
+     "data_transito_julgado": "25/02/2026",
+     "abrangencia": "Na Esfera e no Poder do órgão sancionador",
+     "orgao_sancionador": "Governo do Estado da Bahia (BA)",
+     "uf_orgao_sancionador": "BA",
+     "esfera_orgao_sancionador": "ESTADUAL",
+     "fundamentacao_legal": "LEI 9433 (BA) - ART. 186, II - AO CANDIDATO A CADASTRAMENTO, AO LICITANTE E AO CONTRATADO, QUE INCORRAM NAS FALTAS PREVISTAS NESTA LEI, APLICAM-SE, SEGUNDO A NATUREZA E A GRAVIDADE DA FALTA, ASSEGURADA A DEFESA PRÉVIA, AS SEGUINTES SANÇÕES: II- SUSPENSÃO TEMPORÁRIA DE PARTICIPAÇÃO EM LICITAÇÃO E IMPEDIMENTO DE CONTRATAR COM A ADMINISTRAÇÃO, POR PRAZO NÃO EXCEDENTE A 05 (CINCO) ANOS",
+     "data_origem_informacao": "25/02/2026",
+     "origem_informacoes": "Governo do Estado da Bahia (BA)",
+     "observacoes": ""
+    }
+   ]
+  },
+  "cepim": null,
+  "cnep": null
+ }
+}

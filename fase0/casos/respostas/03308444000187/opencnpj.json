@@ -1,0 +1,96 @@
+{
+ "meta": {
+  "url": "https://api.opencnpj.org/03308444000187",
+  "data_utc": "2026-10-01T03:08:16.442201+00:00",
+  "status": 200,
+  "sha256": "eb4815df27be0accd82dbb72b72dc1b02b34220d9ddf5d612d61ecda4bb0e016",
+  "tempo_ms": 415
+ },
+ "corpo": {
+  "cnpj": "03308444000187",
+  "razao_social": "ASSOCIACAO DE PEQUENOS PRODUTORES RURAIS ASSOCIACAO SAO FRNCISCO",
+  "nome_fantasia": "",
+  "situacao_cadastral": "Ativa",
+  "data_situacao_cadastral": "2024-11-12",
+  "matriz_filial": "Matriz",
+  "data_inicio_atividade": "1999-06-28",
+  "cnae_principal": "4724500",
+  "cnaes_secundarios": [],
+  "cnaes": [
+   {
+    "codigo": "4724500",
+    "descricao": "Comércio varejista de hortifrutigranjeiros",
+    "is_principal": true
+   }
+  ],
+  "natureza_juridica": "Associação Privada",
+  "tipo_logradouro": "RUA",
+  "logradouro": "DO P A",
+  "numero": "SN",
+  "complemento": "",
+  "bairro": "TABOCAO",
+  "cep": "65393000",
+  "uf": "MA",
+  "municipio": "BURITICUPU",
+  "codigo_municipio": "0134",
+  "email": "JOBINHO24@YAHOO.COM.BR",
+  "telefones": [
+   {
+    "ddd": "98",
+    "numero": "91263371",
+    "is_fax": false
+   },
+   {
+    "ddd": "098",
+    "numero": "7218220",
+    "is_fax": true
+   }
+  ],
+  "capital_social": "0,00",
+  "qualificacao_responsavel": {
+   "codigo": "16",
+   "descricao": "Presidente"
+  },
+  "ente_federativo": "",
+  "porte_empresa": "Demais",
+  "opcao_simples": "",
+  "data_opcao_simples": "",
+  "data_exclusao_simples": "",
+  "opcao_mei": "",
+  "data_opcao_mei": "",
+  "data_exclusao_mei": "",
+  "motivo_situacao_cadastral": {
+   "codigo": "00",
+   "descricao": "SEM MOTIVO"
+  },
+  "nome_cidade_exterior": "",
+  "codigo_pais": "",
+  "pais": {
+   "codigo": "",
+   "descricao": ""
+  },
+  "situacao_especial": "",
+  "data_situacao_especial": "",
+  "QSA": [
+   {
+    "nome_socio": "LUIS VIEIRA DA SILVA",
+    "cnpj_cpf_socio": "***459293**",
+    "qualificacao_socio": "Presidente",
+    "data_entrada_sociedade": "2005-08-19",
+    "identificador_socio": "Pessoa Física",
+    "codigo_pais": "",
+    "pais": {
+     "codigo": "",
+     "descricao": ""
+    },
+    "representante_legal": "***000000**",
+    "nome_representante": "",
+    "qualificacao_representante": {
+     "codigo": "00",
+     "descricao": "Não informada"
+    },
+    "faixa_etaria": "61 a 70 anos"
+   }
+  ]
+ }
+}

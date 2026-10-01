@@ -1,0 +1,96 @@
+{
+ "meta": {
+  "url": "https://api.opencnpj.org/04038653000110",
+  "data_utc": "2026-10-01T03:16:56.178687+00:00",
+  "status": 200,
+  "sha256": "f550d5c5e138070fdbd51abe957642ae0c30e8e886d31e68aaa0f84fa4161b5f",
+  "tempo_ms": 371
+ },
+ "corpo": {
+  "cnpj": "04038653000110",
+  "razao_social": "IGREJA EVANGELICA PENTECOSTAL COMUNIDADE DA FE",
+  "nome_fantasia": "IGREJA EVANGELICA PENTECOSTAL COMUNIDADE DA FE",
+  "situacao_cadastral": "Baixada",
+  "data_situacao_cadastral": "2026-04-06",
+  "matriz_filial": "Matriz",
+  "data_inicio_atividade": "2000-09-01",
+  "cnae_principal": "9491000",
+  "cnaes_secundarios": [],
+  "cnaes": [
+   {
+    "codigo": "9491000",
+    "descricao": "Atividades de organizações religiosas ou filosóficas",
+    "is_principal": true
+   }
+  ],
+  "natureza_juridica": "Associação Privada",
+  "tipo_logradouro": "RUA",
+  "logradouro": "ANDRADAS",
+  "numero": "484",
+  "complemento": "",
+  "bairro": "LOTEAMENTO CIDADE JARDIM",
+  "cep": "15810459",
+  "uf": "SP",
+  "municipio": "CATANDUVA",
+  "codigo_municipio": "6323",
+  "email": "IGREJA.COMUNID.DA.FE@GMAIL.COM",
+  "telefones": [
+   {
+    "ddd": "17",
+    "numero": "35220323",
+    "is_fax": false
+   },
+   {
+    "ddd": "17",
+    "numero": "35223859",
+    "is_fax": false
+   }
+  ],
+  "capital_social": "0,00",
+  "qualificacao_responsavel": {
+   "codigo": "16",
+   "descricao": "Presidente"
+  },
+  "ente_federativo": "",
+  "porte_empresa": "Demais",
+  "opcao_simples": "",
+  "data_opcao_simples": "",
+  "data_exclusao_simples": "",
+  "opcao_mei": "",
+  "data_opcao_mei": "",
+  "data_exclusao_mei": "",
+  "motivo_situacao_cadastral": {
+   "codigo": "01",
+   "descricao": "EXTINCAO POR ENCERRAMENTO LIQUIDACAO VOLUNTARIA"
+  },
+  "nome_cidade_exterior": "",
+  "codigo_pais": "",
+  "pais": {
+   "codigo": "",
+   "descricao": ""
+  },
+  "situacao_especial": "",
+  "data_situacao_especial": "",
+  "QSA": [
+   {
+    "nome_socio": "MATHEUS HENRIQUE RODRIGUES",
+    "cnpj_cpf_socio": "***435988**",
+    "qualificacao_socio": "Presidente",
+    "data_entrada_sociedade": "2021-03-04",
+    "identificador_socio": "Pessoa Física",
+    "codigo_pais": "",
+    "pais": {
+     "codigo": "",
+     "descricao": ""
+    },
+    "representante_legal": "***000000**",
+    "nome_representante": "",
+    "qualificacao_representante": {
+     "codigo": "00",
+     "descricao": "Não informada"
+    },
+    "faixa_etaria": "31 a 40 anos"
+   }
+  ]
+ }
+}

@@ -1,0 +1,96 @@
+{
+ "meta": {
+  "url": "https://api.opencnpj.org/03161985000125",
+  "data_utc": "2026-10-01T03:16:54.506544+00:00",
+  "status": 200,
+  "sha256": "0b12ea9d47573333603dee1758c5c54e4be363a54c59cae67978476a9157a07c",
+  "tempo_ms": 395
+ },
+ "corpo": {
+  "cnpj": "03161985000125",
+  "razao_social": "LOJA MACONICA ''DEUS, JUSTICA E CARIDADE 2 , NUMERO 2372 ''",
+  "nome_fantasia": "LOJA MACONICA",
+  "situacao_cadastral": "Baixada",
+  "data_situacao_cadastral": "2026-04-24",
+  "matriz_filial": "Matriz",
+  "data_inicio_atividade": "1998-07-16",
+  "cnae_principal": "8800600",
+  "cnaes_secundarios": [],
+  "cnaes": [
+   {
+    "codigo": "8800600",
+    "descricao": "Serviços de assistência social sem alojamento",
+    "is_principal": true
+   }
+  ],
+  "natureza_juridica": "Associação Privada",
+  "tipo_logradouro": "RUA",
+  "logradouro": "RIO DE JANEIRO",
+  "numero": "985",
+  "complemento": "11 ANDAR",
+  "bairro": "CENTRO",
+  "cep": "30160041",
+  "uf": "MG",
+  "municipio": "BELO HORIZONTE",
+  "codigo_municipio": "4123",
+  "email": "",
+  "telefones": [
+   {
+    "ddd": "031",
+    "numero": "2263720",
+    "is_fax": false
+   },
+   {
+    "ddd": "031",
+    "numero": "2241944",
+    "is_fax": true
+   }
+  ],
+  "capital_social": "0,00",
+  "qualificacao_responsavel": {
+   "codigo": "16",
+   "descricao": "Presidente"
+  },
+  "ente_federativo": "",
+  "porte_empresa": "Demais",
+  "opcao_simples": "",
+  "data_opcao_simples": "",
+  "data_exclusao_simples": "",
+  "opcao_mei": "",
+  "data_opcao_mei": "",
+  "data_exclusao_mei": "",
+  "motivo_situacao_cadastral": {
+   "codigo": "01",
+   "descricao": "EXTINCAO POR ENCERRAMENTO LIQUIDACAO VOLUNTARIA"
+  },
+  "nome_cidade_exterior": "",
+  "codigo_pais": "",
+  "pais": {
+   "codigo": "",
+   "descricao": ""
+  },
+  "situacao_especial": "",
+  "data_situacao_especial": "",
+  "QSA": [
+   {
+    "nome_socio": "SINVAL MARTINS FIGUEIREDO",
+    "cnpj_cpf_socio": "***991506**",
+    "qualificacao_socio": "Presidente",
+    "data_entrada_sociedade": "2005-09-12",
+    "identificador_socio": "Pessoa Física",
+    "codigo_pais": "",
+    "pais": {
+     "codigo": "",
+     "descricao": ""
+    },
+    "representante_legal": "***000000**",
+    "nome_representante": "",
+    "qualificacao_representante": {
+     "codigo": "00",
+     "descricao": "Não informada"
+    },
+    "faixa_etaria": "71 a 80 anos"
+   }
+  ]
+ }
+}

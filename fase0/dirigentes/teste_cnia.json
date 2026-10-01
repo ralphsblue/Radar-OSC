@@ -1,0 +1,92 @@
+{
+ "alvo": "PF do CEIS com origem CNJ (dados omitidos)",
+ "casos": {
+  "cpf_completo": {
+   "verificar": {
+    "status": 200,
+    "segundos": 0.07,
+    "inicio": "+:var res = 'ok'; res;"
+   },
+   "tabela": {
+    "status": 200,
+    "segundos": 0.13,
+    "tamanho": 1345,
+    "comeca_com_sajax": true,
+    "contem_cpf_alvo_formatado": true,
+    "contem_nome_alvo": true,
+    "cpfs_completos_no_html": 1,
+    "cpfs_com_asterisco_no_html": 0,
+    "linhas_tabela": 3,
+    "palavra_captcha": false,
+    "nenhum_registro": false
+   }
+  },
+  "nome_completo": {
+   "verificar": {
+    "status": 200,
+    "segundos": 0.07,
+    "inicio": "+:var res = 'ok'; res;"
+   },
+   "tabela": {
+    "status": 200,
+    "segundos": 0.32,
+    "tamanho": 1251,
+    "comeca_com_sajax": true,
+    "contem_cpf_alvo_formatado": false,
+    "contem_nome_alvo": true,
+    "cpfs_completos_no_html": 0,
+    "cpfs_com_asterisco_no_html": 0,
+    "linhas_tabela": 3,
+    "palavra_captcha": false,
+    "nenhum_registro": false
+   }
+  },
+  "nome_primeiro_ultimo": {
+   "verificar": {
+    "status": 200,
+    "segundos": 0.07,
+    "inicio": "+:var res = 'ok'; res;"
+   },
+   "tabela": {
+    "status": 200,
+    "segundos": 0.28,
+    "tamanho": 245,
+    "comeca_com_sajax": true,
+    "contem_cpf_alvo_formatado": false,
+    "contem_nome_alvo": false,
+    "cpfs_completos_no_html": 0,
+    "cpfs_com_asterisco_no_html": 0,
+    "linhas_tabela": 2,
+    "palavra_captcha": false,
+    "nenhum_registro": false
+   }
+  },
+  "cpf_mascarado_qsa": {
+   "verificar": {
+    "status": 200,
+    "segundos": 0.07,
+    "inicio": "+:var res = { #: '<span class=\\'msgmErro\\'>Para CPF deve-se digitar o número completo ( os ## dígitos ).</span>', #: 'num_cpf_cnpj', #: '' }; res;"
+   },
+   "tabela": {
+    "status": 200,
+    "segundos": 0.07,
+    "tamanho": 146,
+    "comeca_com_sajax": true,
+    "contem_cpf_alvo_formatado": false,
+    "contem_nome_alvo": false,
+    "cpfs_completos_no_html": 0,
+    "cpfs_com_asterisco_no_html": 0,
+    "linhas_tabela": 0,
+    "palavra_captcha": false,
+    "nenhum_registro": false
+   }
+  }
+ },
+ "get_status": 200,
+ "cookies": [
+  "AWSALB",
+  "AWSALBCORS",
+  "INGRESSCOOKIE",
+  "PHPSESSID"
+ ]
+}

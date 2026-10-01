@@ -1,0 +1,115 @@
+{
+ "meta": {
+  "url": "https://api.opencnpj.org/13144375000177",
+  "data_utc": "2026-10-01T03:23:38.037256+00:00",
+  "status": 200,
+  "sha256": "c7d3b85d09d275fdd66bd589f0b72f9a7154fcb882118166c7c3e259fcec6c64",
+  "tempo_ms": 57
+ },
+ "corpo": {
+  "cnpj": "13144375000177",
+  "razao_social": "INSTITUTO DE PESQUISAS CIENCIA DA METRICA - IPCIM",
+  "nome_fantasia": "IPCIM",
+  "situacao_cadastral": "Ativa",
+  "data_situacao_cadastral": "2011-01-05",
+  "matriz_filial": "Matriz",
+  "data_inicio_atividade": "2011-01-05",
+  "cnae_principal": "8542200",
+  "cnaes_secundarios": [
+   "4761001",
+   "5811500",
+   "7320300"
+  ],
+  "cnaes": [
+   {
+    "codigo": "8542200",
+    "descricao": "Educação profissional de nível tecnológico",
+    "is_principal": true
+   },
+   {
+    "codigo": "4761001",
+    "descricao": "Comércio varejista de livros",
+    "is_principal": false
+   },
+   {
+    "codigo": "5811500",
+    "descricao": "Edição de livros",
+    "is_principal": false
+   },
+   {
+    "codigo": "7320300",
+    "descricao": "Pesquisas de mercado e de opinião pública",
+    "is_principal": false
+   }
+  ],
+  "natureza_juridica": "Associação Privada",
+  "tipo_logradouro": "QUADRA",
+  "logradouro": "SCS QUADRA 02 BLOCO C NUMERO 22 SALA",
+  "numero": "707",
+  "complemento": "      PARTE A",
+  "bairro": "ASA SUL",
+  "cep": "70300902",
+  "uf": "DF",
+  "municipio": "BRASILIA",
+  "codigo_municipio": "9701",
+  "email": "ACONT@SOLAR.COM.BR",
+  "telefones": [
+   {
+    "ddd": "61",
+    "numero": "32021918",
+    "is_fax": false
+   },
+   {
+    "ddd": "61",
+    "numero": "32021918",
+    "is_fax": true
+   }
+  ],
+  "capital_social": "0,00",
+  "qualificacao_responsavel": {
+   "codigo": "16",
+   "descricao": "Presidente"
+  },
+  "ente_federativo": "",
+  "porte_empresa": "Demais",
+  "opcao_simples": "",
+  "data_opcao_simples": "",
+  "data_exclusao_simples": "",
+  "opcao_mei": "",
+  "data_opcao_mei": "",
+  "data_exclusao_mei": "",
+  "motivo_situacao_cadastral": {
+   "codigo": "00",
+   "descricao": "SEM MOTIVO"
+  },
+  "nome_cidade_exterior": "",
+  "codigo_pais": "",
+  "pais": {
+   "codigo": "",
+   "descricao": ""
+  },
+  "situacao_especial": "",
+  "data_situacao_especial": "",
+  "QSA": [
+   {
+    "nome_socio": "DANGELO ANTONIO JULIO CICCARINI",
+    "cnpj_cpf_socio": "***924356**",
+    "qualificacao_socio": "Presidente",
+    "data_entrada_sociedade": "2011-01-05",
+    "identificador_socio": "Pessoa Física",
+    "codigo_pais": "",
+    "pais": {
+     "codigo": "",
+     "descricao": ""
+    },
+    "representante_legal": "***000000**",
+    "nome_representante": "",
+    "qualificacao_representante": {
+     "codigo": "00",
+     "descricao": "Não informada"
+    },
+    "faixa_etaria": "51 a 60 anos"
+   }
+  ]
+ }
+}

@@ -1,0 +1,153 @@
+{
+  "caso": "T7bm",
+  "cnpj_consultado": "04955882000108",
+  "fonte": "brasilapi",
+  "url": "https://brasilapi.com.br/api/cnpj/v1/04955882000108",
+  "consultado_em": "2026-10-01T02:19:55+00:00",
+  "http": 200,
+  "ms": 495,
+  "headers_relevantes": {
+    "content-type": "application/json; charset=utf-8",
+    "age": "0",
+    "cache-control": "max-age=0, public",
+    "etag": "W/\"vutre8gdye2f2\"",
+    "server": "cloudflare",
+    "x-vercel-cache": "MISS",
+    "cf-cache-status": "DYNAMIC"
+  },
+  "corpo": {
+    "uf": "PR",
+    "cep": "80810110",
+    "qsa": [
+      {
+        "pais": null,
+        "nome_socio": "EDUARDO BOSCHETTI",
+        "codigo_pais": null,
+        "faixa_etaria": "Entre 41 a 50 anos",
+        "cnpj_cpf_do_socio": "***038829**",
+        "qualificacao_socio": "Diretor",
+        "codigo_faixa_etaria": 5,
+        "data_entrada_sociedade": "2026-05-08",
+        "identificador_de_socio": 2,
+        "cpf_representante_legal": "***000000**",
+        "nome_representante_legal": "",
+        "codigo_qualificacao_socio": 10,
+        "qualificacao_representante_legal": "Não informada",
+        "codigo_qualificacao_representante_legal": 0
+      },
+      {
+        "pais": null,
+        "nome_socio": "MARIANO LEMANSKI",
+        "codigo_pais": null,
+        "faixa_etaria": "Entre 51 a 60 anos",
+        "cnpj_cpf_do_socio": "***835199**",
+        "qualificacao_socio": "Presidente",
+        "codigo_faixa_etaria": 6,
+        "data_entrada_sociedade": "2002-03-07",
+        "identificador_de_socio": 2,
+        "cpf_representante_legal": "***000000**",
+        "nome_representante_legal": "",
+        "codigo_qualificacao_socio": 16,
+        "qualificacao_representante_legal": "Não informada",
+        "codigo_qualificacao_representante_legal": 0
+      }
+    ],
+    "cnpj": "04955882000108",
+    "pais": null,
+    "email": null,
+    "porte": "DEMAIS",
+    "bairro": "MERCES",
+    "numero": "526",
+    "ddd_fax": "4133215545",
+    "municipio": "CURITIBA",
+    "logradouro": "JULIO PERNETA",
+    "cnae_fiscal": 9430800,
+    "codigo_pais": null,
+    "complemento": "CASA 01",
+    "codigo_porte": 5,
+    "razao_social": "INSTITUTO GRPCOM",
+    "nome_fantasia": "INSTITUTO RPC",
+    "capital_social": 0,
+    "ddd_telefone_1": "4133215100",
+    "ddd_telefone_2": "",
+    "opcao_pelo_mei": null,
+    "codigo_municipio": 7535,
+    "cnaes_secundarios": [
+      {
+        "codigo": 9493600,
+        "descricao": "Atividades de organizações associativas ligadas à cultura e à arte"
+      },
+      {
+        "codigo": 9499500,
+        "descricao": "Atividades associativas não especificadas anteriormente"
+      }
+    ],
+    "natureza_juridica": "Associação Privada",
+    "regime_tributario": [
+      {
+        "ano": 2018,
+        "cnpj_da_scp": null,
+        "forma_de_tributacao": "IMUNE DE IRPJ",
+        "quantidade_de_escrituracoes": 1
+      },
+      {
+        "ano": 2019,
+        "cnpj_da_scp": null,
+        "forma_de_tributacao": "IMUNE DE IRPJ",
+        "quantidade_de_escrituracoes": 1
+      },
+      {
+        "ano": 2020,
+        "cnpj_da_scp": null,
+        "forma_de_tributacao": "IMUNE DE IRPJ",
+        "quantidade_de_escrituracoes": 1
+      },
+      {
+        "ano": 2021,
+        "cnpj_da_scp": null,
+        "forma_de_tributacao": "IMUNE DE IRPJ",
+        "quantidade_de_escrituracoes": 1
+      },
+      {
+        "ano": 2022,
+        "cnpj_da_scp": null,
+        "forma_de_tributacao": "IMUNE DE IRPJ",
+        "quantidade_de_escrituracoes": 1
+      },
+      {
+        "ano": 2023,
+        "cnpj_da_scp": null,
+        "forma_de_tributacao": "IMUNE DE IRPJ",
+        "quantidade_de_escrituracoes": 1
+      },
+      {
+        "ano": 2024,
+        "cnpj_da_scp": null,
+        "forma_de_tributacao": "IMUNE DE IRPJ",
+        "quantidade_de_escrituracoes": 1
+      }
+    ],
+    "situacao_especial": "",
+    "opcao_pelo_simples": null,
+    "situacao_cadastral": 2,
+    "data_opcao_pelo_mei": null,
+    "data_exclusao_do_mei": null,
+    "cnae_fiscal_descricao": "Atividades de associações de defesa de direitos sociais",
+    "codigo_municipio_ibge": 4106902,
+    "data_inicio_atividade": "2002-03-07",
+    "data_situacao_especial": null,
+    "data_opcao_pelo_simples": null,
+    "data_situacao_cadastral": null,
+    "nome_cidade_no_exterior": "",
+    "codigo_natureza_juridica": 3999,
+    "data_exclusao_do_simples": null,
+    "motivo_situacao_cadastral": 0,
+    "ente_federativo_responsavel": "",
+    "identificador_matriz_filial": 1,
+    "qualificacao_do_responsavel": 16,
+    "descricao_situacao_cadastral": "ATIVA",
+    "descricao_tipo_de_logradouro": "RUA",
+    "descricao_motivo_situacao_cadastral": "SEM MOTIVO",
+    "descricao_identificador_matriz_filial": "MATRIZ"
+  }
+}

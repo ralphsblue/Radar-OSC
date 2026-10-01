@@ -1,0 +1,66 @@
+{
+  "caso": "T4_ceis_filial_exata",
+  "url": "https://api.portaldatransparencia.gov.br/api-de-dados/ceis",
+  "params": {
+    "pagina": 1,
+    "codigoSancionado": "44551605000570"
+  },
+  "http": 200,
+  "ms": 197,
+  "headers_resposta": {
+    "content-type": "application/json",
+    "cache-control": "public, max-age=7200, must-revalidate"
+  },
+  "corpo": [
+    {
+      "id": 382360,
+      "dataReferencia": "30/09/2026",
+      "dataInicioSancao": "25/03/2026",
+      "dataFimSancao": "24/03/2028",
+      "dataPublicacaoSancao": "25/03/2026",
+      "dataTransitadoJulgado": "Sem informação",
+      "dataOrigemInformacao": "25/03/2026",
+      "tipoSancao": {
+        "descricaoResumida": "Suspensão",
+        "descricaoPortal": "Suspensão"
+      },
+      "fonteSancao": {
+        "nomeExibicao": "HOSPITAL NOSSA SENHORA DA CONCEIÇÃO  S/A",
+        "telefoneContato": ".",
+        "enderecoContato": "."
+      },
+      "fundamentacao": [
+        {
+          "codigo": "LEI 13303 - ART. 83, III - III - SUSPENSÃO TEMPORÁRIA DE PARTICIPAÇÃO EM LICITAÇÃO E IMPEDIMENTO DE CONTRATAR COM A ENTIDADE SANCIONADORA, POR PRAZO NÃO SUPERIOR A 2 (DOIS) ANOS.",
+          "descricao": "LEI 13303 - ART. 83, III - III - SUSPENSÃO TEMPORÁRIA DE PARTICIPAÇÃO EM LICITAÇÃO E IMPEDIMENTO DE CONTRATAR COM A ENTIDADE SANCIONADORA, POR PRAZO NÃO SUPERIOR A 2 (DOIS) ANOS."
+        }
+      ],
+      "orgaoSancionador": {
+        "nome": "GRUPO HOSPITALAR CONCEICAO",
+        "siglaUf": "",
+        "poder": "Executivo",
+        "esfera": "FEDERAL"
+      },
+      "sancionado": {
+        "nome": "INSTITUTO GLOBAL GESTAO EM MEDICINA E SAÚDE",
+        "codigoFormatado": "44.551.605/0005-70"
+      },
+      "pessoa": {
+        "id": 608429277,
+        "cpfFormatado": "",
+        "cnpjFormatado": "44.551.605/0005-70",
+        "numeroInscricaoSocial": "",
+        "nome": "INSTITUTO GLOBAL GESTAO EM MEDICINA E SAUDE",
+        "razaoSocialReceita": "INSTITUTO GLOBAL GESTAO EM MEDICINA E SAUDE",
+        "nomeFantasiaReceita": "",
+        "tipo": "Entidades Sem Fins Lucrativos"
+      },
+      "textoPublicacao": "Diário Oficial da União Seção 3 Pagina 146",
+      "linkPublicacao": "http://pesquisa.in.gov.br/imprensa/jsp/visualiza/index.jsp?jornal=530&pagina=146&data=25/03/2026",
+      "detalhamentoPublicacao": "",
+      "numeroProcesso": "5225293",
+      "abrangenciaDefinidaDecisaoJudicial": "No órgão sancionador",
+      "informacoesAdicionaisDoOrgaoSancionador": ""
+    }
+  ]
+}

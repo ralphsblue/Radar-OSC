@@ -1,0 +1,136 @@
+{
+ "cepim": {
+  "consultados_opencnpj": 6,
+  "achados": [
+   {
+    "cnpj": "26447003000161",
+    "razao_social": "ASSOCIACAO BRASILEIRA DE MASTOLOGIA - REGIONAL DO DISTRITO FEDERAL",
+    "matriz_filial": "Matriz",
+    "inicio": "1990-08-22",
+    "dirigentes": {
+     "pf_no_qsa": 1,
+     "fortes": [],
+     "so_nome": []
+    }
+   },
+   {
+    "cnpj": "02203539000173",
+    "razao_social": "FUNDACAO ASSIS GURGACZ",
+    "matriz_filial": "Matriz",
+    "inicio": "1997-10-21",
+    "dirigentes": {
+     "pf_no_qsa": 1,
+     "fortes": [],
+     "so_nome": []
+    }
+   }
+  ]
+ },
+ "ceis_fim_futuro": {
+  "consultados_opencnpj": 2,
+  "achados": [
+   {
+    "cnpj": "30994499000160",
+    "razao_social": "INSTITUTO RAFAEL ARCANJO",
+    "matriz_filial": "Matriz",
+    "inicio": "2018-05-29",
+    "dirigentes": {
+     "pf_no_qsa": 1,
+     "fortes": [],
+     "so_nome": []
+    }
+   },
+   {
+    "cnpj": "24006302000488",
+    "razao_social": "INSTITUTO DE DESENVOLVIMENTO, ENSINO E ASSISTENCIA A SAUDE - IDEAS",
+    "matriz_filial": "Matriz",
+    "inicio": "2018-01-19",
+    "dirigentes": {
+     "pf_no_qsa": 2,
+     "fortes": [],
+     "so_nome": []
+    }
+   }
+  ]
+ },
+ "cnep": {
+  "consultados_opencnpj": 3,
+  "achados": [
+   {
+    "cnpj": "01158752000148",
+    "razao_social": "ABESP ASSOCIACAO DE BENEFICIOS AOS SERVIDORES PUBLICOS",
+    "matriz_filial": "Matriz",
+    "inicio": "1995-08-31",
+    "dirigentes": {
+     "pf_no_qsa": 1,
+     "fortes": [],
+     "so_nome": []
+    }
+   },
+   {
+    "cnpj": "13144375000177",
+    "razao_social": "INSTITUTO DE PESQUISAS CIENCIA DA METRICA - IPCIM",
+    "matriz_filial": "Matriz",
+    "inicio": "2011-01-05",
+    "dirigentes": {
+     "pf_no_qsa": 1,
+     "fortes": [],
+     "so_nome": []
+    }
+   }
+  ]
+ },
+ "tcu_inidoneo": {
+  "consultados_opencnpj": 0,
+  "achados": []
+ },
+ "cnia": {
+  "consultados_opencnpj": 2,
+  "achados": [
+   {
+    "cnpj": "05051898000140",
+    "razao_social": "ASSOCIACAO CULTURAL DE HIP HOP DE LAGUNA -ACH2L",
+    "matriz_filial": "Matriz",
+    "inicio": "2002-04-11",
+    "dirigentes": {
+     "pf_no_qsa": 1,
+     "fortes": [],
+     "so_nome": []
+    },
+    "tcu": {
+     "Inidôneos": "NADA_CONSTA",
+     "CNIA": "CONSTAM_REGISTROS",
+     "CEIS": "CONSTAM_REGISTROS",
+     "CNEP": "NADA_CONSTA"
+    }
+   },
+   {
+    "cnpj": "01081476000167",
+    "razao_social": "ASSOCIACAO MUSICAL 10 DE AGOSTO",
+    "matriz_filial": "Matriz",
+    "inicio": "1996-03-11",
+    "dirigentes": {
+     "pf_no_qsa": 1,
+     "fortes": [
+      {
+       "nome": "JOSE CARLOS MENDES",
+       "qualificacao": "Presidente",
+       "cadastro": "CEIS",
+       "cpf_meio": "977214",
+       "inicio": "16/12/2021",
+       "fim": "16/12/2031"
+      }
+     ],
+     "so_nome": []
+    },
+    "tcu": {
+     "Inidôneos": "NADA_CONSTA",
+     "CNIA": "CONSTAM_REGISTROS",
+     "CEIS": "CONSTAM_REGISTROS",
+     "CNEP": "NADA_CONSTA"
+    }
+   }
+  ]
+ },
+ "tcu_consultas": 2
+}

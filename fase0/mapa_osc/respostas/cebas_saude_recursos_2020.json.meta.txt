@@ -1,0 +1,7 @@
+url=https://mapaosc.ipea.gov.br/api/api/osc/recursos/2020/507788
+final=https://mapaosc.ipea.gov.br/api/api/osc/recursos/2020/507788
+status=200
+tempo_s=4.32
+data=2026-09-30T22:15:06.258968
+sha256=4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945
+headers={'date': 'Thu, 01 Oct 2026 01:15:18 GMT', 'server': 'Apache/2.4.29 (Ubuntu)', 'content-security-policy': 'upgrade-insecure-requests;', 'cache-control': 'no-cache, private', 'access-control-allow-origin': '*', 'access-control-allow-methods': 'POST, GET, OPTIONS, PUT, DELETE', 'access-control-allow-credentials': 'true', 'access-control-max-age': '86400', 'access-control-allow-headers': 'Content-Type, Authorization, X-Requested-With, x-csrf-token', 'vary': 'Accept-Encoding', 'content-encoding': 'gzip', 'content-length': '22', 'content-type': 'application/json', 'via': '1.1 mapaosc.ipea.gov.br', 'keep-alive': 'timeout=15, max=100', 'connection': 'Keep-Alive'}

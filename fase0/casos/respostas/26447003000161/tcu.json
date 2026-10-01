@@ -1,0 +1,60 @@
+{
+ "meta": {
+  "url": "https://certidoes-apf.apps.tcu.gov.br/api/rest/publico/certidoes/26447003000161?seEmitirPDF=false",
+  "data_utc": "2026-10-01T03:24:14.064235+00:00",
+  "status": 200,
+  "sha256": "6f77fb33609df2b790afe6e3553d2549a74f839967ccd4f2b555b566d829e6a6",
+  "tempo_ms": 5789
+ },
+ "corpo": {
+  "certidaoPDF": null,
+  "certidoes": [
+   {
+    "dataHoraEmissao": "01/10/2026 00:24",
+    "descricao": "Licitantes Inidôneos",
+    "emissor": "TCU",
+    "linkConsultaManual": "https://certidoes.apps.tcu.gov.br/lista-inidoneos",
+    "observacao": null,
+    "situacao": "NADA_CONSTA",
+    "tempoGeracao": 17,
+    "tipo": "Inidôneos"
+   },
+   {
+    "dataHoraEmissao": "01/10/2026 00:24",
+    "descricao": "CNIA - Cadastro Nacional de Condenações Cíveis por Ato de Improbidade Administrativa e Inelegibilidade",
+    "emissor": "CNJ",
+    "linkConsultaManual": "http://www.cnj.jus.br/improbidade_adm/consultar_requerido.php",
+    "observacao": null,
+    "situacao": "NADA_CONSTA",
+    "tempoGeracao": 122,
+    "tipo": "CNIA"
+   },
+   {
+    "dataHoraEmissao": "01/10/2026 00:24",
+    "descricao": "Cadastro Nacional de Empresas Inidôneas e Suspensas",
+    "emissor": "Portal da Transparência",
+    "linkConsultaManual": "http://www.portaltransparencia.gov.br/sancoes/ceis",
+    "observacao": null,
+    "situacao": "NADA_CONSTA",
+    "tempoGeracao": 221,
+    "tipo": "CEIS"
+   },
+   {
+    "dataHoraEmissao": "01/10/2026 00:24",
+    "descricao": "CNEP - Cadastro Nacional de Empresas Punidas",
+    "emissor": "Portal da Transparência",
+    "linkConsultaManual": "http://www.portaltransparencia.gov.br/sancoes/cnep",
+    "observacao": null,
+    "situacao": "NADA_CONSTA",
+    "tempoGeracao": 141,
+    "tipo": "CNEP"
+   }
+  ],
+  "cnpj": "26.447.003/0001-61",
+  "dataHoraGeracaoInMillis": 1790825060202,
+  "nomeFantasia": "SBM-DF",
+  "razaoSocial": "ASSOCIACAO BRASILEIRA DE MASTOLOGIA - REGIONAL DO DISTRITO FEDERAL",
+  "seCnpjEncontradoNaBaseTcu": true,
+  "uf": null
+ }
+}

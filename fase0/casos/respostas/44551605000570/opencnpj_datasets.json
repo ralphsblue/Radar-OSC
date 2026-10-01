@@ -1,0 +1,44 @@
+{
+ "meta": {
+  "url": "https://api.opencnpj.org/44551605000570?datasets=ceis,cepim,cnep",
+  "data_utc": "2026-10-01T03:12:15.775539+00:00",
+  "status": 200,
+  "sha256": "81798a35a4bcf37cadd45f273ba59651097cb0a30db5c1dcc31d9929a49f8bfe",
+  "tempo_ms": 1028
+ },
+ "corpo": {
+  "ceis": {
+   "cnpj": "44551605000570",
+   "updated_at": "2026-09-30T21:15:08.0000000+00:00",
+   "sancoes": [
+    {
+     "cadastro": "CEIS",
+     "codigo": "382360",
+     "tipo_pessoa": "J",
+     "nome_sancionado": "INSTITUTO GLOBAL GESTAO EM MEDICINA E SAÚDE",
+     "nome_informado_orgao": "INSTITUTO GLOBAL GESTAO EM MEDICINA E SAÚDE",
+     "razao_social_receita": "INSTITUTO GLOBAL GESTAO EM MEDICINA E SAUDE",
+     "nome_fantasia_receita": "",
+     "numero_processo": "5225293",
+     "categoria": "Suspensão",
+     "data_inicio": "25/03/2026",
+     "data_final": "24/03/2028",
+     "data_publicacao": "25/03/2026",
+     "publicacao": "Diário Oficial da União Seção 3 Pagina 146",
+     "detalhamento_publicacao": "",
+     "data_transito_julgado": "",
+     "abrangencia": "No órgão sancionador",
+     "orgao_sancionador": "GRUPO HOSPITALAR CONCEICAO",
+     "uf_orgao_sancionador": "",
+     "esfera_orgao_sancionador": "FEDERAL",
+     "fundamentacao_legal": "LEI 13303 - ART. 83, III - III - SUSPENSÃO TEMPORÁRIA DE PARTICIPAÇÃO EM LICITAÇÃO E IMPEDIMENTO DE CONTRATAR COM A ENTIDADE SANCIONADORA, POR PRAZO NÃO SUPERIOR A 2 (DOIS) ANOS.",
+     "data_origem_informacao": "25/03/2026",
+     "origem_informacoes": "HOSPITAL NOSSA SENHORA DA CONCEIÇÃO S/A",
+     "observacoes": "Reativamos a aplicação da suspensão, em virtude da seguinte decisão judicial: 'Diante da decisão proferida pelo TRF4, informa-se que o GHC encontra-se autorizado a restabelecer os registros, comunicações e efeitos decorrentes da penalidade administrativa aplicada no processo sancionatório nº 5225293, inclusive perante sistemas cadastrais pertinentes, caso entenda conveniente. Sem prejuízo disso, eventual adoção imediata das medidas administrativas decorrentes da penalidade ou a opção por aguardar o julgamento definitivo da demanda judicial permanecem submetidas ao juízo de conveniência e oportunidade da própria Administração.'"
+    }
+   ]
+  },
+  "cepim": null,
+  "cnep": null
+ }
+}

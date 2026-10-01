@@ -1,0 +1,15 @@
+{
+  "caso": "T4_ceis_raiz",
+  "url": "https://api.portaldatransparencia.gov.br/api-de-dados/ceis",
+  "params": {
+    "pagina": 1,
+    "codigoSancionado": "44551605"
+  },
+  "http": 200,
+  "ms": 45,
+  "headers_resposta": {
+    "content-type": "application/json",
+    "cache-control": "public, max-age=7200, must-revalidate"
+  },
+  "corpo": []
+}

@@ -1,0 +1,103 @@
+{
+  "caso": "T6",
+  "cnpj_consultado": "19131243000197",
+  "fonte": "minhareceita",
+  "resumo": {
+    "n": 5,
+    "media_ms": 5315,
+    "mediana_ms": 5968,
+    "p95_ms": 10099,
+    "min_ms": 279,
+    "max_ms": 10099,
+    "codigos_http": {
+      "503": 2,
+      "200": 3
+    },
+    "houve_429": false,
+    "headers_rate_limit": []
+  },
+  "chamadas": [
+    {
+      "consultado_em": "2026-10-01T01:13:32+00:00",
+      "http": 503,
+      "ms": 10099,
+      "headers_relevantes": {
+        "content-type": "application/json",
+        "cache-control": "no-store",
+        "server": "cloudflare",
+        "via": "1.1 fly.io, 1.1 fly.io",
+        "cf-cache-status": "DYNAMIC"
+      },
+      "erro": null
+    },
+    {
+      "consultado_em": "2026-10-01T01:13:42+00:00",
+      "http": 503,
+      "ms": 9915,
+      "headers_relevantes": {
+        "content-type": "application/json",
+        "cache-control": "no-store",
+        "server": "cloudflare",
+        "via": "1.1 fly.io, 1.1 fly.io",
+        "cf-cache-status": "DYNAMIC"
+      },
+      "erro": null
+    },
+    {
+      "consultado_em": "2026-10-01T01:13:52+00:00",
+      "http": 200,
+      "ms": 5968,
+      "headers_relevantes": {
+        "content-type": "application/json",
+        "cache-control": "max-age=86400",
+        "server": "cloudflare",
+        "via": "1.1 fly.io, 1.1 fly.io",
+        "cf-cache-status": "DYNAMIC"
+      },
+      "erro": null
+    },
+    {
+      "consultado_em": "2026-10-01T01:13:58+00:00",
+      "http": 200,
+      "ms": 279,
+      "headers_relevantes": {
+        "content-type": "application/json",
+        "cache-control": "max-age=86400",
+        "server": "cloudflare",
+        "via": "1.1 fly.io, 1.1 fly.io",
+        "cf-cache-status": "DYNAMIC"
+      },
+      "erro": null
+    },
+    {
+      "consultado_em": "2026-10-01T01:13:58+00:00",
+      "http": 200,
+      "ms": 312,
+      "headers_relevantes": {
+        "content-type": "application/json",
+        "cache-control": "max-age=86400",
+        "server": "cloudflare",
+        "via": "1.1 fly.io, 1.1 fly.io",
+        "cf-cache-status": "DYNAMIC"
+      },
+      "erro": null
+    }
+  ],
+  "amostra_primeira_resposta": {
+    "fonte": "minhareceita",
+    "url": "https://minhareceita.org/19131243000197",
+    "consultado_em": "2026-10-01T01:13:32+00:00",
+    "http": 503,
+    "ms": 10099,
+    "headers_relevantes": {
+      "content-type": "application/json",
+      "cache-control": "no-store",
+      "server": "cloudflare",
+      "via": "1.1 fly.io, 1.1 fly.io",
+      "cf-cache-status": "DYNAMIC"
+    },
+    "corpo": {
+      "message": "Serviço temporariamente indisponível, tente novamente."
+    }
+  }
+}

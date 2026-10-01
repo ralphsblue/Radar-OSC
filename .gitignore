@@ -1,0 +1,29 @@
+# Segredos
+.env
+.env.*
+
+# Ambiente Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# IDE
+.idea/
+
+# Downloads brutos da Fase 0 (grandes; CSVs da CGU têm CPF completo)
+fase0/**/downloads/
+fase0/brasilapi/respostas/falhas/
+fase0/casos/respostas/mapa_base/
+fase0/casos/respostas/00000000000191/mapa_busca.json
+fase0/cnae/ibge_cnae_subclasses.json
+*.zip
+*.xls
+*.xlsx
+!tests/fixtures/**/*.xls
+!tests/fixtures/**/*.xlsx
+
+var/
+validador_osc_especificacao_mvp.pdf

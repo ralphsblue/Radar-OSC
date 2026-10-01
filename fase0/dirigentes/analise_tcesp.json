@@ -1,0 +1,120 @@
+{
+ "fe_completa": {
+  "url": "https://www.tce.sp.gov.br/sites/default/files/portal/contas%20irregulares%20de%2001-09-2018%20a%2001-09-2026_FE_CPF_anonimizado_Completa.xlsx",
+  "status": 200,
+  "bytes": 91507,
+  "last_modified": "Thu, 03 Sep 2026 14:33:51 GMT",
+  "cabecalho": [
+   "Responsável",
+   "#",
+   "Responsável",
+   "CPF",
+   "Processo TC",
+   "Matéria",
+   "Origem",
+   "Trânsito em Julgado",
+   "Exercício",
+   "Matéria"
+  ],
+  "registros": 917,
+  "formatos_cpf": {
+   "999.XXX.XXX-99": 917
+  },
+  "nomes_distintos": 499,
+  "cpf_parciais_distintos": 480,
+  "nomes_com_mais_de_um_cpf_parcial": 0,
+  "transito_min": "2018-09-03",
+  "transito_max": "2026-08-17",
+  "registros_ultimos_8_anos": 915,
+  "nomes_ultimos_8_anos": 497,
+  "materias": {
+   "PREST.CONTAS-REPASSES TERC.SETOR-CONTRATO GESTAO": 406,
+   "PREST.CONTAS-REP.TERC.SETOR-CG/TP/CV/TC/TF-VLR.INF": 154,
+   "CONTAS DE CAMARA MUNICIPAL": 103,
+   "PREST.CONTAS-REP.TERC.SETOR/ENTIDADE PRIV-CONVENIO": 92,
+   "BALANCO GERAL DO EXERCICIO": 42,
+   "PREST.CONTAS-REPASSES TERC.SETOR-AUX/SUB/CONTR": 40,
+   "PREST.CONTAS-REPASSES TERC.SETOR-TERMO DE PARCERIA": 24,
+   "PREST.CONTAS-REPASSES ORGAOS PUBL-CONVENIO VLR.INF": 18,
+   "PREST.CONTAS-REPASSES ORGAOS PUBL-CONVENIO-VLR.SUP": 14,
+   "PREST.CONTAS-REP.TERC.SETOR-TERMO DE COLABORACAO": 13
+  },
+  "origens_distintas": 266
+ },
+ "contas_anuais": {
+  "url": "https://www.tce.sp.gov.br/sites/default/files/portal/contas%20irregulares%20de%2001-01-1900%20a%2001-09-2026_Contas_Anuais_CPF_anonimizado.xlsx",
+  "status": 200,
+  "bytes": 480349,
+  "last_modified": "Thu, 03 Sep 2026 14:30:53 GMT",
+  "cabecalho": [
+   "Responsável",
+   "#",
+   "Responsável",
+   "CPF",
+   "Processo TC",
+   "Matéria",
+   "Origem",
+   "Trânsito em Julgado",
+   "Exercício",
+   "Matéria"
+  ],
+  "registros": 6394,
+  "formatos_cpf": {
+   "999.XXX.XXX-99": 6394
+  },
+  "nomes_distintos": 3804,
+  "cpf_parciais_distintos": 3446,
+  "nomes_com_mais_de_um_cpf_parcial": 18,
+  "transito_min": "2001-02-26",
+  "transito_max": "2026-08-21",
+  "registros_ultimos_8_anos": 2509,
+  "nomes_ultimos_8_anos": 1615,
+  "materias": {
+   "BALANCO GERAL DO EXERCICIO": 3929,
+   "CONTAS DE CAMARA MUNICIPAL": 1846,
+   "PRESTACAO DE CONTAS DO(S)GESTOR(ES)PREV.MUNICIPAL": 446,
+   "RELATORIO DE FISCALIZACAO": 148,
+   "CONVENIO-REPASSES A ORGAOS PUBLICO": 25
+  },
+  "origens_distintas": 1215
+ },
+ "prest_contas_terceiro_setor": {
+  "url": "https://www.tce.sp.gov.br/sites/default/files/portal/contas%20irregulares%20de%2001-01-1900%20a%2001-09-2026_Prest_Contas_CPF_anonimizado.xlsx",
+  "status": 200,
+  "bytes": 655845,
+  "last_modified": "Thu, 03 Sep 2026 14:31:43 GMT",
+  "cabecalho": [
+   "Responsável",
+   "#",
+   "Responsável",
+   "CPF",
+   "Processo TC",
+   "Matéria",
+   "Origem",
+   "Trânsito em Julgado",
+   "Exercício",
+   "Matéria"
+  ],
+  "registros": 10026,
+  "formatos_cpf": {
+   "999.XXX.XXX-99": 10026
+  },
+  "nomes_distintos": 4126,
+  "cpf_parciais_distintos": 3648,
+  "nomes_com_mais_de_um_cpf_parcial": 7,
+  "transito_min": "2006-07-14",
+  "transito_max": "2026-08-19",
+  "registros_ultimos_8_anos": 5057,
+  "nomes_ultimos_8_anos": 2143,
+  "materias": {
+   "PREST.CONTAS-REP.TERC.SETOR-CG/TP/CV/TC/TF-VLR.INF": 4308,
+   "PREST.CONTAS-REPASSES TERC.SETOR-CONTRATO GESTAO": 2085,
+   "PREST.CONTAS-REPASSES TERC.SETOR-AUX/SUB/CONTR": 1764,
+   "PREST.CONTAS-REP.TERC.SETOR/ENTIDADE PRIV-CONVENIO": 1306,
+   "PREST.CONTAS-REPASSES TERC.SETOR-TERMO DE PARCERIA": 465,
+   "PREST.CONTAS-REP.TERC.SETOR-TERMO DE COLABORACAO": 81,
+   "PREST.CONTAS-REPASSES TERC.SETOR-TERMO DE FOMENTO": 17
+  },
+  "origens_distintas": 543
+ }
+}

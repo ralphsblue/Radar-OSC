@@ -1,0 +1,161 @@
+{
+ "meta": {
+  "url": "https://api.opencnpj.org/43337682000135",
+  "data_utc": "2026-10-01T03:11:45.537832+00:00",
+  "status": 200,
+  "sha256": "45c5d1f0e6fc4a3e389fc52d189c811e7ad98e8e4563c1d25d3c11b3dd6d8868",
+  "tempo_ms": 529
+ },
+ "corpo": {
+  "cnpj": "43337682000135",
+  "razao_social": "ASSOCIACAO PARA VALORIZACAO DE PESSOAS COM DEFICIENCIA",
+  "nome_fantasia": "",
+  "situacao_cadastral": "Inapta",
+  "data_situacao_cadastral": "2018-12-20",
+  "matriz_filial": "Matriz",
+  "data_inicio_atividade": "1982-10-06",
+  "cnae_principal": "9430800",
+  "cnaes_secundarios": [
+   "9493600",
+   "9499500",
+   "8650005"
+  ],
+  "cnaes": [
+   {
+    "codigo": "9430800",
+    "descricao": "Atividades de associações de defesa de direitos sociais",
+    "is_principal": true
+   },
+   {
+    "codigo": "9493600",
+    "descricao": "Atividades de organizações associativas ligadas à cultura e à arte",
+    "is_principal": false
+   },
+   {
+    "codigo": "9499500",
+    "descricao": "Atividades associativas não especificadas anteriormente",
+    "is_principal": false
+   },
+   {
+    "codigo": "8650005",
+    "descricao": "Atividades de terapia ocupacional",
+    "is_principal": false
+   }
+  ],
+  "natureza_juridica": "Associação Privada",
+  "tipo_logradouro": "AVENIDA",
+  "logradouro": "DR. JOSE FORNARI",
+  "numero": "1777",
+  "complemento": "",
+  "bairro": "VILA SAO JOSE",
+  "cep": "09790400",
+  "uf": "SP",
+  "municipio": "SAO BERNARDO DO CAMPO",
+  "codigo_municipio": "7075",
+  "email": "",
+  "telefones": [],
+  "capital_social": "0,00",
+  "qualificacao_responsavel": {
+   "codigo": "16",
+   "descricao": "Presidente"
+  },
+  "ente_federativo": "",
+  "porte_empresa": "Demais",
+  "opcao_simples": "",
+  "data_opcao_simples": "",
+  "data_exclusao_simples": "",
+  "opcao_mei": "",
+  "data_opcao_mei": "",
+  "data_exclusao_mei": "",
+  "motivo_situacao_cadastral": {
+   "codigo": "63",
+   "descricao": "OMISSAO DE DECLARACOES"
+  },
+  "nome_cidade_exterior": "",
+  "codigo_pais": "",
+  "pais": {
+   "codigo": "",
+   "descricao": ""
+  },
+  "situacao_especial": "",
+  "data_situacao_especial": "",
+  "QSA": [
+   {
+    "nome_socio": "CARLOS EDUARDO FERRARI",
+    "cnpj_cpf_socio": "***385868**",
+    "qualificacao_socio": "Presidente",
+    "data_entrada_sociedade": "2010-05-03",
+    "identificador_socio": "Pessoa Física",
+    "codigo_pais": "",
+    "pais": {
+     "codigo": "",
+     "descricao": ""
+    },
+    "representante_legal": "***000000**",
+    "nome_representante": "",
+    "qualificacao_representante": {
+     "codigo": "00",
+     "descricao": "Não informada"
+    },
+    "faixa_etaria": "41 a 50 anos"
+   },
+   {
+    "nome_socio": "JARBAS DO SANTO VIARO",
+    "cnpj_cpf_socio": "***575108**",
+    "qualificacao_socio": "Diretor",
+    "data_entrada_sociedade": "2013-05-15",
+    "identificador_socio": "Pessoa Física",
+    "codigo_pais": "",
+    "pais": {
+     "codigo": "",
+     "descricao": ""
+    },
+    "representante_legal": "***000000**",
+    "nome_representante": "",
+    "qualificacao_representante": {
+     "codigo": "00",
+     "descricao": "Não informada"
+    },
+    "faixa_etaria": "Mais de 80 anos"
+   },
+   {
+    "nome_socio": "OLIVIA MARIA DA SILVA",
+    "cnpj_cpf_socio": "***392398**",
+    "qualificacao_socio": "Diretor",
+    "data_entrada_sociedade": "2013-05-15",
+    "identificador_socio": "Pessoa Física",
+    "codigo_pais": "",
+    "pais": {
+     "codigo": "",
+     "descricao": ""
+    },
+    "representante_legal": "***000000**",
+    "nome_representante": "",
+    "qualificacao_representante": {
+     "codigo": "00",
+     "descricao": "Não informada"
+    },
+    "faixa_etaria": "71 a 80 anos"
+   },
+   {
+    "nome_socio": "JAIR ANTONIO CASSIN",
+    "cnpj_cpf_socio": "***834208**",
+    "qualificacao_socio": "Diretor",
+    "data_entrada_sociedade": "2013-05-15",
+    "identificador_socio": "Pessoa Física",
+    "codigo_pais": "",
+    "pais": {
+     "codigo": "",
+     "descricao": ""
+    },
+    "representante_legal": "***000000**",
+    "nome_representante": "",
+    "qualificacao_representante": {
+     "codigo": "00",
+     "descricao": "Não informada"
+    },
+    "faixa_etaria": "71 a 80 anos"
+   }
+  ]
+ }
+}

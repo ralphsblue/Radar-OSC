@@ -1,0 +1,48 @@
+{
+  "caso": "T2_cepim_bomjesus",
+  "url": "https://api.portaldatransparencia.gov.br/api-de-dados/cepim",
+  "params": {
+    "pagina": 1,
+    "cnpjSancionado": "14112015000156"
+  },
+  "http": 200,
+  "ms": 32,
+  "headers_resposta": {
+    "content-type": "application/json",
+    "cache-control": "public, max-age=7200, must-revalidate"
+  },
+  "corpo": [
+    {
+      "id": 144871232,
+      "dataReferencia": "28/09/2026",
+      "motivo": "DESCUMPRIMENTO DE CLAUSULA/CONDICAO DO INSTR.",
+      "orgaoSuperior": {
+        "nome": "Ministério da Gestão e da Inovação em Serviços Públicos - Unidades com vínculo direto",
+        "codigoSIAFI": "46000",
+        "cnpj": "00489828000155",
+        "sigla": "MGI",
+        "descricaoPoder": "EXECUTIVO",
+        "orgaoMaximo": {
+          "codigo": "46000",
+          "sigla": "MGI",
+          "nome": "Ministério da Gestão e da Inovação em Serviços Públicos"
+        }
+      },
+      "pessoaJuridica": {
+        "id": 2118873,
+        "cpfFormatado": "",
+        "cnpjFormatado": "14.112.015/0001-56",
+        "numeroInscricaoSocial": "",
+        "nome": "ASSOCIACAO DOS PAIS DE BOM JESUS DO TOCANTINS",
+        "razaoSocialReceita": "ASSOCIACAO DOS PAIS DE BOM JESUS DO TOCANTINS",
+        "nomeFantasiaReceita": "",
+        "tipo": "Entidades Sem Fins Lucrativos"
+      },
+      "convenio": {
+        "codigo": "-1",
+        "objeto": "Sem informação",
+        "numero": "S/I"
+      }
+    }
+  ]
+}

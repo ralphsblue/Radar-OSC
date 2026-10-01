@@ -1,0 +1,104 @@
+{
+ "meta": {
+  "url": "https://api.opencnpj.org/06032885000197",
+  "data_utc": "2026-10-01T03:17:14.484188+00:00",
+  "status": 200,
+  "sha256": "a5d61c831712ba4a7d267e58b388c1cc50555927811bf14f3e2ec72f55f0a5e4",
+  "tempo_ms": 368
+ },
+ "corpo": {
+  "cnpj": "06032885000197",
+  "razao_social": "ASSOCIACAO DOS ALUNOS DO CURSO DE JORNALISMO DO INSTITUTO DE ENSINO SUPERIOR JOAO MONLEVADE - IES/FUNCEC",
+  "nome_fantasia": "",
+  "situacao_cadastral": "Baixada",
+  "data_situacao_cadastral": "2026-05-27",
+  "matriz_filial": "Matriz",
+  "data_inicio_atividade": "2003-11-05",
+  "cnae_principal": "9430800",
+  "cnaes_secundarios": [
+   "9493600",
+   "9499500"
+  ],
+  "cnaes": [
+   {
+    "codigo": "9430800",
+    "descricao": "Atividades de associações de defesa de direitos sociais",
+    "is_principal": true
+   },
+   {
+    "codigo": "9493600",
+    "descricao": "Atividades de organizações associativas ligadas à cultura e à arte",
+    "is_principal": false
+   },
+   {
+    "codigo": "9499500",
+    "descricao": "Atividades associativas não especificadas anteriormente",
+    "is_principal": false
+   }
+  ],
+  "natureza_juridica": "Associação Privada",
+  "tipo_logradouro": "RUA",
+  "logradouro": "16",
+  "numero": "24",
+  "complemento": "",
+  "bairro": "VILA TANQUE",
+  "cep": "35930408",
+  "uf": "MG",
+  "municipio": "JOAO MONLEVADE",
+  "codigo_municipio": "4723",
+  "email": "",
+  "telefones": [
+   {
+    "ddd": "031",
+    "numero": "38524422",
+    "is_fax": false
+   }
+  ],
+  "capital_social": "0,00",
+  "qualificacao_responsavel": {
+   "codigo": "16",
+   "descricao": "Presidente"
+  },
+  "ente_federativo": "",
+  "porte_empresa": "Demais",
+  "opcao_simples": "",
+  "data_opcao_simples": "",
+  "data_exclusao_simples": "",
+  "opcao_mei": "",
+  "data_opcao_mei": "",
+  "data_exclusao_mei": "",
+  "motivo_situacao_cadastral": {
+   "codigo": "01",
+   "descricao": "EXTINCAO POR ENCERRAMENTO LIQUIDACAO VOLUNTARIA"
+  },
+  "nome_cidade_exterior": "",
+  "codigo_pais": "",
+  "pais": {
+   "codigo": "",
+   "descricao": ""
+  },
+  "situacao_especial": "",
+  "data_situacao_especial": "",
+  "QSA": [
+   {
+    "nome_socio": "JULIANA ALBERNAZ PARREIRAS DINIZ",
+    "cnpj_cpf_socio": "***059206**",
+    "qualificacao_socio": "Presidente",
+    "data_entrada_sociedade": "2005-09-12",
+    "identificador_socio": "Pessoa Física",
+    "codigo_pais": "",
+    "pais": {
+     "codigo": "",
+     "descricao": ""
+    },
+    "representante_legal": "***000000**",
+    "nome_representante": "",
+    "qualificacao_representante": {
+     "codigo": "00",
+     "descricao": "Não informada"
+    },
+    "faixa_etaria": "51 a 60 anos"
+   }
+  ]
+ }
+}

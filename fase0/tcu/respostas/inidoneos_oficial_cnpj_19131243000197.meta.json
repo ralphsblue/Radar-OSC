@@ -1,0 +1,36 @@
+{
+  "url": "https://certidoes.apps.tcu.gov.br/api/publico/responsaveis-inidoneos",
+  "metodo": "POST",
+  "corpo_enviado": {
+    "cnpj": "19131243000197"
+  },
+  "headers_enviados": {
+    "host": "certidoes.apps.tcu.gov.br",
+    "accept-encoding": "gzip, deflate",
+    "connection": "keep-alive",
+    "user-agent": "validador-osc-ifsp/0.1 (projeto academico de extensao)",
+    "accept": "application/json",
+    "cookie": "TS012f1624=01615f296d0c37f684c3eadde4a8ca2cd12c5e23f76cdefcc75589e2243a38a6180dfd0f3709377eccf3d9af56a6ef90b1d0e781e7",
+    "content-length": "25",
+    "content-type": "application/json"
+  },
+  "status": 200,
+  "headers_resposta": {
+    "date": "Thu, 01 Oct 2026 01:07:39 GMT",
+    "content-type": "application/json",
+    "content-encoding": "gzip",
+    "nome-servico-tcu": "certidoes",
+    "expires": "0",
+    "cache-control": "no-cache, no-store, max-age=0, must-revalidate",
+    "x-xss-protection": "0",
+    "pragma": "no-cache",
+    "x-frame-options": "DENY",
+    "x-content-type-options": "nosniff",
+    "keep-alive": "timeout=15, max=2047",
+    "connection": "Keep-Alive",
+    "transfer-encoding": "chunked"
+  },
+  "tempo_s": 0.042,
+  "data_utc": "2026-10-01T01:07:39.247353+00:00",
+  "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+}

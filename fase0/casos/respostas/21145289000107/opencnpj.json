@@ -1,0 +1,104 @@
+{
+ "meta": {
+  "url": "https://api.opencnpj.org/21145289000107",
+  "data_utc": "2026-10-01T03:12:02.427208+00:00",
+  "status": 200,
+  "sha256": "7c8c8667d6fb95b87382d9296bf0cf414485bf443dbf68211f96c1cc0589d168",
+  "tempo_ms": 398
+ },
+ "corpo": {
+  "cnpj": "21145289000107",
+  "razao_social": "INSTITUTO MUNDIAL DE DESENVOLVIMENTO E DA CIDADANIA - IMDC.",
+  "nome_fantasia": "IMDC",
+  "situacao_cadastral": "Inapta",
+  "data_situacao_cadastral": "2018-09-18",
+  "matriz_filial": "Matriz",
+  "data_inicio_atividade": "1980-07-11",
+  "cnae_principal": "9430800",
+  "cnaes_secundarios": [
+   "9493600",
+   "9499500"
+  ],
+  "cnaes": [
+   {
+    "codigo": "9430800",
+    "descricao": "Atividades de associações de defesa de direitos sociais",
+    "is_principal": true
+   },
+   {
+    "codigo": "9493600",
+    "descricao": "Atividades de organizações associativas ligadas à cultura e à arte",
+    "is_principal": false
+   },
+   {
+    "codigo": "9499500",
+    "descricao": "Atividades associativas não especificadas anteriormente",
+    "is_principal": false
+   }
+  ],
+  "natureza_juridica": "Associação Privada",
+  "tipo_logradouro": "RUA",
+  "logradouro": "HUMAITA",
+  "numero": "1053",
+  "complemento": "APT   102",
+  "bairro": "PADRE EUSTAQUIO",
+  "cep": "30720410",
+  "uf": "MG",
+  "municipio": "BELO HORIZONTE",
+  "codigo_municipio": "4123",
+  "email": "DEIVSONVIDAL@HOTMAIL.COM",
+  "telefones": [
+   {
+    "ddd": "31",
+    "numero": "98644448",
+    "is_fax": false
+   }
+  ],
+  "capital_social": "0,00",
+  "qualificacao_responsavel": {
+   "codigo": "16",
+   "descricao": "Presidente"
+  },
+  "ente_federativo": "",
+  "porte_empresa": "Demais",
+  "opcao_simples": "",
+  "data_opcao_simples": "",
+  "data_exclusao_simples": "",
+  "opcao_mei": "",
+  "data_opcao_mei": "",
+  "data_exclusao_mei": "",
+  "motivo_situacao_cadastral": {
+   "codigo": "63",
+   "descricao": "OMISSAO DE DECLARACOES"
+  },
+  "nome_cidade_exterior": "",
+  "codigo_pais": "",
+  "pais": {
+   "codigo": "",
+   "descricao": ""
+  },
+  "situacao_especial": "",
+  "data_situacao_especial": "",
+  "QSA": [
+   {
+    "nome_socio": "DEIVSON OLIVEIRA VIDAL",
+    "cnpj_cpf_socio": "***599046**",
+    "qualificacao_socio": "Presidente",
+    "data_entrada_sociedade": "2005-03-03",
+    "identificador_socio": "Pessoa Física",
+    "codigo_pais": "",
+    "pais": {
+     "codigo": "",
+     "descricao": ""
+    },
+    "representante_legal": "***000000**",
+    "nome_representante": "",
+    "qualificacao_representante": {
+     "codigo": "00",
+     "descricao": "Não informada"
+    },
+    "faixa_etaria": "41 a 50 anos"
+   }
+  ]
+ }
+}

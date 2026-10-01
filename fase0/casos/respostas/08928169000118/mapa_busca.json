@@ -1,0 +1,34 @@
+{
+ "meta": {
+  "url": "https://mapaosc.ipea.gov.br/api/api/busca/cnpj/8928169000118",
+  "data_utc": "2026-10-01T03:11:30.507727+00:00",
+  "status": 200,
+  "sha256": "447f3c9a3cabe9e5e2b830ee066775dc0be920b6465725bba51d2a9db1551e52",
+  "tempo_ms": 241
+ },
+ "corpo": [
+  {
+   "id_osc": 586692,
+   "cd_identificador_osc": "8928169000118",
+   "cd_situacao_cadastral": 4,
+   "tx_nome_osc": "ILUMINA TERRA",
+   "tx_razao_social_osc": "INSTITUTO ILUMINA TERRA ACAO PARA DESENVOLVIMENTO SOCIAL",
+   "tx_nome_fantasia_osc": "ILUMINA TERRA",
+   "document": "'aca':4A 'desenvolv':6A 'ilumin':2A,8B 'institut':1A 'social':7A 'terr':3A,9B",
+   "tx_nome_natureza_juridica_osc": "Associação Privada",
+   "dt_fundacao_osc": "2007-06-26",
+   "cd_situacao_imovel_osc": null,
+   "cd_municipio": "3550308",
+   "tx_nome_municipio": "São Paulo",
+   "cd_uf": "35",
+   "tx_sigla_uf": "SP",
+   "tx_nome_uf": "São Paulo",
+   "cd_regiao": "3",
+   "tx_nome_regiao": "Sudeste",
+   "total_trabalhadores": 0,
+   "nr_trabalhadores_vinculo": null,
+   "nr_trabalhadores_deficiencia": null,
+   "nr_trabalhadores_voluntarios": null
+  }
+ ]
+}

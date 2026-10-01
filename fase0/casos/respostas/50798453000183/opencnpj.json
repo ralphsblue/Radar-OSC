@@ -1,0 +1,92 @@
+{
+ "meta": {
+  "url": "https://api.opencnpj.org/50798453000183",
+  "data_utc": "2026-10-01T03:12:36.959249+00:00",
+  "status": 200,
+  "sha256": "69a82a3e096f873e55e6c74e10f191d5e0e6d2b6540706bbb1e60d502c3f1d4b",
+  "tempo_ms": 532
+ },
+ "corpo": {
+  "cnpj": "50798453000183",
+  "razao_social": "SANTA CASA DE MISERICORDIA DE CERQUILHO",
+  "nome_fantasia": "",
+  "situacao_cadastral": "Ativa",
+  "data_situacao_cadastral": "2004-12-24",
+  "matriz_filial": "Matriz",
+  "data_inicio_atividade": "1982-07-14",
+  "cnae_principal": "8610101",
+  "cnaes_secundarios": [
+   "8610102"
+  ],
+  "cnaes": [
+   {
+    "codigo": "8610101",
+    "descricao": "Atividades de atendimento hospitalar, exceto pronto-socorro e unidades para atendimento a urgências",
+    "is_principal": true
+   },
+   {
+    "codigo": "8610102",
+    "descricao": "Atividades de atendimento em pronto-socorro e unidades hospitalares para atendimento a urgências",
+    "is_principal": false
+   }
+  ],
+  "natureza_juridica": "Associação Privada",
+  "tipo_logradouro": "RUA",
+  "logradouro": "7 DE SETEMBRO",
+  "numero": "641",
+  "complemento": "",
+  "bairro": "CENTRO",
+  "cep": "18520000",
+  "uf": "SP",
+  "municipio": "CERQUILHO",
+  "codigo_municipio": "6331",
+  "email": "",
+  "telefones": [],
+  "capital_social": "0,00",
+  "qualificacao_responsavel": {
+   "codigo": "16",
+   "descricao": "Presidente"
+  },
+  "ente_federativo": "",
+  "porte_empresa": "Demais",
+  "opcao_simples": "",
+  "data_opcao_simples": "",
+  "data_exclusao_simples": "",
+  "opcao_mei": "",
+  "data_opcao_mei": "",
+  "data_exclusao_mei": "",
+  "motivo_situacao_cadastral": {
+   "codigo": "00",
+   "descricao": "SEM MOTIVO"
+  },
+  "nome_cidade_exterior": "",
+  "codigo_pais": "",
+  "pais": {
+   "codigo": "",
+   "descricao": ""
+  },
+  "situacao_especial": "",
+  "data_situacao_especial": "",
+  "QSA": [
+   {
+    "nome_socio": "VALMIR PILON",
+    "cnpj_cpf_socio": "***633318**",
+    "qualificacao_socio": "Presidente",
+    "data_entrada_sociedade": "2024-11-27",
+    "identificador_socio": "Pessoa Física",
+    "codigo_pais": "",
+    "pais": {
+     "codigo": "",
+     "descricao": ""
+    },
+    "representante_legal": "***000000**",
+    "nome_representante": "",
+    "qualificacao_representante": {
+     "codigo": "00",
+     "descricao": "Não informada"
+    },
+    "faixa_etaria": "61 a 70 anos"
+   }
+  ]
+ }
+}

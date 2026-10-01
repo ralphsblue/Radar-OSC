@@ -1,0 +1,17 @@
+{
+ "meta": {
+  "url": "https://mapaosc.ipea.gov.br/api/api/osc/descricao/594130",
+  "data_utc": "2026-10-01T03:08:16.387784+00:00",
+  "status": 200,
+  "sha256": "700e2eb42e1c184f17e6ada40ff184262ee2e2c8eef09fc728790928ddedddb7",
+  "tempo_ms": 53
+ },
+ "corpo": {
+  "id_osc": 594130,
+  "tx_finalidades_estatutarias": null,
+  "tx_historico": null,
+  "tx_link_estatuto_osc": null,
+  "tx_missao_osc": "Promover a defesa dos direitos e o exercício da cidadania de crianças e adolescentes. ",
+  "tx_visao_osc": "Uma sociedade mais justa e responsável pela proteção e pleno desenvolvimento de suas crianças e adolescentes. "
+ }
+}

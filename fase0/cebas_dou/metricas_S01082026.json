@@ -1,0 +1,66 @@
+{
+  "zip": "S01082026.zip",
+  "materias_com_termo_CEBAS_ou_Entidade_Beneficente": {
+    "SAUDE": 86,
+    "ASSISTENCIA": 1,
+    "EDUCACAO": 1
+  },
+  "materias_com_termo_e_algum_CNPJ": {
+    "SAUDE": 85,
+    "ASSISTENCIA": 1,
+    "EDUCACAO": 1
+  },
+  "materias_decisorias_por_area": {
+    "SAUDE": 85,
+    "ASSISTENCIA": 8,
+    "EDUCACAO": 1
+  },
+  "por_area": {
+    "SAUDE": {
+      "atos": 85,
+      "atos_com_cnpj": 85,
+      "decisoes": 85,
+      "decisoes_com_cnpj": 85,
+      "decisoes_cnpj_dv_ok": 85
+    },
+    "ASSISTENCIA": {
+      "atos": 12,
+      "atos_com_cnpj": 12,
+      "decisoes": 410,
+      "decisoes_com_cnpj": 410,
+      "decisoes_cnpj_dv_ok": 410
+    },
+    "EDUCACAO": {
+      "atos": 1,
+      "atos_com_cnpj": 1,
+      "decisoes": 1,
+      "decisoes_com_cnpj": 1,
+      "decisoes_cnpj_dv_ok": 1
+    }
+  },
+  "total": {
+    "atos": 98,
+    "atos_com_cnpj": 98,
+    "decisoes": 496,
+    "decisoes_com_cnpj": 496,
+    "decisoes_cnpj_dv_ok": 496
+  },
+  "pct_atos_com_cnpj": 100.0,
+  "pct_decisoes_com_cnpj": 100.0,
+  "pct_decisoes_cnpj_dv_valido": 100.0,
+  "cnpjs_unicos": 496,
+  "dias_com_publicacao": 7,
+  "tipos": {
+    "ASSISTENCIA / CONCESSAO / S": 48,
+    "ASSISTENCIA / INDEFERIMENTO / N": 131,
+    "ASSISTENCIA / OUTRO / ": 7,
+    "ASSISTENCIA / RENOVACAO / S": 224,
+    "EDUCACAO / RENOVACAO / S": 1,
+    "SAUDE / CANCELAMENTO / N": 2,
+    "SAUDE / CONCESSAO / S": 5,
+    "SAUDE / INDEFERIMENTO / N": 20,
+    "SAUDE / OUTRO / ": 6,
+    "SAUDE / RECONSIDERACAO / S": 4,
+    "SAUDE / RENOVACAO / S": 48
+  }
+}

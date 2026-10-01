@@ -1,0 +1,104 @@
+{
+ "meta": {
+  "url": "https://api.opencnpj.org/04657942000106",
+  "data_utc": "2026-10-01T03:16:59.525893+00:00",
+  "status": 200,
+  "sha256": "89b6310cdd0c8dcf5657e460bf1f82a88d1e31180108c476c2a8d7a5ab7c75ac",
+  "tempo_ms": 382
+ },
+ "corpo": {
+  "cnpj": "04657942000106",
+  "razao_social": "ASSOCIACAO DOS OFICIAIS DE JUSTIA AVALIADORES FEDERAIS DO TRIBUNAL REGIONAL DO TRABALHO DA DECIMA REGIAO",
+  "nome_fantasia": "ASSOJAF/TRT-10 REGIAO",
+  "situacao_cadastral": "Baixada",
+  "data_situacao_cadastral": "2024-10-24",
+  "matriz_filial": "Matriz",
+  "data_inicio_atividade": "2001-06-27",
+  "cnae_principal": "9430800",
+  "cnaes_secundarios": [
+   "9493600",
+   "9499500"
+  ],
+  "cnaes": [
+   {
+    "codigo": "9430800",
+    "descricao": "Atividades de associações de defesa de direitos sociais",
+    "is_principal": true
+   },
+   {
+    "codigo": "9493600",
+    "descricao": "Atividades de organizações associativas ligadas à cultura e à arte",
+    "is_principal": false
+   },
+   {
+    "codigo": "9499500",
+    "descricao": "Atividades associativas não especificadas anteriormente",
+    "is_principal": false
+   }
+  ],
+  "natureza_juridica": "Associação Privada",
+  "tipo_logradouro": "AVENIDA",
+  "logradouro": "W-3 NORTE - QUADRA 513 - LOTES",
+  "numero": "2/3",
+  "complemento": "EDIFICIO TRT",
+  "bairro": "BRASILIA",
+  "cep": "70310500",
+  "uf": "DF",
+  "municipio": "BRASILIA",
+  "codigo_municipio": "9701",
+  "email": "gilson@cd-graf.com.br",
+  "telefones": [
+   {
+    "ddd": "61",
+    "numero": "3481511",
+    "is_fax": false
+   }
+  ],
+  "capital_social": "0,00",
+  "qualificacao_responsavel": {
+   "codigo": "16",
+   "descricao": "Presidente"
+  },
+  "ente_federativo": "",
+  "porte_empresa": "Demais",
+  "opcao_simples": "",
+  "data_opcao_simples": "",
+  "data_exclusao_simples": "",
+  "opcao_mei": "",
+  "data_opcao_mei": "",
+  "data_exclusao_mei": "",
+  "motivo_situacao_cadastral": {
+   "codigo": "02",
+   "descricao": "INCORPORACAO"
+  },
+  "nome_cidade_exterior": "",
+  "codigo_pais": "",
+  "pais": {
+   "codigo": "",
+   "descricao": ""
+  },
+  "situacao_especial": "",
+  "data_situacao_especial": "",
+  "QSA": [
+   {
+    "nome_socio": "LUCIA PINHEIRO DE CARVALHO",
+    "cnpj_cpf_socio": "***955307**",
+    "qualificacao_socio": "Presidente",
+    "data_entrada_sociedade": "2019-11-21",
+    "identificador_socio": "Pessoa Física",
+    "codigo_pais": "",
+    "pais": {
+     "codigo": "",
+     "descricao": ""
+    },
+    "representante_legal": "***000000**",
+    "nome_representante": "",
+    "qualificacao_representante": {
+     "codigo": "00",
+     "descricao": "Não informada"
+    },
+    "faixa_etaria": "61 a 70 anos"
+   }
+  ]
+ }
+}

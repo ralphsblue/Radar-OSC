@@ -1,0 +1,109 @@
+{
+ "meta": {
+  "url": "https://api.opencnpj.org/04141829000165",
+  "data_utc": "2026-10-01T03:16:57.853607+00:00",
+  "status": 200,
+  "sha256": "458f29400d8b27dae7091e48ac1071e60101106c6c090aef50a963527b21e6f5",
+  "tempo_ms": 413
+ },
+ "corpo": {
+  "cnpj": "04141829000165",
+  "razao_social": "TRIBO DO CERRADO MOTO CLUBE - TCMC",
+  "nome_fantasia": "TRIBO DO CERRADO MOTO CLUBE - TCMC",
+  "situacao_cadastral": "Baixada",
+  "data_situacao_cadastral": "2025-05-23",
+  "matriz_filial": "Matriz",
+  "data_inicio_atividade": "2000-09-22",
+  "cnae_principal": "9430800",
+  "cnaes_secundarios": [
+   "9493600",
+   "9499500"
+  ],
+  "cnaes": [
+   {
+    "codigo": "9430800",
+    "descricao": "Atividades de associações de defesa de direitos sociais",
+    "is_principal": true
+   },
+   {
+    "codigo": "9493600",
+    "descricao": "Atividades de organizações associativas ligadas à cultura e à arte",
+    "is_principal": false
+   },
+   {
+    "codigo": "9499500",
+    "descricao": "Atividades associativas não especificadas anteriormente",
+    "is_principal": false
+   }
+  ],
+  "natureza_juridica": "Associação Privada",
+  "tipo_logradouro": "RUA",
+  "logradouro": "1040",
+  "numero": "285",
+  "complemento": "APT: 302;",
+  "bairro": "SETOR PEDRO LUDOVICO",
+  "cep": "74823250",
+  "uf": "GO",
+  "municipio": "GOIANIA",
+  "codigo_municipio": "9373",
+  "email": "",
+  "telefones": [
+   {
+    "ddd": "62",
+    "numero": "96733248",
+    "is_fax": false
+   },
+   {
+    "ddd": "62",
+    "numero": "99041470",
+    "is_fax": false
+   }
+  ],
+  "capital_social": "0,00",
+  "qualificacao_responsavel": {
+   "codigo": "16",
+   "descricao": "Presidente"
+  },
+  "ente_federativo": "",
+  "porte_empresa": "Demais",
+  "opcao_simples": "",
+  "data_opcao_simples": "",
+  "data_exclusao_simples": "",
+  "opcao_mei": "",
+  "data_opcao_mei": "",
+  "data_exclusao_mei": "",
+  "motivo_situacao_cadastral": {
+   "codigo": "01",
+   "descricao": "EXTINCAO POR ENCERRAMENTO LIQUIDACAO VOLUNTARIA"
+  },
+  "nome_cidade_exterior": "",
+  "codigo_pais": "",
+  "pais": {
+   "codigo": "",
+   "descricao": ""
+  },
+  "situacao_especial": "",
+  "data_situacao_especial": "",
+  "QSA": [
+   {
+    "nome_socio": "MAURICIO DE SOUSA NEAS",
+    "cnpj_cpf_socio": "***564461**",
+    "qualificacao_socio": "Presidente",
+    "data_entrada_sociedade": "2015-06-02",
+    "identificador_socio": "Pessoa Física",
+    "codigo_pais": "",
+    "pais": {
+     "codigo": "",
+     "descricao": ""
+    },
+    "representante_legal": "***000000**",
+    "nome_representante": "",
+    "qualificacao_representante": {
+     "codigo": "00",
+     "descricao": "Não informada"
+    },
+    "faixa_etaria": "61 a 70 anos"
+   }
+  ]
+ }
+}

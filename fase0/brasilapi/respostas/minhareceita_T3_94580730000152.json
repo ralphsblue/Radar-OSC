@@ -1,0 +1,19 @@
+{
+  "caso": "T3",
+  "cnpj_consultado": "94580730000152",
+  "fonte": "minhareceita",
+  "url": "https://minhareceita.org/94580730000152",
+  "consultado_em": "2026-10-01T03:10:00+00:00",
+  "http": 503,
+  "ms": 9854,
+  "headers_relevantes": {
+    "content-type": "application/json",
+    "cache-control": "no-store",
+    "server": "cloudflare",
+    "via": "1.1 fly.io, 1.1 fly.io",
+    "cf-cache-status": "DYNAMIC"
+  },
+  "corpo": {
+    "message": "Serviço temporariamente indisponível, tente novamente."
+  }
+}

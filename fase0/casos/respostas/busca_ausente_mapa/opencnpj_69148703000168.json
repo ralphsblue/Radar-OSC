@@ -1,0 +1,12 @@
+{
+ "meta": {
+  "url": "https://api.opencnpj.org/69148703000168",
+  "data_utc": "2026-10-01T03:26:04.250649+00:00",
+  "status": 404,
+  "sha256": "51d0a9e3bd9ffc25483790aaffe7a3597e642edd040dddb16aafc324e6e922ed",
+  "tempo_ms": 200
+ },
+ "corpo": {
+  "error": "not found"
+ }
+}

@@ -1,0 +1,104 @@
+{
+ "meta": {
+  "url": "https://api.opencnpj.org/53524534000183",
+  "data_utc": "2026-10-01T03:11:51.735252+00:00",
+  "status": 200,
+  "sha256": "67a57fc9ca59be3cdfbc62e2a353d626bfa63eca59878a0f60e5eafc0a0eadbd",
+  "tempo_ms": 403
+ },
+ "corpo": {
+  "cnpj": "53524534000183",
+  "razao_social": "ASSOCIACAO DA IRMANDADE DA SANTA CASA DE MISERICORDIA DE PACAEMBU",
+  "nome_fantasia": "",
+  "situacao_cadastral": "Inapta",
+  "data_situacao_cadastral": "2023-11-21",
+  "matriz_filial": "Matriz",
+  "data_inicio_atividade": "1969-12-31",
+  "cnae_principal": "8610102",
+  "cnaes_secundarios": [
+   "8630502",
+   "8660700"
+  ],
+  "cnaes": [
+   {
+    "codigo": "8610102",
+    "descricao": "Atividades de atendimento em pronto-socorro e unidades hospitalares para atendimento a urgências",
+    "is_principal": true
+   },
+   {
+    "codigo": "8630502",
+    "descricao": "Atividade médica ambulatorial com recursos para realização de exames complementares",
+    "is_principal": false
+   },
+   {
+    "codigo": "8660700",
+    "descricao": "Atividades de apoio à gestão de saúde",
+    "is_principal": false
+   }
+  ],
+  "natureza_juridica": "Associação Privada",
+  "tipo_logradouro": "AVENIDA",
+  "logradouro": "GENTIL WALTER RIBEIRO",
+  "numero": "360",
+  "complemento": "",
+  "bairro": "JARDIM MARAJA",
+  "cep": "17860000",
+  "uf": "SP",
+  "municipio": "PACAEMBU",
+  "codigo_municipio": "6799",
+  "email": "",
+  "telefones": [
+   {
+    "ddd": "18",
+    "numero": "38621335",
+    "is_fax": false
+   }
+  ],
+  "capital_social": "0,00",
+  "qualificacao_responsavel": {
+   "codigo": "16",
+   "descricao": "Presidente"
+  },
+  "ente_federativo": "",
+  "porte_empresa": "Demais",
+  "opcao_simples": "",
+  "data_opcao_simples": "",
+  "data_exclusao_simples": "",
+  "opcao_mei": "",
+  "data_opcao_mei": "",
+  "data_exclusao_mei": "",
+  "motivo_situacao_cadastral": {
+   "codigo": "63",
+   "descricao": "OMISSAO DE DECLARACOES"
+  },
+  "nome_cidade_exterior": "",
+  "codigo_pais": "",
+  "pais": {
+   "codigo": "",
+   "descricao": ""
+  },
+  "situacao_especial": "",
+  "data_situacao_especial": "",
+  "QSA": [
+   {
+    "nome_socio": "JOSE RODRIGUES ARAUJO",
+    "cnpj_cpf_socio": "***491908**",
+    "qualificacao_socio": "Presidente",
+    "data_entrada_sociedade": "2020-03-26",
+    "identificador_socio": "Pessoa Física",
+    "codigo_pais": "",
+    "pais": {
+     "codigo": "",
+     "descricao": ""
+    },
+    "representante_legal": "***000000**",
+    "nome_representante": "",
+    "qualificacao_representante": {
+     "codigo": "00",
+     "descricao": "Não informada"
+    },
+    "faixa_etaria": "61 a 70 anos"
+   }
+  ]
+ }
+}

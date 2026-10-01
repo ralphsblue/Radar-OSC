@@ -1,0 +1,66 @@
+{
+  "caso": "T8_ceis_nome_completo",
+  "url": "https://api.portaldatransparencia.gov.br/api-de-dados/ceis",
+  "params": {
+    "pagina": 1,
+    "nomeSancionado": "ASSOCIACAO PLURAL"
+  },
+  "http": 200,
+  "ms": 7319,
+  "headers_resposta": {
+    "content-type": "application/json",
+    "cache-control": "public, max-age=7200, must-revalidate"
+  },
+  "corpo": [
+    {
+      "id": 113748,
+      "dataReferencia": "30/09/2026",
+      "dataInicioSancao": "18/11/2019",
+      "dataFimSancao": "18/11/2021",
+      "dataPublicacaoSancao": "09/12/2019",
+      "dataTransitadoJulgado": "Sem informação",
+      "dataOrigemInformacao": "28/08/2020",
+      "tipoSancao": {
+        "descricaoResumida": "Declaração de Inidoneidade sem prazo determinado",
+        "descricaoPortal": "Declaração de Inidoneidade sem prazo determinado"
+      },
+      "fonteSancao": {
+        "nomeExibicao": "Fundação Hospitalar Getúlio Vargas - RS ",
+        "telefoneContato": "(51) 3451-8200 ",
+        "enderecoContato": "Rua Alegrete, 145 - Sapucaia do Sul/ RS - CEP 93210-020"
+      },
+      "fundamentacao": [
+        {
+          "codigo": "LEI 8666 - ART. 87, IV - PELA INEXECUÇÃO TOTAL OU PARCIAL DO CONTRATO A ADMINISTRAÇÃO PODERÁ, GARANTIDA A PRÉVIA DEFESA, APLICAR AO CONTRATADO AS SEGUINTES SANÇÕES: IV - DECLARAÇÃO DE INIDONEIDADE PARA LICITAR OU CONTRATAR COM A ADMINISTRAÇÃO PÚBLICA ENQUANTO PERDURAREM OS MOTIVOS DETERMINANTES DA PUNIÇÃO OU ATÉ QUE SEJA PROMOVIDA A REABILITAÇÃO PERANTE A PRÓPRIA AUTORIDADE QUE APLICOU A PENALIDADE, QUE SERÁ CONCEDIDA SEMPRE QUE O CONTRATADO RESSARCIR A ADMINISTRAÇÃO PELOS PREJUÍZOS RESULTANTES E APÓS DECORRIDO O PRAZO DA SANÇÃO APLICADA COM BASE NO INCISO ANTERIOR.",
+          "descricao": "LEI 8666 - ART. 87, IV - PELA INEXECUÇÃO TOTAL OU PARCIAL DO CONTRATO A ADMINISTRAÇÃO PODERÁ, GARANTIDA A PRÉVIA DEFESA, APLICAR AO CONTRATADO AS SEGUINTES SANÇÕES: IV - DECLARAÇÃO DE INIDONEIDADE PARA LICITAR OU CONTRATAR COM A ADMINISTRAÇÃO PÚBLICA ENQUANTO PERDURAREM OS MOTIVOS DETERMINANTES DA PUNIÇÃO OU ATÉ QUE SEJA PROMOVIDA A REABILITAÇÃO PERANTE A PRÓPRIA AUTORIDADE QUE APLICOU A PENALIDADE, QUE SERÁ CONCEDIDA SEMPRE QUE O CONTRATADO RESSARCIR A ADMINISTRAÇÃO PELOS PREJUÍZOS RESULTANTES E APÓS DECORRIDO O PRAZO DA SANÇÃO APLICADA COM BASE NO INCISO ANTERIOR."
+        }
+      ],
+      "orgaoSancionador": {
+        "nome": "Fundação Hospitalar Getúlio Vargas - RS ",
+        "siglaUf": "RS",
+        "poder": "Executivo",
+        "esfera": "MUNICIPAL"
+      },
+      "sancionado": {
+        "nome": "ASSOCIAÇÃO PLURAL",
+        "codigoFormatado": "03.126.200/0001-83"
+      },
+      "pessoa": {
+        "id": 283854730,
+        "cpfFormatado": "",
+        "cnpjFormatado": "03.126.200/0001-83",
+        "numeroInscricaoSocial": "",
+        "nome": "ASSOCIACAO PLURAL",
+        "razaoSocialReceita": "ASSOCIACAO PLURAL",
+        "nomeFantasiaReceita": "PLURAL",
+        "tipo": "Entidades Sem Fins Lucrativos"
+      },
+      "textoPublicacao": "Jornal de Grande Circulação Seção 06 Pagina 6",
+      "linkPublicacao": "",
+      "detalhamentoPublicacao": "Jornal Cidades",
+      "numeroProcesso": "CONTRATO 31/2019, PROCESSO 329.156/2019",
+      "abrangenciaDefinidaDecisaoJudicial": "No órgão sancionador",
+      "informacoesAdicionaisDoOrgaoSancionador": ""
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+url=https://mapaosc.ipea.gov.br/js/components/maps/oscMap.js
+final=https://mapaosc.ipea.gov.br/js/components/maps/oscMap.js
+status=200
+tempo_s=16.10
+data=2026-09-30T22:04:13.658593
+sha256=8e47cb2a2afc17e6524433a6eacb1aadfd8c7445160d2f2f0f291cbfb5b7fac3
+headers={'date': 'Thu, 01 Oct 2026 01:04:25 GMT', 'server': 'Apache/2.4.29 (Ubuntu)', 'content-security-policy': 'upgrade-insecure-requests;', 'last-modified': 'Tue, 15 Sep 2026 12:36:40 GMT', 'etag': '"18b81-65b84cd64a600-gzip"', 'accept-ranges': 'bytes', 'vary': 'Accept-Encoding', 'content-encoding': 'gzip', 'content-length': '17403', 'content-type': 'application/javascript', 'via': '1.1 mapaosc.ipea.gov.br', 'keep-alive': 'timeout=15, max=100', 'connection': 'Keep-Alive'}

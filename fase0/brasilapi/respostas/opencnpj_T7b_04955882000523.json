@@ -1,0 +1,140 @@
+{
+  "caso": "T7b",
+  "cnpj_consultado": "04955882000523",
+  "fonte": "opencnpj",
+  "url": "https://api.opencnpj.org/04955882000523",
+  "consultado_em": "2026-10-01T01:08:04+00:00",
+  "http": 200,
+  "ms": 69,
+  "headers_relevantes": {
+    "content-type": "application/json; charset=utf-8",
+    "cf-cache-status": "HIT",
+    "age": "229",
+    "cache-control": "public, max-age=86400, s-maxage=86400",
+    "server": "cloudflare"
+  },
+  "corpo": {
+    "cnpj": "04955882000523",
+    "razao_social": "INSTITUTO GRPCOM",
+    "nome_fantasia": "INSTITUTO GRPCOM CASCAVEL",
+    "situacao_cadastral": "Baixada",
+    "data_situacao_cadastral": "2017-01-05",
+    "matriz_filial": "Filial",
+    "data_inicio_atividade": "2011-11-29",
+    "cnae_principal": "9430800",
+    "cnaes_secundarios": [
+      "9493600",
+      "9499500"
+    ],
+    "cnaes": [
+      {
+        "codigo": "9430800",
+        "descricao": "Atividades de associações de defesa de direitos sociais",
+        "is_principal": true
+      },
+      {
+        "codigo": "9493600",
+        "descricao": "Atividades de organizações associativas ligadas à cultura e à arte",
+        "is_principal": false
+      },
+      {
+        "codigo": "9499500",
+        "descricao": "Atividades associativas não especificadas anteriormente",
+        "is_principal": false
+      }
+    ],
+    "natureza_juridica": "Associação Privada",
+    "tipo_logradouro": "RUA",
+    "logradouro": "ALEXANDRE DE GUSMAO",
+    "numero": "1413",
+    "complemento": "",
+    "bairro": "JARDIM MARIA LUIZA",
+    "cep": "85819530",
+    "uf": "PR",
+    "municipio": "CASCAVEL",
+    "codigo_municipio": "7493",
+    "email": "concontfis@grpcom.com.br",
+    "telefones": [
+      {
+        "ddd": "41",
+        "numero": "33215955",
+        "is_fax": false
+      },
+      {
+        "ddd": "41",
+        "numero": "33215198",
+        "is_fax": false
+      },
+      {
+        "ddd": "41",
+        "numero": "33215545",
+        "is_fax": true
+      }
+    ],
+    "capital_social": "0,00",
+    "qualificacao_responsavel": {
+      "codigo": "16",
+      "descricao": "Presidente"
+    },
+    "ente_federativo": "",
+    "porte_empresa": "Demais",
+    "opcao_simples": "",
+    "data_opcao_simples": "",
+    "data_exclusao_simples": "",
+    "opcao_mei": "",
+    "data_opcao_mei": "",
+    "data_exclusao_mei": "",
+    "motivo_situacao_cadastral": {
+      "codigo": "01",
+      "descricao": "EXTINCAO POR ENCERRAMENTO LIQUIDACAO VOLUNTARIA"
+    },
+    "nome_cidade_exterior": "",
+    "codigo_pais": "",
+    "pais": {
+      "codigo": "",
+      "descricao": ""
+    },
+    "situacao_especial": "",
+    "data_situacao_especial": "",
+    "QSA": [
+      {
+        "nome_socio": "MARIANO LEMANSKI",
+        "cnpj_cpf_socio": "***835199**",
+        "qualificacao_socio": "Presidente",
+        "data_entrada_sociedade": "2002-03-07",
+        "identificador_socio": "Pessoa Física",
+        "codigo_pais": "",
+        "pais": {
+          "codigo": "",
+          "descricao": ""
+        },
+        "representante_legal": "***000000**",
+        "nome_representante": "",
+        "qualificacao_representante": {
+          "codigo": "00",
+          "descricao": "Não informada"
+        },
+        "faixa_etaria": "51 a 60 anos"
+      },
+      {
+        "nome_socio": "EDUARDO BOSCHETTI",
+        "cnpj_cpf_socio": "***038829**",
+        "qualificacao_socio": "Diretor",
+        "data_entrada_sociedade": "2026-05-08",
+        "identificador_socio": "Pessoa Física",
+        "codigo_pais": "",
+        "pais": {
+          "codigo": "",
+          "descricao": ""
+        },
+        "representante_legal": "***000000**",
+        "nome_representante": "",
+        "qualificacao_representante": {
+          "codigo": "00",
+          "descricao": "Não informada"
+        },
+        "faixa_etaria": "41 a 50 anos"
+      }
+    ]
+  }
+}

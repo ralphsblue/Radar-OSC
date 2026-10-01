@@ -1,0 +1,91 @@
+{
+ "meta": {
+  "url": "https://api.opencnpj.org/11468674000131",
+  "data_utc": "2026-10-01T03:06:53.028808+00:00",
+  "status": 200,
+  "sha256": "7eb452af42524cd6cdfeda555125f34dcef62df8f7cad614b6d19921f52d28cf",
+  "tempo_ms": 421
+ },
+ "corpo": {
+  "cnpj": "11468674000131",
+  "razao_social": "CENTRO DE APOIO AOS PORTADORES DE HIV - CAPH",
+  "nome_fantasia": "CAPH",
+  "situacao_cadastral": "Inapta",
+  "data_situacao_cadastral": "2018-09-18",
+  "matriz_filial": "Matriz",
+  "data_inicio_atividade": "2010-01-07",
+  "cnae_principal": "9430800",
+  "cnaes_secundarios": [],
+  "cnaes": [
+   {
+    "codigo": "9430800",
+    "descricao": "Atividades de associações de defesa de direitos sociais",
+    "is_principal": true
+   }
+  ],
+  "natureza_juridica": "Associação Privada",
+  "tipo_logradouro": "RUA",
+  "logradouro": "BENEDITO CLEMENTE DE SOUZA",
+  "numero": "89",
+  "complemento": "",
+  "bairro": "VILA BARAO",
+  "cep": "18065506",
+  "uf": "SP",
+  "municipio": "SOROCABA",
+  "codigo_municipio": "7145",
+  "email": "contegi@hotmail.com",
+  "telefones": [
+   {
+    "ddd": "15",
+    "numero": "30111231",
+    "is_fax": false
+   }
+  ],
+  "capital_social": "0,00",
+  "qualificacao_responsavel": {
+   "codigo": "16",
+   "descricao": "Presidente"
+  },
+  "ente_federativo": "",
+  "porte_empresa": "Demais",
+  "opcao_simples": "",
+  "data_opcao_simples": "",
+  "data_exclusao_simples": "",
+  "opcao_mei": "",
+  "data_opcao_mei": "",
+  "data_exclusao_mei": "",
+  "motivo_situacao_cadastral": {
+   "codigo": "63",
+   "descricao": "OMISSAO DE DECLARACOES"
+  },
+  "nome_cidade_exterior": "",
+  "codigo_pais": "",
+  "pais": {
+   "codigo": "",
+   "descricao": ""
+  },
+  "situacao_especial": "",
+  "data_situacao_especial": "",
+  "QSA": [
+   {
+    "nome_socio": "HUDSON LUIS DOS SANTOS SILVA",
+    "cnpj_cpf_socio": "***682558**",
+    "qualificacao_socio": "Presidente",
+    "data_entrada_sociedade": "2010-01-07",
+    "identificador_socio": "Pessoa Física",
+    "codigo_pais": "",
+    "pais": {
+     "codigo": "",
+     "descricao": ""
+    },
+    "representante_legal": "***000000**",
+    "nome_representante": "",
+    "qualificacao_representante": {
+     "codigo": "00",
+     "descricao": "Não informada"
+    },
+    "faixa_etaria": "41 a 50 anos"
+   }
+  ]
+ }
+}

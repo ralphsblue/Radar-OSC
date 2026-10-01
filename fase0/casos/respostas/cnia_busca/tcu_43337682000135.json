@@ -1,0 +1,60 @@
+{
+ "meta": {
+  "url": "https://certidoes-apf.apps.tcu.gov.br/api/rest/publico/certidoes/43337682000135?seEmitirPDF=false",
+  "data_utc": "2026-10-01T03:05:14.305624+00:00",
+  "status": 200,
+  "sha256": "2f9243c28a334674e030306fa419a611738b859d0ab3774a26042f8dd5d56331",
+  "tempo_ms": 6027
+ },
+ "corpo": {
+  "certidaoPDF": null,
+  "certidoes": [
+   {
+    "dataHoraEmissao": "01/10/2026 00:05",
+    "descricao": "Licitantes Inidôneos",
+    "emissor": "TCU",
+    "linkConsultaManual": "https://certidoes.apps.tcu.gov.br/lista-inidoneos",
+    "observacao": null,
+    "situacao": "NADA_CONSTA",
+    "tempoGeracao": 19,
+    "tipo": "Inidôneos"
+   },
+   {
+    "dataHoraEmissao": "01/10/2026 00:05",
+    "descricao": "CNIA - Cadastro Nacional de Condenações Cíveis por Ato de Improbidade Administrativa e Inelegibilidade",
+    "emissor": "CNJ",
+    "linkConsultaManual": "http://www.cnj.jus.br/improbidade_adm/consultar_requerido.php",
+    "observacao": "Existe(m) o(s) processo(s) a seguir para a empresa consultada: 10021337720158260032, 00031114620128260624",
+    "situacao": "CONSTAM_REGISTROS",
+    "tempoGeracao": 124,
+    "tipo": "CNIA"
+   },
+   {
+    "dataHoraEmissao": "01/10/2026 00:05",
+    "descricao": "Cadastro Nacional de Empresas Inidôneas e Suspensas",
+    "emissor": "Portal da Transparência",
+    "linkConsultaManual": "http://www.portaltransparencia.gov.br/sancoes/ceis",
+    "observacao": "Impedimento/proibição de contratar com prazo determinado (25/03/2028) - PROCURADORIA GERAL DO ESTADO<br/>Impedimento/proibição de contratar com prazo determinado (27/03/2028) - Controladoria Geral do Estado de São Paulo<br/>Impedimento/proibição de contratar com prazo determinado (11/05/2027) - Tribunal de Justiça do Estado de São Paulo / 1º Grau - TJSP / ARACATUBA / FAZENDA PUBLICA DE ARACATUBA<br/>Impedimento/proibição de contratar com prazo determinado (17/11/2027) - PROCURADORIA GERAL DO ESTADO",
+    "situacao": "CONSTAM_REGISTROS",
+    "tempoGeracao": 517,
+    "tipo": "CEIS"
+   },
+   {
+    "dataHoraEmissao": "01/10/2026 00:05",
+    "descricao": "CNEP - Cadastro Nacional de Empresas Punidas",
+    "emissor": "Portal da Transparência",
+    "linkConsultaManual": "http://www.portaltransparencia.gov.br/sancoes/cnep",
+    "observacao": null,
+    "situacao": "NADA_CONSTA",
+    "tempoGeracao": 241,
+    "tipo": "CNEP"
+   }
+  ],
+  "cnpj": "43.337.682/0001-35",
+  "dataHoraGeracaoInMillis": 1790823920691,
+  "nomeFantasia": null,
+  "razaoSocial": "Associação para Valorização de Pessoas com Deficiência",
+  "seCnpjEncontradoNaBaseTcu": true,
+  "uf": null
+ }
+}

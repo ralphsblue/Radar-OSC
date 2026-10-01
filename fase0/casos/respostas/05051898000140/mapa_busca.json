@@ -1,0 +1,34 @@
+{
+ "meta": {
+  "url": "https://mapaosc.ipea.gov.br/api/api/busca/cnpj/5051898000140",
+  "data_utc": "2026-10-01T03:23:57.279582+00:00",
+  "status": 200,
+  "sha256": "a01a6557a4493b1d7f54954d8f63bbb7353b59e9dceda5aa469bcb15300972f0",
+  "tempo_ms": 245
+ },
+ "corpo": [
+  {
+   "id_osc": 724878,
+   "cd_identificador_osc": "5051898000140",
+   "cd_situacao_cadastral": 2,
+   "tx_nome_osc": "ACH2L",
+   "tx_razao_social_osc": "ASSOCIACAO CULTURAL DE HIP HOP DE LAGUNA -ACH2L",
+   "tx_nome_fantasia_osc": "ACH2L",
+   "document": "'ach2l':8A,9B 'associaca':1A 'cultural':2A 'hip':4A 'hop':5A 'lagun':7A",
+   "tx_nome_natureza_juridica_osc": "Associação Privada",
+   "dt_fundacao_osc": "2002-04-11",
+   "cd_situacao_imovel_osc": null,
+   "cd_municipio": "4209409",
+   "tx_nome_municipio": "Laguna",
+   "cd_uf": "42",
+   "tx_sigla_uf": "SC",
+   "tx_nome_uf": "Santa Catarina",
+   "cd_regiao": "4",
+   "tx_nome_regiao": "Sul",
+   "total_trabalhadores": 0,
+   "nr_trabalhadores_vinculo": null,
+   "nr_trabalhadores_deficiencia": null,
+   "nr_trabalhadores_voluntarios": null
+  }
+ ]
+}

@@ -1,0 +1,17 @@
+{
+ "meta": {
+  "url": "https://mapaosc.ipea.gov.br/api/api/osc/descricao/614393",
+  "data_utc": "2026-10-01T03:09:45.020862+00:00",
+  "status": 200,
+  "sha256": "543741fc8fc9fb3761d2913193e0885bd18f938331334f437ea5562b33527233",
+  "tempo_ms": 46
+ },
+ "corpo": {
+  "id_osc": 614393,
+  "tx_finalidades_estatutarias": null,
+  "tx_historico": null,
+  "tx_link_estatuto_osc": null,
+  "tx_missao_osc": null,
+  "tx_visao_osc": null
+ }
+}

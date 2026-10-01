@@ -1,0 +1,85 @@
+{
+ "meta": {
+  "url": "https://api.opencnpj.org/05143959000108",
+  "data_utc": "2026-10-01T03:17:06.173667+00:00",
+  "status": 200,
+  "sha256": "24b000cd72ef9619ccdbcda15c1a1fd24530230988347f3c8cbdc07c3287fee1",
+  "tempo_ms": 378
+ },
+ "corpo": {
+  "cnpj": "05143959000108",
+  "razao_social": "ORGANIZAO MUNDIAL PARA EDUCACAO PRE-ESCOLAR - ASSOCIACAO DO MUNICIPIO DE RIO BONITO",
+  "nome_fantasia": "OMEP-BRASIL - RIO DE JANEIRO - MUNICIPIO DE RIO BONITO",
+  "situacao_cadastral": "Baixada",
+  "data_situacao_cadastral": "2026-03-12",
+  "matriz_filial": "Matriz",
+  "data_inicio_atividade": "2001-03-28",
+  "cnae_principal": "8800600",
+  "cnaes_secundarios": [],
+  "cnaes": [
+   {
+    "codigo": "8800600",
+    "descricao": "Serviços de assistência social sem alojamento",
+    "is_principal": true
+   }
+  ],
+  "natureza_juridica": "Associação Privada",
+  "tipo_logradouro": "RUA",
+  "logradouro": "LAURO ARAUJO DA SILVA JR",
+  "numero": "343",
+  "complemento": "",
+  "bairro": "CENTRO",
+  "cep": "28800000",
+  "uf": "RJ",
+  "municipio": "RIO BONITO",
+  "codigo_municipio": "5885",
+  "email": "",
+  "telefones": [],
+  "capital_social": "0,00",
+  "qualificacao_responsavel": {
+   "codigo": "16",
+   "descricao": "Presidente"
+  },
+  "ente_federativo": "",
+  "porte_empresa": "Demais",
+  "opcao_simples": "",
+  "data_opcao_simples": "",
+  "data_exclusao_simples": "",
+  "opcao_mei": "",
+  "data_opcao_mei": "",
+  "data_exclusao_mei": "",
+  "motivo_situacao_cadastral": {
+   "codigo": "01",
+   "descricao": "EXTINCAO POR ENCERRAMENTO LIQUIDACAO VOLUNTARIA"
+  },
+  "nome_cidade_exterior": "",
+  "codigo_pais": "",
+  "pais": {
+   "codigo": "",
+   "descricao": ""
+  },
+  "situacao_especial": "",
+  "data_situacao_especial": "",
+  "QSA": [
+   {
+    "nome_socio": "KATIA VALVIESSE MANSUR",
+    "cnpj_cpf_socio": "***807807**",
+    "qualificacao_socio": "Presidente",
+    "data_entrada_sociedade": "2005-09-12",
+    "identificador_socio": "Pessoa Física",
+    "codigo_pais": "",
+    "pais": {
+     "codigo": "",
+     "descricao": ""
+    },
+    "representante_legal": "***000000**",
+    "nome_representante": "",
+    "qualificacao_representante": {
+     "codigo": "00",
+     "descricao": "Não informada"
+    },
+    "faixa_etaria": "51 a 60 anos"
+   }
+  ]
+ }
+}

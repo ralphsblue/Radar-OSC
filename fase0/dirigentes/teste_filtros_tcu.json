@@ -1,0 +1,68 @@
+{
+ "registros_esperados_para_o_cpf": 1,
+ "casos": {
+  "cpf_formatado": {
+   "status": 200,
+   "itens": 1,
+   "itens_do_cpf_alvo": 1,
+   "segundos": 2.43,
+   "erro": null
+  },
+  "cpf_digitos": {
+   "status": 200,
+   "itens": 1,
+   "itens_do_cpf_alvo": 1,
+   "segundos": 0.07,
+   "erro": null
+  },
+  "cpf_mascarado_qsa": {
+   "status": 200,
+   "itens": 0,
+   "itens_do_cpf_alvo": 0,
+   "segundos": 0.07,
+   "erro": null
+  },
+  "cpf_mascarado_formatado": {
+   "status": 200,
+   "itens": 0,
+   "itens_do_cpf_alvo": 0,
+   "segundos": 0.07,
+   "erro": null
+  },
+  "cpf_meio_6": {
+   "status": 200,
+   "itens": 0,
+   "itens_do_cpf_alvo": 0,
+   "segundos": 0.07,
+   "erro": null
+  },
+  "nome_completo": {
+   "status": 200,
+   "itens": 1,
+   "itens_do_cpf_alvo": 1,
+   "segundos": 0.08,
+   "erro": null
+  },
+  "nome_minusculo": {
+   "status": 200,
+   "itens": 1,
+   "itens_do_cpf_alvo": 1,
+   "segundos": 0.07,
+   "erro": null
+  },
+  "nome_primeiro_e_ultimo": {
+   "status": 200,
+   "itens": 39,
+   "itens_do_cpf_alvo": 1,
+   "segundos": 0.08,
+   "erro": null
+  },
+  "nome_sobrenome_do_meio": {
+   "status": 200,
+   "itens": 1,
+   "itens_do_cpf_alvo": 1,
+   "segundos": 0.08,
+   "erro": null
+  }
+ }
+}

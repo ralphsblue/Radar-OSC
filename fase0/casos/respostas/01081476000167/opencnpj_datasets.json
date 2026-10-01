@@ -1,0 +1,55 @@
+{
+ "meta": {
+  "url": "https://api.opencnpj.org/01081476000167?datasets=ceis,cepim,cnep",
+  "data_utc": "2026-10-01T03:24:01.930423+00:00",
+  "status": 200,
+  "sha256": "1f5756faf3015f808003e643e4e548d2b4911c77c9d902af062447ba431f083d",
+  "tempo_ms": 984
+ },
+ "corpo": {
+  "ceis": {
+   "cnpj": "01081476000167",
+   "updated_at": "2026-09-30T21:15:08.0000000+00:00",
+   "sancoes": [
+    {
+     "cadastro": "CEIS",
+     "codigo": "141887",
+     "tipo_pessoa": "J",
+     "nome_sancionado": "ASSOCIAÇÃO MUSICAL 10 DE AGOSTO",
+     "nome_informado_orgao": "ASSOCIAÇÃO MUSICAL 10 DE AGOSTO",
+     "razao_social_receita": "ASSOCIACAO MUSICAL 10 DE AGOSTO",
+     "nome_fantasia_receita": "",
+     "numero_processo": "00011059620134058304",
+     "categoria": "Impedimento/proibição de contratar com prazo determinado",
+     "data_inicio": "16/12/2021",
+     "data_final": "16/12/2031",
+     "data_publicacao": "",
+     "publicacao": "Sem Informação",
+     "detalhamento_publicacao": "",
+     "data_transito_julgado": "16/12/2021",
+     "abrangencia": "Sem Informação",
+     "orgao_sancionador": "1º Grau - TRF5 / Seção Judiciária de Pernambuco / Varas / Juízo / 20ª VARA FEDERAL - SALGUEIRO/PE",
+     "uf_orgao_sancionador": "PE",
+     "esfera_orgao_sancionador": "FEDERAL",
+     "fundamentacao_legal": "LEI 8429 - ART. 12 - INDEPENDENTEMENTE DAS SANÇÕES PENAIS, CIVIS E ADMINISTRATIVAS PREVISTAS NA LEGISLAÇÃO ESPECÍFICA, ESTÁ O RESPONSÁVEL PELO ATO DE IMPROBIDADE SUJEITO ÀS SEGUINTES COMINAÇÕES, QUE PODEM SER APLICADAS ISOLADA OU CUMULATIVAMENTE, DE ACORDO COM A GRAVIDADE DO FATO: I - NA HIPÓTESE DO ART. 9°, PERDA DOS BENS OU VALORES ACRESCIDOS ILICITAMENTE AO PATRIMÔNIO, RESSARCIMENTO INTEGRAL DO DANO, QUANDO HOUVER, PERDA DA FUNÇÃO PÚBLICA, SUSPENSÃO DOS DIREITOS POLÍTICOS DE OITO A DEZ ANOS, PAGAMENTO DE MULTA CIVIL DE ATÉ TRÊS VEZES O VALOR DO ACRÉSCIMO PATRIMONIAL E PROIBIÇÃO DE CONTRATAR COM O PODER PÚBLICO OU RECEBER BENEFÍCIOS OU INCENTIVOS FISCAIS OU CREDITÍCIOS, DIRETA OU INDIRETAMENTE, AINDA QUE POR INTERMÉDIO DE PESSOA JURÍDICA DA QUAL SEJA SÓCIO MAJORITÁRIO, PELO PRAZO DE DEZ ANOS; II - NA HIPÓTESE DO ART. 10, RESSARCIMENTO INTEGRAL DO DANO, PERDA DOS BENS OU VALORES ACRESCIDOS ILICITAMENTE AO PATRIMÔNIO, SE CONCORRER ESTA CIRCUNSTÂNCIA, PERDA DA FUNÇÃO PÚBLICA, SUSPENSÃO DOS DIREITOS POLÍTICOS DE CINCO A OITO ANOS, PAGAMENTO DE MULTA CIVIL DE ATÉ DUAS VEZES O VALOR DO DANO E PROIBIÇÃO DE CONTRATAR COM O PODER PÚBLICO OU RECEBER BENEFÍCIOS OU INCENTIVOS FISCAIS OU CREDITÍCIOS, DIRETA OU INDIRETAMENTE, AINDA QUE POR INTERMÉDIO DE PESSOA JURÍDICA DA QUAL SEJA SÓCIO MAJORITÁRIO, PELO PRAZO DE CINCO ANOS; III - NA HIPÓTESE DO ART. 11, RESSARCIMENTO INTEGRAL DO DANO, SE HOUVER, PERDA DA FUNÇÃO PÚBLICA, SUSPENSÃO DOS DIREITOS POLÍTICOS DE TRÊS A CINCO ANOS, PAGAMENTO DE MULTA CIVIL DE ATÉ CEM VEZES O VALOR DA REMUNERAÇÃO PERCEBIDA PELO AGENTE E PROIBIÇÃO DE CONTRATAR COM O PODER PÚBLICO OU RECEBER BENEFÍCIOS OU INCENTIVOS FISCAIS OU CREDITÍCIOS, DIRETA OU INDIRETAMENTE, AINDA QUE POR INTERMÉDIO DE PESSOA JURÍDICA DA QUAL SEJA SÓCIO MAJORITÁRIO, PELO PRAZO DE TRÊS ANOS.",
+     "data_origem_informacao": "25/11/2022",
+     "origem_informacoes": "Conselho Nacional de Justiça (CNJ-DF)",
+     "observacoes": ""
+    }
+   ]
+  },
+  "cepim": {
+   "cnpj": "01081476000167",
+   "updated_at": "2026-09-30T13:35:47.0000000+00:00",
+   "impedimentos": [
+    {
+     "nome_entidade": "ASSOCIACAO MUSICAL 10 DE AGOSTO",
+     "numero_convenio": "527824",
+     "orgao_concedente": "Ministério do Turismo - Unidades com vínculo direto",
+     "motivo": "DESCUMPRIMENTO DE PRECEITOS DA LEI NR.8666/93"
+    }
+   ]
+  },
+  "cnep": null
+ }
+}

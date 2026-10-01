@@ -1,0 +1,74 @@
+[
+ {
+  "nome": "ABDUL ***",
+  "cpf_parcial": "***.XXX.XXX-**",
+  "processo": "1528/026/03",
+  "materia": "CONTAS DE CAMARA MUNICIPAL",
+  "origem": "CAMARA MUNICIPAL DE MAIRIPORA",
+  "transito": "16/12/2005",
+  "exercicio": "2003"
+ },
+ {
+  "nome": "ARNALDO ***",
+  "cpf_parcial": "***.XXX.XXX-**",
+  "processo": "298/026/02",
+  "materia": "CONTAS DE CAMARA MUNICIPAL",
+  "origem": "CAMARA MUNICIPAL DE COTIA",
+  "transito": "26/05/2006",
+  "exercicio": "2002"
+ },
+ {
+  "nome": "EDSON ***",
+  "cpf_parcial": "***.XXX.XXX-**",
+  "processo": "3634/026/04",
+  "materia": "BALANCO GERAL DO EXERCICIO",
+  "origem": "DEPARTAMENTO AUTONOMO DE AGUA E ESGOTO PENAPOLIS",
+  "transito": "07/07/2009",
+  "exercicio": "2004"
+ },
+ {
+  "nome": "HORTENCIA ***",
+  "cpf_parcial": "***.XXX.XXX-**",
+  "processo": "3822/026/03",
+  "materia": "BALANCO GERAL DO EXERCICIO",
+  "origem": "CAIXA DE PECULIO DE SANTOS",
+  "transito": "08/11/2007",
+  "exercicio": "2003"
+ },
+ {
+  "nome": "JOSE ***",
+  "cpf_parcial": "***.XXX.XXX-**",
+  "processo": "467/026/11",
+  "materia": "BALANCO GERAL DO EXERCICIO",
+  "origem": "EMPRESA DE TRANSPORTE COLETIVO DE DIADEMA",
+  "transito": "17/03/2016",
+  "exercicio": "2011"
+ },
+ {
+  "nome": "LUIZA ***",
+  "cpf_parcial": "***.XXX.XXX-**",
+  "processo": "2833/026/14",
+  "materia": "CONTAS DE CAMARA MUNICIPAL",
+  "origem": "CAMARA MUNICIPAL DE DOBRADA",
+  "transito": "29/08/2016",
+  "exercicio": "2014"
+ },
+ {
+  "nome": "NELSON ***",
+  "cpf_parcial": "***.XXX.XXX-**",
+  "processo": "4070/026/07",
+  "materia": "BALANCO GERAL DO EXERCICIO",
+  "origem": "EMPRESA PUBLICA INTERM. GESTAO E RESIDUOS S/C LTDA SJR PARDO",
+  "transito": "04/02/2011",
+  "exercicio": "2007"
+ },
+ {
+  "nome": "ROGELIO ***",
+  "cpf_parcial": "***.XXX.XXX-**",
+  "processo": "2839/026/09",
+  "materia": "BALANCO GERAL DO EXERCICIO",
+  "origem": "ASSOCIACAO MUNICIPIOS DO VALE VERDE - ANVAVE",
+  "transito": "26/01/2016",
+  "exercicio": "2009"
+ }
+]

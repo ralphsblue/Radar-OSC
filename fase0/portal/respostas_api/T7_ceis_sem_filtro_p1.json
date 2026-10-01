@@ -1,0 +1,769 @@
+{
+  "caso": "T7_ceis_sem_filtro_p1",
+  "url": "https://api.portaldatransparencia.gov.br/api-de-dados/ceis",
+  "params": {
+    "pagina": 1
+  },
+  "http": 200,
+  "ms": 320,
+  "headers_resposta": {
+    "content-type": "application/json",
+    "cache-control": "public, max-age=7200, must-revalidate"
+  },
+  "corpo": [
+    {
+      "id": 127038,
+      "dataReferencia": "30/09/2026",
+      "dataInicioSancao": "19/10/2021",
+      "dataFimSancao": "19/10/2026",
+      "dataPublicacaoSancao": "20/09/2021",
+      "dataTransitadoJulgado": "19/10/2021",
+      "dataOrigemInformacao": "19/10/2021",
+      "tipoSancao": {
+        "descricaoResumida": "Impedimento/proibição de contratar com prazo determinado",
+        "descricaoPortal": "Impedimento/proibição de contratar com prazo determinado"
+      },
+      "fonteSancao": {
+        "nomeExibicao": "UNIVERSIDADE FEDERAL RURAL DO RIO DE JANEIRO",
+        "telefoneContato": ".",
+        "enderecoContato": ""
+      },
+      "fundamentacao": [
+        {
+          "codigo": "LEI 10520 - ART. 7º - QUEM, CONVOCADO DENTRO DO PRAZO DE VALIDADE DA SUA PROPOSTA, NÃO CELEBRAR O CONTRATO, DEIXAR DE ENTREGAR OU APRESENTAR DOCUMENTAÇÃO FALSA EXIGIDA PARA O CERTAME, ENSEJAR O RETARDAMENTO DA EXECUÇÃO DE SEU OBJETO, NÃO MANTIVER A PROPOSTA, FALHAR OU FRAUDAR NA EXECUÇÃO DO CONTRATO, COMPORTAR-SE DE MODO INIDÔNEO OU COMETER FRAUDE FISCAL, FICARÁ IMPEDIDO DE LICITAR E CONTRATAR COM A UNIÃO, ESTADOS, DISTRITO FEDERAL OU MUNICÍPIOS E, SERÁ DESCREDENCIADO NO SICAF, OU NOS SISTEMAS DE CADASTRAMENTO DE FORNECEDORES A QUE SE REFERE O INCISO XIV DO ART. 4O DESTA LEI, PELO PRAZO DE ATÉ 5 (CINCO) ANOS, SEM PREJUÍZO DAS MULTAS PREVISTAS EM EDITAL E NO CONTRATO E DAS DEMAIS COMINAÇÕES LEGAIS.",
+          "descricao": "LEI 10520 - ART. 7º - QUEM, CONVOCADO DENTRO DO PRAZO DE VALIDADE DA SUA PROPOSTA, NÃO CELEBRAR O CONTRATO, DEIXAR DE ENTREGAR OU APRESENTAR DOCUMENTAÇÃO FALSA EXIGIDA PARA O CERTAME, ENSEJAR O RETARDAMENTO DA EXECUÇÃO DE SEU OBJETO, NÃO MANTIVER A PROPOSTA, FALHAR OU FRAUDAR NA EXECUÇÃO DO CONTRATO, COMPORTAR-SE DE MODO INIDÔNEO OU COMETER FRAUDE FISCAL, FICARÁ IMPEDIDO DE LICITAR E CONTRATAR COM A UNIÃO, ESTADOS, DISTRITO FEDERAL OU MUNICÍPIOS E, SERÁ DESCREDENCIADO NO SICAF, OU NOS SISTEMAS DE CADASTRAMENTO DE FORNECEDORES A QUE SE REFERE O INCISO XIV DO ART. 4O DESTA LEI, PELO PRAZO DE ATÉ 5 (CINCO) ANOS, SEM PREJUÍZO DAS MULTAS PREVISTAS EM EDITAL E NO CONTRATO E DAS DEMAIS COMINAÇÕES LEGAIS."
+        }
+      ],
+      "orgaoSancionador": {
+        "nome": "Universidade Federal Rural do Rio de Janeiro",
+        "siglaUf": "",
+        "poder": "Executivo",
+        "esfera": "FEDERAL"
+      },
+      "sancionado": {
+        "nome": "CONSTRUTORA NOGUEIRA FRANCO EIRELI",
+        "codigoFormatado": "24.250.237/0001-99"
+      },
+      "pessoa": {
+        "id": 24937981,
+        "cpfFormatado": "",
+        "cnpjFormatado": "24.250.237/0001-99",
+        "numeroInscricaoSocial": "",
+        "nome": "CONSTRUTORA NOGUEIRA FRANCO LTDA",
+        "razaoSocialReceita": "CONSTRUTORA NOGUEIRA FRANCO LTDA",
+        "nomeFantasiaReceita": "",
+        "tipo": "Entidades Empresariais Privadas"
+      },
+      "textoPublicacao": "Diário Oficial da União Seção 3 Pagina 90",
+      "linkPublicacao": "http://pesquisa.in.gov.br/imprensa/jsp/visualiza/index.jsp?jornal=530&pagina=90&data=20/09/2021",
+      "detalhamentoPublicacao": "",
+      "numeroProcesso": "23083.046970/2021 - 16/2020",
+      "abrangenciaDefinidaDecisaoJudicial": "Em todos os Poderes da Esfera do órgão sancionador",
+      "informacoesAdicionaisDoOrgaoSancionador": ""
+    },
+    {
+      "id": 90476,
+      "dataReferencia": "30/09/2026",
+      "dataInicioSancao": "24/10/2017",
+      "dataFimSancao": "Sem informação",
+      "dataPublicacaoSancao": "07/11/2017",
+      "dataTransitadoJulgado": "Sem informação",
+      "dataOrigemInformacao": "17/01/2018",
+      "tipoSancao": {
+        "descricaoResumida": "Declaração de Inidoneidade sem prazo determinado",
+        "descricaoPortal": "Declaração de Inidoneidade sem prazo determinado"
+      },
+      "fonteSancao": {
+        "nomeExibicao": "Prefeitura Municipal de Colatina (ES)",
+        "telefoneContato": "(27)3177-7000",
+        "enderecoContato": "Avenida Ângelo Giuberti, nº 343, Bairro Esplanada - Colatina/ES, CEP: 29.702-902 "
+      },
+      "fundamentacao": [
+        {
+          "codigo": "LEI 8666 - ART. 87, IV - PELA INEXECUÇÃO TOTAL OU PARCIAL DO CONTRATO A ADMINISTRAÇÃO PODERÁ, GARANTIDA A PRÉVIA DEFESA, APLICAR AO CONTRATADO AS SEGUINTES SANÇÕES: IV - DECLARAÇÃO DE INIDONEIDADE PARA LICITAR OU CONTRATAR COM A ADMINISTRAÇÃO PÚBLICA ENQUANTO PERDURAREM OS MOTIVOS DETERMINANTES DA PUNIÇÃO OU ATÉ QUE SEJA PROMOVIDA A REABILITAÇÃO PERANTE A PRÓPRIA AUTORIDADE QUE APLICOU A PENALIDADE, QUE SERÁ CONCEDIDA SEMPRE QUE O CONTRATADO RESSARCIR A ADMINISTRAÇÃO PELOS PREJUÍZOS RESULTANTES E APÓS DECORRIDO O PRAZO DA SANÇÃO APLICADA COM BASE NO INCISO ANTERIOR.",
+          "descricao": "LEI 8666 - ART. 87, IV - PELA INEXECUÇÃO TOTAL OU PARCIAL DO CONTRATO A ADMINISTRAÇÃO PODERÁ, GARANTIDA A PRÉVIA DEFESA, APLICAR AO CONTRATADO AS SEGUINTES SANÇÕES: IV - DECLARAÇÃO DE INIDONEIDADE PARA LICITAR OU CONTRATAR COM A ADMINISTRAÇÃO PÚBLICA ENQUANTO PERDURAREM OS MOTIVOS DETERMINANTES DA PUNIÇÃO OU ATÉ QUE SEJA PROMOVIDA A REABILITAÇÃO PERANTE A PRÓPRIA AUTORIDADE QUE APLICOU A PENALIDADE, QUE SERÁ CONCEDIDA SEMPRE QUE O CONTRATADO RESSARCIR A ADMINISTRAÇÃO PELOS PREJUÍZOS RESULTANTES E APÓS DECORRIDO O PRAZO DA SANÇÃO APLICADA COM BASE NO INCISO ANTERIOR."
+        }
+      ],
+      "orgaoSancionador": {
+        "nome": "Prefeitura Municipal de Colatina (ES)",
+        "siglaUf": "ES",
+        "poder": "Executivo",
+        "esfera": "MUNICIPAL"
+      },
+      "sancionado": {
+        "nome": "YANDRA GOMES TAVARES CUNHA 11531459609",
+        "codigoFormatado": "28.063.480/0001-59"
+      },
+      "pessoa": {
+        "id": 6518511,
+        "cpfFormatado": "",
+        "cnpjFormatado": "28.063.480/0001-59",
+        "numeroInscricaoSocial": "",
+        "nome": "YANDRA GOMES TAVARES CUNHA 11531459609",
+        "razaoSocialReceita": "YANDRA GOMES TAVARES CUNHA 11531459609",
+        "nomeFantasiaReceita": "",
+        "tipo": "Entidades Empresariais Privadas"
+      },
+      "textoPublicacao": "Diário Oficial do Município Seção - Pagina 66",
+      "linkPublicacao": "",
+      "detalhamentoPublicacao": "",
+      "numeroProcesso": "Processo Administrativo n° 016045/2017",
+      "abrangenciaDefinidaDecisaoJudicial": "Todas as Esferas em todos os Poderes",
+      "informacoesAdicionaisDoOrgaoSancionador": ""
+    },
+    {
+      "id": 362411,
+      "dataReferencia": "30/09/2026",
+      "dataInicioSancao": "15/07/2025",
+      "dataFimSancao": "15/07/2028",
+      "dataPublicacaoSancao": "Sem informação",
+      "dataTransitadoJulgado": "Sem informação",
+      "dataOrigemInformacao": "11/09/2025",
+      "tipoSancao": {
+        "descricaoResumida": "Impedimento/proibição de contratar com prazo determinado",
+        "descricaoPortal": "Impedimento/proibição de contratar com prazo determinado"
+      },
+      "fonteSancao": {
+        "nomeExibicao": "Ministério da Fazenda",
+        "telefoneContato": ".",
+        "enderecoContato": "."
+      },
+      "fundamentacao": [
+        {
+          "codigo": "LEI 14133 - ART. 156, III - IMPEDIMENTO DE LICITAR E CONTRATAR",
+          "descricao": "LEI 14133 - ART. 156, III - IMPEDIMENTO DE LICITAR E CONTRATAR"
+        }
+      ],
+      "orgaoSancionador": {
+        "nome": "MINISTERIO DA FAZENDA",
+        "siglaUf": "DF",
+        "poder": "Executivo",
+        "esfera": "FEDERAL"
+      },
+      "sancionado": {
+        "nome": "LEVEN SOLUCOES EMPRESARIAIS INTEGRADAS LTDA",
+        "codigoFormatado": "38.091.117/0001-09"
+      },
+      "pessoa": {
+        "id": 530416905,
+        "cpfFormatado": "",
+        "cnpjFormatado": "38.091.117/0001-09",
+        "numeroInscricaoSocial": "",
+        "nome": "LEVEN SOLUCOES EMPRESARIAIS INTEGRADAS LTDA",
+        "razaoSocialReceita": "LEVEN SOLUCOES EMPRESARIAIS INTEGRADAS LTDA",
+        "nomeFantasiaReceita": "LEVEN SOLUCOES EMPRESARIAIS INTEGRADAS",
+        "tipo": "Entidades Empresariais Privadas"
+      },
+      "textoPublicacao": "Sem Informação",
+      "linkPublicacao": "",
+      "detalhamentoPublicacao": "",
+      "numeroProcesso": "10265118595202568",
+      "abrangenciaDefinidaDecisaoJudicial": "Em todos os Poderes da Esfera do órgão sancionador",
+      "informacoesAdicionaisDoOrgaoSancionador": ""
+    },
+    {
+      "id": 303339,
+      "dataReferencia": "30/09/2026",
+      "dataInicioSancao": "26/10/2023",
+      "dataFimSancao": "26/10/2028",
+      "dataPublicacaoSancao": "Sem informação",
+      "dataTransitadoJulgado": "Sem informação",
+      "dataOrigemInformacao": "05/07/2024",
+      "tipoSancao": {
+        "descricaoResumida": "Impedimento/proibição de contratar com prazo determinado",
+        "descricaoPortal": "Impedimento/proibição de contratar com prazo determinado"
+      },
+      "fonteSancao": {
+        "nomeExibicao": "Ministério da Fazenda",
+        "telefoneContato": ".",
+        "enderecoContato": "."
+      },
+      "fundamentacao": [
+        {
+          "codigo": "LEI 10520 - ART. 7º - QUEM, CONVOCADO DENTRO DO PRAZO DE VALIDADE DA SUA PROPOSTA, NÃO CELEBRAR O CONTRATO, DEIXAR DE ENTREGAR OU APRESENTAR DOCUMENTAÇÃO FALSA EXIGIDA PARA O CERTAME, ENSEJAR O RETARDAMENTO DA EXECUÇÃO DE SEU OBJETO, NÃO MANTIVER A PROPOSTA, FALHAR OU FRAUDAR NA EXECUÇÃO DO CONTRATO, COMPORTAR-SE DE MODO INIDÔNEO OU COMETER FRAUDE FISCAL, FICARÁ IMPEDIDO DE LICITAR E CONTRATAR COM A UNIÃO, ESTADOS, DISTRITO FEDERAL OU MUNICÍPIOS E, SERÁ DESCREDENCIADO NO SICAF, OU NOS SISTEMAS DE CADASTRAMENTO DE FORNECEDORES A QUE SE REFERE O INCISO XIV DO ART. 4O DESTA LEI, PELO PRAZO DE ATÉ 5 (CINCO) ANOS, SEM PREJUÍZO DAS MULTAS PREVISTAS EM EDITAL E NO CONTRATO E DAS DEMAIS COMINAÇÕES LEGAIS.",
+          "descricao": "LEI 10520 - ART. 7º - QUEM, CONVOCADO DENTRO DO PRAZO DE VALIDADE DA SUA PROPOSTA, NÃO CELEBRAR O CONTRATO, DEIXAR DE ENTREGAR OU APRESENTAR DOCUMENTAÇÃO FALSA EXIGIDA PARA O CERTAME, ENSEJAR O RETARDAMENTO DA EXECUÇÃO DE SEU OBJETO, NÃO MANTIVER A PROPOSTA, FALHAR OU FRAUDAR NA EXECUÇÃO DO CONTRATO, COMPORTAR-SE DE MODO INIDÔNEO OU COMETER FRAUDE FISCAL, FICARÁ IMPEDIDO DE LICITAR E CONTRATAR COM A UNIÃO, ESTADOS, DISTRITO FEDERAL OU MUNICÍPIOS E, SERÁ DESCREDENCIADO NO SICAF, OU NOS SISTEMAS DE CADASTRAMENTO DE FORNECEDORES A QUE SE REFERE O INCISO XIV DO ART. 4O DESTA LEI, PELO PRAZO DE ATÉ 5 (CINCO) ANOS, SEM PREJUÍZO DAS MULTAS PREVISTAS EM EDITAL E NO CONTRATO E DAS DEMAIS COMINAÇÕES LEGAIS."
+        }
+      ],
+      "orgaoSancionador": {
+        "nome": "PREFEITURA MUNICIPAL DE ASSIS - SP",
+        "siglaUf": "SP",
+        "poder": "Executivo",
+        "esfera": "MUNICIPAL"
+      },
+      "sancionado": {
+        "nome": "CIRURGICA ITAMARATY COMERCIAL LTDA",
+        "codigoFormatado": "29.426.310/0001-54"
+      },
+      "pessoa": {
+        "id": 114418983,
+        "cpfFormatado": "",
+        "cnpjFormatado": "29.426.310/0001-54",
+        "numeroInscricaoSocial": "",
+        "nome": "CIRURGICA ITAMARATY COMERCIAL LTDA",
+        "razaoSocialReceita": "CIRURGICA ITAMARATY COMERCIAL LTDA",
+        "nomeFantasiaReceita": "",
+        "tipo": "Entidades Empresariais Privadas"
+      },
+      "textoPublicacao": "Sem Informação",
+      "linkPublicacao": "",
+      "detalhamentoPublicacao": "",
+      "numeroProcesso": "024/2023",
+      "abrangenciaDefinidaDecisaoJudicial": "Em todos os Poderes da Esfera do órgão sancionador",
+      "informacoesAdicionaisDoOrgaoSancionador": ""
+    },
+    {
+      "id": 291191,
+      "dataReferencia": "30/09/2026",
+      "dataInicioSancao": "11/05/2023",
+      "dataFimSancao": "11/05/2028",
+      "dataPublicacaoSancao": "Sem informação",
+      "dataTransitadoJulgado": "11/05/2023",
+      "dataOrigemInformacao": "03/12/2023",
+      "tipoSancao": {
+        "descricaoResumida": "Impedimento/proibição de contratar com prazo determinado",
+        "descricaoPortal": "Impedimento/proibição de contratar com prazo determinado"
+      },
+      "fonteSancao": {
+        "nomeExibicao": "Conselho Nacional de Justiça (CNJ-DF)",
+        "telefoneContato": ".(61) 2326-4925",
+        "enderecoContato": "SAF Sul Quadra 2 - Lote5/6 - Bloco E - Sala 303 - CEP: 70070-600  Brasília/DF"
+      },
+      "fundamentacao": [
+        {
+          "codigo": "LEI 8429 - ART. 12 - INDEPENDENTEMENTE DAS SANÇÕES PENAIS, CIVIS E ADMINISTRATIVAS PREVISTAS NA LEGISLAÇÃO ESPECÍFICA, ESTÁ O RESPONSÁVEL PELO ATO DE IMPROBIDADE SUJEITO ÀS SEGUINTES COMINAÇÕES, QUE PODEM SER APLICADAS ISOLADA OU CUMULATIVAMENTE, DE ACORDO COM A GRAVIDADE DO FATO: I - NA HIPÓTESE DO ART. 9°, PERDA DOS BENS OU VALORES ACRESCIDOS ILICITAMENTE AO PATRIMÔNIO, RESSARCIMENTO INTEGRAL DO DANO, QUANDO HOUVER, PERDA DA FUNÇÃO PÚBLICA, SUSPENSÃO DOS DIREITOS POLÍTICOS DE OITO A DEZ ANOS, PAGAMENTO DE MULTA CIVIL DE ATÉ TRÊS VEZES O VALOR DO ACRÉSCIMO PATRIMONIAL E PROIBIÇÃO DE CONTRATAR COM O PODER PÚBLICO OU RECEBER BENEFÍCIOS OU INCENTIVOS FISCAIS OU CREDITÍCIOS, DIRETA OU INDIRETAMENTE, AINDA QUE POR INTERMÉDIO DE PESSOA JURÍDICA DA QUAL SEJA SÓCIO MAJORITÁRIO, PELO PRAZO DE DEZ ANOS; II - NA HIPÓTESE DO ART. 10, RESSARCIMENTO INTEGRAL DO DANO, PERDA DOS BENS OU VALORES ACRESCIDOS ILICITAMENTE AO PATRIMÔNIO, SE CONCORRER ESTA CIRCUNSTÂNCIA, PERDA DA FUNÇÃO PÚBLICA, SUSPENSÃO DOS DIREITOS POLÍTICOS DE CINCO A OITO ANOS, PAGAMENTO DE MULTA CIVIL DE ATÉ DUAS VEZES O VALOR DO DANO E PROIBIÇÃO DE CONTRATAR COM O PODER PÚBLICO OU RECEBER BENEFÍCIOS OU INCENTIVOS FISCAIS OU CREDITÍCIOS, DIRETA OU INDIRETAMENTE, AINDA QUE POR INTERMÉDIO DE PESSOA JURÍDICA DA QUAL SEJA SÓCIO MAJORITÁRIO, PELO PRAZO DE CINCO ANOS; III - NA HIPÓTESE DO ART. 11, RESSARCIMENTO INTEGRAL DO DANO, SE HOUVER, PERDA DA FUNÇÃO PÚBLICA, SUSPENSÃO DOS DIREITOS POLÍTICOS DE TRÊS A CINCO ANOS, PAGAMENTO DE MULTA CIVIL DE ATÉ CEM VEZES O VALOR DA REMUNERAÇÃO PERCEBIDA PELO AGENTE E PROIBIÇÃO DE CONTRATAR COM O PODER PÚBLICO OU RECEBER BENEFÍCIOS OU INCENTIVOS FISCAIS OU CREDITÍCIOS, DIRETA OU INDIRETAMENTE, AINDA QUE POR INTERMÉDIO DE PESSOA JURÍDICA DA QUAL SEJA SÓCIO MAJORITÁRIO, PELO PRAZO DE TRÊS ANOS.",
+          "descricao": "LEI 8429 - ART. 12 - INDEPENDENTEMENTE DAS SANÇÕES PENAIS, CIVIS E ADMINISTRATIVAS PREVISTAS NA LEGISLAÇÃO ESPECÍFICA, ESTÁ O RESPONSÁVEL PELO ATO DE IMPROBIDADE SUJEITO ÀS SEGUINTES COMINAÇÕES, QUE PODEM SER APLICADAS ISOLADA OU CUMULATIVAMENTE, DE ACORDO COM A GRAVIDADE DO FATO: I - NA HIPÓTESE DO ART. 9°, PERDA DOS BENS OU VALORES ACRESCIDOS ILICITAMENTE AO PATRIMÔNIO, RESSARCIMENTO INTEGRAL DO DANO, QUANDO HOUVER, PERDA DA FUNÇÃO PÚBLICA, SUSPENSÃO DOS DIREITOS POLÍTICOS DE OITO A DEZ ANOS, PAGAMENTO DE MULTA CIVIL DE ATÉ TRÊS VEZES O VALOR DO ACRÉSCIMO PATRIMONIAL E PROIBIÇÃO DE CONTRATAR COM O PODER PÚBLICO OU RECEBER BENEFÍCIOS OU INCENTIVOS FISCAIS OU CREDITÍCIOS, DIRETA OU INDIRETAMENTE, AINDA QUE POR INTERMÉDIO DE PESSOA JURÍDICA DA QUAL SEJA SÓCIO MAJORITÁRIO, PELO PRAZO DE DEZ ANOS; II - NA HIPÓTESE DO ART. 10, RESSARCIMENTO INTEGRAL DO DANO, PERDA DOS BENS OU VALORES ACRESCIDOS ILICITAMENTE AO PATRIMÔNIO, SE CONCORRER ESTA CIRCUNSTÂNCIA, PERDA DA FUNÇÃO PÚBLICA, SUSPENSÃO DOS DIREITOS POLÍTICOS DE CINCO A OITO ANOS, PAGAMENTO DE MULTA CIVIL DE ATÉ DUAS VEZES O VALOR DO DANO E PROIBIÇÃO DE CONTRATAR COM O PODER PÚBLICO OU RECEBER BENEFÍCIOS OU INCENTIVOS FISCAIS OU CREDITÍCIOS, DIRETA OU INDIRETAMENTE, AINDA QUE POR INTERMÉDIO DE PESSOA JURÍDICA DA QUAL SEJA SÓCIO MAJORITÁRIO, PELO PRAZO DE CINCO ANOS; III - NA HIPÓTESE DO ART. 11, RESSARCIMENTO INTEGRAL DO DANO, SE HOUVER, PERDA DA FUNÇÃO PÚBLICA, SUSPENSÃO DOS DIREITOS POLÍTICOS DE TRÊS A CINCO ANOS, PAGAMENTO DE MULTA CIVIL DE ATÉ CEM VEZES O VALOR DA REMUNERAÇÃO PERCEBIDA PELO AGENTE E PROIBIÇÃO DE CONTRATAR COM O PODER PÚBLICO OU RECEBER BENEFÍCIOS OU INCENTIVOS FISCAIS OU CREDITÍCIOS, DIRETA OU INDIRETAMENTE, AINDA QUE POR INTERMÉDIO DE PESSOA JURÍDICA DA QUAL SEJA SÓCIO MAJORITÁRIO, PELO PRAZO DE TRÊS ANOS."
+        }
+      ],
+      "orgaoSancionador": {
+        "nome": "Tribunal de Justiça do Estado do Maranhão / 1º Grau - TJMA / GRAJAU / 1ª VARA DE GRAJAÚ",
+        "siglaUf": "MA",
+        "poder": "Judiciário",
+        "esfera": "ESTADUAL"
+      },
+      "sancionado": {
+        "nome": "JOSE MARIA DA ROCHA TORRES",
+        "codigoFormatado": "***.991.073-**"
+      },
+      "pessoa": {
+        "id": 105718146,
+        "cpfFormatado": "***.991.073-**",
+        "cnpjFormatado": "",
+        "numeroInscricaoSocial": "16276937461",
+        "nome": "JOSE MARIA DA ROCHA TORRES",
+        "razaoSocialReceita": "",
+        "nomeFantasiaReceita": "",
+        "tipo": "Pessoa Física"
+      },
+      "textoPublicacao": "Sem Informação",
+      "linkPublicacao": "",
+      "detalhamentoPublicacao": "",
+      "numeroProcesso": "00005252720148100037",
+      "abrangenciaDefinidaDecisaoJudicial": "Sem Informação",
+      "informacoesAdicionaisDoOrgaoSancionador": ""
+    },
+    {
+      "id": 381974,
+      "dataReferencia": "30/09/2026",
+      "dataInicioSancao": "03/03/2026",
+      "dataFimSancao": "03/03/2029",
+      "dataPublicacaoSancao": "03/03/2026",
+      "dataTransitadoJulgado": "Sem informação",
+      "dataOrigemInformacao": "23/03/2026",
+      "tipoSancao": {
+        "descricaoResumida": "Impedimento/proibição de contratar com prazo determinado",
+        "descricaoPortal": "Impedimento/proibição de contratar com prazo determinado"
+      },
+      "fonteSancao": {
+        "nomeExibicao": "Superintendência de Água e Esgoto de Catanduva - SAEC (SP)",
+        "telefoneContato": "(17) 3531-0600",
+        "enderecoContato": "Rua São Paulo, 1108, Catanduva (SP)"
+      },
+      "fundamentacao": [
+        {
+          "codigo": "LEI 14133 - ART. 155, IV - ART. 155. O LICITANTE OU O CONTRATADO SERÁ RESPONSABILIZADO ADMINISTRATIVAMENTE PELAS SEGUINTES INFRAÇÕES:\nIV - DEIXAR DE ENTREGAR A DOCUMENTAÇÃO EXIGIDA PARA O CERTAME;",
+          "descricao": "LEI 14133 - ART. 155, IV - ART. 155. O LICITANTE OU O CONTRATADO SERÁ RESPONSABILIZADO ADMINISTRATIVAMENTE PELAS SEGUINTES INFRAÇÕES:\nIV - DEIXAR DE ENTREGAR A DOCUMENTAÇÃO EXIGIDA PARA O CERTAME;"
+        }
+      ],
+      "orgaoSancionador": {
+        "nome": "Superintendência de Água e Esgoto de Catanduva - SAEC (SP)",
+        "siglaUf": "SP",
+        "poder": "Executivo",
+        "esfera": "MUNICIPAL"
+      },
+      "sancionado": {
+        "nome": "58.291.882 ROZANGELA DA SILVA GUEDES",
+        "codigoFormatado": "58.291.882/0001-71"
+      },
+      "pessoa": {
+        "id": 608370547,
+        "cpfFormatado": "",
+        "cnpjFormatado": "58.291.882/0001-71",
+        "numeroInscricaoSocial": "",
+        "nome": "58.291.882 ROZANGELA DA SILVA GUEDES",
+        "razaoSocialReceita": "58.291.882 ROZANGELA DA SILVA GUEDES",
+        "nomeFantasiaReceita": "",
+        "tipo": "Entidades Empresariais Privadas"
+      },
+      "textoPublicacao": "Diário Oficial do Município Seção DECISÃO DE RECURSOS Pagina 68",
+      "linkPublicacao": "",
+      "detalhamentoPublicacao": "",
+      "numeroProcesso": "3239/2025",
+      "abrangenciaDefinidaDecisaoJudicial": "Em todos os Poderes da Esfera do órgão sancionador",
+      "informacoesAdicionaisDoOrgaoSancionador": ""
+    },
+    {
+      "id": 313305,
+      "dataReferencia": "30/09/2026",
+      "dataInicioSancao": "26/06/2024",
+      "dataFimSancao": "26/06/2027",
+      "dataPublicacaoSancao": "Sem informação",
+      "dataTransitadoJulgado": "Sem informação",
+      "dataOrigemInformacao": "31/07/2024",
+      "tipoSancao": {
+        "descricaoResumida": "Impedimento/proibição de contratar com prazo determinado",
+        "descricaoPortal": "Impedimento/proibição de contratar com prazo determinado"
+      },
+      "fonteSancao": {
+        "nomeExibicao": "Ministério da Fazenda",
+        "telefoneContato": ".",
+        "enderecoContato": "."
+      },
+      "fundamentacao": [
+        {
+          "codigo": "LEI 10520 - ART. 7º - QUEM, CONVOCADO DENTRO DO PRAZO DE VALIDADE DA SUA PROPOSTA, NÃO CELEBRAR O CONTRATO, DEIXAR DE ENTREGAR OU APRESENTAR DOCUMENTAÇÃO FALSA EXIGIDA PARA O CERTAME, ENSEJAR O RETARDAMENTO DA EXECUÇÃO DE SEU OBJETO, NÃO MANTIVER A PROPOSTA, FALHAR OU FRAUDAR NA EXECUÇÃO DO CONTRATO, COMPORTAR-SE DE MODO INIDÔNEO OU COMETER FRAUDE FISCAL, FICARÁ IMPEDIDO DE LICITAR E CONTRATAR COM A UNIÃO, ESTADOS, DISTRITO FEDERAL OU MUNICÍPIOS E, SERÁ DESCREDENCIADO NO SICAF, OU NOS SISTEMAS DE CADASTRAMENTO DE FORNECEDORES A QUE SE REFERE O INCISO XIV DO ART. 4O DESTA LEI, PELO PRAZO DE ATÉ 5 (CINCO) ANOS, SEM PREJUÍZO DAS MULTAS PREVISTAS EM EDITAL E NO CONTRATO E DAS DEMAIS COMINAÇÕES LEGAIS.",
+          "descricao": "LEI 10520 - ART. 7º - QUEM, CONVOCADO DENTRO DO PRAZO DE VALIDADE DA SUA PROPOSTA, NÃO CELEBRAR O CONTRATO, DEIXAR DE ENTREGAR OU APRESENTAR DOCUMENTAÇÃO FALSA EXIGIDA PARA O CERTAME, ENSEJAR O RETARDAMENTO DA EXECUÇÃO DE SEU OBJETO, NÃO MANTIVER A PROPOSTA, FALHAR OU FRAUDAR NA EXECUÇÃO DO CONTRATO, COMPORTAR-SE DE MODO INIDÔNEO OU COMETER FRAUDE FISCAL, FICARÁ IMPEDIDO DE LICITAR E CONTRATAR COM A UNIÃO, ESTADOS, DISTRITO FEDERAL OU MUNICÍPIOS E, SERÁ DESCREDENCIADO NO SICAF, OU NOS SISTEMAS DE CADASTRAMENTO DE FORNECEDORES A QUE SE REFERE O INCISO XIV DO ART. 4O DESTA LEI, PELO PRAZO DE ATÉ 5 (CINCO) ANOS, SEM PREJUÍZO DAS MULTAS PREVISTAS EM EDITAL E NO CONTRATO E DAS DEMAIS COMINAÇÕES LEGAIS."
+        }
+      ],
+      "orgaoSancionador": {
+        "nome": "GRUPAMENTO DE APOIO DE MANAUS",
+        "siglaUf": "AM",
+        "poder": "Executivo",
+        "esfera": "FEDERAL"
+      },
+      "sancionado": {
+        "nome": "MEDICALTEC - COMERCIO E REPRESENTACAO DE PRODUTOS HOSPITALARES LTDA",
+        "codigoFormatado": "15.023.268/0001-16"
+      },
+      "pessoa": {
+        "id": 320517216,
+        "cpfFormatado": "",
+        "cnpjFormatado": "15.023.268/0001-16",
+        "numeroInscricaoSocial": "",
+        "nome": "MEDICALTEC - COMERCIO E REPRESENTACAO DE PRODUTOS HOSPITALARES LTDA",
+        "razaoSocialReceita": "MEDICALTEC - COMERCIO E REPRESENTACAO DE PRODUTOS HOSPITALARES LTDA",
+        "nomeFantasiaReceita": "MEDICALTEC",
+        "tipo": "Entidades Empresariais Privadas"
+      },
+      "textoPublicacao": "Sem Informação",
+      "linkPublicacao": "",
+      "detalhamentoPublicacao": "",
+      "numeroProcesso": "67298001070202443",
+      "abrangenciaDefinidaDecisaoJudicial": "Em todos os Poderes da Esfera do órgão sancionador",
+      "informacoesAdicionaisDoOrgaoSancionador": ""
+    },
+    {
+      "id": 382452,
+      "dataReferencia": "30/09/2026",
+      "dataInicioSancao": "24/03/2026",
+      "dataFimSancao": "24/03/2028",
+      "dataPublicacaoSancao": "Sem informação",
+      "dataTransitadoJulgado": "Sem informação",
+      "dataOrigemInformacao": "26/03/2026",
+      "tipoSancao": {
+        "descricaoResumida": "Impedimento/proibição de contratar com prazo determinado",
+        "descricaoPortal": "Impedimento/proibição de contratar com prazo determinado"
+      },
+      "fonteSancao": {
+        "nomeExibicao": "Ministério da Fazenda",
+        "telefoneContato": ".",
+        "enderecoContato": "."
+      },
+      "fundamentacao": [
+        {
+          "codigo": "LEI 14133 - ART. 156, III - IMPEDIMENTO DE LICITAR E CONTRATAR",
+          "descricao": "LEI 14133 - ART. 156, III - IMPEDIMENTO DE LICITAR E CONTRATAR"
+        }
+      ],
+      "orgaoSancionador": {
+        "nome": "PREFEITURA MUNICIPAL DE JI-PARANÁ - RO",
+        "siglaUf": "RO",
+        "poder": "Executivo",
+        "esfera": "MUNICIPAL"
+      },
+      "sancionado": {
+        "nome": "CELINA APARECIDA MONTEIRO LOPES 05262684840",
+        "codigoFormatado": "25.314.898/0001-01"
+      },
+      "pessoa": {
+        "id": 605570751,
+        "cpfFormatado": "",
+        "cnpjFormatado": "25.314.898/0001-01",
+        "numeroInscricaoSocial": "",
+        "nome": "CELINA APARECIDA MONTEIRO LOPES 05262684840",
+        "razaoSocialReceita": "CELINA APARECIDA MONTEIRO LOPES 05262684840",
+        "nomeFantasiaReceita": "FEIRAO DO OFFICE",
+        "tipo": "Entidades Empresariais Privadas"
+      },
+      "textoPublicacao": "Sem Informação",
+      "linkPublicacao": "",
+      "detalhamentoPublicacao": "",
+      "numeroProcesso": "1-3419/2024",
+      "abrangenciaDefinidaDecisaoJudicial": "Em todos os Poderes da Esfera do órgão sancionador",
+      "informacoesAdicionaisDoOrgaoSancionador": ""
+    },
+    {
+      "id": 297155,
+      "dataReferencia": "30/09/2026",
+      "dataInicioSancao": "15/01/2024",
+      "dataFimSancao": "15/01/2029",
+      "dataPublicacaoSancao": "Sem informação",
+      "dataTransitadoJulgado": "15/01/2024",
+      "dataOrigemInformacao": "26/02/2024",
+      "tipoSancao": {
+        "descricaoResumida": "Impedimento/proibição de contratar com prazo determinado",
+        "descricaoPortal": "Impedimento/proibição de contratar com prazo determinado"
+      },
+      "fonteSancao": {
+        "nomeExibicao": "Tribunal de Justiça do Estado de Rondônia (TJRO)",
+        "telefoneContato": ".",
+        "enderecoContato": "."
+      },
+      "fundamentacao": [
+        {
+          "codigo": "LEI 8429 - ART. 12 - INDEPENDENTEMENTE DAS SANÇÕES PENAIS, CIVIS E ADMINISTRATIVAS PREVISTAS NA LEGISLAÇÃO ESPECÍFICA, ESTÁ O RESPONSÁVEL PELO ATO DE IMPROBIDADE SUJEITO ÀS SEGUINTES COMINAÇÕES, QUE PODEM SER APLICADAS ISOLADA OU CUMULATIVAMENTE, DE ACORDO COM A GRAVIDADE DO FATO: I - NA HIPÓTESE DO ART. 9°, PERDA DOS BENS OU VALORES ACRESCIDOS ILICITAMENTE AO PATRIMÔNIO, RESSARCIMENTO INTEGRAL DO DANO, QUANDO HOUVER, PERDA DA FUNÇÃO PÚBLICA, SUSPENSÃO DOS DIREITOS POLÍTICOS DE OITO A DEZ ANOS, PAGAMENTO DE MULTA CIVIL DE ATÉ TRÊS VEZES O VALOR DO ACRÉSCIMO PATRIMONIAL E PROIBIÇÃO DE CONTRATAR COM O PODER PÚBLICO OU RECEBER BENEFÍCIOS OU INCENTIVOS FISCAIS OU CREDITÍCIOS, DIRETA OU INDIRETAMENTE, AINDA QUE POR INTERMÉDIO DE PESSOA JURÍDICA DA QUAL SEJA SÓCIO MAJORITÁRIO, PELO PRAZO DE DEZ ANOS; II - NA HIPÓTESE DO ART. 10, RESSARCIMENTO INTEGRAL DO DANO, PERDA DOS BENS OU VALORES ACRESCIDOS ILICITAMENTE AO PATRIMÔNIO, SE CONCORRER ESTA CIRCUNSTÂNCIA, PERDA DA FUNÇÃO PÚBLICA, SUSPENSÃO DOS DIREITOS POLÍTICOS DE CINCO A OITO ANOS, PAGAMENTO DE MULTA CIVIL DE ATÉ DUAS VEZES O VALOR DO DANO E PROIBIÇÃO DE CONTRATAR COM O PODER PÚBLICO OU RECEBER BENEFÍCIOS OU INCENTIVOS FISCAIS OU CREDITÍCIOS, DIRETA OU INDIRETAMENTE, AINDA QUE POR INTERMÉDIO DE PESSOA JURÍDICA DA QUAL SEJA SÓCIO MAJORITÁRIO, PELO PRAZO DE CINCO ANOS; III - NA HIPÓTESE DO ART. 11, RESSARCIMENTO INTEGRAL DO DANO, SE HOUVER, PERDA DA FUNÇÃO PÚBLICA, SUSPENSÃO DOS DIREITOS POLÍTICOS DE TRÊS A CINCO ANOS, PAGAMENTO DE MULTA CIVIL DE ATÉ CEM VEZES O VALOR DA REMUNERAÇÃO PERCEBIDA PELO AGENTE E PROIBIÇÃO DE CONTRATAR COM O PODER PÚBLICO OU RECEBER BENEFÍCIOS OU INCENTIVOS FISCAIS OU CREDITÍCIOS, DIRETA OU INDIRETAMENTE, AINDA QUE POR INTERMÉDIO DE PESSOA JURÍDICA DA QUAL SEJA SÓCIO MAJORITÁRIO, PELO PRAZO DE TRÊS ANOS.",
+          "descricao": "LEI 8429 - ART. 12 - INDEPENDENTEMENTE DAS SANÇÕES PENAIS, CIVIS E ADMINISTRATIVAS PREVISTAS NA LEGISLAÇÃO ESPECÍFICA, ESTÁ O RESPONSÁVEL PELO ATO DE IMPROBIDADE SUJEITO ÀS SEGUINTES COMINAÇÕES, QUE PODEM SER APLICADAS ISOLADA OU CUMULATIVAMENTE, DE ACORDO COM A GRAVIDADE DO FATO: I - NA HIPÓTESE DO ART. 9°, PERDA DOS BENS OU VALORES ACRESCIDOS ILICITAMENTE AO PATRIMÔNIO, RESSARCIMENTO INTEGRAL DO DANO, QUANDO HOUVER, PERDA DA FUNÇÃO PÚBLICA, SUSPENSÃO DOS DIREITOS POLÍTICOS DE OITO A DEZ ANOS, PAGAMENTO DE MULTA CIVIL DE ATÉ TRÊS VEZES O VALOR DO ACRÉSCIMO PATRIMONIAL E PROIBIÇÃO DE CONTRATAR COM O PODER PÚBLICO OU RECEBER BENEFÍCIOS OU INCENTIVOS FISCAIS OU CREDITÍCIOS, DIRETA OU INDIRETAMENTE, AINDA QUE POR INTERMÉDIO DE PESSOA JURÍDICA DA QUAL SEJA SÓCIO MAJORITÁRIO, PELO PRAZO DE DEZ ANOS; II - NA HIPÓTESE DO ART. 10, RESSARCIMENTO INTEGRAL DO DANO, PERDA DOS BENS OU VALORES ACRESCIDOS ILICITAMENTE AO PATRIMÔNIO, SE CONCORRER ESTA CIRCUNSTÂNCIA, PERDA DA FUNÇÃO PÚBLICA, SUSPENSÃO DOS DIREITOS POLÍTICOS DE CINCO A OITO ANOS, PAGAMENTO DE MULTA CIVIL DE ATÉ DUAS VEZES O VALOR DO DANO E PROIBIÇÃO DE CONTRATAR COM O PODER PÚBLICO OU RECEBER BENEFÍCIOS OU INCENTIVOS FISCAIS OU CREDITÍCIOS, DIRETA OU INDIRETAMENTE, AINDA QUE POR INTERMÉDIO DE PESSOA JURÍDICA DA QUAL SEJA SÓCIO MAJORITÁRIO, PELO PRAZO DE CINCO ANOS; III - NA HIPÓTESE DO ART. 11, RESSARCIMENTO INTEGRAL DO DANO, SE HOUVER, PERDA DA FUNÇÃO PÚBLICA, SUSPENSÃO DOS DIREITOS POLÍTICOS DE TRÊS A CINCO ANOS, PAGAMENTO DE MULTA CIVIL DE ATÉ CEM VEZES O VALOR DA REMUNERAÇÃO PERCEBIDA PELO AGENTE E PROIBIÇÃO DE CONTRATAR COM O PODER PÚBLICO OU RECEBER BENEFÍCIOS OU INCENTIVOS FISCAIS OU CREDITÍCIOS, DIRETA OU INDIRETAMENTE, AINDA QUE POR INTERMÉDIO DE PESSOA JURÍDICA DA QUAL SEJA SÓCIO MAJORITÁRIO, PELO PRAZO DE TRÊS ANOS."
+        }
+      ],
+      "orgaoSancionador": {
+        "nome": "3ª Vara cível de Vilhena",
+        "siglaUf": "RO",
+        "poder": "Judiciário",
+        "esfera": "ESTADUAL"
+      },
+      "sancionado": {
+        "nome": "CAIRO GABRIEL DA SILVA TERRES",
+        "codigoFormatado": "***.654.982-**"
+      },
+      "pessoa": {
+        "id": 605352330,
+        "cpfFormatado": "***.654.982-**",
+        "cnpjFormatado": "",
+        "numeroInscricaoSocial": "",
+        "nome": "CAIRO GABRIEL DA SILVA TERRES",
+        "razaoSocialReceita": "",
+        "nomeFantasiaReceita": "",
+        "tipo": "Pessoa Física"
+      },
+      "textoPublicacao": "Sem Informação",
+      "linkPublicacao": "",
+      "detalhamentoPublicacao": "",
+      "numeroProcesso": "7006025-44.2021.8.22.0014",
+      "abrangenciaDefinidaDecisaoJudicial": "Em todos os Poderes da Esfera do órgão sancionador",
+      "informacoesAdicionaisDoOrgaoSancionador": ""
+    },
+    {
+      "id": 347062,
+      "dataReferencia": "30/09/2026",
+      "dataInicioSancao": "13/03/2025",
+      "dataFimSancao": "13/03/2028",
+      "dataPublicacaoSancao": "13/03/2025",
+      "dataTransitadoJulgado": "14/03/2025",
+      "dataOrigemInformacao": "15/04/2025",
+      "tipoSancao": {
+        "descricaoResumida": "Declaração de Inidoneidade com prazo determinado",
+        "descricaoPortal": "Declaração de Inidoneidade com prazo determinado"
+      },
+      "fonteSancao": {
+        "nomeExibicao": "Secretaria da Educação do Estado de Goiás - SEDUC (GO)",
+        "telefoneContato": "6230209661",
+        "enderecoContato": "Quinta Avenida. Qd. 71, 212, Leste Vila Nova, Goiânia CEP 74643-030 "
+      },
+      "fundamentacao": [
+        {
+          "codigo": "LEI 14133 - ART. 156, IV - DECLARAÇÃO DE INIDONEIDADE PARA LICITAR OU CONTRATAR",
+          "descricao": "LEI 14133 - ART. 156, IV - DECLARAÇÃO DE INIDONEIDADE PARA LICITAR OU CONTRATAR"
+        }
+      ],
+      "orgaoSancionador": {
+        "nome": "Secretaria da Educação do Estado de Goiás - SEDUC",
+        "siglaUf": "GO",
+        "poder": "Executivo",
+        "esfera": "ESTADUAL"
+      },
+      "sancionado": {
+        "nome": "Atuante Alimentos Ltda",
+        "codigoFormatado": "33.458.350/0001-55"
+      },
+      "pessoa": {
+        "id": 606468982,
+        "cpfFormatado": "",
+        "cnpjFormatado": "33.458.350/0001-55",
+        "numeroInscricaoSocial": "",
+        "nome": "ATUANTE ALIMENTOS LTDA",
+        "razaoSocialReceita": "ATUANTE ALIMENTOS LTDA",
+        "nomeFantasiaReceita": "ATUANTE ALIMENTOS",
+        "tipo": "Entidades Empresariais Privadas"
+      },
+      "textoPublicacao": "Outro",
+      "linkPublicacao": "",
+      "detalhamentoPublicacao": "Decisão TCE/GO",
+      "numeroProcesso": "202400047001363",
+      "abrangenciaDefinidaDecisaoJudicial": "Todas as Esferas em todos os Poderes",
+      "informacoesAdicionaisDoOrgaoSancionador": ""
+    },
+    {
+      "id": 286992,
+      "dataReferencia": "30/09/2026",
+      "dataInicioSancao": "03/05/2023",
+      "dataFimSancao": "03/05/2028",
+      "dataPublicacaoSancao": "Sem informação",
+      "dataTransitadoJulgado": "03/05/2023",
+      "dataOrigemInformacao": "10/08/2023",
+      "tipoSancao": {
+        "descricaoResumida": "Impedimento/proibição de contratar com prazo determinado",
+        "descricaoPortal": "Impedimento/proibição de contratar com prazo determinado"
+      },
+      "fonteSancao": {
+        "nomeExibicao": "Conselho Nacional de Justiça (CNJ-DF)",
+        "telefoneContato": ".(61) 2326-4925",
+        "enderecoContato": "SAF Sul Quadra 2 - Lote5/6 - Bloco E - Sala 303 - CEP: 70070-600  Brasília/DF"
+      },
+      "fundamentacao": [
+        {
+          "codigo": "LEI 8429 - ART. 12 - INDEPENDENTEMENTE DAS SANÇÕES PENAIS, CIVIS E ADMINISTRATIVAS PREVISTAS NA LEGISLAÇÃO ESPECÍFICA, ESTÁ O RESPONSÁVEL PELO ATO DE IMPROBIDADE SUJEITO ÀS SEGUINTES COMINAÇÕES, QUE PODEM SER APLICADAS ISOLADA OU CUMULATIVAMENTE, DE ACORDO COM A GRAVIDADE DO FATO: I - NA HIPÓTESE DO ART. 9°, PERDA DOS BENS OU VALORES ACRESCIDOS ILICITAMENTE AO PATRIMÔNIO, RESSARCIMENTO INTEGRAL DO DANO, QUANDO HOUVER, PERDA DA FUNÇÃO PÚBLICA, SUSPENSÃO DOS DIREITOS POLÍTICOS DE OITO A DEZ ANOS, PAGAMENTO DE MULTA CIVIL DE ATÉ TRÊS VEZES O VALOR DO ACRÉSCIMO PATRIMONIAL E PROIBIÇÃO DE CONTRATAR COM O PODER PÚBLICO OU RECEBER BENEFÍCIOS OU INCENTIVOS FISCAIS OU CREDITÍCIOS, DIRETA OU INDIRETAMENTE, AINDA QUE POR INTERMÉDIO DE PESSOA JURÍDICA DA QUAL SEJA SÓCIO MAJORITÁRIO, PELO PRAZO DE DEZ ANOS; II - NA HIPÓTESE DO ART. 10, RESSARCIMENTO INTEGRAL DO DANO, PERDA DOS BENS OU VALORES ACRESCIDOS ILICITAMENTE AO PATRIMÔNIO, SE CONCORRER ESTA CIRCUNSTÂNCIA, PERDA DA FUNÇÃO PÚBLICA, SUSPENSÃO DOS DIREITOS POLÍTICOS DE CINCO A OITO ANOS, PAGAMENTO DE MULTA CIVIL DE ATÉ DUAS VEZES O VALOR DO DANO E PROIBIÇÃO DE CONTRATAR COM O PODER PÚBLICO OU RECEBER BENEFÍCIOS OU INCENTIVOS FISCAIS OU CREDITÍCIOS, DIRETA OU INDIRETAMENTE, AINDA QUE POR INTERMÉDIO DE PESSOA JURÍDICA DA QUAL SEJA SÓCIO MAJORITÁRIO, PELO PRAZO DE CINCO ANOS; III - NA HIPÓTESE DO ART. 11, RESSARCIMENTO INTEGRAL DO DANO, SE HOUVER, PERDA DA FUNÇÃO PÚBLICA, SUSPENSÃO DOS DIREITOS POLÍTICOS DE TRÊS A CINCO ANOS, PAGAMENTO DE MULTA CIVIL DE ATÉ CEM VEZES O VALOR DA REMUNERAÇÃO PERCEBIDA PELO AGENTE E PROIBIÇÃO DE CONTRATAR COM O PODER PÚBLICO OU RECEBER BENEFÍCIOS OU INCENTIVOS FISCAIS OU CREDITÍCIOS, DIRETA OU INDIRETAMENTE, AINDA QUE POR INTERMÉDIO DE PESSOA JURÍDICA DA QUAL SEJA SÓCIO MAJORITÁRIO, PELO PRAZO DE TRÊS ANOS.",
+          "descricao": "LEI 8429 - ART. 12 - INDEPENDENTEMENTE DAS SANÇÕES PENAIS, CIVIS E ADMINISTRATIVAS PREVISTAS NA LEGISLAÇÃO ESPECÍFICA, ESTÁ O RESPONSÁVEL PELO ATO DE IMPROBIDADE SUJEITO ÀS SEGUINTES COMINAÇÕES, QUE PODEM SER APLICADAS ISOLADA OU CUMULATIVAMENTE, DE ACORDO COM A GRAVIDADE DO FATO: I - NA HIPÓTESE DO ART. 9°, PERDA DOS BENS OU VALORES ACRESCIDOS ILICITAMENTE AO PATRIMÔNIO, RESSARCIMENTO INTEGRAL DO DANO, QUANDO HOUVER, PERDA DA FUNÇÃO PÚBLICA, SUSPENSÃO DOS DIREITOS POLÍTICOS DE OITO A DEZ ANOS, PAGAMENTO DE MULTA CIVIL DE ATÉ TRÊS VEZES O VALOR DO ACRÉSCIMO PATRIMONIAL E PROIBIÇÃO DE CONTRATAR COM O PODER PÚBLICO OU RECEBER BENEFÍCIOS OU INCENTIVOS FISCAIS OU CREDITÍCIOS, DIRETA OU INDIRETAMENTE, AINDA QUE POR INTERMÉDIO DE PESSOA JURÍDICA DA QUAL SEJA SÓCIO MAJORITÁRIO, PELO PRAZO DE DEZ ANOS; II - NA HIPÓTESE DO ART. 10, RESSARCIMENTO INTEGRAL DO DANO, PERDA DOS BENS OU VALORES ACRESCIDOS ILICITAMENTE AO PATRIMÔNIO, SE CONCORRER ESTA CIRCUNSTÂNCIA, PERDA DA FUNÇÃO PÚBLICA, SUSPENSÃO DOS DIREITOS POLÍTICOS DE CINCO A OITO ANOS, PAGAMENTO DE MULTA CIVIL DE ATÉ DUAS VEZES O VALOR DO DANO E PROIBIÇÃO DE CONTRATAR COM O PODER PÚBLICO OU RECEBER BENEFÍCIOS OU INCENTIVOS FISCAIS OU CREDITÍCIOS, DIRETA OU INDIRETAMENTE, AINDA QUE POR INTERMÉDIO DE PESSOA JURÍDICA DA QUAL SEJA SÓCIO MAJORITÁRIO, PELO PRAZO DE CINCO ANOS; III - NA HIPÓTESE DO ART. 11, RESSARCIMENTO INTEGRAL DO DANO, SE HOUVER, PERDA DA FUNÇÃO PÚBLICA, SUSPENSÃO DOS DIREITOS POLÍTICOS DE TRÊS A CINCO ANOS, PAGAMENTO DE MULTA CIVIL DE ATÉ CEM VEZES O VALOR DA REMUNERAÇÃO PERCEBIDA PELO AGENTE E PROIBIÇÃO DE CONTRATAR COM O PODER PÚBLICO OU RECEBER BENEFÍCIOS OU INCENTIVOS FISCAIS OU CREDITÍCIOS, DIRETA OU INDIRETAMENTE, AINDA QUE POR INTERMÉDIO DE PESSOA JURÍDICA DA QUAL SEJA SÓCIO MAJORITÁRIO, PELO PRAZO DE TRÊS ANOS."
+        }
+      ],
+      "orgaoSancionador": {
+        "nome": "Tribunal de Justiça do Estado do Rio Grande do Sul / 1º Grau - TJRS / GUAPORE / 1ª VARA JUDICIAL - GUAPORÉ/RS",
+        "siglaUf": "RS",
+        "poder": "Judiciário",
+        "esfera": "ESTADUAL"
+      },
+      "sancionado": {
+        "nome": "CELSO FERNANDO GRANDO",
+        "codigoFormatado": "***.697.410-**"
+      },
+      "pessoa": {
+        "id": 582918465,
+        "cpfFormatado": "***.697.410-**",
+        "cnpjFormatado": "",
+        "numeroInscricaoSocial": "",
+        "nome": "CELSO FERNANDO GRANDO",
+        "razaoSocialReceita": "",
+        "nomeFantasiaReceita": "",
+        "tipo": "Pessoa Física"
+      },
+      "textoPublicacao": "Sem Informação",
+      "linkPublicacao": "",
+      "detalhamentoPublicacao": "",
+      "numeroProcesso": "00044226720188210053",
+      "abrangenciaDefinidaDecisaoJudicial": "Sem Informação",
+      "informacoesAdicionaisDoOrgaoSancionador": ""
+    },
+    {
+      "id": 382364,
+      "dataReferencia": "30/09/2026",
+      "dataInicioSancao": "25/03/2026",
+      "dataFimSancao": "24/03/2028",
+      "dataPublicacaoSancao": "25/03/2026",
+      "dataTransitadoJulgado": "Sem informação",
+      "dataOrigemInformacao": "25/03/2026",
+      "tipoSancao": {
+        "descricaoResumida": "Suspensão",
+        "descricaoPortal": "Suspensão"
+      },
+      "fonteSancao": {
+        "nomeExibicao": "HOSPITAL NOSSA SENHORA DA CONCEIÇÃO  S/A",
+        "telefoneContato": ".",
+        "enderecoContato": "."
+      },
+      "fundamentacao": [
+        {
+          "codigo": "LEI 13303 - ART. 83, III - III - SUSPENSÃO TEMPORÁRIA DE PARTICIPAÇÃO EM LICITAÇÃO E IMPEDIMENTO DE CONTRATAR COM A ENTIDADE SANCIONADORA, POR PRAZO NÃO SUPERIOR A 2 (DOIS) ANOS.",
+          "descricao": "LEI 13303 - ART. 83, III - III - SUSPENSÃO TEMPORÁRIA DE PARTICIPAÇÃO EM LICITAÇÃO E IMPEDIMENTO DE CONTRATAR COM A ENTIDADE SANCIONADORA, POR PRAZO NÃO SUPERIOR A 2 (DOIS) ANOS."
+        }
+      ],
+      "orgaoSancionador": {
+        "nome": "GRUPO HOSPITALAR CONCEICAO",
+        "siglaUf": "",
+        "poder": "Executivo",
+        "esfera": "FEDERAL"
+      },
+      "sancionado": {
+        "nome": "PROSEG C E SERV ESPECIALIZADOS EIRELI",
+        "codigoFormatado": "11.505.498/0001-60"
+      },
+      "pessoa": {
+        "id": 27642072,
+        "cpfFormatado": "",
+        "cnpjFormatado": "11.505.498/0001-60",
+        "numeroInscricaoSocial": "",
+        "nome": "PROSEG CONSULTORIA E SERVICOS ESPECIALIZADOS LTDA",
+        "razaoSocialReceita": "PROSEG CONSULTORIA E SERVICOS ESPECIALIZADOS LTDA",
+        "nomeFantasiaReceita": "PROSEG ASSESSORIA EM SEGURANCA DO TRABALHO",
+        "tipo": "Entidades Empresariais Privadas"
+      },
+      "textoPublicacao": "Diário Oficial da União Seção 3 Pagina 146",
+      "linkPublicacao": "http://pesquisa.in.gov.br/imprensa/jsp/visualiza/index.jsp?jornal=530&pagina=146&data=25/03/2026",
+      "detalhamentoPublicacao": "",
+      "numeroProcesso": "5252617",
+      "abrangenciaDefinidaDecisaoJudicial": "No órgão sancionador",
+      "informacoesAdicionaisDoOrgaoSancionador": ""
+    },
+    {
+      "id": 394390,
+      "dataReferencia": "30/09/2026",
+      "dataInicioSancao": "27/03/2026",
+      "dataFimSancao": "27/03/2031",
+      "dataPublicacaoSancao": "Sem informação",
+      "dataTransitadoJulgado": "27/03/2026",
+      "dataOrigemInformacao": "10/07/2026",
+      "tipoSancao": {
+        "descricaoResumida": "Impedimento/proibição de contratar com prazo determinado",
+        "descricaoPortal": "Impedimento/proibição de contratar com prazo determinado"
+      },
+      "fonteSancao": {
+        "nomeExibicao": "Conselho Nacional de Justiça (CNJ-DF)",
+        "telefoneContato": ".(61) 2326-4925",
+        "enderecoContato": "SAF Sul Quadra 2 - Lote5/6 - Bloco E - Sala 303 - CEP: 70070-600  Brasília/DF"
+      },
+      "fundamentacao": [
+        {
+          "codigo": "LEI 8429 - ART. 12 - INDEPENDENTEMENTE DAS SANÇÕES PENAIS, CIVIS E ADMINISTRATIVAS PREVISTAS NA LEGISLAÇÃO ESPECÍFICA, ESTÁ O RESPONSÁVEL PELO ATO DE IMPROBIDADE SUJEITO ÀS SEGUINTES COMINAÇÕES, QUE PODEM SER APLICADAS ISOLADA OU CUMULATIVAMENTE, DE ACORDO COM A GRAVIDADE DO FATO: I - NA HIPÓTESE DO ART. 9°, PERDA DOS BENS OU VALORES ACRESCIDOS ILICITAMENTE AO PATRIMÔNIO, RESSARCIMENTO INTEGRAL DO DANO, QUANDO HOUVER, PERDA DA FUNÇÃO PÚBLICA, SUSPENSÃO DOS DIREITOS POLÍTICOS DE OITO A DEZ ANOS, PAGAMENTO DE MULTA CIVIL DE ATÉ TRÊS VEZES O VALOR DO ACRÉSCIMO PATRIMONIAL E PROIBIÇÃO DE CONTRATAR COM O PODER PÚBLICO OU RECEBER BENEFÍCIOS OU INCENTIVOS FISCAIS OU CREDITÍCIOS, DIRETA OU INDIRETAMENTE, AINDA QUE POR INTERMÉDIO DE PESSOA JURÍDICA DA QUAL SEJA SÓCIO MAJORITÁRIO, PELO PRAZO DE DEZ ANOS; II - NA HIPÓTESE DO ART. 10, RESSARCIMENTO INTEGRAL DO DANO, PERDA DOS BENS OU VALORES ACRESCIDOS ILICITAMENTE AO PATRIMÔNIO, SE CONCORRER ESTA CIRCUNSTÂNCIA, PERDA DA FUNÇÃO PÚBLICA, SUSPENSÃO DOS DIREITOS POLÍTICOS DE CINCO A OITO ANOS, PAGAMENTO DE MULTA CIVIL DE ATÉ DUAS VEZES O VALOR DO DANO E PROIBIÇÃO DE CONTRATAR COM O PODER PÚBLICO OU RECEBER BENEFÍCIOS OU INCENTIVOS FISCAIS OU CREDITÍCIOS, DIRETA OU INDIRETAMENTE, AINDA QUE POR INTERMÉDIO DE PESSOA JURÍDICA DA QUAL SEJA SÓCIO MAJORITÁRIO, PELO PRAZO DE CINCO ANOS; III - NA HIPÓTESE DO ART. 11, RESSARCIMENTO INTEGRAL DO DANO, SE HOUVER, PERDA DA FUNÇÃO PÚBLICA, SUSPENSÃO DOS DIREITOS POLÍTICOS DE TRÊS A CINCO ANOS, PAGAMENTO DE MULTA CIVIL DE ATÉ CEM VEZES O VALOR DA REMUNERAÇÃO PERCEBIDA PELO AGENTE E PROIBIÇÃO DE CONTRATAR COM O PODER PÚBLICO OU RECEBER BENEFÍCIOS OU INCENTIVOS FISCAIS OU CREDITÍCIOS, DIRETA OU INDIRETAMENTE, AINDA QUE POR INTERMÉDIO DE PESSOA JURÍDICA DA QUAL SEJA SÓCIO MAJORITÁRIO, PELO PRAZO DE TRÊS ANOS.",
+          "descricao": "LEI 8429 - ART. 12 - INDEPENDENTEMENTE DAS SANÇÕES PENAIS, CIVIS E ADMINISTRATIVAS PREVISTAS NA LEGISLAÇÃO ESPECÍFICA, ESTÁ O RESPONSÁVEL PELO ATO DE IMPROBIDADE SUJEITO ÀS SEGUINTES COMINAÇÕES, QUE PODEM SER APLICADAS ISOLADA OU CUMULATIVAMENTE, DE ACORDO COM A GRAVIDADE DO FATO: I - NA HIPÓTESE DO ART. 9°, PERDA DOS BENS OU VALORES ACRESCIDOS ILICITAMENTE AO PATRIMÔNIO, RESSARCIMENTO INTEGRAL DO DANO, QUANDO HOUVER, PERDA DA FUNÇÃO PÚBLICA, SUSPENSÃO DOS DIREITOS POLÍTICOS DE OITO A DEZ ANOS, PAGAMENTO DE MULTA CIVIL DE ATÉ TRÊS VEZES O VALOR DO ACRÉSCIMO PATRIMONIAL E PROIBIÇÃO DE CONTRATAR COM O PODER PÚBLICO OU RECEBER BENEFÍCIOS OU INCENTIVOS FISCAIS OU CREDITÍCIOS, DIRETA OU INDIRETAMENTE, AINDA QUE POR INTERMÉDIO DE PESSOA JURÍDICA DA QUAL SEJA SÓCIO MAJORITÁRIO, PELO PRAZO DE DEZ ANOS; II - NA HIPÓTESE DO ART. 10, RESSARCIMENTO INTEGRAL DO DANO, PERDA DOS BENS OU VALORES ACRESCIDOS ILICITAMENTE AO PATRIMÔNIO, SE CONCORRER ESTA CIRCUNSTÂNCIA, PERDA DA FUNÇÃO PÚBLICA, SUSPENSÃO DOS DIREITOS POLÍTICOS DE CINCO A OITO ANOS, PAGAMENTO DE MULTA CIVIL DE ATÉ DUAS VEZES O VALOR DO DANO E PROIBIÇÃO DE CONTRATAR COM O PODER PÚBLICO OU RECEBER BENEFÍCIOS OU INCENTIVOS FISCAIS OU CREDITÍCIOS, DIRETA OU INDIRETAMENTE, AINDA QUE POR INTERMÉDIO DE PESSOA JURÍDICA DA QUAL SEJA SÓCIO MAJORITÁRIO, PELO PRAZO DE CINCO ANOS; III - NA HIPÓTESE DO ART. 11, RESSARCIMENTO INTEGRAL DO DANO, SE HOUVER, PERDA DA FUNÇÃO PÚBLICA, SUSPENSÃO DOS DIREITOS POLÍTICOS DE TRÊS A CINCO ANOS, PAGAMENTO DE MULTA CIVIL DE ATÉ CEM VEZES O VALOR DA REMUNERAÇÃO PERCEBIDA PELO AGENTE E PROIBIÇÃO DE CONTRATAR COM O PODER PÚBLICO OU RECEBER BENEFÍCIOS OU INCENTIVOS FISCAIS OU CREDITÍCIOS, DIRETA OU INDIRETAMENTE, AINDA QUE POR INTERMÉDIO DE PESSOA JURÍDICA DA QUAL SEJA SÓCIO MAJORITÁRIO, PELO PRAZO DE TRÊS ANOS."
+        }
+      ],
+      "orgaoSancionador": {
+        "nome": "Tribunal de Justiça do Estado de São Paulo / 1º Grau - TJSP / AVARE / 1 VARA CIVEL DA COMARCA DE AVARE",
+        "siglaUf": "SP",
+        "poder": "Judiciário",
+        "esfera": "ESTADUAL"
+      },
+      "sancionado": {
+        "nome": "PAULO DE TARSO BILEZIKDJIAN JUNIOR",
+        "codigoFormatado": "***.122.308-**"
+      },
+      "pessoa": {
+        "id": 610666068,
+        "cpfFormatado": "***.122.308-**",
+        "cnpjFormatado": "",
+        "numeroInscricaoSocial": "",
+        "nome": "PAULO DE TARSO BILEZIKDJIAN JUNIOR",
+        "razaoSocialReceita": "",
+        "nomeFantasiaReceita": "",
+        "tipo": "Pessoa Física"
+      },
+      "textoPublicacao": "Sem Informação",
+      "linkPublicacao": "",
+      "detalhamentoPublicacao": "",
+      "numeroProcesso": "10057683520188260073",
+      "abrangenciaDefinidaDecisaoJudicial": "Sem Informação",
+      "informacoesAdicionaisDoOrgaoSancionador": ""
+    },
+    {
+      "id": 363709,
+      "dataReferencia": "30/09/2026",
+      "dataInicioSancao": "10/07/2025",
+      "dataFimSancao": "09/07/2027",
+      "dataPublicacaoSancao": "10/07/2025",
+      "dataTransitadoJulgado": "Sem informação",
+      "dataOrigemInformacao": "23/09/2025",
+      "tipoSancao": {
+        "descricaoResumida": "Impedimento/proibição de contratar com prazo determinado",
+        "descricaoPortal": "Impedimento/proibição de contratar com prazo determinado"
+      },
+      "fonteSancao": {
+        "nomeExibicao": "Prefeitura Municipal de Juazeiro do Norte (CE)",
+        "telefoneContato": "(88) 3566-1044",
+        "enderecoContato": "Palácio Municipal José Geraldo da Cruz, Praça Dirceu Figueiredo, S/N, Centro, CEP: 63.010-010, Juazeiro do Norte-CE."
+      },
+      "fundamentacao": [
+        {
+          "codigo": "LEI 14133 - ART. 156, II - MULTA",
+          "descricao": "LEI 14133 - ART. 156, II - MULTA"
+        },
+        {
+          "codigo": "LEI 14133 - ART. 156, III - IMPEDIMENTO DE LICITAR E CONTRATAR",
+          "descricao": "LEI 14133 - ART. 156, III - IMPEDIMENTO DE LICITAR E CONTRATAR"
+        }
+      ],
+      "orgaoSancionador": {
+        "nome": "Prefeitura Municipal de Juazeiro do Norte (CE)",
+        "siglaUf": "CE",
+        "poder": "Executivo",
+        "esfera": "MUNICIPAL"
+      },
+      "sancionado": {
+        "nome": "ALLMAX CONSTRUÇÕES E SEVIÇOS LTDA",
+        "codigoFormatado": "43.570.564/0001-72"
+      },
+      "pessoa": {
+        "id": 571919896,
+        "cpfFormatado": "",
+        "cnpjFormatado": "43.570.564/0001-72",
+        "numeroInscricaoSocial": "",
+        "nome": "ALLMAX CONTRUCOES E SERVICOS LTDA",
+        "razaoSocialReceita": "ALLMAX CONTRUCOES E SERVICOS LTDA",
+        "nomeFantasiaReceita": "ALLMAX CONSTRUCOES E SERVICOS",
+        "tipo": "Entidades Empresariais Privadas"
+      },
+      "textoPublicacao": "Diário Oficial do Município Seção U Pagina 12",
+      "linkPublicacao": "",
+      "detalhamentoPublicacao": "",
+      "numeroProcesso": "PAR nº 0039",
+      "abrangenciaDefinidaDecisaoJudicial": "Em todos os Poderes da Esfera do órgão sancionador",
+      "informacoesAdicionaisDoOrgaoSancionador": ""
+    },
+    {
+      "id": 383297,
+      "dataReferencia": "30/09/2026",
+      "dataInicioSancao": "07/10/2025",
+      "dataFimSancao": "07/10/2027",
+      "dataPublicacaoSancao": "07/10/2025",
+      "dataTransitadoJulgado": "Sem informação",
+      "dataOrigemInformacao": "07/04/2026",
+      "tipoSancao": {
+        "descricaoResumida": "Impedimento/proibição de contratar com prazo determinado",
+        "descricaoPortal": "Impedimento/proibição de contratar com prazo determinado"
+      },
+      "fonteSancao": {
+        "nomeExibicao": "Empresa Brasileira de Infra-Estrutura Aeroportuária - INFRAERO",
+        "telefoneContato": "061.3312-3547",
+        "enderecoContato": "SCS QUADRA 04 BL A LOTE 17/18 Nº 58 ED. INFRAERO"
+      },
+      "fundamentacao": [
+        {
+          "codigo": "LEI 13303 - ART. 83, III - III - SUSPENSÃO TEMPORÁRIA DE PARTICIPAÇÃO EM LICITAÇÃO E IMPEDIMENTO DE CONTRATAR COM A ENTIDADE SANCIONADORA, POR PRAZO NÃO SUPERIOR A 2 (DOIS) ANOS.",
+          "descricao": "LEI 13303 - ART. 83, III - III - SUSPENSÃO TEMPORÁRIA DE PARTICIPAÇÃO EM LICITAÇÃO E IMPEDIMENTO DE CONTRATAR COM A ENTIDADE SANCIONADORA, POR PRAZO NÃO SUPERIOR A 2 (DOIS) ANOS."
+        }
+      ],
+      "orgaoSancionador": {
+        "nome": "Empresa Brasileira de Infra-Estrutura Aeroportuária - INFRAERO",
+        "siglaUf": "",
+        "poder": "Executivo",
+        "esfera": "FEDERAL"
+      },
+      "sancionado": {
+        "nome": "PIEDE ROSSO COMÉRCIO DE CAFÉ LTDA.-ME",
+        "codigoFormatado": "12.888.766/0001-33"
+      },
+      "pessoa": {
+        "id": 609528567,
+        "cpfFormatado": "",
+        "cnpjFormatado": "12.888.766/0001-33",
+        "numeroInscricaoSocial": "",
+        "nome": "PIEDE ROSSO COMERCIO DE CAFE LTDA",
+        "razaoSocialReceita": "PIEDE ROSSO COMERCIO DE CAFE LTDA",
+        "nomeFantasiaReceita": "",
+        "tipo": "Entidades Empresariais Privadas"
+      },
+      "textoPublicacao": "Diário Oficial da União Seção 3 Pagina 125",
+      "linkPublicacao": "http://pesquisa.in.gov.br/imprensa/jsp/visualiza/index.jsp?jornal=530&pagina=125&data=07/10/2025",
+      "detalhamentoPublicacao": "",
+      "numeroProcesso": "SBLO-ADM-2021/00079",
+      "abrangenciaDefinidaDecisaoJudicial": "No órgão sancionador",
+      "informacoesAdicionaisDoOrgaoSancionador": ""
+    }
+  ]
+}

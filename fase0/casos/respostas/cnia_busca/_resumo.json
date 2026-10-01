@@ -1,0 +1,35 @@
+[
+ {
+  "cnpj": "06287661000126",
+  "nome": "ASSOCIAÇÃO MOVIMENTO EM DEFESA DE PARIPUEIRA",
+  "status": 200,
+  "situacoes": {
+   "Inidôneos": "NADA_CONSTA",
+   "CNIA": "CONSTAM_REGISTROS",
+   "CEIS": "CONSTAM_REGISTROS",
+   "CNEP": "NADA_CONSTA"
+  }
+ },
+ {
+  "cnpj": "25705450000100",
+  "nome": "SIM-INSTITUTO DE GESTAO FISCAL",
+  "status": 200,
+  "situacoes": {
+   "Inidôneos": "NADA_CONSTA",
+   "CNIA": "CONSTAM_REGISTROS",
+   "CEIS": "CONSTAM_REGISTROS",
+   "CNEP": "NADA_CONSTA"
+  }
+ },
+ {
+  "cnpj": "43337682000135",
+  "nome": "ASSOCIAÇÃO PARA VALORIZAÇÃO DE PESSOAS COM DEFICIÊNCIA - AVAPE",
+  "status": 200,
+  "situacoes": {
+   "Inidôneos": "NADA_CONSTA",
+   "CNIA": "CONSTAM_REGISTROS",
+   "CEIS": "CONSTAM_REGISTROS",
+   "CNEP": "NADA_CONSTA"
+  }
+ }
+]

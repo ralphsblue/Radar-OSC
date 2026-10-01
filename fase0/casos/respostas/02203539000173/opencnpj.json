@@ -1,0 +1,312 @@
+{
+ "meta": {
+  "url": "https://api.opencnpj.org/02203539000173",
+  "data_utc": "2026-10-01T03:22:53.261667+00:00",
+  "status": 200,
+  "sha256": "adf10b4d8819259d9b1d66379fe80594953843ecbc600abe3fa5fffafb0cf4a1",
+  "tempo_ms": 128
+ },
+ "corpo": {
+  "cnpj": "02203539000173",
+  "razao_social": "FUNDACAO ASSIS GURGACZ",
+  "nome_fantasia": "CENTRO UNIVERSITARIO ASSIS GURGACZ",
+  "situacao_cadastral": "Ativa",
+  "data_situacao_cadastral": "2005-08-20",
+  "matriz_filial": "Matriz",
+  "data_inicio_atividade": "1997-10-21",
+  "cnae_principal": "8531700",
+  "cnaes_secundarios": [
+   "0111302",
+   "0111303",
+   "0115600",
+   "0159899",
+   "0162801",
+   "1041400",
+   "1932200",
+   "2013401",
+   "3250703",
+   "4644302",
+   "4724500",
+   "4789004",
+   "6010100",
+   "6021700",
+   "7210000",
+   "7311400",
+   "7500100",
+   "8230001",
+   "8511200",
+   "8512100",
+   "8513900",
+   "8520100",
+   "8533300",
+   "8630502",
+   "8630599",
+   "8650001",
+   "8650002",
+   "8650003",
+   "8650004",
+   "8650005",
+   "8650006",
+   "8800600",
+   "9001999",
+   "9313100",
+   "9609208"
+  ],
+  "cnaes": [
+   {
+    "codigo": "8531700",
+    "descricao": "Educação superior - graduação",
+    "is_principal": true
+   },
+   {
+    "codigo": "0111302",
+    "descricao": "Cultivo de milho",
+    "is_principal": false
+   },
+   {
+    "codigo": "0111303",
+    "descricao": "Cultivo de trigo",
+    "is_principal": false
+   },
+   {
+    "codigo": "0115600",
+    "descricao": "Cultivo de soja",
+    "is_principal": false
+   },
+   {
+    "codigo": "0159899",
+    "descricao": "Criação de outros animais não especificados anteriormente",
+    "is_principal": false
+   },
+   {
+    "codigo": "0162801",
+    "descricao": "Serviço de inseminação artificial em animais",
+    "is_principal": false
+   },
+   {
+    "codigo": "1041400",
+    "descricao": "Fabricação de óleos vegetais em bruto, exceto óleo de milho",
+    "is_principal": false
+   },
+   {
+    "codigo": "1932200",
+    "descricao": "Fabricação de biocombustíveis, exceto álcool",
+    "is_principal": false
+   },
+   {
+    "codigo": "2013401",
+    "descricao": "Fabricação de adubos e fertilizantes organo-minerais",
+    "is_principal": false
+   },
+   {
+    "codigo": "3250703",
+    "descricao": "Fabricação de aparelhos e utensílios para correção de defeitos físicos e aparelhos ortopédicos em geral sob encomenda",
+    "is_principal": false
+   },
+   {
+    "codigo": "4644302",
+    "descricao": "Comércio atacadista de medicamentos e drogas de uso veterinário",
+    "is_principal": false
+   },
+   {
+    "codigo": "4724500",
+    "descricao": "Comércio varejista de hortifrutigranjeiros",
+    "is_principal": false
+   },
+   {
+    "codigo": "4789004",
+    "descricao": "Comércio varejista de animais vivos e de artigos e alimentos para animais de estimação",
+    "is_principal": false
+   },
+   {
+    "codigo": "6010100",
+    "descricao": "Atividades de rádio",
+    "is_principal": false
+   },
+   {
+    "codigo": "6021700",
+    "descricao": "Atividades de televisão aberta",
+    "is_principal": false
+   },
+   {
+    "codigo": "7210000",
+    "descricao": "Pesquisa e desenvolvimento experimental em ciências físicas e naturais",
+    "is_principal": false
+   },
+   {
+    "codigo": "7311400",
+    "descricao": "Agências de publicidade",
+    "is_principal": false
+   },
+   {
+    "codigo": "7500100",
+    "descricao": "Atividades veterinárias",
+    "is_principal": false
+   },
+   {
+    "codigo": "8230001",
+    "descricao": "Serviços de organização de feiras, congressos, exposições e festas",
+    "is_principal": false
+   },
+   {
+    "codigo": "8511200",
+    "descricao": "Educação infantil - creche",
+    "is_principal": false
+   },
+   {
+    "codigo": "8512100",
+    "descricao": "Educação infantil - pré-escola",
+    "is_principal": false
+   },
+   {
+    "codigo": "8513900",
+    "descricao": "Ensino fundamental",
+    "is_principal": false
+   },
+   {
+    "codigo": "8520100",
+    "descricao": "Ensino médio",
+    "is_principal": false
+   },
+   {
+    "codigo": "8533300",
+    "descricao": "Educação superior - pós-graduação e extensão",
+    "is_principal": false
+   },
+   {
+    "codigo": "8630502",
+    "descricao": "Atividade médica ambulatorial com recursos para realização de exames complementares",
+    "is_principal": false
+   },
+   {
+    "codigo": "8630599",
+    "descricao": "Atividades de atenção ambulatorial não especificadas anteriormente",
+    "is_principal": false
+   },
+   {
+    "codigo": "8650001",
+    "descricao": "Atividades de enfermagem",
+    "is_principal": false
+   },
+   {
+    "codigo": "8650002",
+    "descricao": "Atividades de profissionais da nutrição",
+    "is_principal": false
+   },
+   {
+    "codigo": "8650003",
+    "descricao": "Atividades de psicologia e psicanálise",
+    "is_principal": false
+   },
+   {
+    "codigo": "8650004",
+    "descricao": "Atividades de fisioterapia",
+    "is_principal": false
+   },
+   {
+    "codigo": "8650005",
+    "descricao": "Atividades de terapia ocupacional",
+    "is_principal": false
+   },
+   {
+    "codigo": "8650006",
+    "descricao": "Atividades de fonoaudiologia",
+    "is_principal": false
+   },
+   {
+    "codigo": "8800600",
+    "descricao": "Serviços de assistência social sem alojamento",
+    "is_principal": false
+   },
+   {
+    "codigo": "9001999",
+    "descricao": "Artes cênicas, espetáculos e atividades complementares não especificadas anteriormente",
+    "is_principal": false
+   },
+   {
+    "codigo": "9313100",
+    "descricao": "Atividades de condicionamento físico",
+    "is_principal": false
+   },
+   {
+    "codigo": "9609208",
+    "descricao": "Higiene e embelezamento de animais domésticos",
+    "is_principal": false
+   }
+  ],
+  "natureza_juridica": "Fundação Privada",
+  "tipo_logradouro": "AVENIDA",
+  "logradouro": "DAS TORRES",
+  "numero": "500",
+  "complemento": "TERREO",
+  "bairro": "SANTA CRUZ",
+  "cep": "85806095",
+  "uf": "PR",
+  "municipio": "CASCAVEL",
+  "codigo_municipio": "7493",
+  "email": "valdirf@fag.edu.br",
+  "telefones": [
+   {
+    "ddd": "45",
+    "numero": "33213981",
+    "is_fax": false
+   },
+   {
+    "ddd": "45",
+    "numero": "33213982",
+    "is_fax": false
+   },
+   {
+    "ddd": "45",
+    "numero": "33213900",
+    "is_fax": true
+   }
+  ],
+  "capital_social": "0,00",
+  "qualificacao_responsavel": {
+   "codigo": "16",
+   "descricao": "Presidente"
+  },
+  "ente_federativo": "",
+  "porte_empresa": "Demais",
+  "opcao_simples": "",
+  "data_opcao_simples": "",
+  "data_exclusao_simples": "",
+  "opcao_mei": "",
+  "data_opcao_mei": "",
+  "data_exclusao_mei": "",
+  "motivo_situacao_cadastral": {
+   "codigo": "00",
+   "descricao": "SEM MOTIVO"
+  },
+  "nome_cidade_exterior": "",
+  "codigo_pais": "",
+  "pais": {
+   "codigo": "",
+   "descricao": ""
+  },
+  "situacao_especial": "",
+  "data_situacao_especial": "",
+  "QSA": [
+   {
+    "nome_socio": "ASSIS GURGACZ",
+    "cnpj_cpf_socio": "***858319**",
+    "qualificacao_socio": "Presidente",
+    "data_entrada_sociedade": "2020-03-30",
+    "identificador_socio": "Pessoa Física",
+    "codigo_pais": "",
+    "pais": {
+     "codigo": "",
+     "descricao": ""
+    },
+    "representante_legal": "***000000**",
+    "nome_representante": "",
+    "qualificacao_representante": {
+     "codigo": "00",
+     "descricao": "Não informada"
+    },
+    "faixa_etaria": "Mais de 80 anos"
+   }
+  ]
+ }
+}

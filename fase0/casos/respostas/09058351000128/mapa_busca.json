@@ -1,0 +1,34 @@
+{
+ "meta": {
+  "url": "https://mapaosc.ipea.gov.br/api/api/busca/cnpj/9058351000128",
+  "data_utc": "2026-10-01T03:11:18.715605+00:00",
+  "status": 200,
+  "sha256": "96f82befd4c1ddb1b8be0061f46460939c4ff0d8d53b76978fc46246bf586e5a",
+  "tempo_ms": 240
+ },
+ "corpo": [
+  {
+   "id_osc": 498007,
+   "cd_identificador_osc": "9058351000128",
+   "cd_situacao_cadastral": 2,
+   "tx_nome_osc": "SAMBA MILLENAR",
+   "tx_razao_social_osc": "ASSOCIACAO RECREATIVA CULTURAL E CARNAVALESCA DE SAMBA MILLENAR",
+   "tx_nome_fantasia_osc": "SAMBA MILLENAR",
+   "document": "'associaca':1A 'carnavalesc':5A 'cultural':3A 'millen':8A,10B 'recreat':2A 'samb':7A,9B",
+   "tx_nome_natureza_juridica_osc": "Associação Privada",
+   "dt_fundacao_osc": "2006-08-24",
+   "cd_situacao_imovel_osc": null,
+   "cd_municipio": "2927408",
+   "tx_nome_municipio": "Salvador",
+   "cd_uf": "29",
+   "tx_sigla_uf": "BA",
+   "tx_nome_uf": "Bahia",
+   "cd_regiao": "2",
+   "tx_nome_regiao": "Nordeste",
+   "total_trabalhadores": 0,
+   "nr_trabalhadores_vinculo": null,
+   "nr_trabalhadores_deficiencia": null,
+   "nr_trabalhadores_voluntarios": null
+  }
+ ]
+}

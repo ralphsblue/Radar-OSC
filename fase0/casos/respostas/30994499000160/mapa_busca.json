@@ -1,0 +1,34 @@
+{
+ "meta": {
+  "url": "https://mapaosc.ipea.gov.br/api/api/busca/cnpj/30994499000160",
+  "data_utc": "2026-10-01T03:23:12.482867+00:00",
+  "status": 200,
+  "sha256": "0fc9e9e3efa941c572ed5465f429c91b3abfc8fa8a3c94e82d59d4adf740baa7",
+  "tempo_ms": 249
+ },
+ "corpo": [
+  {
+   "id_osc": 1276649,
+   "cd_identificador_osc": "30994499000160",
+   "cd_situacao_cadastral": 2,
+   "tx_nome_osc": "INSTITUTO RAFAEL ARCANJO",
+   "tx_razao_social_osc": "INSTITUTO RAFAEL ARCANJO",
+   "tx_nome_fantasia_osc": null,
+   "document": "'arcanj':3A 'institut':1A 'rafael':2A",
+   "tx_nome_natureza_juridica_osc": "Associação Privada",
+   "dt_fundacao_osc": "2018-05-29",
+   "cd_situacao_imovel_osc": null,
+   "cd_municipio": "3550308",
+   "tx_nome_municipio": "São Paulo",
+   "cd_uf": "35",
+   "tx_sigla_uf": "SP",
+   "tx_nome_uf": "São Paulo",
+   "cd_regiao": "3",
+   "tx_nome_regiao": "Sudeste",
+   "total_trabalhadores": 0,
+   "nr_trabalhadores_vinculo": null,
+   "nr_trabalhadores_deficiencia": null,
+   "nr_trabalhadores_voluntarios": null
+  }
+ ]
+}

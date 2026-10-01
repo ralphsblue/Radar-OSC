@@ -1,0 +1,17 @@
+{
+ "meta": {
+  "url": "https://mapaosc.ipea.gov.br/api/api/osc/descricao/1482595",
+  "data_utc": "2026-10-01T03:09:11.863358+00:00",
+  "status": 200,
+  "sha256": "c7d4b923c5ba5d0901451372e06032dbba83fc106ad1f16ad22b5bd536880bbd",
+  "tempo_ms": 46
+ },
+ "corpo": {
+  "id_osc": 1482595,
+  "tx_finalidades_estatutarias": null,
+  "tx_historico": null,
+  "tx_link_estatuto_osc": null,
+  "tx_missao_osc": null,
+  "tx_visao_osc": null
+ }
+}

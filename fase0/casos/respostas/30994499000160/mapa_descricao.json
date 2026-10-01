@@ -1,0 +1,17 @@
+{
+ "meta": {
+  "url": "https://mapaosc.ipea.gov.br/api/api/osc/descricao/1276649",
+  "data_utc": "2026-10-01T03:23:15.823042+00:00",
+  "status": 200,
+  "sha256": "9043114cc357fafa82d1acbeb8dc788867aae5eb32b8f4cd958cf245497f73f8",
+  "tempo_ms": 60
+ },
+ "corpo": {
+  "id_osc": 1276649,
+  "tx_finalidades_estatutarias": null,
+  "tx_historico": null,
+  "tx_link_estatuto_osc": null,
+  "tx_missao_osc": null,
+  "tx_visao_osc": null
+ }
+}

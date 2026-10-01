@@ -1,0 +1,19 @@
+{
+  "caso": "T5",
+  "cnpj_consultado": "12ABC34501DE35",
+  "fonte": "minhareceita",
+  "url": "https://minhareceita.org/12ABC34501DE35",
+  "consultado_em": "2026-10-01T02:13:41+00:00",
+  "http": 404,
+  "ms": 6291,
+  "headers_relevantes": {
+    "content-type": "application/json",
+    "cache-control": "max-age=86400",
+    "server": "cloudflare",
+    "via": "1.1 fly.io, 1.1 fly.io",
+    "cf-cache-status": "DYNAMIC"
+  },
+  "corpo": {
+    "message": "CNPJ 12.ABC.345/01DE-35 não encontrado."
+  }
+}

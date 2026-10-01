@@ -1,0 +1,44 @@
+{
+ "meta": {
+  "url": "https://api.opencnpj.org/07408449000132?datasets=ceis,cepim,cnep",
+  "data_utc": "2026-10-01T03:11:00.270072+00:00",
+  "status": 200,
+  "sha256": "17a2ad1fa55d67f7e24fbc379ac133424694a73b595b4f136a6836a627cbf332",
+  "tempo_ms": 779
+ },
+ "corpo": {
+  "ceis": {
+   "cnpj": "07408449000132",
+   "updated_at": "2026-09-30T21:15:08.0000000+00:00",
+   "sancoes": [
+    {
+     "cadastro": "CEIS",
+     "codigo": "117901",
+     "tipo_pessoa": "J",
+     "nome_sancionado": "INSTITUTO CAMINHADA",
+     "nome_informado_orgao": "INSTITUTO CAMINHADA",
+     "razao_social_receita": "INSTITUTO ATUAR",
+     "nome_fantasia_receita": "INSTITUTO ATUAR",
+     "numero_processo": "Processo Adm. 001/2019, Contrato 2153/2017",
+     "categoria": "Declaração de Inidoneidade sem prazo determinado",
+     "data_inicio": "07/04/2020",
+     "data_final": "07/04/2022",
+     "data_publicacao": "07/04/2020",
+     "publicacao": "Diário Oficial do Município Seção Edição 2.036 Pagina 5",
+     "detalhamento_publicacao": "",
+     "data_transito_julgado": "",
+     "abrangencia": "Todas as Esferas em todos os Poderes",
+     "orgao_sancionador": "Prefeitura Municipal de Senhor do Bonfim - BA",
+     "uf_orgao_sancionador": "BA",
+     "esfera_orgao_sancionador": "MUNICIPAL",
+     "fundamentacao_legal": "LEI 8666 - ART. 87, IV - PELA INEXECUÇÃO TOTAL OU PARCIAL DO CONTRATO A ADMINISTRAÇÃO PODERÁ, GARANTIDA A PRÉVIA DEFESA, APLICAR AO CONTRATADO AS SEGUINTES SANÇÕES: IV - DECLARAÇÃO DE INIDONEIDADE PARA LICITAR OU CONTRATAR COM A ADMINISTRAÇÃO PÚBLICA ENQUANTO PERDURAREM OS MOTIVOS DETERMINANTES DA PUNIÇÃO OU ATÉ QUE SEJA PROMOVIDA A REABILITAÇÃO PERANTE A PRÓPRIA AUTORIDADE QUE APLICOU A PENALIDADE, QUE SERÁ CONCEDIDA SEMPRE QUE O CONTRATADO RESSARCIR A ADMINISTRAÇÃO PELOS PREJUÍZOS RESULTANTES E APÓS DECORRIDO O PRAZO DA SANÇÃO APLICADA COM BASE NO INCISO ANTERIOR.",
+     "data_origem_informacao": "31/12/2020",
+     "origem_informacoes": "Prefeitura Municipal de Senhor do Bonfim - BA",
+     "observacoes": ""
+    }
+   ]
+  },
+  "cepim": null,
+  "cnep": null
+ }
+}

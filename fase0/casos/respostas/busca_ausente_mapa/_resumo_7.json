@@ -1,0 +1,13 @@
+{
+ "semente": 7,
+ "consultas": 150,
+ "naturezas": {
+  "Empresário (Individual)": 77,
+  "Empresa Simples de Inovação": 1,
+  "Sociedade Empresária Limitada": 22,
+  "Candidato a Cargo Político Eletivo": 2,
+  "Sociedade Unipessoal de Advocacia": 1,
+  "Sociedade Simples Limitada": 1
+ },
+ "achado": null
+}

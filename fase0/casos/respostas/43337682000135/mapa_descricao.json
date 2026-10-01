@@ -1,0 +1,17 @@
+{
+ "meta": {
+  "url": "https://mapaosc.ipea.gov.br/api/api/osc/descricao/594761",
+  "data_utc": "2026-10-01T03:11:51.685065+00:00",
+  "status": 200,
+  "sha256": "1a82ec3e054fc90a2457ae1a764f6d5f97144899db5eb821c7e862187aa8a3a1",
+  "tempo_ms": 49
+ },
+ "corpo": {
+  "id_osc": 594761,
+  "tx_finalidades_estatutarias": null,
+  "tx_historico": null,
+  "tx_link_estatuto_osc": null,
+  "tx_missao_osc": null,
+  "tx_visao_osc": null
+ }
+}

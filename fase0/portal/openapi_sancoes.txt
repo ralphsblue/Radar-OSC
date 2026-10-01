@@ -1,0 +1,451 @@
+OpenAPI 3.0.1 - API REST do Portal da Transparência do Governo Federal - versao 1.0
+servers: [{'url': 'https://api.portaldatransparencia.gov.br', 'description': 'Generated server url'}]
+securitySchemes: {"Authorization": {"type": "apiKey", "description": "Chave para acessar à API. Para obter a chave acesse http://www.portaldatransparencia.gov.br/api-de-dados/cadastrar-email", "name": "chave-api-dados", "in": "header"}}
+security global: [{'Authorization': []}]
+
+Rotas relacionadas: /api-de-dados/contratos/cpf-cnpj, /api-de-dados/cnep, /api-de-dados/cnep/{id}, /api-de-dados/cepim, /api-de-dados/cepim/{id}, /api-de-dados/ceis, /api-de-dados/ceis/{id}, /api-de-dados/acordos-leniencia, /api-de-dados/acordos-leniencia/{id}
+
+=== GET /api-de-dados/contratos/cpf-cnpj  tags=['Contratos do Poder Executivo Federal']  summary=Consulta um contrato do Poder Executivo Federal pelo CPF/CNPJ do Fornecedor
+descricao: Filtros mínimos: CPF/CNPJ do Fornecedor
+  param cpfCnpj in=query required=True type=string fmt=None default=None desc=CPF/CNPJ do Fornecedor
+  param pagina in=query required=True type=integer fmt=int32 default=1 desc=Página consultada
+  resposta 400 */*:
+  resposta 500 */*:
+  resposta 401 */*:
+  resposta 200 */*:
+    array de:
+      <ContratoDTO>
+      - id: integer (int32)
+      - numero: string
+      - objeto: string
+      - numeroProcesso: string
+      - fundamentoLegal: string
+      - compra: $ref CompraDTO
+        <CompraDTO>
+        - numero: string
+        - objeto: string
+        - numeroProcesso: string
+        - contatoResponsavel: string
+      - situacaoContrato: string
+      - modalidadeCompra: string
+      - unidadeGestora: $ref UnidadeGestoraDTO
+        <UnidadeGestoraDTO>
+        - codigo: string
+        - nome: string
+        - descricaoPoder: string
+        - orgaoVinculado: $ref OrgaoVinculadoDTO
+          <OrgaoVinculadoDTO>
+          - codigoSIAFI: string
+          - cnpj: string
+          - sigla: string
+          - nome: string
+        - orgaoMaximo: $ref OrgaoMaximoDTO
+          <OrgaoMaximoDTO>
+          - codigo: string
+          - sigla: string
+          - nome: string
+      - unidadeGestoraCompras: $ref UnidadeGestoraDTO
+        <UnidadeGestoraDTO>
+        - codigo: string
+        - nome: string
+        - descricaoPoder: string
+        - orgaoVinculado: $ref OrgaoVinculadoDTO
+          <OrgaoVinculadoDTO>
+          - codigoSIAFI: string
+          - cnpj: string
+          - sigla: string
+          - nome: string
+        - orgaoMaximo: $ref OrgaoMaximoDTO
+          <OrgaoMaximoDTO>
+          - codigo: string
+          - sigla: string
+          - nome: string
+      - dataAssinatura: string (date)
+      - dataPublicacaoDOU: string (date)
+      - dataInicioVigencia: string (date)
+      - dataFimVigencia: string (date)
+      - fornecedor: $ref PessoaDTO
+        <PessoaDTO>
+        - id: integer (int32)
+        - cpfFormatado: string
+        - cnpjFormatado: string
+        - numeroInscricaoSocial: string
+        - nome: string
+        - razaoSocialReceita: string
+        - nomeFantasiaReceita: string
+        - tipo: string
+      - valorInicialCompra: number
+      - valorFinalCompra: number
+
+=== GET /api-de-dados/cnep  tags=['Sanções']  summary=Consulta os registros do CNEP por CNPJ ou CPF Sancionado/Órgão Sancionador/Período
+descricao: Filtros mínimos:  Página (padrão = 1); 
+  param codigoSancionado in=query required=False type=string fmt=None default=None desc=CNPJ ou CPF do Sancionado
+  param nomeSancionado in=query required=False type=string fmt=None default=None desc=Nome, nome fantasia ou razão social do Sancionado
+  param orgaoSancionador in=query required=False type=string fmt=None default=None desc=Órgão Sancionador
+  param dataInicialSancao in=query required=False type=string fmt=None default=None desc=Data Inicial da Sanção (DD/MM/AAAA)
+  param dataFinalSancao in=query required=False type=string fmt=None default=None desc=Data Final da Sanção (DD/MM/AAAA)
+  param pagina in=query required=True type=integer fmt=int32 default=1 desc=Página consultada
+  resposta 400 */*:
+  resposta 500 */*:
+  resposta 401 */*:
+  resposta 200 */*:
+    array de:
+      <CnepDTO>
+      - id: integer (int32)
+      - dataReferencia: string
+      - dataInicioSancao: string
+      - dataFimSancao: string
+      - dataPublicacaoSancao: string
+      - dataTransitadoJulgado: string
+      - dataOrigemInformacao: string
+      - tipoSancao: $ref TipoSancaoDTO
+        <TipoSancaoDTO>
+        - descricaoResumida: string
+        - descricaoPortal: string
+      - fonteSancao: $ref FonteSancaoDTO
+        <FonteSancaoDTO>
+        - nomeExibicao: string
+        - telefoneContato: string
+        - enderecoContato: string
+      - fundamentacao: array
+        array de:
+          <CodigoDescricaoDTO>
+          - codigo: string
+          - descricao: string
+      - orgaoSancionador: $ref OrgaoSancionadorDTO
+        <OrgaoSancionadorDTO>
+        - nome: string
+        - siglaUf: string
+        - poder: string
+        - esfera: string
+      - sancionado: $ref SancionadoDTO
+        <SancionadoDTO>
+        - nome: string
+        - codigoFormatado: string
+      - valorMulta: string
+      - pessoa: $ref PessoaDTO
+        <PessoaDTO>
+        - id: integer (int32)
+        - cpfFormatado: string
+        - cnpjFormatado: string
+        - numeroInscricaoSocial: string
+        - nome: string
+        - razaoSocialReceita: string
+        - nomeFantasiaReceita: string
+        - tipo: string
+      - textoPublicacao: string
+      - linkPublicacao: string
+      - detalhamentoPublicacao: string
+      - numeroProcesso: string
+      - abrangenciaDefinidaDecisaoJudicial: string
+      - informacoesAdicionaisDoOrgaoSancionador: string
+
+=== GET /api-de-dados/cnep/{id}  tags=['Sanções']  summary=Consulta um registro do CNEP pelo id
+descricao: Filtros mínimos: ID do registro
+  param id in=path required=True type=integer fmt=int32 default=None desc=ID do registro
+  resposta 400 */*:
+  resposta 500 */*:
+  resposta 401 */*:
+  resposta 200 */*:
+    <CnepDTO>
+    - id: integer (int32)
+    - dataReferencia: string
+    - dataInicioSancao: string
+    - dataFimSancao: string
+    - dataPublicacaoSancao: string
+    - dataTransitadoJulgado: string
+    - dataOrigemInformacao: string
+    - tipoSancao: $ref TipoSancaoDTO
+      <TipoSancaoDTO>
+      - descricaoResumida: string
+      - descricaoPortal: string
+    - fonteSancao: $ref FonteSancaoDTO
+      <FonteSancaoDTO>
+      - nomeExibicao: string
+      - telefoneContato: string
+      - enderecoContato: string
+    - fundamentacao: array
+      array de:
+        <CodigoDescricaoDTO>
+        - codigo: string
+        - descricao: string
+    - orgaoSancionador: $ref OrgaoSancionadorDTO
+      <OrgaoSancionadorDTO>
+      - nome: string
+      - siglaUf: string
+      - poder: string
+      - esfera: string
+    - sancionado: $ref SancionadoDTO
+      <SancionadoDTO>
+      - nome: string
+      - codigoFormatado: string
+    - valorMulta: string
+    - pessoa: $ref PessoaDTO
+      <PessoaDTO>
+      - id: integer (int32)
+      - cpfFormatado: string
+      - cnpjFormatado: string
+      - numeroInscricaoSocial: string
+      - nome: string
+      - razaoSocialReceita: string
+      - nomeFantasiaReceita: string
+      - tipo: string
+    - textoPublicacao: string
+    - linkPublicacao: string
+    - detalhamentoPublicacao: string
+    - numeroProcesso: string
+    - abrangenciaDefinidaDecisaoJudicial: string
+    - informacoesAdicionaisDoOrgaoSancionador: string
+
+=== GET /api-de-dados/cepim  tags=['Sanções']  summary=Consulta os registros do CEPIM por CNPJ ou CPF Sancionado/Órgão superior
+descricao: Filtros mínimos:  Página (padrão = 1); 
+  param cnpjSancionado in=query required=False type=string fmt=None default=None desc=CNPJ do Sancionado
+  param nomeSancionado in=query required=False type=string fmt=None default=None desc=Nome, nome fantasia ou razão social do Sancionado
+  param ufSancionado in=query required=False type=string fmt=None default=None desc=UF do Sancionado (sigla)
+  param orgaoEntidade in=query required=False type=string fmt=None default=None desc=Órgão/Entidade
+  param pagina in=query required=True type=integer fmt=int32 default=1 desc=Página consultada
+  resposta 400 */*:
+  resposta 500 */*:
+  resposta 401 */*:
+  resposta 200 */*:
+    array de:
+      <CepimDTO>
+      - id: integer (int32)
+      - dataReferencia: string
+      - motivo: string
+      - orgaoSuperior: $ref OrgaoDTO
+        <OrgaoDTO>
+        - nome: string
+        - codigoSIAFI: string
+        - cnpj: string
+        - sigla: string
+        - descricaoPoder: string
+        - orgaoMaximo: $ref OrgaoMaximoDTO
+          <OrgaoMaximoDTO>
+          - codigo: string
+          - sigla: string
+          - nome: string
+      - pessoaJuridica: $ref PessoaDTO
+        <PessoaDTO>
+        - id: integer (int32)
+        - cpfFormatado: string
+        - cnpjFormatado: string
+        - numeroInscricaoSocial: string
+        - nome: string
+        - razaoSocialReceita: string
+        - nomeFantasiaReceita: string
+        - tipo: string
+      - convenio: $ref DimConvenioDTO
+        <DimConvenioDTO>
+        - codigo: string
+        - objeto: string
+        - numero: string
+
+=== GET /api-de-dados/cepim/{id}  tags=['Sanções']  summary=Consulta um registro do CEPIM pelo id
+descricao: Filtros mínimos: ID do registro
+  param id in=path required=True type=integer fmt=int32 default=None desc=ID do registro
+  resposta 400 */*:
+  resposta 500 */*:
+  resposta 401 */*:
+  resposta 200 */*:
+    <CepimDTO>
+    - id: integer (int32)
+    - dataReferencia: string
+    - motivo: string
+    - orgaoSuperior: $ref OrgaoDTO
+      <OrgaoDTO>
+      - nome: string
+      - codigoSIAFI: string
+      - cnpj: string
+      - sigla: string
+      - descricaoPoder: string
+      - orgaoMaximo: $ref OrgaoMaximoDTO
+        <OrgaoMaximoDTO>
+        - codigo: string
+        - sigla: string
+        - nome: string
+    - pessoaJuridica: $ref PessoaDTO
+      <PessoaDTO>
+      - id: integer (int32)
+      - cpfFormatado: string
+      - cnpjFormatado: string
+      - numeroInscricaoSocial: string
+      - nome: string
+      - razaoSocialReceita: string
+      - nomeFantasiaReceita: string
+      - tipo: string
+    - convenio: $ref DimConvenioDTO
+      <DimConvenioDTO>
+      - codigo: string
+      - objeto: string
+      - numero: string
+
+=== GET /api-de-dados/ceis  tags=['Sanções']  summary=Consulta os registros do CEIS por CNPJ ou CPF Sancionado/Órgão Sancionador/Período
+descricao: Filtros mínimos:  Página (padrão = 1); 
+  param codigoSancionado in=query required=False type=string fmt=None default=None desc=CNPJ ou CPF Sancionado
+  param nomeSancionado in=query required=False type=string fmt=None default=None desc=Nome, nome fantasia ou razão social do Sancionado
+  param orgaoSancionador in=query required=False type=string fmt=None default=None desc=Órgão Sancionador
+  param dataInicialSancao in=query required=False type=string fmt=None default=None desc=Data Inicial da Sanção (DD/MM/AAAA)
+  param dataFinalSancao in=query required=False type=string fmt=None default=None desc=Data Final da Sanção (DD/MM/AAAA)
+  param pagina in=query required=True type=integer fmt=int32 default=1 desc=Página consultada
+  resposta 400 */*:
+  resposta 500 */*:
+  resposta 401 */*:
+  resposta 200 */*:
+    array de:
+      <CeisDTO>
+      - id: integer (int32)
+      - dataReferencia: string
+      - dataInicioSancao: string
+      - dataFimSancao: string
+      - dataPublicacaoSancao: string
+      - dataTransitadoJulgado: string
+      - dataOrigemInformacao: string
+      - tipoSancao: $ref TipoSancaoDTO
+        <TipoSancaoDTO>
+        - descricaoResumida: string
+        - descricaoPortal: string
+      - fonteSancao: $ref FonteSancaoDTO
+        <FonteSancaoDTO>
+        - nomeExibicao: string
+        - telefoneContato: string
+        - enderecoContato: string
+      - fundamentacao: array
+        array de:
+          <CodigoDescricaoDTO>
+          - codigo: string
+          - descricao: string
+      - orgaoSancionador: $ref OrgaoSancionadorDTO
+        <OrgaoSancionadorDTO>
+        - nome: string
+        - siglaUf: string
+        - poder: string
+        - esfera: string
+      - sancionado: $ref SancionadoDTO
+        <SancionadoDTO>
+        - nome: string
+        - codigoFormatado: string
+      - pessoa: $ref PessoaDTO
+        <PessoaDTO>
+        - id: integer (int32)
+        - cpfFormatado: string
+        - cnpjFormatado: string
+        - numeroInscricaoSocial: string
+        - nome: string
+        - razaoSocialReceita: string
+        - nomeFantasiaReceita: string
+        - tipo: string
+      - textoPublicacao: string
+      - linkPublicacao: string
+      - detalhamentoPublicacao: string
+      - numeroProcesso: string
+      - abrangenciaDefinidaDecisaoJudicial: string
+      - informacoesAdicionaisDoOrgaoSancionador: string
+
+=== GET /api-de-dados/ceis/{id}  tags=['Sanções']  summary=Consulta um registro do CEIS pelo id
+descricao: Filtros mínimos: ID do registro
+  param id in=path required=True type=integer fmt=int32 default=None desc=ID do registro
+  resposta 400 */*:
+  resposta 500 */*:
+  resposta 401 */*:
+  resposta 200 */*:
+    <CeisDTO>
+    - id: integer (int32)
+    - dataReferencia: string
+    - dataInicioSancao: string
+    - dataFimSancao: string
+    - dataPublicacaoSancao: string
+    - dataTransitadoJulgado: string
+    - dataOrigemInformacao: string
+    - tipoSancao: $ref TipoSancaoDTO
+      <TipoSancaoDTO>
+      - descricaoResumida: string
+      - descricaoPortal: string
+    - fonteSancao: $ref FonteSancaoDTO
+      <FonteSancaoDTO>
+      - nomeExibicao: string
+      - telefoneContato: string
+      - enderecoContato: string
+    - fundamentacao: array
+      array de:
+        <CodigoDescricaoDTO>
+        - codigo: string
+        - descricao: string
+    - orgaoSancionador: $ref OrgaoSancionadorDTO
+      <OrgaoSancionadorDTO>
+      - nome: string
+      - siglaUf: string
+      - poder: string
+      - esfera: string
+    - sancionado: $ref SancionadoDTO
+      <SancionadoDTO>
+      - nome: string
+      - codigoFormatado: string
+    - pessoa: $ref PessoaDTO
+      <PessoaDTO>
+      - id: integer (int32)
+      - cpfFormatado: string
+      - cnpjFormatado: string
+      - numeroInscricaoSocial: string
+      - nome: string
+      - razaoSocialReceita: string
+      - nomeFantasiaReceita: string
+      - tipo: string
+    - textoPublicacao: string
+    - linkPublicacao: string
+    - detalhamentoPublicacao: string
+    - numeroProcesso: string
+    - abrangenciaDefinidaDecisaoJudicial: string
+    - informacoesAdicionaisDoOrgaoSancionador: string
+
+=== GET /api-de-dados/acordos-leniencia  tags=['Sanções']  summary=Consulta os registros de Acordos de Leniência por Nome ou CNPJ do Sancionado/Situação/Período
+descricao: Filtros mínimos:  Página (padrão = 1); 
+  param cnpjSancionado in=query required=False type=string fmt=None default=None desc=CNPJ sancionado
+  param nomeSancionado in=query required=False type=string fmt=None default=None desc=Nome, nome fantasia ou razão social do sancionado
+  param situacao in=query required=False type=string fmt=None default=None desc=Situação do acordo
+  param dataInicialSancao in=query required=False type=string fmt=None default=None desc=Data inicial da sanção (DD/MM/AAAA)
+  param dataFinalSancao in=query required=False type=string fmt=None default=None desc=Data final da sanção (DD/MM/AAAA)
+  param pagina in=query required=True type=integer fmt=int32 default=1 desc=Página consultada
+  resposta 400 */*:
+  resposta 500 */*:
+  resposta 401 */*:
+  resposta 200 */*:
+    array de:
+      <AcordosLenienciaDTO>
+      - id: integer (int32)
+      - dataInicioAcordo: string
+      - dataFimAcordo: string
+      - orgaoResponsavel: string
+      - situacaoAcordo: string
+      - sancoes: array
+        array de:
+          <EmpresaSancionadaDTO>
+          - nomeInformadoOrgaoResponsavel: string
+          - razaoSocial: string
+          - nomeFantasia: string
+          - cnpj: string
+          - cnpjFormatado: string
+      - quantidade: integer (int32)
+
+=== GET /api-de-dados/acordos-leniencia/{id}  tags=['Sanções']  summary=Consulta um registro de Acordo de Leniência pelo id
+descricao: Filtros mínimos: ID do registro
+  param id in=path required=True type=integer fmt=int32 default=None desc=ID do registro
+  resposta 400 */*:
+  resposta 500 */*:
+  resposta 401 */*:
+  resposta 200 */*:
+    <AcordosLenienciaDTO>
+    - id: integer (int32)
+    - dataInicioAcordo: string
+    - dataFimAcordo: string
+    - orgaoResponsavel: string
+    - situacaoAcordo: string
+    - sancoes: array
+      array de:
+        <EmpresaSancionadaDTO>
+        - nomeInformadoOrgaoResponsavel: string
+        - razaoSocial: string
+        - nomeFantasia: string
+        - cnpj: string
+        - cnpjFormatado: string
+    - quantidade: integer (int32)

@@ -1,0 +1,26 @@
+{
+ "cnpj": "00000000000000",
+ "id_osc": null,
+ "chamadas": [
+  {
+   "path": "busca/osc-autocomplete",
+   "params": {
+    "texto_busca": "00000000000000"
+   },
+   "status": 200,
+   "tempo_s": 0.16,
+   "bytes": 10921,
+   "sha256": "8694f831ff4f0f12485858fb4a5b3b9fefc99a675013bd6235effd9e1dab7b65",
+   "data": "2026-09-30T22:08:58"
+  },
+  {
+   "path": "busca/cnpj/00000000000000",
+   "params": null,
+   "status": 200,
+   "tempo_s": 0.17,
+   "bytes": 2,
+   "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+   "data": "2026-09-30T22:09:00"
+  }
+ ]
+}

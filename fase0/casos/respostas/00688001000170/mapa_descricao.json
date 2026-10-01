@@ -1,0 +1,17 @@
+{
+ "meta": {
+  "url": "https://mapaosc.ipea.gov.br/api/api/osc/descricao/962662",
+  "data_utc": "2026-10-01T03:10:23.698016+00:00",
+  "status": 200,
+  "sha256": "5a75c3ac6a8cab83178cf3f9c9138518596c4534db46e98b7369cb2da536c218",
+  "tempo_ms": 47
+ },
+ "corpo": {
+  "id_osc": 962662,
+  "tx_finalidades_estatutarias": null,
+  "tx_historico": null,
+  "tx_link_estatuto_osc": null,
+  "tx_missao_osc": null,
+  "tx_visao_osc": null
+ }
+}

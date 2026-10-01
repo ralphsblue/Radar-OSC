@@ -1,0 +1,34 @@
+{
+ "meta": {
+  "url": "https://mapaosc.ipea.gov.br/api/api/busca/cnpj/6287661000126",
+  "data_utc": "2026-10-01T03:10:32.129465+00:00",
+  "status": 200,
+  "sha256": "fc91695ecaca99091e33d724c7d269c353979688fac2e6b7940dd143124f4cf5",
+  "tempo_ms": 230
+ },
+ "corpo": [
+  {
+   "id_osc": 925074,
+   "cd_identificador_osc": "6287661000126",
+   "cd_situacao_cadastral": 4,
+   "tx_nome_osc": "ACAO 40 GRAUS",
+   "tx_razao_social_osc": "ASSOCIACAO MOVIMENTO EM DEFESA DE PARIPUEIRA",
+   "tx_nome_fantasia_osc": "ACAO 40 GRAUS",
+   "document": "'40':8B 'aca':7B 'associaca':1A 'defes':4A 'graus':9B 'moviment':2A 'paripueir':6A",
+   "tx_nome_natureza_juridica_osc": "Associação Privada",
+   "dt_fundacao_osc": "2004-05-25",
+   "cd_situacao_imovel_osc": null,
+   "cd_municipio": "2706448",
+   "tx_nome_municipio": "Paripueira",
+   "cd_uf": "27",
+   "tx_sigla_uf": "AL",
+   "tx_nome_uf": "Alagoas",
+   "cd_regiao": "2",
+   "tx_nome_regiao": "Nordeste",
+   "total_trabalhadores": 0,
+   "nr_trabalhadores_vinculo": null,
+   "nr_trabalhadores_deficiencia": null,
+   "nr_trabalhadores_voluntarios": null
+  }
+ ]
+}

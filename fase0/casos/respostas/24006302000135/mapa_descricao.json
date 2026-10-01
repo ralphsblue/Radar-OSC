@@ -1,0 +1,17 @@
+{
+ "meta": {
+  "url": "https://mapaosc.ipea.gov.br/api/api/osc/descricao/841432",
+  "data_utc": "2026-10-01T03:23:37.988248+00:00",
+  "status": 200,
+  "sha256": "8be8a38f93305c48ecc8937389dc5cb8588ccdfbf6759fb0aaaf5010bd462231",
+  "tempo_ms": 47
+ },
+ "corpo": {
+  "id_osc": 841432,
+  "tx_finalidades_estatutarias": null,
+  "tx_historico": null,
+  "tx_link_estatuto_osc": null,
+  "tx_missao_osc": null,
+  "tx_visao_osc": null
+ }
+}

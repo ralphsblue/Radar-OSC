@@ -1,0 +1,7 @@
+url=https://mapaosc.ipea.gov.br/api/api/busca/osc-autocomplete/?texto_busca=19131243000197
+final=https://mapaosc.ipea.gov.br/api/api/busca/osc-autocomplete?texto_busca=19131243000197
+status=200
+tempo_s=1.56
+data=2026-09-30T22:04:27.229893
+sha256=bfd13e4b607559cb8c019c7bf611895f273b2b432f318403b68a82c4a405d1ac
+headers={'date': 'Thu, 01 Oct 2026 01:04:39 GMT', 'server': 'Apache/2.4.29 (Ubuntu)', 'content-security-policy': 'upgrade-insecure-requests;', 'cache-control': 'no-cache, private', 'access-control-allow-origin': '*', 'access-control-allow-methods': 'POST, GET, OPTIONS, PUT, DELETE', 'access-control-allow-credentials': 'true', 'access-control-max-age': '86400', 'access-control-allow-headers': 'Content-Type, Authorization, X-Requested-With, x-csrf-token', 'vary': 'Accept-Encoding', 'content-encoding': 'gzip', 'content-length': '413', 'content-type': 'application/json', 'via': '1.1 mapaosc.ipea.gov.br', 'keep-alive': 'timeout=15, max=99', 'connection': 'Keep-Alive'}

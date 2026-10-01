@@ -1,0 +1,34 @@
+{
+ "meta": {
+  "url": "https://mapaosc.ipea.gov.br/api/api/busca/cnpj/21145289000107",
+  "data_utc": "2026-10-01T03:12:10.768234+00:00",
+  "status": 200,
+  "sha256": "6a4497fc55b2c5a486190bcc665c0540815d77a57ee99c3a85cba86b418e0dca",
+  "tempo_ms": 251
+ },
+ "corpo": [
+  {
+   "id_osc": 506146,
+   "cd_identificador_osc": "21145289000107",
+   "cd_situacao_cadastral": 4,
+   "tx_nome_osc": "IMDC",
+   "tx_razao_social_osc": "INSTITUTO MUNDIAL DE DESENVOLVIMENTO E DA CIDADANIA - IMDC,",
+   "tx_nome_fantasia_osc": "IMDC",
+   "document": "'cidadan':7A 'desenvolv':4A 'imdc':8A,9B 'institut':1A 'mundial':2A",
+   "tx_nome_natureza_juridica_osc": "Associação Privada",
+   "dt_fundacao_osc": "1980-07-11",
+   "cd_situacao_imovel_osc": null,
+   "cd_municipio": "3106200",
+   "tx_nome_municipio": "Belo Horizonte",
+   "cd_uf": "31",
+   "tx_sigla_uf": "MG",
+   "tx_nome_uf": "Minas Gerais",
+   "cd_regiao": "3",
+   "tx_nome_regiao": "Sudeste",
+   "total_trabalhadores": 0,
+   "nr_trabalhadores_vinculo": null,
+   "nr_trabalhadores_deficiencia": null,
+   "nr_trabalhadores_voluntarios": null
+  }
+ ]
+}

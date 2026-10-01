@@ -1,0 +1,10 @@
+{
+ "meta": {
+  "url": "https://mapaosc.ipea.gov.br/api/api/busca/cnpj/4311762000160",
+  "data_utc": "2026-10-01T03:07:53.776442+00:00",
+  "status": 200,
+  "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+  "tempo_ms": 259
+ },
+ "corpo": []
+}

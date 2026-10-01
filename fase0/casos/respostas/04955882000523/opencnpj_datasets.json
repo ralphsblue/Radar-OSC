@@ -1,0 +1,14 @@
+{
+ "meta": {
+  "url": "https://api.opencnpj.org/04955882000523?datasets=ceis,cepim,cnep",
+  "data_utc": "2026-10-01T03:09:46.654593+00:00",
+  "status": 200,
+  "sha256": "4fad8b2da01058e89fd8484d58ef755b41c5dce404c155a9e85437a5b045f7d3",
+  "tempo_ms": 383
+ },
+ "corpo": {
+  "ceis": null,
+  "cepim": null,
+  "cnep": null
+ }
+}
