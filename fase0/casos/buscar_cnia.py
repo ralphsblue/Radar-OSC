@@ -52,7 +52,9 @@ def main() -> None:
             reg = baixar(cliente, URL_TCU.format(cnpj), pasta / f"tcu_{cnpj}.json")
             corpo = reg["corpo"] if isinstance(reg["corpo"], dict) else {}
             situacoes = {c["tipo"]: c["situacao"] for c in corpo.get("certidoes", [])}
-            resumo.append({"cnpj": cnpj, "nome": nome, "status": reg["meta"]["status"], "situacoes": situacoes})
+            resumo.append(
+                {"cnpj": cnpj, "nome": nome, "status": reg["meta"]["status"], "situacoes": situacoes}
+            )
             if situacoes.get("CNIA") == "CONSTAM_REGISTROS":
                 achados += 1
                 print(f"  CNIA CONSTAM: {cnpj} {nome}")

@@ -4,10 +4,10 @@ e conta as falhas arquivadas em respostas/falhas/ por fonte.
 
 Uso: python tabela_resultados.py
 """
+
 import json
 import statistics
 from collections import defaultdict
-from pathlib import Path
 
 from comum import FONTES, OUT
 
@@ -40,12 +40,20 @@ for f, xs in falhas.items():
     cod = defaultdict(int)
     for h, _ in xs:
         cod[h] += 1
-    print(f"  {f}: {len(xs)} falhas, codigos={dict(cod)}, ms medio={round(statistics.mean(m for _, m in xs))}")
+    print(
+        f"  {f}: {len(xs)} falhas, codigos={dict(cod)}, ms medio={round(statistics.mean(m for _, m in xs))}"
+    )
 
 print("\nLatencia das respostas definitivas (200/400/404) por fonte, fora do T6:")
 for fonte in FONTES:
-    ms = [json.loads(p.read_text(encoding="utf-8"))["ms"] for p in OUT.glob(f"{fonte}_*.json")
-          if "T6" not in p.name and "descartado" not in p.name
-          and json.loads(p.read_text(encoding="utf-8")).get("http") in (200, 400, 404)]
+    ms = [
+        json.loads(p.read_text(encoding="utf-8"))["ms"]
+        for p in OUT.glob(f"{fonte}_*.json")
+        if "T6" not in p.name
+        and "descartado" not in p.name
+        and json.loads(p.read_text(encoding="utf-8")).get("http") in (200, 400, 404)
+    ]
     if ms:
-        print(f"  {fonte}: n={len(ms)} media={round(statistics.mean(ms))} mediana={round(statistics.median(ms))} max={max(ms)}")
+        print(
+            f"  {fonte}: n={len(ms)} media={round(statistics.mean(ms))} mediana={round(statistics.median(ms))} max={max(ms)}"
+        )

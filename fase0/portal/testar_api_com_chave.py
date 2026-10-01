@@ -99,8 +99,11 @@ def main() -> None:
                     "http": r.status_code,
                     "ms": ms,
                     "headers_resposta": {
-                        k: v for k, v in r.headers.items()
-                        if k.lower().startswith(("x-rate", "ratelimit", "retry", "content-type", "cache-control"))
+                        k: v
+                        for k, v in r.headers.items()
+                        if k.lower().startswith(
+                            ("x-rate", "ratelimit", "retry", "content-type", "cache-control")
+                        )
                     },
                     "corpo": corpo,
                 }

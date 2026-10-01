@@ -27,7 +27,12 @@ ARQ_CSV = PASTA / "cnae_classificado.csv"
 
 FAIXAS = ("ALTA", "MEDIA", "BAIXA")
 NIVEL_POR_TAMANHO = {2: "divisao", 3: "grupo", 5: "classe", 7: "subclasse"}
-NIVEL_PARA_COLECAO = {"divisao": "divisoes", "grupo": "grupos", "classe": "classes", "subclasse": "subclasses"}
+NIVEL_PARA_COLECAO = {
+    "divisao": "divisoes",
+    "grupo": "grupos",
+    "classe": "classes",
+    "subclasse": "subclasses",
+}
 
 NATUREZA_ORGANIZACAO_RELIGIOSA = 3220
 SUBCLASSE_RELIGIOSA = "9491000"
@@ -180,7 +185,9 @@ def gerar_csv() -> Counter:
         for item in subclasses:
             c = classificar(item["id"])
             contagem[c.faixa] += 1
-            escritor.writerow([c.subclasse, formatar_prefixo(c.subclasse), item["descricao"], c.faixa, c.regra_aplicada])
+            escritor.writerow(
+                [c.subclasse, formatar_prefixo(c.subclasse), item["descricao"], c.faixa, c.regra_aplicada]
+            )
     return contagem
 
 

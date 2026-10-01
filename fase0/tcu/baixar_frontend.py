@@ -3,6 +3,7 @@
 Uso: .venv\\Scripts\\python fase0\\tcu\\baixar_frontend.py
 Salva tudo em fase0/tcu/respostas/frontend/.
 """
+
 import re
 import time
 from pathlib import Path

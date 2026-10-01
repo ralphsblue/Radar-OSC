@@ -9,13 +9,14 @@ Fontes:
 Cada chamada e salva em respostas/{fonte}_{caso}_{cnpj}.json com status HTTP,
 tempo em ms, headers relevantes e corpo bruto.
 """
+
 from __future__ import annotations
 
 import json
 import random
 import re
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import httpx
@@ -34,8 +35,20 @@ FONTES = {
 }
 
 # headers que interessam para cache, rate limit e diagnostico
-PREFIXOS_HEADERS = ("x-rate", "ratelimit", "retry", "content-type", "cache-control", "age",
-                    "x-vercel-cache", "cf-cache-status", "server", "via", "etag", "x-cache")
+PREFIXOS_HEADERS = (
+    "x-rate",
+    "ratelimit",
+    "retry",
+    "content-type",
+    "cache-control",
+    "age",
+    "x-vercel-cache",
+    "cf-cache-status",
+    "server",
+    "via",
+    "etag",
+    "x-cache",
+)
 
 # ---------------------------------------------------------------- DV (cap. 4 / apendice B)
 P1 = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]
@@ -79,7 +92,7 @@ def gerar_aleatorio(seed: int | None = None, ordem: str = "0001") -> str:
 def consultar(client: httpx.Client, fonte: str, cnpj: str, timeout: float = 30) -> dict:
     url = FONTES[fonte].format(cnpj=cnpj)
     t0 = time.perf_counter()
-    quando = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    quando = datetime.now(UTC).isoformat(timespec="seconds")
     try:
         r = client.get(url, headers=HEADERS, timeout=timeout)
         ms = round((time.perf_counter() - t0) * 1000)
@@ -88,12 +101,18 @@ def consultar(client: httpx.Client, fonte: str, cnpj: str, timeout: float = 30) 
         except ValueError:
             corpo = {"_texto_nao_json": r.text[:3000]}
         hdr = {k: v for k, v in r.headers.items() if k.lower().startswith(PREFIXOS_HEADERS)}
-        return {"fonte": fonte, "url": url, "consultado_em": quando, "http": r.status_code,
-                "ms": ms, "headers_relevantes": hdr, "corpo": corpo}
+        return {
+            "fonte": fonte,
+            "url": url,
+            "consultado_em": quando,
+            "http": r.status_code,
+            "ms": ms,
+            "headers_relevantes": hdr,
+            "corpo": corpo,
+        }
     except httpx.HTTPError as e:
         ms = round((time.perf_counter() - t0) * 1000)
-        return {"fonte": fonte, "url": url, "consultado_em": quando, "http": None,
-                "ms": ms, "erro": repr(e)}
+        return {"fonte": fonte, "url": url, "consultado_em": quando, "http": None, "ms": ms, "erro": repr(e)}
 
 
 def salvar(res: dict, caso: str, cnpj: str) -> Path:
@@ -113,5 +132,7 @@ def resumo(res: dict) -> str:
     nat = c.get("codigo_natureza_juridica", c.get("natureza_juridica"))
     sit = c.get("situacao_cadastral")
     mf = c.get("identificador_matriz_filial", c.get("matriz_filial"))
-    return (base + f" | {c.get('razao_social')} | nat={nat} sit={sit} mf={mf}"
-            f" inicio={c.get('data_inicio_atividade')} cnae={c.get('cnae_fiscal', c.get('cnae_principal'))}")
+    return (
+        base + f" | {c.get('razao_social')} | nat={nat} sit={sit} mf={mf}"
+        f" inicio={c.get('data_inicio_atividade')} cnae={c.get('cnae_fiscal', c.get('cnae_principal'))}"
+    )

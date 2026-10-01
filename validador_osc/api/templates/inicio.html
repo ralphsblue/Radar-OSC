@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<div class="pagina pagina--inicio">
+  <section class="apresentacao" aria-labelledby="titulo-consulta">
+    <h1 class="titulo" id="titulo-consulta">Consultar uma organização pelo CNPJ</h1>
+    <p class="lead">
+      Verifica em cadastros públicos se uma organização da sociedade civil atende aos requisitos objetivos
+      para firmar parceria com a administração pública.
+    </p>
+  </section>
+
+  <section class="cartao cartao--formulario" aria-label="Formulário de consulta">
+    {% include "parciais/formulario.html" %}
+  </section>
+
+  <div class="blocos">
+    <section class="bloco" aria-labelledby="verifica-titulo">
+      <h2 class="bloco__titulo" id="verifica-titulo">O que esta triagem verifica</h2>
+      <ul class="lista">
+        <li>Dígito verificador e situação cadastral na Receita Federal.</li>
+        <li>Natureza jurídica, atividade econômica (CNAE) e tempo de existência.</li>
+        <li>Sanções no CEPIM, no CEIS e no CNEP.</li>
+        <li>Licitantes inidôneos e contas irregulares no TCU e improbidade no CNJ.</li>
+        <li>Dirigentes sancionados, perfil no Mapa das OSCs e certificação CEBAS.</li>
+      </ul>
+      <p class="bloco__nota">Cada resultado mostra a fonte consultada e a data da informação.</p>
+    </section>
+    {% include "parciais/nao_verifica.html" %}
+  </div>
+</div>
+{% endblock %}

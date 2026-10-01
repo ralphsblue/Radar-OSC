@@ -24,9 +24,9 @@ import re
 import sys
 import unicodedata
 import zipfile
+from collections.abc import Iterator
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
-from typing import Iterator
 
 from lxml import etree, html
 
@@ -197,8 +197,10 @@ def area_do_orgao(categoria: str) -> str:
 def materia_relevante(m: Materia) -> bool:
     if TERMO_CEBAS.search(m.texto_html):
         return True
-    return area_do_orgao(m.categoria) != "OUTRA" and bool(TERMO_LEI.search(m.texto_html)) and bool(
-        achar_cnpjs(m.texto_html)
+    return (
+        area_do_orgao(m.categoria) != "OUTRA"
+        and bool(TERMO_LEI.search(m.texto_html))
+        and bool(achar_cnpjs(m.texto_html))
     )
 
 
@@ -220,8 +222,26 @@ def dividir_atos(m: Materia, pars: list[Paragrafo]) -> list[tuple[str, list[Para
 
 # ---------------------------------------------------------------- classificacao
 
-MESES = {m: i for i, m in enumerate(
-    "janeiro fevereiro marco abril maio junho julho agosto setembro outubro novembro dezembro".split(), 1)}
+MESES = {
+    m: i
+    for i, m in enumerate(
+        [
+            "janeiro",
+            "fevereiro",
+            "marco",
+            "abril",
+            "maio",
+            "junho",
+            "julho",
+            "agosto",
+            "setembro",
+            "outubro",
+            "novembro",
+            "dezembro",
+        ],
+        1,
+    )
+}
 
 
 def data_do_titulo(titulo: str) -> str:
@@ -258,8 +278,11 @@ def classificar(decisivo: str, contexto: str = "") -> tuple[str, str, str]:
         # LC 187/2021 art. 40 par. 1o: prorrogacao em lote da vigencia (ex.: Portaria SAES 179/2023)
         return "OUTRO", "S", "prorrogacao de vigencia"
     if "reconsidera" in d:
-        nega = re.search(r"\bnao se reconsidera|\bnao reconsidera|\bindefer\w*,? em grau de reconsidera"
-                         r"|\bmantid[oa] o indeferimento|\bindefer\w* o pedido de reconsidera", d)
+        nega = re.search(
+            r"\bnao se reconsidera|\bnao reconsidera|\bindefer\w*,? em grau de reconsidera"
+            r"|\bmantid[oa] o indeferimento|\bindefer\w* o pedido de reconsidera",
+            d,
+        )
         return "RECONSIDERACAO", "N" if nega else "S", "; ".join([objeto] + detalhes).strip("; ")
     m = re.search(r"determino a (renovacao|concessao)", d)
     if m:
@@ -280,7 +303,8 @@ def classificar(decisivo: str, contexto: str = "") -> tuple[str, str, str]:
 
 # Titulo de ato sem class="identifica" (ex.: 4a portaria da materia do MDS)
 TITULO_ATO = re.compile(
-    r"^(PORTARIA|DESPACHO|DECIS[ÃA]O|RESOLU[ÇC][ÃA]O)\b[^.]{0,60}\bDE\s+\d{1,2}º?\s+DE\s+\w+\s+DE\s+\d{4}\s*$", re.I
+    r"^(PORTARIA|DESPACHO|DECIS[ÃA]O|RESOLU[ÇC][ÃA]O)\b[^.]{0,60}\bDE\s+\d{1,2}º?\s+DE\s+\w+\s+DE\s+\d{4}\s*$",
+    re.I,
 )
 ITEM_LISTA = re.compile(r"^\s*(\d{1,4})\s*[\)\.\-–]\s*(?=\D)")
 PREPOSICOES = r"(?:da|do|de|ao|à|a|o)"
@@ -291,8 +315,11 @@ VERBO_DECISAO = re.compile(r"\b(defer|indefer|cancel|reconsider|arquiv|renova)",
 def nome_em_tabela(linha: str) -> str:
     """Linha de tabela 'c1 | c2 | ...': o nome e a celula textual mais longa."""
     candidatas = [
-        c for c in linha.split(" | ")
-        if re.search(r"[A-Za-zÀ-ú]{3}", c) and not achar_cnpjs(c) and not re.search(r"\d{2}/\d{2}/\d{4}|\bdias\b", c)
+        c
+        for c in linha.split(" | ")
+        if re.search(r"[A-Za-zÀ-ú]{3}", c)
+        and not achar_cnpjs(c)
+        and not re.search(r"\d{2}/\d{2}/\d{4}|\bdias\b", c)
     ]
     return max(candidatas, key=len, default="")
 
@@ -301,7 +328,10 @@ def nome_antes_do_cnpj(texto: str, ini: int) -> str:
     antes = texto[:ini]
     antes = re.sub(
         r"[,;.\s\-–]*(?:inscrit\w*\s+(?:no|sob\s+o)\s+)?(?:CNPJ)?(?:\s*/\s*MF)?\s*(?:sob\s+(?:o\s+)?)?(?:n[ºo°]\.?)?[\s.:]*$",
-        "", antes, flags=re.I)
+        "",
+        antes,
+        flags=re.I,
+    )
     padroes = [
         r"\(CEBAS\),?\s+(?:" + PREPOSICOES + r"\s+)?(?:entidade\s+)?(.+)$",
         r"Interessad[ao]s?:\s*(.+)$",
@@ -322,7 +352,7 @@ def nome_antes_do_cnpj(texto: str, ini: int) -> str:
 
 
 def municipio_uf(texto: str, fim_cnpj: int) -> str:
-    depois = texto[fim_cnpj:fim_cnpj + 120]
+    depois = texto[fim_cnpj : fim_cnpj + 120]
     m = re.match(r"\s*,\s*([^,/]{2,60}/[A-Z]{2})\b", depois)
     if m:
         return limpar(m.group(1))
@@ -356,7 +386,7 @@ def texto_decisivo(pars: list[Paragrafo]) -> str:
     for i, p in enumerate(pars):
         if p.texto.startswith("Decisão:") or p.texto.startswith("Decisao:"):
             # a decisao pode continuar no paragrafo seguinte (ex.: MEC "Determino a renovacao...")
-            resto = [q.texto for q in pars[i + 1:] if q.classe not in ("assina", "cargo")]
+            resto = [q.texto for q in pars[i + 1 :] if q.classe not in ("assina", "cargo")]
             return " ".join([p.texto] + resto)
     for p in pars:
         if re.match(r"Art\.\s*1", p.texto):
@@ -416,25 +446,42 @@ def extrair_ato(m: Materia, idx: int, titulo: str, pars: list[Paragrafo]) -> lis
         else:
             continue
         tipo, defer, det = classificar(regra)
-        saida.append(Decisao(
-            **base, cnpj=cnpj, cnpj_dv_ok="S" if dv_cnpj_ok(cnpj) else "N",
-            entidade=entidade, municipio_uf=mun,
-            tipo_ato=tipo, deferido=defer, detalhe=det, validade=validade(p.texto),
-            trecho=(regra[:160] + " [...] " + p.texto)[:700],
-        ))
+        saida.append(
+            Decisao(
+                **base,
+                cnpj=cnpj,
+                cnpj_dv_ok="S" if dv_cnpj_ok(cnpj) else "N",
+                entidade=entidade,
+                municipio_uf=mun,
+                tipo_ato=tipo,
+                deferido=defer,
+                detalhe=det,
+                validade=validade(p.texto),
+                trecho=(regra[:160] + " [...] " + p.texto)[:700],
+            )
+        )
     if saida:
         return saida
 
     # 2) Ato individual: uma decisao por CNPJ distinto (normalmente 1).
     decisivo = texto_decisivo(pars)
     tipo, defer, det = classificar(decisivo, assunto)
-    if tipo == "OUTRO" and not det and not re.search(
-        r"\b(defer|indefer|cancel|reconsider|renova|concess)", sem_acento(texto_ato)
+    if (
+        tipo == "OUTRO"
+        and not det
+        and not re.search(r"\b(defer|indefer|cancel|reconsider|renova|concess)", sem_acento(texto_ato))
     ):
         det = "sem decisao de certificacao (mencao incidental)"
     cnpjs = achar_cnpjs(texto_ato)
     vistos: set[str] = set()
-    corpo = next((p.texto for p in pars if re.match(r"Art\.\s*1|Interessad|Nome da entidade", p.texto) and achar_cnpjs(p.texto)), texto_ato)
+    corpo = next(
+        (
+            p.texto
+            for p in pars
+            if re.match(r"Art\.\s*1|Interessad|Nome da entidade", p.texto) and achar_cnpjs(p.texto)
+        ),
+        texto_ato,
+    )
     for cnpj, ini, fim in cnpjs or [("", -1, -1)]:
         if cnpj in vistos:
             continue
@@ -460,11 +507,20 @@ def extrair_ato(m: Materia, idx: int, titulo: str, pars: list[Paragrafo]) -> lis
         if m_uf and not mun:
             entidade, mun = entidade[: m_uf.start()], m_uf.group(1)
         incidental = det.startswith("sem decisao")
-        saida.append(Decisao(
-            **base, cnpj=cnpj, cnpj_dv_ok=("S" if dv_cnpj_ok(cnpj) else "N") if cnpj else "",
-            entidade=entidade, municipio_uf=mun, tipo_ato=tipo, deferido=defer, detalhe=det,
-            validade="" if incidental else validade(texto_ato), trecho=limpar(decisivo)[:700],
-        ))
+        saida.append(
+            Decisao(
+                **base,
+                cnpj=cnpj,
+                cnpj_dv_ok=("S" if dv_cnpj_ok(cnpj) else "N") if cnpj else "",
+                entidade=entidade,
+                municipio_uf=mun,
+                tipo_ato=tipo,
+                deferido=defer,
+                detalhe=det,
+                validade="" if incidental else validade(texto_ato),
+                trecho=limpar(decisivo)[:700],
+            )
+        )
     return saida
 
 

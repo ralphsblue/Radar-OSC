@@ -44,14 +44,24 @@ def main() -> None:
             if nat != "Associação Privada" or c.get("situacao_cadastral") != "Ativa":
                 (PASTA / f"opencnpj_{cnpj}.json").unlink()  # não guarda dados de empresas/MEI sem uso
                 continue
-            busca = baixar(cliente, f"https://mapaosc.ipea.gov.br/api/api/busca/cnpj/{cnpj.lstrip('0')}", PASTA / f"mapa_{cnpj}.json")
+            busca = baixar(
+                cliente,
+                f"https://mapaosc.ipea.gov.br/api/api/busca/cnpj/{cnpj.lstrip('0')}",
+                PASTA / f"mapa_{cnpj}.json",
+            )
             itens = busca["corpo"] if isinstance(busca["corpo"], list) else []
             if not any(str(i.get("cd_identificador_osc", "")).zfill(14) == cnpj for i in itens):
-                resumo["achado"] = {"cnpj": cnpj, "razao_social": c["razao_social"], "inicio": c.get("data_inicio_atividade"),
-                                    "cnae": c.get("cnae_principal")}
+                resumo["achado"] = {
+                    "cnpj": cnpj,
+                    "razao_social": c["razao_social"],
+                    "inicio": c.get("data_inicio_atividade"),
+                    "cnae": c.get("cnae_principal"),
+                }
                 print(f"  ACHADO: {cnpj} {c['razao_social']} {c.get('data_inicio_atividade')}")
                 break
-    (PASTA / f"_resumo_{SEMENTE}.json").write_text(json.dumps(resumo, ensure_ascii=False, indent=1), encoding="utf-8")
+    (PASTA / f"_resumo_{SEMENTE}.json").write_text(
+        json.dumps(resumo, ensure_ascii=False, indent=1), encoding="utf-8"
+    )
     print(json.dumps(resumo, ensure_ascii=False, indent=1))
 
 

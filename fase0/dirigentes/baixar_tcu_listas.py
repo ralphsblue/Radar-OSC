@@ -20,7 +20,7 @@ from __future__ import annotations
 
 import json
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from comum import DOWNLOADS, cliente, esperar
 
@@ -34,7 +34,7 @@ LISTAS = [
 
 def main() -> None:
     DOWNLOADS.mkdir(parents=True, exist_ok=True)
-    meta: dict = {"data_utc": datetime.now(timezone.utc).isoformat(), "chamadas": []}
+    meta: dict = {"data_utc": datetime.now(UTC).isoformat(), "chamadas": []}
     with cliente() as c:
         esperar()
         r = c.get(f"{BASE}/eleicoes/ultimoAno")
@@ -45,9 +45,7 @@ def main() -> None:
         meta["anosEleicao"] = anos
 
         for lista in LISTAS:
-            params = (
-                {"anoEleicao": ano} if lista == "responsaveis-fins-eleitorais" else {}
-            )
+            params = {"anoEleicao": ano} if lista == "responsaveis-fins-eleitorais" else {}
             # 1) endpoint oficial, JSON, lista inteira
             esperar()
             t0 = time.perf_counter()
@@ -94,9 +92,7 @@ def main() -> None:
             meta["chamadas"].append(reg)
             print(reg)
 
-    (DOWNLOADS / "tcu_meta.json").write_text(
-        json.dumps(meta, ensure_ascii=False, indent=1), encoding="utf-8"
-    )
+    (DOWNLOADS / "tcu_meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
 if __name__ == "__main__":

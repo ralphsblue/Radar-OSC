@@ -1140,4 +1140,3 @@ Ainda em aberto, sem bloquear o início:
 
 - [ORIENTADOR Q14 a Q24] Regras de interpretação da lei; até a resposta valem as recomendações da revisão como parâmetros de `dados/regras_orientador.json`, `natureza_juridica.json` e `regras_cnae.json`, sem mudar código.
 - [PENDENTE X17] Carga do DOU desde 12/2023 (antes de fechar os casos da fatia 6).
-

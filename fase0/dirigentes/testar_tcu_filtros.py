@@ -17,11 +17,7 @@ BASE = "https://certidoes.apps.tcu.gov.br/api/publico"
 
 
 def main() -> None:
-    itens = json.loads(
-        (DOWNLOADS / "tcu_responsaveis-contas-irregulares.json").read_text(
-            encoding="utf-8"
-        )
-    )
+    itens = json.loads((DOWNLOADS / "tcu_responsaveis-contas-irregulares.json").read_text(encoding="utf-8"))
     alvo = next(
         i
         for i in itens

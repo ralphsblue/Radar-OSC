@@ -117,11 +117,7 @@ def carregar_indice(hoje: date = date(2026, 10, 1)) -> Indice:
                     )
                 )
 
-    contas = json.loads(
-        (DOWNLOADS / "tcu_responsaveis-contas-irregulares.json").read_text(
-            encoding="utf-8"
-        )
-    )
+    contas = json.loads((DOWNLOADS / "tcu_responsaveis-contas-irregulares.json").read_text(encoding="utf-8"))
     for i in contas:
         cpf = digitos(i.get("numeroRegistro"))
         if i.get("tipoRegistro") != "CPF" or not cpf_valido(cpf):
@@ -145,9 +141,7 @@ def carregar_indice(hoje: date = date(2026, 10, 1)) -> Indice:
             )
         )
 
-    inab = json.loads(
-        (DOWNLOADS / "tcu_responsaveis-inabilitados.json").read_text(encoding="utf-8")
-    )
+    inab = json.loads((DOWNLOADS / "tcu_responsaveis-inabilitados.json").read_text(encoding="utf-8"))
     for i in inab:
         cpf = digitos(i.get("numeroRegistro"))
         if not cpf_valido(cpf):
@@ -199,9 +193,7 @@ class Achado:
     registro: Registro
 
 
-def casar(
-    ix: Indice, qsa: list[dict], cpfs_informados: dict[str, str] | None = None
-) -> list[Achado]:
+def casar(ix: Indice, qsa: list[dict], cpfs_informados: dict[str, str] | None = None) -> list[Achado]:
     """qsa: itens com nome_socio, cnpj_cpf_socio (***XXXXXX**), qualificacao_socio, data_entrada_sociedade.
     cpfs_informados: {nome_normalizado: cpf completo} informado pelo usuário (opcional)."""
     achados = []

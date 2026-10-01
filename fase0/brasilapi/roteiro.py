@@ -11,12 +11,12 @@ Uso:
 Respostas nao definitivas (5xx, timeout) sao arquivadas em respostas/falhas/ antes de
 serem sobrescritas, para documentar a instabilidade das fontes.
 """
+
 import argparse
 import json
 import time
 
 import httpx
-
 from comum import FONTES, OUT, consultar, gerar_aleatorio, resumo, salvar, valida
 
 # T3: raiz aleatoria (semente fixa para reprodutibilidade) + 0001 + DVs (cap. 4)
@@ -31,7 +31,11 @@ CASOS = [
     ("T3b", "19131243000198", "DV invalido (a API valida DV?)"),
     ("T4", "08942107000160", "Associacao BAIXADA"),
     ("T5", "12ABC34501DE35", "Alfanumerico (exemplo oficial da Receita)"),
-    ("T5r", "00000000E08G12", "Alfanumerico REAL: filial do Banco do Brasil, primeiro CNPJ alfanumerico (31/07/2026)"),
+    (
+        "T5r",
+        "00000000E08G12",
+        "Alfanumerico REAL: filial do Banco do Brasil, primeiro CNPJ alfanumerico (31/07/2026)",
+    ),
     ("T7", "62779145000270", "Filial ATIVA da Santa Casa de SP"),
     ("T7m", "62779145000190", "Matriz da Santa Casa de SP (raiz + 0001 da filial T7)"),
     ("T7b", "04955882000523", "Filial BAIXADA de associacao com matriz ativa (Instituto GRPCOM)"),
@@ -85,7 +89,8 @@ with httpx.Client() as client:
                 carimbo = res["consultado_em"].replace(":", "").replace("+0000", "Z")
                 (FALHAS / f"{p.stem}_{carimbo}.json").write_text(
                     json.dumps({"caso": caso, "cnpj_consultado": cnpj, **res}, ensure_ascii=False, indent=2),
-                    encoding="utf-8")
+                    encoding="utf-8",
+                )
             else:
                 salvar(res, caso, cnpj)
             print("   ", resumo(res), flush=True)

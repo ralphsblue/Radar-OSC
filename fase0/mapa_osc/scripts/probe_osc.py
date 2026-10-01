@@ -2,7 +2,15 @@
 Uso: python probe_osc.py CNPJ [prefixo_saida]
 Base: https://mapaosc.ipea.gov.br/api/api/ (rotas em Plataformas-Cidadania/mapa-osc-api, routes/web.php)
 """
-import sys, time, json, hashlib, pathlib, datetime, httpx
+
+import datetime
+import hashlib
+import json
+import pathlib
+import sys
+import time
+
+import httpx
 
 UA = "validador-osc-ifsp/0.1 (projeto academico de extensao)"
 BASE = "https://mapaosc.ipea.gov.br/api/api/"
@@ -10,8 +18,11 @@ OUT = pathlib.Path(__file__).resolve().parent.parent / "respostas"
 cnpj = "".join(c for c in sys.argv[1] if c.isalnum())
 prefixo = sys.argv[2] if len(sys.argv) > 2 else cnpj
 
-cli = httpx.Client(headers={"User-Agent": UA, "Accept": "application/json"}, timeout=40, follow_redirects=True)
+cli = httpx.Client(
+    headers={"User-Agent": UA, "Accept": "application/json"}, timeout=40, follow_redirects=True
+)
 log = []
+
 
 def get(path, nome, params=None):
     time.sleep(1.5)
@@ -24,14 +35,23 @@ def get(path, nome, params=None):
         return None
     dt = time.time() - t0
     (OUT / f"{prefixo}_{nome}.json").write_bytes(r.content)
-    log.append({"path": path, "params": params, "status": r.status_code, "tempo_s": round(dt, 2),
-                "bytes": len(r.content), "sha256": hashlib.sha256(r.content).hexdigest(),
-                "data": datetime.datetime.now().isoformat(timespec="seconds")})
+    log.append(
+        {
+            "path": path,
+            "params": params,
+            "status": r.status_code,
+            "tempo_s": round(dt, 2),
+            "bytes": len(r.content),
+            "sha256": hashlib.sha256(r.content).hexdigest(),
+            "data": datetime.datetime.now().isoformat(timespec="seconds"),
+        }
+    )
     print(f"{r.status_code} {dt:5.2f}s {len(r.content):7d}B {path}")
     try:
         return r.json()
     except Exception:
         return None
+
 
 # 1) CNPJ -> id_osc (rota usada pelo front na busca da home)
 busca = get("busca/osc-autocomplete", "busca", {"texto_busca": cnpj})
@@ -64,4 +84,7 @@ else:
     ]:
         get(path, nome)
 
-(OUT / f"{prefixo}__log.json").write_text(json.dumps({"cnpj": cnpj, "id_osc": id_osc, "chamadas": log}, indent=1, ensure_ascii=False), encoding="utf-8")
+(OUT / f"{prefixo}__log.json").write_text(
+    json.dumps({"cnpj": cnpj, "id_osc": id_osc, "chamadas": log}, indent=1, ensure_ascii=False),
+    encoding="utf-8",
+)

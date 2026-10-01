@@ -18,7 +18,7 @@ import json
 import re
 import sys
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import httpx
@@ -27,7 +27,8 @@ UA = "validador-osc-ifsp/0.1 (projeto academico de extensao)"
 URL = "https://www.in.gov.br/consulta/-/buscar/dou"
 PAUSA_S = 2.0
 RE_JSON = re.compile(
-    r'<script id="_br_com_seatecnologia_in_buscadou_BuscaDouPortlet_params" type="application/json">(.*?)</script>', re.S
+    r'<script id="_br_com_seatecnologia_in_buscadou_BuscaDouPortlet_params" type="application/json">(.*?)</script>',
+    re.S,
 )
 RE_TOTAL = re.compile(r"Exibindo\s+\d+\s*-\s*\d+\s+de\s+([\d.]+)\s+resultados")
 RE_PAGINAS = re.compile(r"totalPages\s*:\s*(\d+)")
@@ -46,7 +47,13 @@ def buscar(
     max_paginas: int = 20,
     salvar_em: Path | None = None,
 ) -> tuple[list[dict], int]:
-    params: dict = {"q": q, "s": secao, "exactDate": "personalizado" if de else "all", "sortType": "0", "delta": delta}
+    params: dict = {
+        "q": q,
+        "s": secao,
+        "exactDate": "personalizado" if de else "all",
+        "sortType": "0",
+        "delta": delta,
+    }
     if de:
         params.update(publishFrom=de, publishTo=ate or de)
     itens: list[dict] = []
@@ -71,8 +78,11 @@ def buscar(
                 break
             ultimo = lote[-1]
             params.update(
-                currentPage=pagina, newPage=pagina + 1, score=ultimo["score"],
-                id=ultimo["classPK"], displayDate=ultimo["displayDateSortable"],
+                currentPage=pagina,
+                newPage=pagina + 1,
+                score=ultimo["score"],
+                id=ultimo["classPK"],
+                displayDate=ultimo["displayDateSortable"],
             )
             pagina += 1
             time.sleep(PAUSA_S)
@@ -88,11 +98,22 @@ def main() -> None:
     itens, total = buscar(q, secao, de, ate)
     out = {
         "consulta": {"q": q, "s": secao, "de": de, "ate": ate},
-        "consultado_em": datetime.now(timezone.utc).isoformat(),
+        "consultado_em": datetime.now(UTC).isoformat(),
         "duracao_s": round(time.perf_counter() - t0, 2),
         "total_informado": total,
         "itens": [
-            {k: it.get(k) for k in ("pubDate", "pubName", "title", "hierarchyStr", "artType", "numberPage", "editionNumber")}
+            {
+                k: it.get(k)
+                for k in (
+                    "pubDate",
+                    "pubName",
+                    "title",
+                    "hierarchyStr",
+                    "artType",
+                    "numberPage",
+                    "editionNumber",
+                )
+            }
             | {"url": url_ato(it), "content": re.sub(r"<[^>]+>", "", it.get("content", ""))}
             for it in itens
         ],

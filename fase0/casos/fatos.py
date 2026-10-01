@@ -47,7 +47,9 @@ def _data(s: str | None) -> date | None:
 
 
 def _sem_acento(s: str) -> str:
-    return "".join(c for c in unicodedata.normalize("NFD", s) if unicodedata.category(c) != "Mn").upper().strip()
+    return (
+        "".join(c for c in unicodedata.normalize("NFD", s) if unicodedata.category(c) != "Mn").upper().strip()
+    )
 
 
 def cadastro(cnpj: str) -> dict | None:
@@ -70,7 +72,9 @@ def cadastro(cnpj: str) -> dict | None:
         "situacao_texto": c.get("situacao_cadastral"),
         "situacao": SITUACAO_TEXTO_CODIGO.get(str(c.get("situacao_cadastral", "")).lower()),
         "data_situacao": c.get("data_situacao_cadastral") or None,
-        "motivo": (c.get("motivo_situacao_cadastral") or {}).get("descricao") if isinstance(c.get("motivo_situacao_cadastral"), dict) else c.get("motivo_situacao_cadastral"),
+        "motivo": (c.get("motivo_situacao_cadastral") or {}).get("descricao")
+        if isinstance(c.get("motivo_situacao_cadastral"), dict)
+        else c.get("motivo_situacao_cadastral"),
         "matriz": c.get("matriz_filial") == "Matriz",
         "natureza_texto": nat_txt,
         "natureza": NATUREZA_TEXTO_CODIGO.get(nat_txt.lower()),
@@ -78,7 +82,12 @@ def cadastro(cnpj: str) -> dict | None:
         "cnaes_secundarios": [s for s in (c.get("cnaes_secundarios") or []) if s and s.strip("0")],
         "inicio": c.get("data_inicio_atividade"),
         "qsa": [
-            {"nome": q.get("nome_socio"), "doc": q.get("cnpj_cpf_socio"), "tipo": q.get("identificador_socio"), "qualificacao": q.get("qualificacao_socio")}
+            {
+                "nome": q.get("nome_socio"),
+                "doc": q.get("cnpj_cpf_socio"),
+                "tipo": q.get("identificador_socio"),
+                "qualificacao": q.get("qualificacao_socio"),
+            }
             for q in (c.get("QSA") or [])
         ],
     }
@@ -99,7 +108,10 @@ def tcu(cnpj: str) -> dict | None:
     return {
         "encontrado": c.get("seCnpjEncontradoNaBaseTcu"),
         "razao_social": c.get("razaoSocial"),
-        "certidoes": {x["tipo"]: {"situacao": x["situacao"], "observacao": x.get("observacao")} for x in c.get("certidoes", [])},
+        "certidoes": {
+            x["tipo"]: {"situacao": x["situacao"], "observacao": x.get("observacao")}
+            for x in c.get("certidoes", [])
+        },
     }
 
 
@@ -135,7 +147,9 @@ def _perfil_preenchido(cnpj: str) -> list[str]:
             if secao == "mapa_descricao" and chave.startswith("tx_"):
                 campos.append(chave)  # seção só existe por autodeclaração (ficha do Mapa)
                 continue
-            fonte = corpo.get("ft_" + chave.removeprefix("tx_").removeprefix("dt_").removeprefix("nr_").removeprefix("cd_")) or corpo.get("ft_" + chave)
+            fonte = corpo.get(
+                "ft_" + chave.removeprefix("tx_").removeprefix("dt_").removeprefix("nr_").removeprefix("cd_")
+            ) or corpo.get("ft_" + chave)
             if fonte == "Representante de OSC":
                 campos.append(chave)
     return sorted(set(campos))
@@ -143,11 +157,19 @@ def _perfil_preenchido(cnpj: str) -> list[str]:
 
 # ---------------------------------------------------------------- CEBAS (D16)
 
+
 @lru_cache(maxsize=1)
 def _siscebas() -> dict[str, dict]:
     import xlrd
 
-    arq = RAIZ / "fase0" / "cebas_dou" / "downloads" / "bases_abertas" / "siscebas_saude_20260930_ListaEntidadeSituacaoAtual.xls"
+    arq = (
+        RAIZ
+        / "fase0"
+        / "cebas_dou"
+        / "downloads"
+        / "bases_abertas"
+        / "siscebas_saude_20260930_ListaEntidadeSituacaoAtual.xls"
+    )
     planilha = xlrd.open_workbook(arq, ignore_workbook_corruption=True).sheet_by_index(0)
     cab = [_sem_acento(str(h)) for h in planilha.row_values(0)]
     linhas: dict[str, dict] = {}
@@ -178,7 +200,9 @@ def _xlsx_cnpjs(nome: str) -> dict[str, list[str]]:
         compartilhadas = []
         if "xl/sharedStrings.xml" in z.namelist():
             raiz = ET.fromstring(z.read("xl/sharedStrings.xml"))
-            compartilhadas = ["".join(t.text or "" for t in si.iter(f"{{{ns['m']}}}t")) for si in raiz.findall("m:si", ns)]
+            compartilhadas = [
+                "".join(t.text or "" for t in si.iter(f"{{{ns['m']}}}t")) for si in raiz.findall("m:si", ns)
+            ]
         resultado: dict[str, list[str]] = {}
         for folha in [n for n in z.namelist() if n.startswith("xl/worksheets/sheet")]:
             raiz = ET.fromstring(z.read(folha))
@@ -204,14 +228,38 @@ def cebas(cnpj: str) -> dict:
     s = _siscebas().get(cnpj)
     sis = None
     if s:
-        sis = {k: s.get(k) for k in ("NOME", "ASSUNTO", "TIPO DE DECISAO", "NUMERO DA PORTARIA", "DATA DA PUBLICACAO",
-                                      "DATA DE INICIO DA VIGENCIA", "DATA FINAL DA VIGENCIA", "CEBAS", "SITUACAO ATUAL", "DATA ATUALIZACAO")}
+        sis = {
+            k: s.get(k)
+            for k in (
+                "NOME",
+                "ASSUNTO",
+                "TIPO DE DECISAO",
+                "NUMERO DA PORTARIA",
+                "DATA DA PUBLICACAO",
+                "DATA DE INICIO DA VIGENCIA",
+                "DATA FINAL DA VIGENCIA",
+                "CEBAS",
+                "SITUACAO ATUAL",
+                "DATA ATUALIZACAO",
+            )
+        }
     planilhas = {area: linhas.get(cnpj, []) for area, linhas in _planilhas_mapa().items()}
-    dou = [{k: d.get(k) for k in ("tipo_ato", "deferido", "area", "data_publicacao", "identificacao_ato", "validade")} for d in _dou().get(cnpj, [])]
-    return {"siscebas_saude": sis, "planilhas_mapa": {k: v for k, v in planilhas.items() if v}, "dou_jun_ago_2026": dou}
+    dou = [
+        {
+            k: d.get(k)
+            for k in ("tipo_ato", "deferido", "area", "data_publicacao", "identificacao_ato", "validade")
+        }
+        for d in _dou().get(cnpj, [])
+    ]
+    return {
+        "siscebas_saude": sis,
+        "planilhas_mapa": {k: v for k, v in planilhas.items() if v},
+        "dou_jun_ago_2026": dou,
+    }
 
 
 # ------------------------------------------------------ dirigentes (D15)
+
 
 @lru_cache(maxsize=1)
 def _pessoas_sancionadas() -> dict[str, list[dict]]:
@@ -221,15 +269,25 @@ def _pessoas_sancionadas() -> dict[str, list[dict]]:
         arq = RAIZ / "fase0" / "portal" / "downloads" / cad
         linhas = csv.reader(arq.open(encoding="latin1"), delimiter=";")
         cab = next(linhas)
-        i_tipo, i_doc, i_nome = cab.index("TIPO DE PESSOA"), cab.index("CPF OU CNPJ DO SANCIONADO"), cab.index("NOME DO SANCIONADO")
+        i_tipo, i_doc, i_nome = (
+            cab.index("TIPO DE PESSOA"),
+            cab.index("CPF OU CNPJ DO SANCIONADO"),
+            cab.index("NOME DO SANCIONADO"),
+        )
         i_ini, i_fim = cab.index("DATA INÍCIO SANÇÃO"), cab.index("DATA FINAL SANÇÃO")
         i_cat, i_proc = cab.index("CATEGORIA DA SANÇÃO"), cab.index("NÚMERO DO PROCESSO")
         for x in linhas:
             if x[i_tipo] != "F":
                 continue
             por_nome.setdefault(_sem_acento(x[i_nome]), []).append(
-                {"cadastro": cad[9:13], "cpf_meio": x[i_doc][3:9], "inicio": x[i_ini], "fim": x[i_fim],
-                 "categoria": x[i_cat], "processo": x[i_proc]}
+                {
+                    "cadastro": cad[9:13],
+                    "cpf_meio": x[i_doc][3:9],
+                    "inicio": x[i_ini],
+                    "fim": x[i_fim],
+                    "categoria": x[i_cat],
+                    "processo": x[i_proc],
+                }
             )
     return por_nome
 
@@ -269,7 +327,14 @@ def sancoes_csv(cadastro: str) -> dict[str, list[dict]]:
             doc = _so_digitos(x[0])
             if len(doc) == 14:
                 por_raiz.setdefault(doc[:8], []).append(
-                    {"cnpj_registro": doc, "nome_entidade": x[1], "numero_convenio": x[2], "orgao_concedente": x[3], "motivo": x[4], "fontes": ["csv"]}
+                    {
+                        "cnpj_registro": doc,
+                        "nome_entidade": x[1],
+                        "numero_convenio": x[2],
+                        "orgao_concedente": x[3],
+                        "motivo": x[4],
+                        "fontes": ["csv"],
+                    }
                 )
         return por_raiz
     i = {n: cab.index(n) for n in cab}
@@ -277,20 +342,22 @@ def sancoes_csv(cadastro: str) -> dict[str, list[dict]]:
         doc = _so_digitos(x[i["CPF OU CNPJ DO SANCIONADO"]])
         if len(doc) != 14 or x[i["TIPO DE PESSOA"]] == "F":
             continue
-        por_raiz.setdefault(doc[:8], []).append({
-            "cnpj_registro": doc,
-            "codigo": x[i["CÓDIGO DA SANÇÃO"]],
-            "categoria": x[i["CATEGORIA DA SANÇÃO"]],
-            "data_inicio": x[i["DATA INÍCIO SANÇÃO"]],
-            "data_final": x[i["DATA FINAL SANÇÃO"]],
-            "orgao_sancionador": x[i["ÓRGÃO SANCIONADOR"]],
-            "esfera_orgao_sancionador": x[i["ESFERA ÓRGÃO SANCIONADOR"]],
-            "abrangencia": x[i["ABRAGÊNCIA DA SANÇÃO"]],
-            "numero_processo": x[i["NÚMERO DO PROCESSO"]],
-            "origem_informacoes": x[i["ORIGEM INFORMAÇÕES"]],
-            "valor_multa": x[i["VALOR DA MULTA"]] if "VALOR DA MULTA" in i else None,
-            "fontes": ["csv"],
-        })
+        por_raiz.setdefault(doc[:8], []).append(
+            {
+                "cnpj_registro": doc,
+                "codigo": x[i["CÓDIGO DA SANÇÃO"]],
+                "categoria": x[i["CATEGORIA DA SANÇÃO"]],
+                "data_inicio": x[i["DATA INÍCIO SANÇÃO"]],
+                "data_final": x[i["DATA FINAL SANÇÃO"]],
+                "orgao_sancionador": x[i["ÓRGÃO SANCIONADOR"]],
+                "esfera_orgao_sancionador": x[i["ESFERA ÓRGÃO SANCIONADOR"]],
+                "abrangencia": x[i["ABRAGÊNCIA DA SANÇÃO"]],
+                "numero_processo": x[i["NÚMERO DO PROCESSO"]],
+                "origem_informacoes": x[i["ORIGEM INFORMAÇÕES"]],
+                "valor_multa": x[i["VALOR DA MULTA"]] if "VALOR DA MULTA" in i else None,
+                "fontes": ["csv"],
+            }
+        )
     return por_raiz
 
 
@@ -299,7 +366,11 @@ def _csv_tcu(arq) -> list[dict]:
     if texto and texto[0].startswith("sep="):
         texto = texto[1:]
     cab = [c.strip() for c in texto[0].split("|")]
-    return [dict(zip(cab, (v.strip().strip("'") for v in linha.split("|")))) for linha in texto[1:] if linha.strip()]
+    return [
+        dict(zip(cab, (v.strip().strip("'") for v in linha.split("|"))))
+        for linha in texto[1:]
+        if linha.strip()
+    ]
 
 
 @lru_cache(maxsize=1)
@@ -309,10 +380,17 @@ def inidoneos_csv() -> dict[str, list[dict]]:
     for r in _csv_tcu(RAIZ / "fase0" / "tcu" / "respostas" / "inidoneos_lista_completa.csv"):
         doc = _so_digitos(r.get("CPF/CNPJ"))
         if len(doc) == 14:
-            por_raiz.setdefault(doc[:8], []).append({
-                "cnpj_registro": doc, "nome": r.get("Nome"), "processo": r.get("Processo"), "acordao": r.get("Acórdão"),
-                "data_acordao": r.get("Data do acórdão"), "transito": r.get("Trânsito em julgado"), "data_final": r.get("Data final da sanção"),
-            })
+            por_raiz.setdefault(doc[:8], []).append(
+                {
+                    "cnpj_registro": doc,
+                    "nome": r.get("Nome"),
+                    "processo": r.get("Processo"),
+                    "acordao": r.get("Acórdão"),
+                    "data_acordao": r.get("Data do acórdão"),
+                    "transito": r.get("Trânsito em julgado"),
+                    "data_final": r.get("Data final da sanção"),
+                }
+            )
     return por_raiz
 
 
@@ -320,11 +398,18 @@ def inidoneos_csv() -> dict[str, list[dict]]:
 def contas_irregulares_csv() -> dict[str, list[dict]]:
     """Lista de responsáveis com contas julgadas irregulares do TCU (Q21): raiz -> registros de PJ."""
     por_raiz: dict[str, list[dict]] = {}
-    for r in _csv_tcu(RAIZ / "fase0" / "dirigentes" / "downloads" / "tcu_responsaveis-contas-irregulares.csv"):
+    for r in _csv_tcu(
+        RAIZ / "fase0" / "dirigentes" / "downloads" / "tcu_responsaveis-contas-irregulares.csv"
+    ):
         doc = _so_digitos(r.get("CPF/CNPJ"))
         if len(doc) == 14:
             por_raiz.setdefault(doc[:8], []).append(
-                {"cnpj_registro": doc, "nome": r.get("Nome"), "processo": r.get("Processo"), "transito": r.get("Trânsito em julgado")}
+                {
+                    "cnpj_registro": doc,
+                    "nome": r.get("Nome"),
+                    "processo": r.get("Processo"),
+                    "transito": r.get("Trânsito em julgado"),
+                }
             )
     return por_raiz
 
@@ -338,7 +423,11 @@ def dirigentes(qsa: list[dict]) -> dict:
         for r in _pessoas_sancionadas().get(_sem_acento(q["nome"]), []):
             alvo = {"nome": q["nome"], "qualificacao": q.get("qualificacao"), **r}
             (fortes if meio and meio == r["cpf_meio"] else so_nome).append(alvo)
-    return {"pf_no_qsa": sum(1 for q in qsa if q.get("tipo") == "Pessoa Física"), "fortes": fortes, "so_nome": so_nome}
+    return {
+        "pf_no_qsa": sum(1 for q in qsa if q.get("tipo") == "Pessoa Física"),
+        "fortes": fortes,
+        "so_nome": so_nome,
+    }
 
 
 def tudo(cnpj: str) -> dict:

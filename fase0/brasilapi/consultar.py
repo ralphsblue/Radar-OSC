@@ -6,11 +6,11 @@ Uso:
 Exemplo:
     python consultar.py T1 19131243000197
 """
+
 import argparse
 import time
 
 import httpx
-
 from comum import FONTES, consultar, resumo, salvar
 
 ap = argparse.ArgumentParser()

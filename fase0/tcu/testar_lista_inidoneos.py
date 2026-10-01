@@ -11,12 +11,13 @@ exige token ALTCHA ("captcha") e NAO e chamada aqui.
 
 Uso: .venv\\Scripts\\python fase0\\tcu\\testar_lista_inidoneos.py [cnpj ...]
 """
+
 import hashlib
 import json
 import re
 import sys
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import httpx
@@ -37,12 +38,14 @@ def salvar(nome: str, ext: str, r: httpx.Response, segundos: float, corpo_enviad
         "status": r.status_code,
         "headers_resposta": dict(r.headers),
         "tempo_s": round(segundos, 3),
-        "data_utc": datetime.now(timezone.utc).isoformat(),
+        "data_utc": datetime.now(UTC).isoformat(),
         "sha256": hashlib.sha256(corpo).hexdigest(),
     }
     (OUT / f"{nome}.{ext}").write_bytes(corpo)
     (OUT / f"{nome}.meta.json").write_text(json.dumps(meta, indent=2, ensure_ascii=False), encoding="utf-8")
-    print(f"{r.status_code} {segundos:.2f}s {r.request.method} {r.request.url} -> {nome}.{ext} ({len(corpo)} bytes)")
+    print(
+        f"{r.status_code} {segundos:.2f}s {r.request.method} {r.request.url} -> {nome}.{ext} ({len(corpo)} bytes)"
+    )
 
 
 def post(c: httpx.Client, nome: str, ext: str, path: str, corpo: dict) -> httpx.Response:
@@ -55,17 +58,36 @@ def post(c: httpx.Client, nome: str, ext: str, path: str, corpo: dict) -> httpx.
 
 def main(cnpjs: list[str]) -> None:
     with httpx.Client(headers={"User-Agent": UA, "Accept": "application/json"}, timeout=120) as c:
-        post(c, "inidoneos_lista_pagina1", "json",
-             "/api/publico/responsaveis-inidoneos-com-paginacao?paginaAtual=1&tamanhoPagina=10", {})
+        post(
+            c,
+            "inidoneos_lista_pagina1",
+            "json",
+            "/api/publico/responsaveis-inidoneos-com-paginacao?paginaAtual=1&tamanhoPagina=10",
+            {},
+        )
         for cnpj in cnpjs:
             # Endpoint documentado oficialmente em https://sites.tcu.gov.br/dados-abertos/webservices-tcu/
-            post(c, f"inidoneos_oficial_cnpj_{re.sub(r'\W', '_', cnpj)}", "json",
-                 "/api/publico/responsaveis-inidoneos", {"cnpj": cnpj})
-            post(c, f"inidoneos_lista_cnpj_{re.sub(r'\W', '_', cnpj)}", "json",
-                 "/api/publico/responsaveis-inidoneos-com-paginacao?paginaAtual=1&tamanhoPagina=50",
-                 {"cnpj": cnpj})
-        post(c, "inidoneos_lista_completa", "csv",
-             "/api/publico/responsaveis-inidoneos/exportar-para-csv?paginaAtual=1&tamanhoPagina=50000", {})
+            post(
+                c,
+                f"inidoneos_oficial_cnpj_{re.sub(r'\W', '_', cnpj)}",
+                "json",
+                "/api/publico/responsaveis-inidoneos",
+                {"cnpj": cnpj},
+            )
+            post(
+                c,
+                f"inidoneos_lista_cnpj_{re.sub(r'\W', '_', cnpj)}",
+                "json",
+                "/api/publico/responsaveis-inidoneos-com-paginacao?paginaAtual=1&tamanhoPagina=50",
+                {"cnpj": cnpj},
+            )
+        post(
+            c,
+            "inidoneos_lista_completa",
+            "csv",
+            "/api/publico/responsaveis-inidoneos/exportar-para-csv?paginaAtual=1&tamanhoPagina=50000",
+            {},
+        )
 
 
 if __name__ == "__main__":

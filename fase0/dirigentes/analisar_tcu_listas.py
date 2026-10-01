@@ -134,29 +134,21 @@ def main() -> None:
     # sobreposição entre listas (por CPF), só contagens
     conjuntos = {}
     for lista in LISTAS:
-        itens = json.loads(
-            (DOWNLOADS / f"tcu_{lista}.json").read_text(encoding="utf-8")
-        )
+        itens = json.loads((DOWNLOADS / f"tcu_{lista}.json").read_text(encoding="utf-8"))
         conjuntos[lista] = {
-            digitos(i.get("numeroRegistro"))
-            for i in itens
-            if len(digitos(i.get("numeroRegistro"))) == 11
+            digitos(i.get("numeroRegistro")) for i in itens if len(digitos(i.get("numeroRegistro"))) == 11
         }
     saida["sobreposicao_cpf"] = {
         "fins_eleitorais_dentro_de_contas_irregulares": len(
-            conjuntos["responsaveis-fins-eleitorais"]
-            & conjuntos["responsaveis-contas-irregulares"]
+            conjuntos["responsaveis-fins-eleitorais"] & conjuntos["responsaveis-contas-irregulares"]
         ),
         "fins_eleitorais_total": len(conjuntos["responsaveis-fins-eleitorais"]),
         "inabilitados_dentro_de_contas_irregulares": len(
-            conjuntos["responsaveis-inabilitados"]
-            & conjuntos["responsaveis-contas-irregulares"]
+            conjuntos["responsaveis-inabilitados"] & conjuntos["responsaveis-contas-irregulares"]
         ),
         "inabilitados_total": len(conjuntos["responsaveis-inabilitados"]),
     }
-    (PASTA / "analise_tcu.json").write_text(
-        json.dumps(saida, ensure_ascii=False, indent=1), encoding="utf-8"
-    )
+    (PASTA / "analise_tcu.json").write_text(json.dumps(saida, ensure_ascii=False, indent=1), encoding="utf-8")
     print(json.dumps(saida, ensure_ascii=False, indent=1))
 
 

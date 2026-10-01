@@ -37,17 +37,10 @@ def perfil(nome: str) -> tuple[dict, set[str]]:
         fim = data_br(x["DATA FINAL SANÇÃO"])
         vig.append(fim is None or fim >= HOJE)
     origem = collections.Counter(x["ORIGEM INFORMAÇÕES"] for x in pf)
-    origem_vig = collections.Counter(
-        x["ORIGEM INFORMAÇÕES"] for x, v in zip(pf, vig) if v
-    )
+    origem_vig = collections.Counter(x["ORIGEM INFORMAÇÕES"] for x, v in zip(pf, vig) if v)
     categoria = collections.Counter(x["CATEGORIA DA SANÇÃO"] for x in pf)
-    categoria_vig = collections.Counter(
-        x["CATEGORIA DA SANÇÃO"] for x, v in zip(pf, vig) if v
-    )
-    fund_improb = sum(
-        "8.429" in x["FUNDAMENTAÇÃO LEGAL"] or "8429" in x["FUNDAMENTAÇÃO LEGAL"]
-        for x in pf
-    )
+    categoria_vig = collections.Counter(x["CATEGORIA DA SANÇÃO"] for x, v in zip(pf, vig) if v)
+    fund_improb = sum("8.429" in x["FUNDAMENTAÇÃO LEGAL"] or "8429" in x["FUNDAMENTAÇÃO LEGAL"] for x in pf)
     chave = collections.defaultdict(set)
     for x, d in zip(pf, docs):
         chave[(normalizar_nome(x["NOME DO SANCIONADO"]), d[3:9])].add(d)
@@ -87,9 +80,7 @@ def main() -> None:
         if arq.exists():
             itens = json.loads(arq.read_text(encoding="utf-8"))
             tcu[lista] = {
-                digitos(i.get("numeroRegistro"))
-                for i in itens
-                if len(digitos(i.get("numeroRegistro"))) == 11
+                digitos(i.get("numeroRegistro")) for i in itens if len(digitos(i.get("numeroRegistro"))) == 11
             }
     saida["sobreposicao_cpf_com_tcu"] = {
         lista: {

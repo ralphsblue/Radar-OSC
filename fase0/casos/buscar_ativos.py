@@ -33,17 +33,49 @@ ELEGIVEIS = {3999, 3069, 3220}
 ALVO = 2
 MAX_OPENCNPJ_POR_CATEGORIA = 40
 MAX_TCU = 50  # 60 no total menos as consultas já feitas em buscar_cnia.py
-OSC = ("ASSOC", "INSTITUTO", "FUNDA", "SOCIEDADE", "CENTRO", "IGREJA", "CLUBE", "ONG", "MOVIMENTO", "OBRA", "LAR ", "CASA", "HOSPITAL", "SANTA CASA", "IRMANDADE", "GRUPO", "UNIAO", "FEDERA", "CONSELHO")
+OSC = (
+    "ASSOC",
+    "INSTITUTO",
+    "FUNDA",
+    "SOCIEDADE",
+    "CENTRO",
+    "IGREJA",
+    "CLUBE",
+    "ONG",
+    "MOVIMENTO",
+    "OBRA",
+    "LAR ",
+    "CASA",
+    "HOSPITAL",
+    "SANTA CASA",
+    "IRMANDADE",
+    "GRUPO",
+    "UNIAO",
+    "FEDERA",
+    "CONSELHO",
+)
 NAO_OSC = ("LTDA", "EIRELI", "ADVOGADOS", "COMERCIO", "S/A", "S.A", " ME", "EPP", "ENGENHARIA", "CONSTRU")
-JA_USADOS = {"14112015000156", "00688001000170", "06287661000126", "02393242000118", "03126200000183", "07408449000132",
-             "09058351000128", "08928169000118", "03463763000167", "43337682000135", "53524534000183", "21145289000107",
-             "25705450000100"}
+JA_USADOS = {
+    "14112015000156",
+    "00688001000170",
+    "06287661000126",
+    "02393242000118",
+    "03126200000183",
+    "07408449000132",
+    "09058351000128",
+    "08928169000118",
+    "03463763000167",
+    "43337682000135",
+    "53524534000183",
+    "21145289000107",
+    "25705450000100",
+}
 
 
 def _d(s: str) -> date | None:
     try:
         return date(int(s[6:10]), int(s[3:5]), int(s[:2])) if s else None
-    except (ValueError, IndexError):
+    except ValueError, IndexError:
         return None
 
 
@@ -59,7 +91,9 @@ def _ler(cad: str) -> list[dict]:
 
 def candidatos() -> dict[str, list[str]]:
     ceis, cnep, cepim = _ler("CEIS"), _ler("CNEP"), _ler("CEPIM")
-    pj = lambda linhas: [x for x in linhas if x["TIPO DE PESSOA"] == "J" and _parece_osc(x["NOME DO SANCIONADO"])]
+    pj = lambda linhas: [
+        x for x in linhas if x["TIPO DE PESSOA"] == "J" and _parece_osc(x["NOME DO SANCIONADO"])
+    ]
     ceis_pj, cnep_pj = pj(ceis), pj(cnep)
     cnpjs_ceis = {x["CPF OU CNPJ DO SANCIONADO"] for x in ceis}
     cnpjs_cnep = {x["CPF OU CNPJ DO SANCIONADO"] for x in cnep}
@@ -74,12 +108,27 @@ def candidatos() -> dict[str, list[str]]:
 
     inid = json.loads(INIDONEOS.read_text(encoding="utf-8"))
     return {
-        "cepim": uniq(x["CNPJ ENTIDADE"] for x in cepim if _parece_osc(x["NOME ENTIDADE"]) and x["CNPJ ENTIDADE"] not in cnpjs_ceis | cnpjs_cnep),
-        "ceis_fim_futuro": uniq(x["CPF OU CNPJ DO SANCIONADO"] for x in ceis_pj
-                                if (_d(x["DATA FINAL SANÇÃO"]) or date.min) > REF and x["CPF OU CNPJ DO SANCIONADO"] not in cnpjs_cnep | cnpjs_cepim),
-        "cnep": uniq(x["CPF OU CNPJ DO SANCIONADO"] for x in cnep_pj if x["CPF OU CNPJ DO SANCIONADO"] not in cnpjs_ceis | cnpjs_cepim),
-        "tcu_inidoneo": uniq("".join(ch for ch in i["cpf_cnpj"] if ch.isdigit()) for i in inid
-                             if len("".join(ch for ch in i["cpf_cnpj"] if ch.isdigit())) == 14 and _parece_osc(i["nome"])),
+        "cepim": uniq(
+            x["CNPJ ENTIDADE"]
+            for x in cepim
+            if _parece_osc(x["NOME ENTIDADE"]) and x["CNPJ ENTIDADE"] not in cnpjs_ceis | cnpjs_cnep
+        ),
+        "ceis_fim_futuro": uniq(
+            x["CPF OU CNPJ DO SANCIONADO"]
+            for x in ceis_pj
+            if (_d(x["DATA FINAL SANÇÃO"]) or date.min) > REF
+            and x["CPF OU CNPJ DO SANCIONADO"] not in cnpjs_cnep | cnpjs_cepim
+        ),
+        "cnep": uniq(
+            x["CPF OU CNPJ DO SANCIONADO"]
+            for x in cnep_pj
+            if x["CPF OU CNPJ DO SANCIONADO"] not in cnpjs_ceis | cnpjs_cepim
+        ),
+        "tcu_inidoneo": uniq(
+            "".join(ch for ch in i["cpf_cnpj"] if ch.isdigit())
+            for i in inid
+            if len("".join(ch for ch in i["cpf_cnpj"] if ch.isdigit())) == 14 and _parece_osc(i["nome"])
+        ),
         "cnia": uniq(x["CPF OU CNPJ DO SANCIONADO"] for x in ceis_pj if "CNJ" in x["ORIGEM INFORMAÇÕES"]),
     }
 
@@ -100,17 +149,36 @@ def main() -> None:
                     continue
                 if NATUREZA_TEXTO_CODIGO.get(c.get("natureza_juridica", "").lower()) not in ELEGIVEIS:
                     continue
-                qsa = [{"nome": q.get("nome_socio"), "doc": q.get("cnpj_cpf_socio"), "tipo": q.get("identificador_socio"),
-                        "qualificacao": q.get("qualificacao_socio")} for q in c.get("QSA") or []]
-                item = {"cnpj": cnpj, "razao_social": c["razao_social"], "matriz_filial": c.get("matriz_filial"),
-                        "inicio": c.get("data_inicio_atividade"), "dirigentes": dirigentes(qsa)}
+                qsa = [
+                    {
+                        "nome": q.get("nome_socio"),
+                        "doc": q.get("cnpj_cpf_socio"),
+                        "tipo": q.get("identificador_socio"),
+                        "qualificacao": q.get("qualificacao_socio"),
+                    }
+                    for q in c.get("QSA") or []
+                ]
+                item = {
+                    "cnpj": cnpj,
+                    "razao_social": c["razao_social"],
+                    "matriz_filial": c.get("matriz_filial"),
+                    "inicio": c.get("data_inicio_atividade"),
+                    "dirigentes": dirigentes(qsa),
+                }
                 if categoria == "cnia":
                     if tcu_feitas >= MAX_TCU:
                         break
                     tcu_feitas += 1
-                    t = baixar(cliente, f"https://certidoes-apf.apps.tcu.gov.br/api/rest/publico/certidoes/{cnpj}?seEmitirPDF=false",
-                               PASTA / f"tcu_{cnpj}.json")
-                    sit = {x["tipo"]: x["situacao"] for x in (t["corpo"] or {}).get("certidoes", [])} if isinstance(t["corpo"], dict) else {}
+                    t = baixar(
+                        cliente,
+                        f"https://certidoes-apf.apps.tcu.gov.br/api/rest/publico/certidoes/{cnpj}?seEmitirPDF=false",
+                        PASTA / f"tcu_{cnpj}.json",
+                    )
+                    sit = (
+                        {x["tipo"]: x["situacao"] for x in (t["corpo"] or {}).get("certidoes", [])}
+                        if isinstance(t["corpo"], dict)
+                        else {}
+                    )
                     item["tcu"] = sit
                     if sit.get("CNIA") != "CONSTAM_REGISTROS":
                         continue
@@ -119,7 +187,15 @@ def main() -> None:
             resumo[categoria] = {"consultados_opencnpj": consultados, "achados": achados}
     resumo["tcu_consultas"] = tcu_feitas
     (PASTA / "_resumo.json").write_text(json.dumps(resumo, ensure_ascii=False, indent=1), encoding="utf-8")
-    print(json.dumps({k: (v if k == "tcu_consultas" else [a["cnpj"] for a in v["achados"]]) for k, v in resumo.items()}, indent=1))
+    print(
+        json.dumps(
+            {
+                k: (v if k == "tcu_consultas" else [a["cnpj"] for a in v["achados"]])
+                for k, v in resumo.items()
+            },
+            indent=1,
+        )
+    )
 
 
 if __name__ == "__main__":

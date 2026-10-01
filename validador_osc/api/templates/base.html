@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="Triagem automatizada de organizações da sociedade civil para parcerias da Lei 13.019/2014.">
+  <title>{% block titulo %}Validador de OSC{% endblock %}</title>
+  <link rel="icon" href="/static/favicon.svg?v={{ versao }}" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/estilo.css?v={{ versao }}">
+  <script src="/static/app.js?v={{ versao }}" defer></script>
+</head>
+<body>
+  {% include "parciais/icones.html" %}
+  <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+  <header class="topo">
+    <div class="topo__interno">
+      <a class="marca" href="/">
+        <svg class="marca__simbolo" aria-hidden="true" focusable="false"><use href="#i-marca"></use></svg>
+        <span class="marca__texto">
+          <span class="marca__nome">Validador de OSC</span>
+          <span class="marca__subtitulo">Triagem para parcerias da Lei 13.019/2014</span>
+        </span>
+      </a>
+      {% block navegacao %}{% endblock %}
+    </div>
+  </header>
+  <main id="conteudo" class="conteudo" tabindex="-1">
+    {% block conteudo %}{% endblock %}
+  </main>
+  <footer class="rodape">
+    <div class="rodape__interno">
+      <p class="rodape__aviso">Triagem automatizada de cadastros públicos. Não substitui certidões oficiais.</p>
+      <p class="rodape__versao">Versão {{ versao }}</p>
+    </div>
+  </footer>
+</body>
+</html>

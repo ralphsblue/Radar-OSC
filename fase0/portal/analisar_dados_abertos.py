@@ -69,7 +69,12 @@ def perfil_sancoes(nome: str, campos: list[str], linhas: list[dict[str, str]]) -
     print("formato documento (tipo, len, tem mascara):", fmt)
     pf = [l for l in linhas if l["TIPO DE PESSOA"] == "F"][:3]
     for l in pf:
-        print("  PF exemplo:", f"***.{l[doc][3:6]}.{l[doc][6:9]}-** (no arquivo vem completo)", "|", l["NOME DO SANCIONADO"])
+        print(
+            "  PF exemplo:",
+            f"***.{l[doc][3:6]}.{l[doc][6:9]}-** (no arquivo vem completo)",
+            "|",
+            l["NOME DO SANCIONADO"],
+        )
     print("DATA FINAL vazia:", sum(1 for l in linhas if not l["DATA FINAL SANÇÃO"].strip()))
     print("CATEGORIAS:", Counter(l["CATEGORIA DA SANÇÃO"] for l in linhas).most_common(12))
     print("ABRANGENCIA:", Counter(l["ABRAGÊNCIA DA SANÇÃO"] for l in linhas).most_common(8))
@@ -83,7 +88,15 @@ def main() -> None:
     salvar_amostra("CEPIM", cep_c, cepim[:10])
     # amostra CEIS: PF, PJ vigente, PJ expirada
     pj = [l for l in ceis if l["TIPO DE PESSOA"] == "J"]
-    salvar_amostra("CEIS", ceis_c, ceis[:3] + pj[:4] + [l for l in pj if data_br(l["DATA FINAL SANÇÃO"]) and not vigente(data_br(l["DATA FINAL SANÇÃO"]))][:3])
+    salvar_amostra(
+        "CEIS",
+        ceis_c,
+        ceis[:3]
+        + pj[:4]
+        + [l for l in pj if data_br(l["DATA FINAL SANÇÃO"]) and not vigente(data_br(l["DATA FINAL SANÇÃO"]))][
+            :3
+        ],
+    )
     salvar_amostra("CNEP", cnep_c, cnep[:3] + [l for l in cnep if l["TIPO DE PESSOA"] == "J"][:7])
 
     print("===== CEPIM:", len(cepim), "linhas,", len({l["CNPJ ENTIDADE"] for l in cepim}), "CNPJs distintos")
@@ -101,10 +114,26 @@ def main() -> None:
 
     print("\n===== CANDIDATOS CEPIM (OSC por nome, 1 convenio)")
     for l in [l for l in cepim if OSC.search(l["NOME ENTIDADE"]) and cnt[l["CNPJ ENTIDADE"]] == 1][:8]:
-        print(" ", l["CNPJ ENTIDADE"], "|", l["NOME ENTIDADE"], "|", l["NÚMERO CONVÊNIO"], "|", l["ÓRGÃO CONCEDENTE"], "|", l["MOTIVO DO IMPEDIMENTO"])
+        print(
+            " ",
+            l["CNPJ ENTIDADE"],
+            "|",
+            l["NOME ENTIDADE"],
+            "|",
+            l["NÚMERO CONVÊNIO"],
+            "|",
+            l["ÓRGÃO CONCEDENTE"],
+            "|",
+            l["MOTIVO DO IMPEDIMENTO"],
+        )
 
     def osc_pj(linhas):
-        return [l for l in linhas if l["TIPO DE PESSOA"] == "J" and OSC.search(l[nome_s] + " " + l["RAZÃO SOCIAL - CADASTRO RECEITA"])]
+        return [
+            l
+            for l in linhas
+            if l["TIPO DE PESSOA"] == "J"
+            and OSC.search(l[nome_s] + " " + l["RAZÃO SOCIAL - CADASTRO RECEITA"])
+        ]
 
     por_cnpj_ceis = defaultdict(list)
     for l in ceis:
@@ -119,7 +148,22 @@ def main() -> None:
         vist.add(c)
         regs = por_cnpj_ceis[c]
         if all(vigente(data_br(r["DATA FINAL SANÇÃO"])) for r in regs) and len(regs) == 1:
-            print(" ", c, "|", l[nome_s], "|", l["CATEGORIA DA SANÇÃO"], "|", l["DATA INÍCIO SANÇÃO"], "->", l["DATA FINAL SANÇÃO"] or "(sem fim)", "|", l["ÓRGÃO SANCIONADOR"][:50], "|", l["ABRAGÊNCIA DA SANÇÃO"])
+            print(
+                " ",
+                c,
+                "|",
+                l[nome_s],
+                "|",
+                l["CATEGORIA DA SANÇÃO"],
+                "|",
+                l["DATA INÍCIO SANÇÃO"],
+                "->",
+                l["DATA FINAL SANÇÃO"] or "(sem fim)",
+                "|",
+                l["ÓRGÃO SANCIONADOR"][:50],
+                "|",
+                l["ABRAGÊNCIA DA SANÇÃO"],
+            )
             if len(vist) > 400:
                 break
 
@@ -130,14 +174,40 @@ def main() -> None:
         if l["TIPO DE PESSOA"] != "J" or not OSC.search(l[nome_s]):
             continue
         if all(not vigente(data_br(r["DATA FINAL SANÇÃO"])) for r in regs):
-            print(" ", c, "|", l[nome_s], "|", len(regs), "reg |", "; ".join(f'{r["DATA INÍCIO SANÇÃO"]}->{r["DATA FINAL SANÇÃO"]}' for r in regs), "|", l["CATEGORIA DA SANÇÃO"])
+            print(
+                " ",
+                c,
+                "|",
+                l[nome_s],
+                "|",
+                len(regs),
+                "reg |",
+                "; ".join(f"{r['DATA INÍCIO SANÇÃO']}->{r['DATA FINAL SANÇÃO']}" for r in regs),
+                "|",
+                l["CATEGORIA DA SANÇÃO"],
+            )
             n += 1
             if n >= 15:
                 break
 
     print("\n===== CNEP PJ (OSC por nome primeiro)")
     for l in osc_pj(cnep)[:10]:
-        print(" ", l[doc], "|", l[nome_s], "|", l["CATEGORIA DA SANÇÃO"], "|", l["VALOR DA MULTA"], "|", l["DATA INÍCIO SANÇÃO"], "->", l["DATA FINAL SANÇÃO"] or "(sem fim)", "|", l["ÓRGÃO SANCIONADOR"][:50])
+        print(
+            " ",
+            l[doc],
+            "|",
+            l[nome_s],
+            "|",
+            l["CATEGORIA DA SANÇÃO"],
+            "|",
+            l["VALOR DA MULTA"],
+            "|",
+            l["DATA INÍCIO SANÇÃO"],
+            "->",
+            l["DATA FINAL SANÇÃO"] or "(sem fim)",
+            "|",
+            l["ÓRGÃO SANCIONADOR"][:50],
+        )
     print("  CNEP PJ total:", sum(1 for l in cnep if l["TIPO DE PESSOA"] == "J"))
 
     print("\n===== Multi-cadastro")
@@ -146,7 +216,12 @@ def main() -> None:
     s_cnep = {l[doc] for l in cnep if l["TIPO DE PESSOA"] == "J"}
     nomes = {l["CNPJ ENTIDADE"]: l["NOME ENTIDADE"] for l in cepim}
     nomes.update({l[doc]: l[nome_s] for l in ceis + cnep})
-    for rot, s in [("CEPIM&CEIS", s_cepim & s_ceis), ("CEPIM&CNEP", s_cepim & s_cnep), ("CEIS&CNEP", s_ceis & s_cnep), ("TODOS", s_cepim & s_ceis & s_cnep)]:
+    for rot, s in [
+        ("CEPIM&CEIS", s_cepim & s_ceis),
+        ("CEPIM&CNEP", s_cepim & s_cnep),
+        ("CEIS&CNEP", s_ceis & s_cnep),
+        ("TODOS", s_cepim & s_ceis & s_cnep),
+    ]:
         lst = sorted(s)
         print(f"  {rot}: {len(lst)}")
         for c in sorted(lst, key=lambda c: not OSC.search(nomes.get(c, "")))[:6]:
@@ -161,14 +236,32 @@ def main() -> None:
         for l in sorted(filiais, key=lambda l: not OSC.search(l[nome_s]))[:6]:
             raiz = l[doc][:8]
             outros = sorted({x[doc] for x in pjs if x[doc][:8] == raiz} - {l[doc]})
-            print("    ", l[doc], "|", l[nome_s], "|", l["DATA INÍCIO SANÇÃO"], "->", l["DATA FINAL SANÇÃO"] or "(sem fim)", "| outros do mesmo grupo:", outros[:4])
+            print(
+                "    ",
+                l[doc],
+                "|",
+                l[nome_s],
+                "|",
+                l["DATA INÍCIO SANÇÃO"],
+                "->",
+                l["DATA FINAL SANÇÃO"] or "(sem fim)",
+                "| outros do mesmo grupo:",
+                outros[:4],
+            )
         so_raiz = [l for l in pjs if len(l[doc]) != 14]
         for l in so_raiz[:5]:
             print("    so raiz/formato estranho:", repr(l[doc]), l[nome_s])
 
     print("\n===== Nomes de PF (CEIS) - presenca de nome e documento")
     pf = [l for l in ceis if l["TIPO DE PESSOA"] == "F"]
-    print("  PF total:", len(pf), "com nome:", sum(1 for l in pf if l[nome_s].strip()), "com CPF 11 digitos:", sum(1 for l in pf if re.fullmatch(r"\d{11}", l[doc])))
+    print(
+        "  PF total:",
+        len(pf),
+        "com nome:",
+        sum(1 for l in pf if l[nome_s].strip()),
+        "com CPF 11 digitos:",
+        sum(1 for l in pf if re.fullmatch(r"\d{11}", l[doc])),
+    )
     print("  CPF com mascara (*):", sum(1 for l in pf if "*" in l[doc]))
 
 

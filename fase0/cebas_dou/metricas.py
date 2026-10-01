@@ -10,9 +10,7 @@ from __future__ import annotations
 import csv
 import json
 import random
-import re
 import sys
-import zipfile
 from collections import Counter, defaultdict
 from pathlib import Path
 
@@ -80,7 +78,14 @@ def main() -> None:
     # T2: sorteio de 10 atos decisorios
     rnd = random.Random(SEMENTE)
     sorteados = rnd.sample(sorted(decisorios), 10)
-    campos = list(linhas[0].keys()) + ["conf_cnpj", "conf_entidade", "conf_tipo", "conf_deferido", "conf_area", "obs"]
+    campos = list(linhas[0].keys()) + [
+        "conf_cnpj",
+        "conf_entidade",
+        "conf_tipo",
+        "conf_deferido",
+        "conf_area",
+        "obs",
+    ]
     amostra = csv_path.with_name(f"amostra_t2_{zip_path.stem}.csv")
     with amostra.open("w", newline="", encoding="utf-8-sig") as f:
         w = csv.DictWriter(f, fieldnames=campos, delimiter=";")

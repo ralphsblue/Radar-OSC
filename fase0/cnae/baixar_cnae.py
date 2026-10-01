@@ -10,7 +10,7 @@ Uso:
 from __future__ import annotations
 
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import httpx
@@ -40,7 +40,7 @@ def main() -> None:
             "fonte": BASE_URL,
             "endpoints": [f"{BASE_URL}/{nivel}" for nivel in NIVEIS],
             "versao_cnae": "CNAE-Subclasses 2.3 (estrutura vigente servida pela API v2 do IBGE)",
-            "baixado_em": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            "baixado_em": datetime.now(UTC).isoformat(timespec="seconds"),
             "contagens": contagens,
         },
         **dados,

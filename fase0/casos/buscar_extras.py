@@ -31,13 +31,20 @@ NAO_OSC = ("LTDA", "EIRELI", "ADVOGADOS", "COMERCIO", "S/A", "S.A", " ME", "EPP"
 def _d(s: str) -> date | None:
     try:
         return date(int(s[6:10]), int(s[3:5]), int(s[:2])) if s else None
-    except (ValueError, IndexError):
+    except ValueError, IndexError:
         return None
 
 
 def _qsa(c: dict) -> list[dict]:
-    return [{"nome": q.get("nome_socio"), "doc": q.get("cnpj_cpf_socio"), "tipo": q.get("identificador_socio"),
-             "qualificacao": q.get("qualificacao_socio")} for q in c.get("QSA") or []]
+    return [
+        {
+            "nome": q.get("nome_socio"),
+            "doc": q.get("cnpj_cpf_socio"),
+            "tipo": q.get("identificador_socio"),
+            "qualificacao": q.get("qualificacao_socio"),
+        }
+        for q in c.get("QSA") or []
+    ]
 
 
 def candidatos_dirigente() -> list[str]:
@@ -60,8 +67,12 @@ def candidatos_mapa() -> list[str]:
     saida = []
     for arq in sorted((RESPOSTAS / "mapa_base").glob("*.csv")):
         for r in csv.DictReader(arq.open(encoding="latin1"), delimiter=";"):
-            if (r["removida_do_mosc"] == "sim" and r["situacao_cadastral"] == "Ativa" and r["natureza_juridica"] == "3999"
-                    and r["matriz_filial"] == "Matriz"):
+            if (
+                r["removida_do_mosc"] == "sim"
+                and r["situacao_cadastral"] == "Ativa"
+                and r["natureza_juridica"] == "3999"
+                and r["matriz_filial"] == "Matriz"
+            ):
                 saida.append(r["cnpj"].zfill(14))
     return saida
 
@@ -79,20 +90,36 @@ def main() -> None:
             d = dirigentes(_qsa(c))
             if d["fortes"] or d["so_nome"]:
                 resumo["dirigente"].append({"cnpj": cnpj, "razao_social": c["razao_social"], "dirigentes": d})
-                print(f"  DIRIGENTE: {cnpj} {c['razao_social']} fortes={len(d['fortes'])} so_nome={len(d['so_nome'])}")
+                print(
+                    f"  DIRIGENTE: {cnpj} {c['razao_social']} fortes={len(d['fortes'])} so_nome={len(d['so_nome'])}"
+                )
                 if d["fortes"]:
                     break
 
         for cnpj in candidatos_mapa()[:MAX_MAPA]:
-            busca = baixar(cliente, f"https://mapaosc.ipea.gov.br/api/api/busca/cnpj/{cnpj.lstrip('0')}", PASTA / f"mapa_{cnpj}.json")
+            busca = baixar(
+                cliente,
+                f"https://mapaosc.ipea.gov.br/api/api/busca/cnpj/{cnpj.lstrip('0')}",
+                PASTA / f"mapa_{cnpj}.json",
+            )
             itens = busca["corpo"] if isinstance(busca["corpo"], list) else []
             if any(str(i.get("cd_identificador_osc", "")).zfill(14) == cnpj for i in itens):
                 continue
             reg = baixar(cliente, f"https://api.opencnpj.org/{cnpj}", PASTA / f"opencnpj_{cnpj}.json")
             c = reg["corpo"] if reg["meta"]["status"] == 200 else None
-            if c and c.get("situacao_cadastral") == "Ativa" and NATUREZA_TEXTO_CODIGO.get(c.get("natureza_juridica", "").lower()) == 3999:
-                resumo["ausente_mapa"].append({"cnpj": cnpj, "razao_social": c["razao_social"], "inicio": c.get("data_inicio_atividade"),
-                                               "cnae": c.get("cnae_principal")})
+            if (
+                c
+                and c.get("situacao_cadastral") == "Ativa"
+                and NATUREZA_TEXTO_CODIGO.get(c.get("natureza_juridica", "").lower()) == 3999
+            ):
+                resumo["ausente_mapa"].append(
+                    {
+                        "cnpj": cnpj,
+                        "razao_social": c["razao_social"],
+                        "inicio": c.get("data_inicio_atividade"),
+                        "cnae": c.get("cnae_principal"),
+                    }
+                )
                 print(f"  AUSENTE DO MAPA: {cnpj} {c['razao_social']}")
                 if len(resumo["ausente_mapa"]) >= 2:
                     break

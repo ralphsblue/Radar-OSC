@@ -63,16 +63,13 @@ def resumir(texto: str, cpf: str, nome: str) -> dict:
     return {
         "tamanho": len(texto),
         "comeca_com_sajax": "+:var " in texto,
-        "contem_cpf_alvo_formatado": f"{cpf[:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:]}"
-        in texto,
+        "contem_cpf_alvo_formatado": f"{cpf[:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:]}" in texto,
         "contem_nome_alvo": nome.upper() in texto.upper(),
         "cpfs_completos_no_html": len(cpfs_vistos),
         "cpfs_com_asterisco_no_html": len([m for m in mascarados if "*" in m]),
         "linhas_tabela": texto.count("<tr"),
         "palavra_captcha": "captcha" in texto.lower(),
-        "nenhum_registro": bool(
-            re.search(r"nenhum registro|n.o foram encontrad", texto, re.IGNORECASE)
-        ),
+        "nenhum_registro": bool(re.search(r"nenhum registro|n.o foram encontrad", texto, re.IGNORECASE)),
     }
 
 
@@ -92,9 +89,7 @@ def main() -> None:
         resumo["get_status"] = r.status_code
         resumo["cookies"] = sorted(c.cookies.keys())
         for rotulo, (doc, nm) in casos.items():
-            st1, txt1, s1 = sajax(
-                c, "verificarCamposPesquisa", ["", "", "", doc, nm, "F", ""]
-            )
+            st1, txt1, s1 = sajax(c, "verificarCamposPesquisa", ["", "", "", doc, nm, "F", ""])
             st2, txt2, s2 = sajax(
                 c,
                 "pesquisarRequeridoGetTabela",
@@ -111,12 +106,8 @@ def main() -> None:
                     "QUANTIDADE_REGISTROS_PAGINACAO15",
                 ],
             )
-            (DOWNLOADS / f"cnia_{rotulo}_verificar.txt").write_text(
-                txt1, encoding="utf-8"
-            )
-            (DOWNLOADS / f"cnia_{rotulo}_tabela.html").write_text(
-                txt2, encoding="utf-8"
-            )
+            (DOWNLOADS / f"cnia_{rotulo}_verificar.txt").write_text(txt1, encoding="utf-8")
+            (DOWNLOADS / f"cnia_{rotulo}_tabela.html").write_text(txt2, encoding="utf-8")
             resumo["casos"][rotulo] = {
                 "verificar": {
                     "status": st1,
@@ -126,9 +117,7 @@ def main() -> None:
                 "tabela": {"status": st2, "segundos": s2, **resumir(txt2, cpf, nome)},
             }
             print(rotulo, json.dumps(resumo["casos"][rotulo], ensure_ascii=False))
-    (PASTA / "teste_cnia.json").write_text(
-        json.dumps(resumo, ensure_ascii=False, indent=1), encoding="utf-8"
-    )
+    (PASTA / "teste_cnia.json").write_text(json.dumps(resumo, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
 if __name__ == "__main__":

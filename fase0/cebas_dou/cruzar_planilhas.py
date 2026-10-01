@@ -41,7 +41,7 @@ def como_data(v) -> date | None:
 def linhas(ws, linha_cabecalho: int) -> list[dict]:
     todas = list(ws.iter_rows(values_only=True))
     cab = [str(c).strip() if c is not None else f"col{i}" for i, c in enumerate(todas[linha_cabecalho])]
-    return [dict(zip(cab, r)) for r in todas[linha_cabecalho + 1:] if any(x is not None for x in r)]
+    return [dict(zip(cab, r)) for r in todas[linha_cabecalho + 1 :] if any(x is not None for x in r)]
 
 
 def resumo_datas(registros: list[dict], colunas: list[str]) -> dict:
@@ -127,7 +127,7 @@ def analisar_siscebas_saude(dou: list[dict]) -> dict:
     dou_ms = {r["cnpj"]: r for r in dou if r["area"] == "SAUDE"}
     por_tipo, achou = Counter(), Counter()
     for c, r in dou_ms.items():
-        k = f'{r["tipo_ato"]}/{r["deferido"] or "-"}'
+        k = f"{r['tipo_ato']}/{r['deferido'] or '-'}"
         por_tipo[k] += 1
         achou[k] += c in cnpjs
 
@@ -136,10 +136,14 @@ def analisar_siscebas_saude(dou: list[dict]) -> dict:
     for r in regs:
         pub_por_cnpj.setdefault(r["_cnpj"], set()).add(como_data(r["DATA DA PUBLICAÇÃO"]))
     refletidos = sum(
-        1 for c, r in dou_ms.items()
+        1
+        for c, r in dou_ms.items()
         if r["data_publicacao"] and date.fromisoformat(r["data_publicacao"]) in pub_por_cnpj.get(c, set())
     )
-    exemplos = {c: [{k: r[k] for k in cab} for r in regs if r["_cnpj"] == c] for c in ("50798453000183", "03163888000171")}
+    exemplos = {
+        c: [{k: r[k] for k in cab} for r in regs if r["_cnpj"] == c]
+        for c in ("50798453000183", "03163888000171")
+    }
     return {
         "arquivo": SISCEBAS_XLS.name,
         "colunas": cab,
@@ -174,7 +178,7 @@ def main() -> None:
         por_tipo = Counter()
         por_tipo_achou = Counter()
         for r in {r["cnpj"]: r for r in regs}.values():
-            k = f'{r["tipo_ato"]}/{r["deferido"] or "-"}'
+            k = f"{r['tipo_ato']}/{r['deferido'] or '-'}"
             por_tipo[k] += 1
             por_tipo_achou[k] += r["cnpj"] in base[area]["cnpjs"]
         item = {
@@ -192,7 +196,9 @@ def main() -> None:
     exemplos = {}
     for cnpj in ("50798453000183", "03163888000171"):
         r = base["SAUDE"]["por_cnpj"].get(cnpj)
-        exemplos[cnpj] = {k: (v.isoformat() if isinstance(v, datetime) else v) for k, v in r.items()} if r else None
+        exemplos[cnpj] = (
+            {k: (v.isoformat() if isinstance(v, datetime) else v) for k, v in r.items()} if r else None
+        )
 
     siscebas = analisar_siscebas_saude(dou)
 
@@ -206,7 +212,9 @@ def main() -> None:
         "cobertura_dou_jun_ago_2026": cobertura,
         "exemplos_t3_na_planilha_ms": exemplos,
     }
-    (AQUI / "cruzamento_planilhas.json").write_text(json.dumps(saida, indent=2, ensure_ascii=False, default=str), encoding="utf-8")
+    (AQUI / "cruzamento_planilhas.json").write_text(
+        json.dumps(saida, indent=2, ensure_ascii=False, default=str), encoding="utf-8"
+    )
     print(json.dumps(saida, indent=2, ensure_ascii=False, default=str))
 
 

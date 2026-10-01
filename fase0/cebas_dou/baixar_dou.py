@@ -15,7 +15,7 @@ import json
 import re
 import sys
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import httpx
@@ -46,7 +46,7 @@ def baixar(cliente: httpx.Client, url: str, destino: Path) -> dict:
         "arquivo": destino.name,
         "bytes": destino.stat().st_size,
         "sha256": sha.hexdigest(),
-        "baixado_em": datetime.now(timezone.utc).isoformat(),
+        "baixado_em": datetime.now(UTC).isoformat(),
     }
 
 

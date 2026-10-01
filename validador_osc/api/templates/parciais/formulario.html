@@ -1,0 +1,48 @@
+{% set esfera_atual = esfera_escolhida | default("", true) %}
+{% set erro = erro | default("", true) %}
+<form class="consulta" method="post" action="/consultas" data-consulta novalidate>
+  <div class="campo{% if erro %} campo--erro{% endif %}">
+    <label class="campo__rotulo" for="cnpj">CNPJ da organização</label>
+    <p class="campo__ajuda" id="cnpj-ajuda">Com ou sem pontuação.</p>
+    <input class="campo__entrada campo__entrada--cnpj" id="cnpj" name="cnpj" type="text"
+           inputmode="text" autocomplete="off" autocapitalize="characters" spellcheck="false"
+           maxlength="32" required placeholder="00.000.000/0000-00"
+           value="{{ cnpj_digitado | default('', true) }}"
+           aria-describedby="cnpj-ajuda cnpj-mensagem"{% if erro %} aria-invalid="true"{% endif %}
+           data-cnpj{% if erro %} autofocus{% endif %}>
+    <p class="campo__mensagem" id="cnpj-mensagem" aria-live="polite" data-cnpj-mensagem>{% if erro %}<svg class="icone" aria-hidden="true" focusable="false"><use href="#i-restricao"></use></svg><span>{{ erro }}</span>{% endif %}</p>
+  </div>
+
+  <fieldset class="esferas">
+    <legend class="campo__rotulo">Esfera da parceria <span class="opcional">(opcional)</span></legend>
+    <p class="campo__ajuda" id="esfera-ajuda">
+      O art. 33, V, a da Lei 13.019/2014 exige tempo mínimo de existência com cadastro ativo:
+      1 ano para municípios, 2 anos para estados e o Distrito Federal, 3 anos para a União.
+      Sem esfera, o resultado mostra os três cenários.
+    </p>
+    <div class="esferas__opcoes">
+      {% for valor, rotulo, prazo in [
+        ("", "Não informar", "Três cenários"),
+        ("municipio", "Município", "1 ano"),
+        ("estado", "Estado ou DF", "2 anos"),
+        ("uniao", "União", "3 anos"),
+      ] %}
+      <label class="opcao">
+        <input type="radio" name="esfera" value="{{ valor }}"{% if valor == esfera_atual %} checked{% endif %}>
+        <span class="opcao__texto">
+          <span class="opcao__nome">{{ rotulo }}</span>
+          <span class="opcao__detalhe">{{ prazo }}</span>
+        </span>
+      </label>
+      {% endfor %}
+    </div>
+  </fieldset>
+
+  <div class="consulta__acoes">
+    <button class="botao botao--primario" type="submit" data-enviar>
+      <span class="botao__giro" aria-hidden="true"></span>
+      <span data-enviar-texto>Consultar</span>
+    </button>
+    <p class="consulta__espera" role="status" data-espera></p>
+  </div>
+</form>

@@ -52,18 +52,12 @@ NAO_OSC = (
 
 
 def candidatos(maximo: int) -> list[tuple[str, set[str]]]:
-    itens = json.loads(
-        (DOWNLOADS / "tcu_responsaveis-contas-irregulares.json").read_text(
-            encoding="utf-8"
-        )
-    )
+    itens = json.loads((DOWNLOADS / "tcu_responsaveis-contas-irregulares.json").read_text(encoding="utf-8"))
     corte = date(2018, 10, 1)
     pf_por_proc = collections.defaultdict(set)
     for i in itens:
         if i.get("tipoRegistro") == "CPF":
-            pf_por_proc[i.get("numeroProcessoFormatado")].add(
-                digitos(i.get("numeroRegistro"))
-            )
+            pf_por_proc[i.get("numeroProcessoFormatado")].add(digitos(i.get("numeroRegistro")))
     vistos: dict[str, set[str]] = {}
     for i in sorted(
         itens,
@@ -114,9 +108,7 @@ def resumir_achados(achados, processos_osc: set[str] | None) -> list[dict]:
                 "qualificacao": a.qualificacao,
                 "data_entrada": a.data_entrada,
                 "data_ref": r.data_ref.isoformat() if r.data_ref else None,
-                "mesmo_processo_da_osc": bool(
-                    processos_osc and r.processo in processos_osc
-                ),
+                "mesmo_processo_da_osc": bool(processos_osc and r.processo in processos_osc),
                 "categoria": r.detalhe.get("categoria"),
             }
         )
@@ -146,10 +138,7 @@ def main() -> None:
                 cnpj,
                 st,
                 len(pf),
-                [
-                    (a.registro.fonte, a.criterio, a.registro.processo in procs)
-                    for a in achados
-                ],
+                [(a.registro.fonte, a.criterio, a.registro.processo in procs) for a in achados],
             )
 
     casos = RAIZ / "fase0" / "casos" / "respostas"
@@ -183,16 +172,10 @@ def main() -> None:
         "osc_com_achado_no_mesmo_processo": sum(
             any(a["mesmo_processo_da_osc"] for a in p["achados"]) for p in pos
         ),
-        "achados_por_fonte": dict(
-            collections.Counter(a["fonte"] for p in pos for a in p["achados"])
-        ),
-        "achados_por_criterio": dict(
-            collections.Counter(a["criterio"] for p in pos for a in p["achados"])
-        ),
+        "achados_por_fonte": dict(collections.Counter(a["fonte"] for p in pos for a in p["achados"])),
+        "achados_por_criterio": dict(collections.Counter(a["criterio"] for p in pos for a in p["achados"])),
         "controle_osc": len(resultado["controle"]),
-        "controle_dirigentes_pf": sum(
-            x["dirigentes_pf"] for x in resultado["controle"]
-        ),
+        "controle_dirigentes_pf": sum(x["dirigentes_pf"] for x in resultado["controle"]),
         "controle_com_achado": sum(bool(x["achados"]) for x in resultado["controle"]),
     }
     (PASTA / "teste_e2e.json").write_text(

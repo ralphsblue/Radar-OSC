@@ -40,16 +40,29 @@ def main(docs: list[str]) -> None:
         print(f"\n######## {doc}")
         for l in cepim:
             if l["CNPJ ENTIDADE"] == doc:
-                print("  CEPIM exato:", l["NOME ENTIDADE"], "| convenio", l["NÚMERO CONVÊNIO"], "|", l["ÓRGÃO CONCEDENTE"], "|", l["MOTIVO DO IMPEDIMENTO"])
+                print(
+                    "  CEPIM exato:",
+                    l["NOME ENTIDADE"],
+                    "| convenio",
+                    l["NÚMERO CONVÊNIO"],
+                    "|",
+                    l["ÓRGÃO CONCEDENTE"],
+                    "|",
+                    l["MOTIVO DO IMPEDIMENTO"],
+                )
             elif len(doc) == 14 and l["CNPJ ENTIDADE"][:8] == raiz:
                 print("  CEPIM mesma raiz:", l["CNPJ ENTIDADE"], l["NOME ENTIDADE"])
         for rot, linhas in (("CEIS", ceis), ("CNEP", cnep)):
             for l in linhas:
                 d = l["CPF OU CNPJ DO SANCIONADO"]
-                tipo = "exato" if d == doc else ("mesma raiz " + d if len(doc) == 14 and len(d) == 14 and d[:8] == raiz else None)
+                tipo = (
+                    "exato"
+                    if d == doc
+                    else ("mesma raiz " + d if len(doc) == 14 and len(d) == 14 and d[:8] == raiz else None)
+                )
                 if not tipo:
                     continue
-                multa = f' | multa {l["VALOR DA MULTA"]}' if "VALOR DA MULTA" in l else ""
+                multa = f" | multa {l['VALOR DA MULTA']}" if "VALOR DA MULTA" in l else ""
                 print(
                     f"  {rot} {tipo}: cod {l['CÓDIGO DA SANÇÃO']} | {l['NOME DO SANCIONADO']} | {l['CATEGORIA DA SANÇÃO']}"
                     f" | {l['DATA INÍCIO SANÇÃO']} -> {l['DATA FINAL SANÇÃO'] or '(vazio)'} = {situacao(l['DATA FINAL SANÇÃO'])}"

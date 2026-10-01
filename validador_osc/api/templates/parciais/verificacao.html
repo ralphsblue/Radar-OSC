@@ -1,0 +1,28 @@
+{% set estado = verificacao.estado | string %}
+{% set modificador = estado | lower | replace("_", "-") %}
+<article class="verificacao verificacao--{{ modificador }}{% if verificacao.id in consulta.motivos %} verificacao--decisiva{% endif %}"
+         id="verificacao-{{ verificacao.id }}" aria-labelledby="verificacao-{{ verificacao.id }}-nome">
+  <header class="verificacao__cabecalho">
+    <h4 class="verificacao__nome" id="verificacao-{{ verificacao.id }}-nome">{{ verificacao.nome }}</h4>
+    <span class="selo selo--{{ modificador }}">
+      <svg class="icone" aria-hidden="true" focusable="false"><use href="#i-{{ modificador }}"></use></svg>
+      {{ estado | rotulo_estado }}
+    </span>
+  </header>
+  <p class="verificacao__mensagem">{{ verificacao.mensagem }}</p>
+  {% if verificacao.situacao is defined and verificacao.situacao %}
+  <p class="verificacao__situacao">Situação: <strong>{{ verificacao.situacao | rotulo_situacao }}</strong></p>
+  {% endif %}
+  {% if verificacao.fontes %}
+  <ul class="fontes" aria-label="Fontes consultadas">
+    {% for fonte in verificacao.fontes %}
+    <li class="fonte">
+      <span class="fonte__nome">{{ fonte.fonte | nome_fonte }}</span>
+      {% if fonte.data_base is defined and fonte.data_base %}<span class="fonte__item">base de {{ fonte.data_base | data }}</span>{% endif %}
+      {% if fonte.obtida_em is defined and fonte.obtida_em %}<span class="fonte__item">obtida em {{ fonte.obtida_em | instante }}{% if fonte.de_cache is defined and fonte.de_cache %} (cache){% endif %}</span>{% endif %}
+      {% if fonte.sha256 is defined and fonte.sha256 %}<span class="fonte__item fonte__hash" title="SHA-256 {{ fonte.sha256 }}">SHA-256 <code>{{ fonte.sha256 }}</code></span>{% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</article>

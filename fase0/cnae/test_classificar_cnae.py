@@ -1,6 +1,6 @@
 """Testes da classificação CNAE e da regra de alerta religiosa.
 
-    .venv/Scripts/python -m pytest fase0/cnae -q
+.venv/Scripts/python -m pytest fase0/cnae -q
 """
 
 import pytest

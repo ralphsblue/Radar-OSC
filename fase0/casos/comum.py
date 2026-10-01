@@ -10,7 +10,7 @@ import hashlib
 import json
 import sys
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -51,7 +51,7 @@ def baixar(cliente: httpx.Client, url: str, destino: Path) -> dict:
     host = urlparse(url).hostname or ""
     _esperar(host)
     inicio = time.perf_counter()
-    meta: dict = {"url": url, "data_utc": datetime.now(timezone.utc).isoformat()}
+    meta: dict = {"url": url, "data_utc": datetime.now(UTC).isoformat()}
     try:
         r = cliente.get(url)
         meta["status"] = r.status_code

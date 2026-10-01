@@ -14,7 +14,7 @@ from __future__ import annotations
 
 import json
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import httpx
@@ -46,14 +46,37 @@ def main() -> None:
             offset += d["count"]
             time.sleep(PAUSA)
 
-        (PASTA / "inidoneos_completo.json").write_text(json.dumps(itens, ensure_ascii=False, indent=1), encoding="utf-8")
-        agora = datetime.now(timezone.utc)
+        (PASTA / "inidoneos_completo.json").write_text(
+            json.dumps(itens, ensure_ascii=False, indent=1), encoding="utf-8"
+        )
+        agora = datetime.now(UTC)
         pj = [i for i in itens if len("".join(ch for ch in i["cpf_cnpj"] or "" if ch.isdigit())) == 14]
-        vig = [i for i in pj if not i["data_final"] or datetime.fromisoformat(i["data_final"].replace("Z", "+00:00")) >= agora]
-        print(f"total {len(itens)} | PJ {len(pj)} | PJ vigentes {len(vig)} | tempo medio {sum(tempos)/len(tempos):.2f}s")
-        print("formatos de cpf_cnpj:", sorted({len(i['cpf_cnpj'] or '') for i in itens}))
+        vig = [
+            i
+            for i in pj
+            if not i["data_final"] or datetime.fromisoformat(i["data_final"].replace("Z", "+00:00")) >= agora
+        ]
+        print(
+            f"total {len(itens)} | PJ {len(pj)} | PJ vigentes {len(vig)} | tempo medio {sum(tempos) / len(tempos):.2f}s"
+        )
+        print("formatos de cpf_cnpj:", sorted({len(i["cpf_cnpj"] or "") for i in itens}))
         for i in vig[:8]:
-            print("  ", i["cpf_cnpj"], "|", i["nome"], "|", i["processo"], "|", i["deliberacao"], "|", i["data_transito_julgado"], "->", i["data_final"], "|", i["uf"])
+            print(
+                "  ",
+                i["cpf_cnpj"],
+                "|",
+                i["nome"],
+                "|",
+                i["processo"],
+                "|",
+                i["deliberacao"],
+                "|",
+                i["data_transito_julgado"],
+                "->",
+                i["data_final"],
+                "|",
+                i["uf"],
+            )
 
         # Teste de filtro ORDS (q=JSON). Formatado e so digitos.
         if vig:
@@ -61,8 +84,19 @@ def main() -> None:
             for valor in (alvo, "".join(ch for ch in alvo if ch.isdigit())):
                 time.sleep(PAUSA)
                 r = c.get(URL, params={"q": json.dumps({"cpf_cnpj": valor})})
-                print("filtro q cpf_cnpj=", valor, "->", r.status_code, "itens:", len(r.json().get("items", [])) if r.headers.get("content-type", "").startswith("application/json") else r.text[:200])
-                (PASTA / f"exemplo_filtro_{'fmt' if '.' in valor else 'digitos'}.json").write_text(r.text, encoding="utf-8")
+                print(
+                    "filtro q cpf_cnpj=",
+                    valor,
+                    "->",
+                    r.status_code,
+                    "itens:",
+                    len(r.json().get("items", []))
+                    if r.headers.get("content-type", "").startswith("application/json")
+                    else r.text[:200],
+                )
+                (PASTA / f"exemplo_filtro_{'fmt' if '.' in valor else 'digitos'}.json").write_text(
+                    r.text, encoding="utf-8"
+                )
             time.sleep(PAUSA)
             r = c.get(URL, params={"q": json.dumps({"cpf_cnpj": "19.131.243/0001-97"})})
             print("filtro nada consta ->", r.status_code, r.text[:300])

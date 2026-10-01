@@ -1,3 +1,163 @@
+[project]
+name = "validador-osc"
+version = "0.1.0"
+description = "Triagem automatizada de CNPJ de Organizações da Sociedade Civil (Lei 13.019/2014)"
+readme = "README.md"
+requires-python = ">=3.14,<3.15"
+dependencies = [
+    "alembic>=1.16",
+    "fastapi>=0.120",
+    "httpx>=0.28",
+    "jinja2>=3.1",
+    "lxml>=6.0",
+    "openpyxl>=3.1",
+    "psycopg[binary]>=3.2",
+    "pydantic>=2.12",
+    "pydantic-settings>=2.11",
+    "python-multipart>=0.0.20",
+    "sqlalchemy[asyncio]>=2.0.44",
+    "structlog>=25.4",
+    "uvicorn[standard]>=0.38",
+    "xlrd>=2.0",
+]
+
+[project.scripts]
+validador-osc = "validador_osc.__main__:main"
+
+[dependency-groups]
+dev = [
+    "httpx2>=2.13.1",
+    "import-linter>=2.5",
+    "mypy>=1.18",
+    "pre-commit>=4.3",
+    "pytest>=8.4",
+    "ruff>=0.14",
+]
+
+[build-system]
+requires = ["uv_build>=0.12,<0.13"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-root = ""
+
+[tool.ruff]
+line-length = 110
+target-version = "py314"
+extend-exclude = ["fase0"]
+force-exclude = true
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "SIM", "RUF", "PL", "PT", "DTZ", "ASYNC", "S"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101", "PLR2004"]
+
+[tool.mypy]
+strict = true
+python_version = "3.14"
+plugins = ["pydantic.mypy"]
+files = ["validador_osc", "tests", "migrations"]
+
 [tool.pytest.ini_options]
-pythonpath = ["."]
 testpaths = ["tests"]
+addopts = ["-ra", "--strict-markers", "-m", "not vivo"]
+markers = [
+    "vivo: chama fontes reais pela rede",
+    "db: exige PostgreSQL",
+]
+
+[tool.importlinter]
+root_package = "validador_osc"
+include_external_packages = true
+
+[[tool.importlinter.contracts]]
+name = "dominio só depende da biblioteca padrão"
+type = "forbidden"
+source_modules = ["validador_osc.dominio"]
+forbidden_modules = [
+    "validador_osc.cnpj",
+    "validador_osc.config",
+    "validador_osc.regras",
+    "validador_osc.fontes",
+    "validador_osc.bases_locais",
+    "validador_osc.persistencia",
+    "validador_osc.servico",
+    "validador_osc.api",
+]
+
+[[tool.importlinter.contracts]]
+name = "motor de regras é puro"
+type = "forbidden"
+source_modules = ["validador_osc.regras"]
+forbidden_modules = [
+    "validador_osc.config",
+    "validador_osc.fontes",
+    "validador_osc.bases_locais",
+    "validador_osc.persistencia",
+    "validador_osc.servico",
+    "validador_osc.api",
+    "httpx",
+    "sqlalchemy",
+    "fastapi",
+]
+
+[[tool.importlinter.contracts]]
+name = "fontes não conhecem regras, banco nem API"
+type = "forbidden"
+source_modules = ["validador_osc.fontes"]
+forbidden_modules = [
+    "validador_osc.regras",
+    "validador_osc.persistencia",
+    "validador_osc.bases_locais",
+    "validador_osc.servico",
+    "validador_osc.api",
+    "sqlalchemy",
+    "fastapi",
+]
+
+[[tool.importlinter.contracts]]
+name = "bases locais não conhecem regras nem API"
+type = "forbidden"
+source_modules = ["validador_osc.bases_locais"]
+forbidden_modules = [
+    "validador_osc.regras",
+    "validador_osc.fontes",
+    "validador_osc.servico",
+    "validador_osc.api",
+    "fastapi",
+]
+
+[[tool.importlinter.contracts]]
+name = "persistência não conhece regras, fontes nem API"
+type = "forbidden"
+source_modules = ["validador_osc.persistencia"]
+forbidden_modules = [
+    "validador_osc.regras",
+    "validador_osc.fontes",
+    "validador_osc.bases_locais",
+    "validador_osc.servico",
+    "validador_osc.api",
+    "fastapi",
+]
+
+[[tool.importlinter.contracts]]
+name = "serviço não conhece a API"
+type = "forbidden"
+source_modules = ["validador_osc.servico"]
+forbidden_modules = [
+    "validador_osc.api",
+    "fastapi",
+]
+
+[[tool.importlinter.contracts]]
+name = "API só fala com o serviço"
+type = "forbidden"
+allow_indirect_imports = true
+source_modules = ["validador_osc.api"]
+forbidden_modules = [
+    "validador_osc.fontes",
+    "validador_osc.bases_locais",
+    "validador_osc.persistencia",
+    "validador_osc.regras",
+]

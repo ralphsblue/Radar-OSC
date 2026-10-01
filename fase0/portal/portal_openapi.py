@@ -32,7 +32,9 @@ def resolver(spec: dict, schema: dict, prof: int = 0, vistos: tuple = ()) -> lis
         nome = schema["$ref"].split("/")[-1]
         if nome in vistos:
             return [f"{ind}(ref circular {nome})"]
-        return [f"{ind}<{nome}>"] + resolver(spec, spec["components"]["schemas"][nome], prof, vistos + (nome,))
+        return [f"{ind}<{nome}>"] + resolver(
+            spec, spec["components"]["schemas"][nome], prof, vistos + (nome,)
+        )
     tipo = schema.get("type")
     if tipo == "array":
         return [f"{ind}array de:"] + resolver(spec, schema["items"], prof + 1, vistos)
@@ -51,13 +53,23 @@ def main() -> None:
         r = c.get(f"{HOST}/v3/api-docs")
         r.raise_for_status()
         spec = r.json()
-        (PASTA / "portal-openapi.json").write_text(json.dumps(spec, ensure_ascii=False, indent=2), encoding="utf-8")
+        (PASTA / "portal-openapi.json").write_text(
+            json.dumps(spec, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
 
-        out: list[str] = [f"OpenAPI {spec.get('openapi')} - {spec['info'].get('title')} - versao {spec['info'].get('version')}"]
+        out: list[str] = [
+            f"OpenAPI {spec.get('openapi')} - {spec['info'].get('title')} - versao {spec['info'].get('version')}"
+        ]
         out.append(f"servers: {spec.get('servers')}")
-        out.append(f"securitySchemes: {json.dumps(spec.get('components', {}).get('securitySchemes'), ensure_ascii=False)}")
+        out.append(
+            f"securitySchemes: {json.dumps(spec.get('components', {}).get('securitySchemes'), ensure_ascii=False)}"
+        )
         out.append(f"security global: {spec.get('security')}")
-        relevantes = [p for p in spec["paths"] if any(k in p for k in ("cepim", "ceis", "cnep", "acordos-leniencia", "sancionado", "cnpj"))]
+        relevantes = [
+            p
+            for p in spec["paths"]
+            if any(k in p for k in ("cepim", "ceis", "cnep", "acordos-leniencia", "sancionado", "cnpj"))
+        ]
         out.append("\nRotas relacionadas: " + ", ".join(relevantes))
         for p in relevantes:
             for metodo, op in spec["paths"][p].items():
@@ -83,7 +95,12 @@ def main() -> None:
         casos = [
             ("sem_chave_ceis", f"{base}/ceis", {"codigoSancionado": "19131243000197", "pagina": 1}, {}),
             ("sem_chave_cepim", f"{base}/cepim", {"cnpjSancionado": "19131243000197", "pagina": 1}, {}),
-            ("chave_invalida_ceis", f"{base}/ceis", {"codigoSancionado": "19131243000197", "pagina": 1}, {"chave-api-dados": "00000000000000000000000000000000"}),
+            (
+                "chave_invalida_ceis",
+                f"{base}/ceis",
+                {"codigoSancionado": "19131243000197", "pagina": 1},
+                {"chave-api-dados": "00000000000000000000000000000000"},
+            ),
         ]
         for nome, url, params, hdr in casos:
             time.sleep(PAUSA)

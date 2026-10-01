@@ -13,9 +13,9 @@ from validador_osc.cnpj import (
 @pytest.mark.parametrize(
     ("entrada", "normalizado"),
     [
-        ("19.131.243/0001-97", "19131243000197"),  # Open Knowledge Brasil
-        ("00.000.000/0001-91", "00000000000191"),  # Banco do Brasil
-        ("12.ABC.345/01DE-35", "12ABC34501DE35"),  # exemplo oficial alfanumérico da Receita
+        ("19.131.243/0001-97", "19131243000197"),
+        ("00.000.000/0001-91", "00000000000191"),
+        ("12.ABC.345/01DE-35", "12ABC34501DE35"),
     ],
 )
 def test_cnpjs_validos_da_especificacao(entrada: str, normalizado: str) -> None:
@@ -36,7 +36,7 @@ def test_dv_divergente_alfanumerico() -> None:
     [
         "11111111111111",
         "00000000000000",
-        "11111111111180",  # base repetida com DV que confere: precisa ser barrada mesmo assim
+        "11111111111180",
         "AAAAAAAAAAAA00",
     ],
 )
@@ -47,13 +47,13 @@ def test_sequencia_repetida(entrada: str) -> None:
 @pytest.mark.parametrize(
     "entrada",
     [
-        "12ABC34501DE3",  # 13 posições
+        "12ABC34501DE3",
         "",
-        "191312430001970",  # 15 posições
-        "12ABC34501DEA5",  # DV com letra
-        "19131243#000197",  # caractere não aceito
-        "12ıBC34501DE35",  # 'ı' turco, que str.upper() transformaria em 'I'
-        "12ABC34501DE٣٥",  # dígitos arábico-índicos no DV
+        "191312430001970",
+        "12ABC34501DEA5",
+        "19131243#000197",
+        "12\u0131BC34501DE35",
+        "12ABC34501DE\u0663\u0665",
     ],
 )
 def test_formato_invalido(entrada: str) -> None:
@@ -74,7 +74,7 @@ def test_minusculas_aceitas(entrada: str) -> None:
         "19 131 243 0001 97",
         "  19.131.243/0001-97\n",
         "19-131-243/0001/97",
-        "19.131.243/0001–97",  # traço "en dash" de texto copiado de PDF
+        "19.131.243/0001\u201397",
     ],
 )
 def test_pontuacao_variada(entrada: str) -> None:
@@ -100,7 +100,7 @@ def test_calcular_dvs(base: str, dvs: str) -> None:
 
 @pytest.mark.parametrize("base", ["19131243000", "1913124300011", "12ABC34501D!"])
 def test_calcular_dvs_rejeita_base_invalida(base: str) -> None:
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="12 caracteres"):
         calcular_dvs(base)
 
 

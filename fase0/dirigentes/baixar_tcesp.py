@@ -19,7 +19,6 @@ import re
 from datetime import date
 
 import openpyxl
-
 from comum import AMOSTRAS, DOWNLOADS, PASTA, cliente, data_br, esperar, normalizar_nome
 
 HOJE = date(2026, 10, 1)
@@ -78,9 +77,7 @@ def perfil(caminho) -> dict:
     return {
         "cabecalho": cab,
         "registros": len(regs),
-        "formatos_cpf": dict(
-            collections.Counter(formato_doc(r["cpf_parcial"]) for r in regs)
-        ),
+        "formatos_cpf": dict(collections.Counter(formato_doc(r["cpf_parcial"]) for r in regs)),
         "nomes_distintos": len(pessoas),
         "cpf_parciais_distintos": len({r["cpf_parcial"] for r in regs}),
         "nomes_com_mais_de_um_cpf_parcial": sum(len(v) > 1 for v in pessoas.values()),
@@ -88,15 +85,9 @@ def perfil(caminho) -> dict:
         "transito_max": max(ds).isoformat() if ds else None,
         "registros_ultimos_8_anos": sum(d >= limite for d in ds),
         "nomes_ultimos_8_anos": len(
-            {
-                normalizar_nome(r["nome"])
-                for r in regs
-                if (d := data_br(r["transito"])) and d >= limite
-            }
+            {normalizar_nome(r["nome"]) for r in regs if (d := data_br(r["transito"])) and d >= limite}
         ),
-        "materias": dict(
-            collections.Counter(r["materia"] for r in regs).most_common(10)
-        ),
+        "materias": dict(collections.Counter(r["materia"] for r in regs).most_common(10)),
         "origens_distintas": len({r["origem"] for r in regs}),
     }
 
