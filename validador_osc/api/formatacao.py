@@ -15,8 +15,8 @@ _STATUS: Mapping[str, tuple[str, str]] = {
     StatusFinal.INAPTA: ("Inapta", "Não pode firmar parceria no estado atual."),
     StatusFinal.INCONCLUSIVA: (
         "Inconclusiva",
-        "Alguma verificação eliminatória não pôde ser feita. "
-        "Tente de novo ou verifique manualmente a fonte indicada.",
+        "Alguma verificação eliminatória não pôde ser feita, "
+        "então não é possível dizer se a organização está apta.",
     ),
     StatusFinal.APTA_COM_RESSALVAS: (
         "Apta com ressalvas",
@@ -63,6 +63,15 @@ _SITUACOES: Mapping[str, str] = {
     "PREENCHIDO": "Perfil preenchido",
     "AUTOMATICO": "Perfil automático",
     "AUSENTE": "Ausente",
+    "ALTA": "Alta",
+    "MEDIA": "Média",
+    "BAIXA": "Baixa",
+}
+
+_CAMPOS_SITUACAO: Mapping[str, str] = {
+    "cnae": "Aderência",
+    "mapa_osc": "Perfil",
+    "cebas": "Certificação",
 }
 
 _FONTES: Mapping[str, str] = {
@@ -116,6 +125,10 @@ def rotulo_situacao(situacao: object) -> str:
     return _SITUACOES.get(texto, texto.replace("_", " ").capitalize())
 
 
+def rotulo_campo_situacao(verificacao_id: object) -> str:
+    return _CAMPOS_SITUACAO.get(_texto(verificacao_id), "Situação")
+
+
 def nome_fonte(fonte: object) -> str:
     texto = _texto(fonte)
     return _FONTES.get(texto, texto)
@@ -160,6 +173,7 @@ def registrar_filtros(ambiente: Environment, fuso: ZoneInfo) -> None:
         "descricao_tipo": descricao_tipo,
         "rotulo_esfera": rotulo_esfera,
         "rotulo_situacao": rotulo_situacao,
+        "rotulo_campo_situacao": rotulo_campo_situacao,
         "nome_fonte": nome_fonte,
         "cnpj": formatar_cnpj,
         "data": formatar_data,

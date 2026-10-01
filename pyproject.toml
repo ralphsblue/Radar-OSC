@@ -50,6 +50,9 @@ force-exclude = true
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "UP", "B", "SIM", "RUF", "PL", "PT", "DTZ", "ASYNC", "S"]
 
+[tool.ruff.lint.pylint]
+max-args = 10
+
 [tool.ruff.lint.per-file-ignores]
 "tests/**" = ["S101", "PLR2004"]
 

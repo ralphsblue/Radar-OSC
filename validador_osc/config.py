@@ -27,6 +27,7 @@ class Configuracao(BaseSettings):
     user_agent: str = "validador-osc-ifsp/0.1 (projeto academico de extensao)"
     timeout_fonte_s: float = Field(default=12.0, gt=0)
     prazo_consulta_s: float = Field(default=20.0, gt=0)
+    timeout_banco_s: int = Field(default=5, ge=2)
     dir_arquivos: Path = Path("var/arquivos")
     token_operador: SecretStr | None = None
     log_formato: FormatoLog = FormatoLog.CONSOLE

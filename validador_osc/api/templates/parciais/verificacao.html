@@ -11,7 +11,7 @@
   </header>
   <p class="verificacao__mensagem">{{ verificacao.mensagem }}</p>
   {% if verificacao.situacao is defined and verificacao.situacao %}
-  <p class="verificacao__situacao">Situação: <strong>{{ verificacao.situacao | rotulo_situacao }}</strong></p>
+  <p class="verificacao__situacao">{{ verificacao.id | rotulo_campo_situacao }}: <strong>{{ verificacao.situacao | rotulo_situacao }}</strong></p>
   {% endif %}
   {% if verificacao.fontes %}
   <ul class="fontes" aria-label="Fontes consultadas">

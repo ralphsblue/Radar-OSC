@@ -4,9 +4,11 @@ from contextlib import asynccontextmanager
 from sqlalchemy import Engine, create_engine, text
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, async_sessionmaker, create_async_engine
 
+TIMEOUT_CONEXAO_S = 5
 
-def criar_engine_async(url: str) -> AsyncEngine:
-    return create_async_engine(url, pool_pre_ping=True)
+
+def criar_engine_async(url: str, timeout_conexao_s: int = TIMEOUT_CONEXAO_S) -> AsyncEngine:
+    return create_async_engine(url, pool_pre_ping=True, connect_args={"connect_timeout": timeout_conexao_s})
 
 
 def criar_engine(url: str) -> Engine:

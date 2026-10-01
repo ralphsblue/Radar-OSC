@@ -1,0 +1,22 @@
+{% set mensagens = pendentes | map(attribute="mensagem") | unique | list %}
+{% set mensagem_comum = mensagens | first if mensagens | length == 1 else "" %}
+<div class="pendentes" role="group" aria-labelledby="pendentes-{{ tipo | lower }}">
+  <div class="pendentes__cabecalho">
+    <p class="pendentes__titulo" id="pendentes-{{ tipo | lower }}">{% if pendentes | length == 1 %}1 verificação não feita{% else %}{{ pendentes | length }} verificações não feitas{% endif %}</p>
+    <span class="selo selo--nao-verificado">
+      <svg class="icone" aria-hidden="true" focusable="false"><use href="#i-nao-verificado"></use></svg>
+      {{ "NAO_VERIFICADO" | rotulo_estado }}
+    </span>
+  </div>
+  {% if mensagem_comum %}
+  <p class="pendentes__motivo">{{ mensagem_comum }}</p>
+  {% endif %}
+  <ul class="pendentes__lista">
+    {% for verificacao in pendentes %}
+    <li class="pendente{% if verificacao.id in consulta.motivos %} pendente--decisiva{% endif %}" id="verificacao-{{ verificacao.id }}">
+      <span class="pendente__nome">{{ verificacao.nome }}</span>
+      {% if not mensagem_comum %}<span class="pendente__mensagem">{{ verificacao.mensagem }}</span>{% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+</div>

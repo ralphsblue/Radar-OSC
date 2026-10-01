@@ -1,0 +1,744 @@
+{
+ "versao": "0.1-proposta",
+ "tabela": "Tabela de Natureza Jurídica 2021 (CONCLA/IBGE), na versão publicada pela Receita Federal",
+ "fonte": {
+  "orgao": "Receita Federal do Brasil - Dados Abertos do CNPJ, arquivo Naturezas",
+  "pagina": "https://www.gov.br/receitafederal/pt-br/assuntos/orientacao-tributaria/cadastros/consultas/dados-publicos-cnpj",
+  "compartilhamento": "https://arquivos.receitafederal.gov.br/index.php/s/YggdBLfdninEJX9",
+  "url_arquivo": "https://arquivos.receitafederal.gov.br/public.php/webdav/2026-09/Naturezas.zip",
+  "arquivo": "F.K03200$Z.D60912.NATJUCSV",
+  "sha256": "f9d9152013310e52d78ad0dca7e51c81ad15f2db5a7ce33a354ba9fc5ae47708",
+  "baixado_em": "2026-10-01T23:08:23+00:00",
+  "referencia_concla": "https://concla.ibge.gov.br/estrutura/natjur-estrutura/natureza-juridica-2021",
+  "gerado_por": "fase0/natureza/gerar_natureza.py"
+ },
+ "base_legal": "Lei 13.019/2014, art. 2º, I e art. 3º; tabela 6.3 do spec [ORIENTADOR Q14]",
+ "como_aplicar": "Código de 4 dígitos (BrasilAPI e Minha Receita) busca pelo campo codigo. Descrição em texto (OpenCNPJ) busca pela descrição oficial e pelos sinônimos, comparados sem acento, em minúsculas, com pontuação e espaços colapsados. Natureza sem correspondência = ALERTA (D17).",
+ "excluidos_da_fonte": {
+  "0000": "Valor da Receita para natureza não informada; não é código da tabela.",
+  "8885": "Valor da Receita para natureza não informada; não é código da tabela."
+ },
+ "contagem": {
+  "total": 89,
+  "ELEGIVEL": 2,
+  "ELEGIVEL_COM_ALERTA_RELIGIOSO": 1,
+  "NAO_ELEGIVEL": 82,
+  "REVISAO_MANUAL": 4
+ },
+ "naturezas": [
+  {
+   "codigo": 1015,
+   "codigo_formatado": "101-5",
+   "descricao": "Órgão Público do Poder Executivo Federal",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Administração pública: órgãos e entidades públicas não são OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 1023,
+   "codigo_formatado": "102-3",
+   "descricao": "Órgão Público do Poder Executivo Estadual ou do Distrito Federal",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Administração pública: órgãos e entidades públicas não são OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 1031,
+   "codigo_formatado": "103-1",
+   "descricao": "Órgão Público do Poder Executivo Municipal",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Administração pública: órgãos e entidades públicas não são OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 1040,
+   "codigo_formatado": "104-0",
+   "descricao": "Órgão Público do Poder Legislativo Federal",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Administração pública: órgãos e entidades públicas não são OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 1058,
+   "codigo_formatado": "105-8",
+   "descricao": "Órgão Público do Poder Legislativo Estadual ou do Distrito Federal",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Administração pública: órgãos e entidades públicas não são OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 1066,
+   "codigo_formatado": "106-6",
+   "descricao": "Órgão Público do Poder Legislativo Municipal",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Administração pública: órgãos e entidades públicas não são OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 1074,
+   "codigo_formatado": "107-4",
+   "descricao": "Órgão Público do Poder Judiciário Federal",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Administração pública: órgãos e entidades públicas não são OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 1082,
+   "codigo_formatado": "108-2",
+   "descricao": "Órgão Público do Poder Judiciário Estadual",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Administração pública: órgãos e entidades públicas não são OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 1104,
+   "codigo_formatado": "110-4",
+   "descricao": "Autarquia Federal",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Administração pública: órgãos e entidades públicas não são OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 1112,
+   "codigo_formatado": "111-2",
+   "descricao": "Autarquia Estadual ou do Distrito Federal",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Administração pública: órgãos e entidades públicas não são OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 1120,
+   "codigo_formatado": "112-0",
+   "descricao": "Autarquia Municipal",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Administração pública: órgãos e entidades públicas não são OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 1139,
+   "codigo_formatado": "113-9",
+   "descricao": "Fundação Pública de Direito Público Federal",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Administração pública: órgãos e entidades públicas não são OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 1147,
+   "codigo_formatado": "114-7",
+   "descricao": "Fundação Pública de Direito Público Estadual ou do Distrito Federal",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Administração pública: órgãos e entidades públicas não são OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 1155,
+   "codigo_formatado": "115-5",
+   "descricao": "Fundação Pública de Direito Público Municipal",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Administração pública: órgãos e entidades públicas não são OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 1163,
+   "codigo_formatado": "116-3",
+   "descricao": "Órgão Público Autônomo Federal",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Administração pública: órgãos e entidades públicas não são OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 1171,
+   "codigo_formatado": "117-1",
+   "descricao": "Órgão Público Autônomo Estadual ou do Distrito Federal",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Administração pública: órgãos e entidades públicas não são OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 1180,
+   "codigo_formatado": "118-0",
+   "descricao": "Órgão Público Autônomo Municipal",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Administração pública: órgãos e entidades públicas não são OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 1198,
+   "codigo_formatado": "119-8",
+   "descricao": "Comissão Polinacional",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Administração pública: órgãos e entidades públicas não são OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 1210,
+   "codigo_formatado": "121-0",
+   "descricao": "Consórcio Público de Direito Público (Associação Pública)",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Administração pública: órgãos e entidades públicas não são OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 1228,
+   "codigo_formatado": "122-8",
+   "descricao": "Consórcio Público de Direito Privado",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Administração pública: órgãos e entidades públicas não são OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 1236,
+   "codigo_formatado": "123-6",
+   "descricao": "Estado ou Distrito Federal",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Administração pública: órgãos e entidades públicas não são OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 1244,
+   "codigo_formatado": "124-4",
+   "descricao": "Município",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Administração pública: órgãos e entidades públicas não são OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 1252,
+   "codigo_formatado": "125-2",
+   "descricao": "Fundação Pública de Direito Privado Federal",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Administração pública: órgãos e entidades públicas não são OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 1260,
+   "codigo_formatado": "126-0",
+   "descricao": "Fundação Pública de Direito Privado Estadual ou do Distrito Federal",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Administração pública: órgãos e entidades públicas não são OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 1279,
+   "codigo_formatado": "127-9",
+   "descricao": "Fundação Pública de Direito Privado Municipal",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Administração pública: órgãos e entidades públicas não são OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 1287,
+   "codigo_formatado": "128-7",
+   "descricao": "Fundo Público da Administração Indireta Federal",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Administração pública: órgãos e entidades públicas não são OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 1295,
+   "codigo_formatado": "129-5",
+   "descricao": "Fundo Público da Administração Indireta Estadual ou do Distrito Federal",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Administração pública: órgãos e entidades públicas não são OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 1309,
+   "codigo_formatado": "130-9",
+   "descricao": "Fundo Público da Administração Indireta Municipal",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Administração pública: órgãos e entidades públicas não são OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 1317,
+   "codigo_formatado": "131-7",
+   "descricao": "Fundo Público da Administração Direta Federal",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Administração pública: órgãos e entidades públicas não são OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 1325,
+   "codigo_formatado": "132-5",
+   "descricao": "Fundo Público da Administração Direta Estadual ou do Distrito Federal",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Administração pública: órgãos e entidades públicas não são OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 1333,
+   "codigo_formatado": "133-3",
+   "descricao": "Fundo Público da Administração Direta Municipal",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Administração pública: órgãos e entidades públicas não são OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 1341,
+   "codigo_formatado": "134-1",
+   "descricao": "União",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Administração pública: órgãos e entidades públicas não são OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 1350,
+   "codigo_formatado": "135-0",
+   "descricao": "ENTIDADE PÚBLICA SOB REGIME ESPECIAL",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Administração pública: órgãos e entidades públicas não são OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 2011,
+   "codigo_formatado": "201-1",
+   "descricao": "Empresa Pública",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Entidade empresarial: distribui resultados entre sócios e não é OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 2038,
+   "codigo_formatado": "203-8",
+   "descricao": "Sociedade de Economia Mista",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Entidade empresarial: distribui resultados entre sócios e não é OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 2046,
+   "codigo_formatado": "204-6",
+   "descricao": "Sociedade Anônima Aberta",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Entidade empresarial: distribui resultados entre sócios e não é OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 2054,
+   "codigo_formatado": "205-4",
+   "descricao": "Sociedade Anônima Fechada",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Entidade empresarial: distribui resultados entre sócios e não é OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 2062,
+   "codigo_formatado": "206-2",
+   "descricao": "Sociedade Empresária Limitada",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Entidade empresarial: distribui resultados entre sócios e não é OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 2070,
+   "codigo_formatado": "207-0",
+   "descricao": "Sociedade Empresária em Nome Coletivo",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Entidade empresarial: distribui resultados entre sócios e não é OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 2089,
+   "codigo_formatado": "208-9",
+   "descricao": "Sociedade Empresária em Comandita Simples",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Entidade empresarial: distribui resultados entre sócios e não é OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 2097,
+   "codigo_formatado": "209-7",
+   "descricao": "Sociedade Empresária em Comandita por Ações",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Entidade empresarial: distribui resultados entre sócios e não é OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 2100,
+   "codigo_formatado": "210-0",
+   "descricao": "Sociedade Mercantil de Capital e Indústria",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Entidade empresarial: distribui resultados entre sócios e não é OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 2127,
+   "codigo_formatado": "212-7",
+   "descricao": "Sociedade em Conta de Participação",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Entidade empresarial: distribui resultados entre sócios e não é OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 2135,
+   "codigo_formatado": "213-5",
+   "descricao": "Empresário (Individual)",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Entidade empresarial: distribui resultados entre sócios e não é OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 2143,
+   "codigo_formatado": "214-3",
+   "descricao": "Cooperativa",
+   "sinonimos": [],
+   "regra": "REVISAO_MANUAL",
+   "justificativa": "Cooperativa: só as do art. 2º, I, b da Lei 13.019/2014 (Lei 9.867/1999, pessoas em situação de risco, combate à pobreza, trabalhadores rurais, interesse público). [ORIENTADOR Q14]"
+  },
+  {
+   "codigo": 2151,
+   "codigo_formatado": "215-1",
+   "descricao": "Consórcio de Sociedades",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Entidade empresarial: distribui resultados entre sócios e não é OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 2160,
+   "codigo_formatado": "216-0",
+   "descricao": "Grupo de Sociedades",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Entidade empresarial: distribui resultados entre sócios e não é OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 2178,
+   "codigo_formatado": "217-8",
+   "descricao": "Estabelecimento, no Brasil, de Sociedade Estrangeira",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Entidade empresarial: distribui resultados entre sócios e não é OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 2194,
+   "codigo_formatado": "219-4",
+   "descricao": "Estabelecimento, no Brasil, de Empresa Binacional Argentino-Brasileira",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Entidade empresarial: distribui resultados entre sócios e não é OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 2216,
+   "codigo_formatado": "221-6",
+   "descricao": "Empresa Domiciliada no Exterior",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Entidade empresarial: distribui resultados entre sócios e não é OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 2224,
+   "codigo_formatado": "222-4",
+   "descricao": "Clube/Fundo de Investimento",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Entidade empresarial: distribui resultados entre sócios e não é OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 2232,
+   "codigo_formatado": "223-2",
+   "descricao": "Sociedade Simples Pura",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Entidade empresarial: distribui resultados entre sócios e não é OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 2240,
+   "codigo_formatado": "224-0",
+   "descricao": "Sociedade Simples Limitada",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Entidade empresarial: distribui resultados entre sócios e não é OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 2259,
+   "codigo_formatado": "225-9",
+   "descricao": "Sociedade Simples em Nome Coletivo",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Entidade empresarial: distribui resultados entre sócios e não é OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 2267,
+   "codigo_formatado": "226-7",
+   "descricao": "Sociedade Simples em Comandita Simples",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Entidade empresarial: distribui resultados entre sócios e não é OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 2275,
+   "codigo_formatado": "227-5",
+   "descricao": "Empresa Binacional",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Entidade empresarial: distribui resultados entre sócios e não é OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 2283,
+   "codigo_formatado": "228-3",
+   "descricao": "Consórcio de Empregadores",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Entidade empresarial: distribui resultados entre sócios e não é OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 2291,
+   "codigo_formatado": "229-1",
+   "descricao": "Consórcio Simples",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Entidade empresarial: distribui resultados entre sócios e não é OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 2305,
+   "codigo_formatado": "230-5",
+   "descricao": "Empresa Individual de Responsabilidade Limitada (de Natureza Empresária)",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Entidade empresarial: distribui resultados entre sócios e não é OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 2313,
+   "codigo_formatado": "231-3",
+   "descricao": "Empresa Individual de Responsabilidade Limitada (de Natureza Simples)",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Entidade empresarial: distribui resultados entre sócios e não é OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 2321,
+   "codigo_formatado": "232-1",
+   "descricao": "Sociedade Unipessoal de Advocacia",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Entidade empresarial: distribui resultados entre sócios e não é OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 2330,
+   "codigo_formatado": "233-0",
+   "descricao": "Cooperativas de Consumo",
+   "sinonimos": [],
+   "regra": "REVISAO_MANUAL",
+   "justificativa": "Cooperativa de consumo: é cooperativa e por isso segue a regra de 214-3 (art. 2º, I, b da Lei 13.019/2014), código criado depois da tabela do spec. [ORIENTADOR Q14]"
+  },
+  {
+   "codigo": 2348,
+   "codigo_formatado": "234-8",
+   "descricao": "Empresa Simples de Inovação",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Entidade empresarial: distribui resultados entre sócios e não é OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 3034,
+   "codigo_formatado": "303-4",
+   "descricao": "Serviço Notarial e Registral (Cartório)",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Serviço notarial e registral é delegação do poder público, não OSC (art. 2º, I)."
+  },
+  {
+   "codigo": 3069,
+   "codigo_formatado": "306-9",
+   "descricao": "Fundação Privada",
+   "sinonimos": [],
+   "regra": "ELEGIVEL",
+   "justificativa": "Fundação de direito privado sem fins lucrativos: Lei 13.019/2014, art. 2º, I, a."
+  },
+  {
+   "codigo": 3077,
+   "codigo_formatado": "307-7",
+   "descricao": "Serviço Social Autônomo",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Serviço Social Autônomo (Sistema S): parcerias com essas entidades estão fora do MROSC (Lei 13.019/2014, art. 3º, X). [ORIENTADOR Q14]"
+  },
+  {
+   "codigo": 3085,
+   "codigo_formatado": "308-5",
+   "descricao": "Condomínio Edilício",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Condomínio edilício não é entidade associativa de interesse público (art. 2º, I)."
+  },
+  {
+   "codigo": 3107,
+   "codigo_formatado": "310-7",
+   "descricao": "Comissão de Conciliação Prévia",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Comissão de conciliação prévia é instância trabalhista, não OSC (art. 2º, I)."
+  },
+  {
+   "codigo": 3115,
+   "codigo_formatado": "311-5",
+   "descricao": "Entidade de Mediação e Arbitragem",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Entidade de mediação e arbitragem presta serviço de solução de conflitos, não é OSC (art. 2º, I)."
+  },
+  {
+   "codigo": 3131,
+   "codigo_formatado": "313-1",
+   "descricao": "Entidade Sindical",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Entidade sindical tem regime constitucional próprio (CF, art. 8º) e fica fora do conceito de OSC adotado pelo projeto e pelo Mapa das OSCs."
+  },
+  {
+   "codigo": 3204,
+   "codigo_formatado": "320-4",
+   "descricao": "Estabelecimento, no Brasil, de Fundação ou Associação Estrangeiras",
+   "sinonimos": [],
+   "regra": "REVISAO_MANUAL",
+   "justificativa": "Estabelecimento no Brasil de fundação ou associação estrangeira: pode ser entidade sem fins lucrativos do art. 2º, I, a, mas depende de autorização de funcionamento e do estatuto. [ORIENTADOR Q14]"
+  },
+  {
+   "codigo": 3212,
+   "codigo_formatado": "321-2",
+   "descricao": "Fundação ou Associação Domiciliada no Exterior",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Fundação ou associação domiciliada no exterior, sem estabelecimento no Brasil; o estabelecimento no Brasil é o código 320-4."
+  },
+  {
+   "codigo": 3220,
+   "codigo_formatado": "322-0",
+   "descricao": "Organização Religiosa",
+   "sinonimos": [],
+   "regra": "ELEGIVEL_COM_ALERTA_RELIGIOSO",
+   "justificativa": "Organização religiosa: Lei 13.019/2014, art. 2º, I, c, só quando atua em atividades de interesse público e cunho social distintas das exclusivamente religiosas; sujeita à verificação `religiosa`."
+  },
+  {
+   "codigo": 3239,
+   "codigo_formatado": "323-9",
+   "descricao": "Comunidade Indígena",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Comunidade indígena não está entre os tipos do art. 2º, I; quando atua como OSC, costuma fazê-lo por associação privada (399-9)."
+  },
+  {
+   "codigo": 3247,
+   "codigo_formatado": "324-7",
+   "descricao": "Fundo Privado",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Fundo privado é patrimônio sem personalidade associativa, não OSC (art. 2º, I)."
+  },
+  {
+   "codigo": 3255,
+   "codigo_formatado": "325-5",
+   "descricao": "Órgão de Direção Nacional de Partido Político",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Partido político e entidades eleitorais têm regime próprio (Lei 9.096/1995) e não são OSC (art. 2º, I)."
+  },
+  {
+   "codigo": 3263,
+   "codigo_formatado": "326-3",
+   "descricao": "Órgão de Direção Regional de Partido Político",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Partido político e entidades eleitorais têm regime próprio (Lei 9.096/1995) e não são OSC (art. 2º, I)."
+  },
+  {
+   "codigo": 3271,
+   "codigo_formatado": "327-1",
+   "descricao": "Órgão de Direção Local de Partido Político",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Partido político e entidades eleitorais têm regime próprio (Lei 9.096/1995) e não são OSC (art. 2º, I)."
+  },
+  {
+   "codigo": 3280,
+   "codigo_formatado": "328-0",
+   "descricao": "Comitê Financeiro de Partido Político",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Partido político e entidades eleitorais têm regime próprio (Lei 9.096/1995) e não são OSC (art. 2º, I)."
+  },
+  {
+   "codigo": 3298,
+   "codigo_formatado": "329-8",
+   "descricao": "Frente Plebiscitária ou Referendária",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Partido político e entidades eleitorais têm regime próprio (Lei 9.096/1995) e não são OSC (art. 2º, I)."
+  },
+  {
+   "codigo": 3301,
+   "codigo_formatado": "330-1",
+   "descricao": "Organização Social (OS)",
+   "sinonimos": [
+    "Organização Social"
+   ],
+   "regra": "REVISAO_MANUAL",
+   "justificativa": "Organização Social: contratos de gestão com OS estão fora do MROSC (Lei 13.019/2014, art. 3º, III), mas a entidade pode firmar outras parcerias como associação ou fundação. [ORIENTADOR Q14]"
+  },
+  {
+   "codigo": 3328,
+   "codigo_formatado": "332-8",
+   "descricao": "Plano de Benefícios de Previdência Complementar Fechada",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Plano de previdência complementar fechada não é OSC (art. 2º, I)."
+  },
+  {
+   "codigo": 3999,
+   "codigo_formatado": "399-9",
+   "descricao": "Associação Privada",
+   "sinonimos": [],
+   "regra": "ELEGIVEL",
+   "justificativa": "Entidade privada sem fins lucrativos: Lei 13.019/2014, art. 2º, I, a. O não lucro em si não é verificável pela Receita e fica como premissa."
+  },
+  {
+   "codigo": 4014,
+   "codigo_formatado": "401-4",
+   "descricao": "Empresa Individual Imobiliária",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Pessoa física ou equiparada: não é OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 4090,
+   "codigo_formatado": "409-0",
+   "descricao": "Candidato a Cargo Político Eletivo",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Partido político e entidades eleitorais têm regime próprio (Lei 9.096/1995) e não são OSC (art. 2º, I)."
+  },
+  {
+   "codigo": 4120,
+   "codigo_formatado": "412-0",
+   "descricao": "Produtor Rural (Pessoa Física)",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Pessoa física ou equiparada: não é OSC (Lei 13.019/2014, art. 2º, I)."
+  },
+  {
+   "codigo": 5010,
+   "codigo_formatado": "501-0",
+   "descricao": "Organização Internacional",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Organização internacional ou extraterritorial: fora do art. 2º, I da Lei 13.019/2014."
+  },
+  {
+   "codigo": 5029,
+   "codigo_formatado": "502-9",
+   "descricao": "Representação Diplomática Estrangeira",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Organização internacional ou extraterritorial: fora do art. 2º, I da Lei 13.019/2014."
+  },
+  {
+   "codigo": 5037,
+   "codigo_formatado": "503-7",
+   "descricao": "Outras Instituições Extraterritoriais",
+   "sinonimos": [],
+   "regra": "NAO_ELEGIVEL",
+   "justificativa": "Organização internacional ou extraterritorial: fora do art. 2º, I da Lei 13.019/2014."
+  }
+ ]
+}

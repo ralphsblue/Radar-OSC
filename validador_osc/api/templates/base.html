@@ -30,7 +30,7 @@
   </main>
   <footer class="rodape">
     <div class="rodape__interno">
-      <p class="rodape__aviso">Triagem automatizada de cadastros públicos. Não substitui certidões oficiais.</p>
+      {% block rodape_aviso %}<p class="rodape__aviso">Triagem automatizada de cadastros públicos. Não substitui certidões oficiais.</p>{% endblock %}
       <p class="rodape__versao">Versão {{ versao }}</p>
     </div>
   </footer>

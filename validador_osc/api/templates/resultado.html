@@ -1,14 +1,17 @@
 {% extends "base.html" %}
 {% set status = consulta.status | string %}
 {% set invalido = status == "CNPJ_INVALIDO" %}
+{% set cnpj_exibido = (consulta.cnpj_avaliado or consulta.cnpj) | cnpj %}
 
-{% block titulo %}{% if invalido %}CNPJ inválido{% else %}{{ status | rotulo_status }}: {{ consulta.razao_social or (consulta.cnpj_avaliado or consulta.cnpj) | cnpj }}{% endif %} - Validador de OSC{% endblock %}
+{% block titulo %}{% if invalido %}CNPJ inválido{% else %}{{ status | rotulo_status }}: {{ consulta.razao_social or cnpj_exibido }}{% endif %} - Validador de OSC{% endblock %}
 
 {% block navegacao %}
 <nav class="navegacao" aria-label="Principal">
   <a class="navegacao__link" href="/">Nova consulta</a>
 </nav>
 {% endblock %}
+
+{% block rodape_aviso %}{% if invalido %}{{ super() }}{% endif %}{% endblock %}
 
 {% block conteudo %}
 {% if invalido %}
@@ -33,15 +36,68 @@
 {% set icones = {"APTA": "ok", "APTA_COM_RESSALVAS": "alerta", "INAPTA": "restricao", "INCONCLUSIVA": "indisponivel"} %}
 {% set caminho = "/consultas/" ~ consulta.id %}
 {% set motivos = consulta.verificacoes | selectattr("id", "in", consulta.motivos) | list %}
-{% set avisos = consulta.verificacoes | selectattr("id", "in", consulta.avisos) | map(attribute="nome") | list %}
+{% set avisos = consulta.verificacoes | selectattr("id", "in", consulta.avisos) | list %}
+{% set avisos_indisponiveis = avisos | selectattr("estado", "equalto", "INDISPONIVEL") | list %}
+{% set avisos_nao_verificados = avisos | rejectattr("estado", "equalto", "INDISPONIVEL") | list %}
 <div class="pagina pagina--resultado">
-  <section class="identificacao" aria-labelledby="titulo-entidade">
+  <header class="identificacao">
     <p class="sobretitulo">Resultado da consulta</p>
-    <h1 class="titulo titulo--entidade" id="titulo-entidade">{{ consulta.razao_social or "Razão social não informada" }}</h1>
-    <p class="identificacao__cnpj">CNPJ <span class="numero">{{ (consulta.cnpj_avaliado or consulta.cnpj) | cnpj }}</span></p>
+    {% if consulta.razao_social %}
+    <h1 class="titulo titulo--entidade" id="titulo-entidade">{{ consulta.razao_social }}</h1>
+    <p class="identificacao__cnpj">CNPJ <span class="numero">{{ cnpj_exibido }}</span></p>
+    {% else %}
+    <h1 class="titulo titulo--entidade" id="titulo-entidade">CNPJ <span class="numero">{{ cnpj_exibido }}</span></h1>
+    <p class="identificacao__cnpj">Razão social não obtida</p>
+    {% endif %}
     {% if consulta.estabelecimento == "FILIAL" and consulta.cnpj != consulta.cnpj_avaliado %}
     <p class="identificacao__filial">Consulta feita a partir do estabelecimento <span class="numero">{{ consulta.cnpj | cnpj }}</span> (filial). A avaliação vale para a matriz.</p>
     {% endif %}
+  </header>
+
+  <section class="status status--{{ modificador }}" aria-labelledby="titulo-status">
+    <svg class="status__icone" aria-hidden="true" focusable="false"><use href="#i-{{ icones.get(status, 'info') }}"></use></svg>
+    <div class="status__corpo">
+      <p class="status__rotulo">Resultado</p>
+      <h2 class="status__titulo" id="titulo-status">{{ status | rotulo_status }}</h2>
+      <p class="status__descricao">{{ status | descricao_status }}</p>
+      {% if motivos %}
+      <dl class="status__motivos">
+        {% for estado, rotulo, orientacao in [
+          ("RESTRICAO", "Restrições", ""),
+          ("ALERTA", "Pontos para conferir", ""),
+          ("INDISPONIVEL", "Fontes sem resposta", "Tente de novo em alguns minutos ou consulte a fonte diretamente."),
+          ("NAO_VERIFICADO", "Não verificadas", "Confira essas fontes manualmente antes de firmar a parceria."),
+        ] %}
+        {% set doestado = motivos | selectattr("estado", "equalto", estado) | list %}
+        {% if doestado %}
+        <div class="status__motivo">
+          <dt>{{ rotulo }}</dt>
+          <dd>{% for motivo in doestado %}<a href="#verificacao-{{ motivo.id }}">{{ motivo.nome }}</a>{% if not loop.last %}, {% endif %}{% endfor %}.{% if orientacao %} <span class="status__orientacao">{{ orientacao }}</span>{% endif %}</dd>
+        </div>
+        {% endif %}
+        {% endfor %}
+      </dl>
+      {% endif %}
+    </div>
+  </section>
+
+  {% if avisos %}
+  <section class="aviso" role="note" aria-labelledby="titulo-aviso">
+    <svg class="icone aviso__icone" aria-hidden="true" focusable="false"><use href="#i-alerta"></use></svg>
+    <div class="aviso__corpo">
+      <h2 class="aviso__titulo" id="titulo-aviso">Resultado incompleto</h2>
+      {% if avisos_indisponiveis %}
+      <p class="aviso__texto"><strong>Não foi possível verificar: {{ avisos_indisponiveis | map(attribute="nome") | join(", ") }}.</strong> A fonte não respondeu. Tente de novo em alguns minutos.</p>
+      {% endif %}
+      {% if avisos_nao_verificados %}
+      <p class="aviso__texto"><strong>Não verificadas: {{ avisos_nao_verificados | map(attribute="nome") | join(", ") }}.</strong> O motivo aparece em cada verificação abaixo.</p>
+      {% endif %}
+      <p class="aviso__nota">Essas verificações não decidem o status, mas ficam de fora deste resultado.</p>
+    </div>
+  </section>
+  {% endif %}
+
+  <section class="cartao detalhes" aria-label="Dados da consulta">
     <dl class="metadados">
       <div class="metadados__item">
         <dt>Consultado em</dt>
@@ -72,56 +128,36 @@
     </div>
   </section>
 
-  <section class="status status--{{ modificador }}" aria-labelledby="titulo-status">
-    <svg class="status__icone" aria-hidden="true" focusable="false"><use href="#i-{{ icones.get(status, 'info') }}"></use></svg>
-    <div class="status__corpo">
-      <p class="status__rotulo">Resultado</p>
-      <h2 class="status__titulo" id="titulo-status">{{ status | rotulo_status }}</h2>
-      <p class="status__descricao">{{ status | descricao_status }}</p>
-      {% if motivos %}
-      <p class="status__motivos">{% if status == "APTA_COM_RESSALVAS" %}Pontos para conferir{% elif status == "INCONCLUSIVA" %}Sem resposta{% else %}Restrições{% endif %}:
-        {% for motivo in motivos %}<a href="#verificacao-{{ motivo.id }}">{{ motivo.nome }}</a>{% if not loop.last %}, {% endif %}{% endfor %}.
-      </p>
-      {% endif %}
-    </div>
-  </section>
-
-  {% if avisos %}
-  <section class="aviso" role="note" aria-labelledby="titulo-aviso">
-    <svg class="icone aviso__icone" aria-hidden="true" focusable="false"><use href="#i-info"></use></svg>
-    <div>
-      <h2 class="aviso__titulo" id="titulo-aviso">Não foi possível verificar: {{ avisos | join(", ") }}</h2>
-      <p class="aviso__texto">Essas verificações não decidem o status, mas o resultado fica incompleto sem elas. Tente de novo em alguns minutos.</p>
-    </div>
-  </section>
-  {% endif %}
-
-  {% if consulta.resumo %}
-  <ul class="resumo" aria-label="Resumo das verificações">
-    {% for chave, rotulo in [("ok", "OK"), ("restricao", "Restrição"), ("alerta", "Alerta"), ("indisponivel", "Indisponível"), ("nao_verificado", "Não verificado")] %}
-    {% set quantidade = consulta.resumo[chave] | default(0) %}
-    <li class="resumo__item resumo__item--{{ chave | replace('_', '-') }}{% if not quantidade %} resumo__item--zero{% endif %}">
-      <span class="resumo__numero">{{ quantidade }}</span>
-      <span class="resumo__rotulo">{{ rotulo }}</span>
-    </li>
-    {% endfor %}
-  </ul>
-  {% endif %}
-
   <section class="verificacoes" aria-labelledby="titulo-verificacoes">
     <h2 class="secao__titulo" id="titulo-verificacoes">Verificações</h2>
+    {% if consulta.resumo %}
+    <ul class="resumo" aria-label="Resumo das verificações">
+      {% for chave, rotulo in [("ok", "OK"), ("restricao", "Restrição"), ("alerta", "Alerta"), ("indisponivel", "Indisponível"), ("nao_verificado", "Não verificado")] %}
+      {% set quantidade = consulta.resumo[chave] | default(0) %}
+      <li class="resumo__item resumo__item--{{ chave | replace('_', '-') }}{% if not quantidade %} resumo__item--zero{% endif %}">
+        <span class="resumo__numero">{{ quantidade }}</span>
+        <span class="resumo__rotulo">{{ rotulo }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
     {% for tipo in ["ELIMINATORIA", "ALERTA", "INFORMATIVA"] %}
     {% set grupo = consulta.verificacoes | selectattr("tipo", "equalto", tipo) | list %}
     {% if grupo %}
+    {% set pendentes = grupo | selectattr("estado", "equalto", "NAO_VERIFICADO") | rejectattr("fontes") | list %}
+    {% set feitas = grupo | reject("in", pendentes) | list %}
     <section class="grupo" aria-labelledby="grupo-{{ tipo | lower }}">
       <header class="grupo__cabecalho">
         <h3 class="grupo__titulo" id="grupo-{{ tipo | lower }}">{{ tipo | rotulo_tipo }}</h3>
         <p class="grupo__descricao">{{ tipo | descricao_tipo }}</p>
       </header>
       <div class="grupo__lista">
-        {% for verificacao in grupo %}
+        {% for verificacao in feitas %}
         {% include "parciais/verificacao.html" %}
         {% endfor %}
+        {% if pendentes %}
+        {% include "parciais/pendentes.html" %}
+        {% endif %}
       </div>
     </section>
     {% endif %}
