@@ -11,7 +11,9 @@ from validador_osc.dominio.coleta import Coleta, Obtido
 from validador_osc.dominio.tipos import Cadastro
 from validador_osc.persistencia.repositorios import NovaConsulta, RepositorioConsultas
 from validador_osc.regras.tabelas import carregar_tabelas
+from validador_osc.regras.verificacoes.sancoes import ObservacoesSancoes
 from validador_osc.servico.consulta import PedidoConsulta, ServicoConsulta
+from validador_osc.servico.sancoes import ColetorSancoes
 
 FILIAL = "62779145000270"
 MATRIZ = "62779145000190"
@@ -57,11 +59,24 @@ class FonteControlada:
         return self.respostas[cnpj]
 
 
+class SancoesVazias(ColetorSancoes):
+    def __init__(self) -> None:
+        self.chamadas: list[tuple[str, str | None]] = []
+
+    async def coletar(
+        self, consultado: str, matriz: str | None, *, ignorar_cache: bool, limite: float
+    ) -> ObservacoesSancoes:
+        del ignorar_cache, limite
+        self.chamadas.append((consultado, matriz))
+        return ObservacoesSancoes(consultado=consultado, matriz=matriz)
+
+
 def servico(fonte: FonteControlada, prazo: timedelta) -> tuple[ServicoConsulta, ConsultasEmMemoria]:
     consultas = ConsultasEmMemoria()
     return (
         ServicoConsulta(
             cadastral=fonte,
+            sancoes=SancoesVazias(),
             consultas=consultas,
             tabelas=TABELAS,
             zona=ZoneInfo("America/Sao_Paulo"),

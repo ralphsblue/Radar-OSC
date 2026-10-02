@@ -1,6 +1,6 @@
 from calendar import isleap
 from dataclasses import dataclass
-from datetime import date, timedelta
+from datetime import date
 
 from validador_osc.dominio.coleta import Coleta, Falha, NaoEncontrado, Obtido
 from validador_osc.dominio.resultado import (
@@ -14,9 +14,10 @@ from validador_osc.dominio.resultado import (
 )
 from validador_osc.dominio.tipos import Cadastro, SituacaoCadastral
 from validador_osc.regras.catalogo import NATUREZA, SITUACAO, TEMPO
+from validador_osc.regras.parametros import carregar_limites
 from validador_osc.regras.tabelas import RegraNatureza, TabelaNatureza, resolver_natureza
 
-IDADE_MAXIMA_ESPELHO = timedelta(days=60)
+IDADE_MAXIMA_ESPELHO = carregar_limites().idade_maxima_espelho
 PRAZO_ANOS: dict[Esfera, int] = {Esfera.MUNICIPIO: 1, Esfera.ESTADO: 2, Esfera.UNIAO: 3}
 NOME_ESFERA: dict[Esfera, str] = {
     Esfera.MUNICIPIO: "municípios",

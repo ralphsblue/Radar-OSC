@@ -21,6 +21,7 @@ from tests.e2e.replay import (
 from validador_osc.api.app import criar_app
 from validador_osc.cnpj import cnpj_da_matriz, eh_alfanumerico, validar
 from validador_osc.config import Configuracao
+from validador_osc.regras.parametros import carregar_limites
 
 pytestmark = pytest.mark.db
 
@@ -69,6 +70,9 @@ def _verificacao(documento: dict[str, Any], id_: str) -> dict[str, Any]:
     return encontrada
 
 
+DATA_ESPELHO_REPLAY = date(2026, 9, 14)
+
+
 def _fontes(documento: dict[str, Any]) -> list[dict[str, Any]]:
     return [fonte for v in documento["verificacoes"] for fonte in v["fontes"]]
 
@@ -96,6 +100,12 @@ def test_caso_de_referencia(
     assert documento["esfera"] == parametros["esfera"]
     obtidos = {v["id"]: v["estado"] for v in documento["verificacoes"]}
     esperados = {v["id"]: v["estado"] for v in variante["verificacoes"] if v["id"] in CADASTRAIS}
+    data_referencia = date.fromisoformat(parametros["data_referencia"])
+    if (
+        esperados.get("situacao") == "OK"
+        and data_referencia - DATA_ESPELHO_REPLAY > carregar_limites().idade_maxima_espelho
+    ):
+        esperados["situacao"] = "ALERTA"
     if variante["status_final"] == "CNPJ_INVALIDO":
         assert documento["status"] == "CNPJ_INVALIDO"
         assert obtidos == {"dv": esperados["dv"]}

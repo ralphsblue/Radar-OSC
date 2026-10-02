@@ -1,5 +1,6 @@
 import uuid
 from datetime import date, datetime
+from decimal import Decimal
 from typing import Any
 
 from sqlalchemy import (
@@ -14,6 +15,7 @@ from sqlalchemy import (
     Integer,
     LargeBinary,
     MetaData,
+    Numeric,
     String,
     Text,
     text,
@@ -136,3 +138,80 @@ class ConsultaEvidencia(Base):
     carga_id: Mapped[int | None] = mapped_column(ForeignKey("carga.id"), index=True)
     papel: Mapped[str] = mapped_column(Text)
     de_cache: Mapped[bool] = mapped_column(Boolean)
+
+
+class SancaoRegistro(Base):
+    __tablename__ = "sancao_registro"
+    __table_args__ = (
+        CheckConstraint("cadastro IN ('CEPIM', 'CEIS', 'CNEP')", name="cadastro"),
+        CheckConstraint("tipo_pessoa IN ('J', 'F')", name="tipo_pessoa"),
+        CheckConstraint(
+            "documento IS NULL OR (tipo_pessoa IS DISTINCT FROM 'F' AND documento !~ '^[0-9]{11}$')",
+            name="documento_sem_cpf",
+        ),
+        CheckConstraint("cpf_meio ~ '^[0-9]{6}$'", name="cpf_meio"),
+        CheckConstraint("cpf_dv_final ~ '^[0-9]{2}$'", name="cpf_dv_final"),
+        Index("ix_sancao_registro_carga_documento", "carga_id", "documento"),
+        Index("ix_sancao_registro_carga_raiz", "carga_id", "raiz"),
+        Index("ix_sancao_registro_carga_pessoa", "carga_id", "nome_normalizado", "cpf_meio"),
+    )
+
+    id: Mapped[int] = mapped_column(BigInteger, Identity(), primary_key=True)
+    carga_id: Mapped[int] = mapped_column(ForeignKey("carga.id", ondelete="CASCADE"))
+    cadastro: Mapped[str] = mapped_column(Text)
+    tipo_pessoa: Mapped[str | None] = mapped_column(String(1))
+    documento: Mapped[str | None] = mapped_column(Text)
+    raiz: Mapped[str | None] = mapped_column(String(8))
+    nome: Mapped[str] = mapped_column(Text)
+    nome_normalizado: Mapped[str] = mapped_column(Text)
+    cpf_meio: Mapped[str | None] = mapped_column(String(6))
+    cpf_dv_final: Mapped[str | None] = mapped_column(String(2))
+    categoria: Mapped[str | None] = mapped_column(Text)
+    data_inicio: Mapped[date | None] = mapped_column(Date)
+    data_fim: Mapped[date | None] = mapped_column(Date)
+    orgao: Mapped[str | None] = mapped_column(Text)
+    esfera: Mapped[str | None] = mapped_column(Text)
+    uf: Mapped[str | None] = mapped_column(Text)
+    abrangencia: Mapped[str | None] = mapped_column(Text)
+    fundamentacao: Mapped[str | None] = mapped_column(Text)
+    processo: Mapped[str | None] = mapped_column(Text)
+    valor_multa: Mapped[Decimal | None] = mapped_column(Numeric(18, 2))
+    codigo_sancao: Mapped[str | None] = mapped_column(Text)
+    origem_informacoes: Mapped[str | None] = mapped_column(Text)
+    motivo: Mapped[str | None] = mapped_column(Text)
+    convenio: Mapped[str | None] = mapped_column(Text)
+    linha: Mapped[dict[str, Any]] = mapped_column(JSONB)
+
+
+class ListaTcuRegistro(Base):
+    __tablename__ = "lista_tcu_registro"
+    __table_args__ = (
+        CheckConstraint("lista IN ('INIDONEOS', 'CONTAS_IRREGULARES', 'INABILITADOS')", name="lista"),
+        CheckConstraint("tipo_registro IN ('CPF', 'CNPJ')", name="tipo_registro"),
+        CheckConstraint(
+            "documento IS NULL OR (tipo_registro = 'CNPJ' AND documento !~ '^[0-9]{11}$')",
+            name="documento_sem_cpf",
+        ),
+        CheckConstraint("cpf_meio ~ '^[0-9]{6}$'", name="cpf_meio"),
+        CheckConstraint("cpf_dv_final ~ '^[0-9]{2}$'", name="cpf_dv_final"),
+        Index("ix_lista_tcu_registro_carga_documento", "carga_id", "documento"),
+        Index("ix_lista_tcu_registro_carga_raiz", "carga_id", "raiz"),
+        Index("ix_lista_tcu_registro_carga_pessoa", "carga_id", "nome_normalizado", "cpf_meio"),
+    )
+
+    id: Mapped[int] = mapped_column(BigInteger, Identity(), primary_key=True)
+    carga_id: Mapped[int] = mapped_column(ForeignKey("carga.id", ondelete="CASCADE"))
+    lista: Mapped[str] = mapped_column(Text)
+    tipo_registro: Mapped[str] = mapped_column(Text)
+    documento: Mapped[str | None] = mapped_column(Text)
+    raiz: Mapped[str | None] = mapped_column(String(8))
+    nome: Mapped[str] = mapped_column(Text)
+    nome_normalizado: Mapped[str] = mapped_column(Text)
+    cpf_meio: Mapped[str | None] = mapped_column(String(6))
+    cpf_dv_final: Mapped[str | None] = mapped_column(String(2))
+    processo: Mapped[str | None] = mapped_column(Text)
+    acordao: Mapped[str | None] = mapped_column(Text)
+    data_acordao: Mapped[date | None] = mapped_column(Date)
+    data_transito: Mapped[date | None] = mapped_column(Date)
+    data_final: Mapped[date | None] = mapped_column(Date)
+    linha: Mapped[dict[str, Any]] = mapped_column(JSONB)

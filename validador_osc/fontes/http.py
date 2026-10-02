@@ -73,10 +73,12 @@ class ClienteHttp:
         cliente: httpx.AsyncClient,
         politica: PoliticaRetry | None = None,
         dormir: Callable[[float], Awaitable[object]] | None = None,
+        timeout: httpx.Timeout | None = None,
     ) -> None:
         self._cliente = cliente
         self._politica = politica or PoliticaRetry()
         self._dormir = dormir or asyncio.sleep
+        self._timeout = timeout
 
     async def obter(self, url: str, *, status_aceitos: frozenset[int] = frozenset({200})) -> RespostaHttp:
         inicio = time.perf_counter()
@@ -84,7 +86,7 @@ class ClienteHttp:
         ultima: FalhaHttp | None = None
         for tentativa in range(1, self._politica.tentativas + 1):
             try:
-                resposta = await self._cliente.get(url)
+                resposta = await self._get(url)
             except httpx.TimeoutException as erro:
                 ultima = self._falha(
                     url, MotivoFalha.TIMEOUT, detalhe=repr(erro), inicio=inicio, tentativas=tentativa
@@ -126,6 +128,11 @@ class ClienteHttp:
         if ultima is None:
             raise RuntimeError("política de retry sem tentativas")
         raise ultima
+
+    async def _get(self, url: str) -> httpx.Response:
+        if self._timeout is None:
+            return await self._cliente.get(url)
+        return await self._cliente.get(url, timeout=self._timeout)
 
     @staticmethod
     def _falha(

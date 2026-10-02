@@ -5,7 +5,6 @@ from validador_osc.dominio.coleta import Coleta, Obtido
 from validador_osc.dominio.resultado import (
     Avaliacao,
     Contexto,
-    DefinicaoVerificacao,
     Estado,
     ResultadoVerificacao,
 )
@@ -13,15 +12,22 @@ from validador_osc.dominio.tipos import Cadastro
 from validador_osc.regras.agregacao import agregar
 from validador_osc.regras.catalogo import (
     CATALOGO,
+    CEIS,
+    CEPIM,
     CNAE,
+    CNEP,
+    CNJ_CNIA,
     DV,
     ESTABELECIMENTO,
     NATUREZA,
     RELIGIOSA,
     SITUACAO,
+    TCU_CONTAS_IRREGULARES,
+    TCU_INIDONEOS,
     TEMPO,
 )
 from validador_osc.regras.entidade import Entidade, resolver_entidade
+from validador_osc.regras.parametros import ContasIrregulares
 from validador_osc.regras.tabelas import AvaliacaoCnae, Tabelas, avaliar_cnaes, resolver_natureza
 from validador_osc.regras.verificacoes.cadastro import (
     nao_verificada,
@@ -35,6 +41,15 @@ from validador_osc.regras.verificacoes.estabelecimento import (
     verificar_estabelecimento,
     verificar_situacao_entidade,
 )
+from validador_osc.regras.verificacoes.sancoes import (
+    ObservacoesSancoes,
+    verificar_ceis,
+    verificar_cepim,
+    verificar_cnep,
+    verificar_cnj_cnia,
+    verificar_tcu_contas_irregulares,
+    verificar_tcu_inidoneos,
+)
 
 MENSAGEM_ALFANUMERICO = (
     "CNPJ alfanumérico ainda não é consultado nas fontes nesta versão; "
@@ -43,6 +58,7 @@ MENSAGEM_ALFANUMERICO = (
 MENSAGEM_SEM_FONTE = "Verificação ainda não disponível nesta versão."
 
 CADASTRAIS = frozenset({SITUACAO, ESTABELECIMENTO, NATUREZA, CNAE, RELIGIOSA, TEMPO})
+SANCOES = frozenset({CEPIM, CEIS, CNEP, TCU_INIDONEOS, CNJ_CNIA, TCU_CONTAS_IRREGULARES})
 
 
 @dataclass(frozen=True, slots=True)
@@ -50,6 +66,7 @@ class DadosConsulta:
     cnpj_informado: str
     cadastro: Coleta[Cadastro] | None = None
     matriz: Coleta[Cadastro] | None = None
+    sancoes: ObservacoesSancoes | None = None
 
 
 def _avaliacao_cnae(entidade: Entidade, tabelas: Tabelas) -> AvaliacaoCnae | None:
@@ -101,6 +118,29 @@ def avaliar(dados: DadosConsulta, contexto: Contexto, tabelas: Tabelas) -> Avali
         resultados.append(verificar_situacao(dados.cadastro, contexto))
         resultados.extend(nao_verificada(d) for d in CADASTRAIS if d != SITUACAO)
 
-    pendentes: list[DefinicaoVerificacao] = [d for d in CATALOGO if d != DV and d not in CADASTRAIS]
-    resultados.extend(nao_verificada(d, MENSAGEM_SEM_FONTE) for d in pendentes)
-    return agregar(_ordenar(resultados))
+    if dados.sancoes is not None:
+        resultados.extend(_sancoes(dados.sancoes, contexto, tabelas))
+    else:
+        resultados.extend(nao_verificada(d, MENSAGEM_SEM_FONTE) for d in SANCOES)
+
+    tratadas = CADASTRAIS | SANCOES | {DV}
+    resultados.extend(nao_verificada(d, MENSAGEM_SEM_FONTE) for d in CATALOGO if d not in tratadas)
+    return agregar(_ordenar(_ativas(resultados, tabelas)))
+
+
+def _sancoes(obs: ObservacoesSancoes, contexto: Contexto, tabelas: Tabelas) -> list[ResultadoVerificacao]:
+    regras, limites = tabelas.orientador, tabelas.limites
+    return [
+        verificar_cepim(obs, contexto, regras, limites),
+        verificar_ceis(obs, contexto, regras, limites),
+        verificar_cnep(obs, contexto, regras, limites),
+        verificar_tcu_inidoneos(obs, contexto, regras, limites),
+        verificar_cnj_cnia(obs, contexto, regras),
+        verificar_tcu_contas_irregulares(obs, contexto, regras, limites),
+    ]
+
+
+def _ativas(resultados: list[ResultadoVerificacao], tabelas: Tabelas) -> list[ResultadoVerificacao]:
+    if tabelas.orientador.contas_irregulares is ContasIrregulares.NAO_USAR:
+        return [r for r in resultados if r.definicao != TCU_CONTAS_IRREGULARES]
+    return resultados

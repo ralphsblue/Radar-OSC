@@ -16,8 +16,10 @@ from validador_osc.dominio.tipos import Cadastro
 from validador_osc.persistencia.repositorios import NovaConsulta, RepositorioConsultas
 from validador_osc.regras.motor import DadosConsulta, avaliar
 from validador_osc.regras.tabelas import Tabelas
+from validador_osc.regras.verificacoes.sancoes import ObservacoesSancoes
 from validador_osc.servico.apresentacao import montar_documento
 from validador_osc.servico.cadastral import FonteCadastral
+from validador_osc.servico.sancoes import ColetorSancoes
 
 JANELA_REPETICAO = timedelta(seconds=10)
 PRAZO_PADRAO = timedelta(seconds=20)
@@ -48,6 +50,7 @@ class ServicoConsulta:
     def __init__(
         self,
         cadastral: FonteCadastral,
+        sancoes: ColetorSancoes,
         consultas: RepositorioConsultas,
         tabelas: Tabelas,
         zona: ZoneInfo,
@@ -57,6 +60,7 @@ class ServicoConsulta:
         prazo: timedelta = PRAZO_PADRAO,
     ) -> None:
         self._cadastral = cadastral
+        self._sancoes = sancoes
         self._consultas = consultas
         self._tabelas = tabelas
         self._zona = zona
@@ -66,9 +70,8 @@ class ServicoConsulta:
         self._prazo = prazo
 
     async def _coletar_cadastro(
-        self, cnpj: str, atualizar: bool
+        self, cnpj: str, atualizar: bool, limite: float
     ) -> tuple[Coleta[Cadastro], Coleta[Cadastro] | None]:
-        limite = asyncio.get_running_loop().time() + self._prazo.total_seconds()
         try:
             async with asyncio.timeout_at(limite):
                 cadastro = await self._cadastral.consultar(cnpj, ignorar_cache=atualizar)
@@ -113,11 +116,20 @@ class ServicoConsulta:
         structlog.contextvars.bind_contextvars(cnpj=cnpj)
         cadastro: Coleta[Cadastro] | None = None
         matriz: Coleta[Cadastro] | None = None
+        sancoes: ObservacoesSancoes | None = None
         if validar(cnpj).valido and not eh_alfanumerico(cnpj):
-            cadastro, matriz = await self._coletar_cadastro(cnpj, pedido.atualizar)
+            limite = asyncio.get_running_loop().time() + self._prazo.total_seconds()
+            cadastro, matriz = await self._coletar_cadastro(cnpj, pedido.atualizar, limite)
+            if isinstance(cadastro, Obtido):
+                cnpj_matriz = (
+                    matriz.dados.cnpj if isinstance(matriz, Obtido) and matriz.dados.matriz else None
+                )
+                sancoes = await self._sancoes.coletar(
+                    cnpj, cnpj_matriz, ignorar_cache=pedido.atualizar, limite=limite
+                )
 
         contexto = Contexto(data_referencia=iniciada_em.astimezone(self._zona).date(), esfera=pedido.esfera)
-        avaliacao = avaliar(DadosConsulta(cnpj, cadastro, matriz), contexto, self._tabelas)
+        avaliacao = avaliar(DadosConsulta(cnpj, cadastro, matriz, sancoes), contexto, self._tabelas)
         consulta_id = uuid.uuid4()
         dados_cadastro = cadastro.dados if isinstance(cadastro, Obtido) else None
         dados_matriz = matriz.dados if isinstance(matriz, Obtido) and matriz.dados.matriz else None

@@ -1,9 +1,18 @@
 import logging
 import sys
+from typing import TextIO, cast
 
 import structlog
 
 from validador_osc.config import Configuracao, FormatoLog
+
+
+class _SaidaDeErroAtual:
+    def write(self, texto: str) -> int:
+        return sys.stderr.write(texto)
+
+    def flush(self) -> None:
+        sys.stderr.flush()
 
 
 def configurar_logs(config: Configuracao) -> None:
@@ -23,7 +32,7 @@ def configurar_logs(config: Configuracao) -> None:
             renderizador,
         ],
         wrapper_class=structlog.make_filtering_bound_logger(nivel),
-        logger_factory=structlog.PrintLoggerFactory(sys.stderr),
+        logger_factory=structlog.PrintLoggerFactory(cast(TextIO, _SaidaDeErroAtual())),
         cache_logger_on_first_use=True,
     )
     logging.basicConfig(level=nivel, stream=sys.stderr, format="%(message)s")

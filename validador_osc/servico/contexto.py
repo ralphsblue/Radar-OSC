@@ -14,16 +14,22 @@ from validador_osc.fontes.brasilapi import POLITICA_RETRY as RETRY_BRASILAPI
 from validador_osc.fontes.brasilapi import FonteBrasilApi
 from validador_osc.fontes.http import ClienteHttp
 from validador_osc.fontes.opencnpj import FonteOpenCnpj
+from validador_osc.fontes.tcu import POLITICA_RETRY as RETRY_TCU
+from validador_osc.fontes.tcu import TIMEOUT as TIMEOUT_TCU
+from validador_osc.fontes.tcu import FonteTcu
 from validador_osc.persistencia.banco import criar_engine_async, criar_fabrica_sessoes
+from validador_osc.persistencia.bases import RepositorioBasesLocais
 from validador_osc.persistencia.repositorios import (
     RepositorioConsultas,
     RepositorioEvidencias,
     RepositorioSaudeFontes,
 )
+from validador_osc.regras.parametros import carregar_limites
 from validador_osc.regras.tabelas import carregar_tabelas
 from validador_osc.servico.cadastral import CadastralComReserva
 from validador_osc.servico.consulta import ServicoConsulta
 from validador_osc.servico.fontes import ServicoFontes
+from validador_osc.servico.sancoes import ColetorSancoes
 
 VERSAO_APP = version("validador-osc")
 
@@ -69,6 +75,10 @@ async def abrir_contexto(
                 FonteOpenCnpj(http, evidencias, relogio=relogio),
                 FonteBrasilApi(ClienteHttp(cliente, RETRY_BRASILAPI), evidencias, relogio=relogio),
             ),
+            sancoes=ColetorSancoes(
+                FonteTcu(ClienteHttp(cliente, RETRY_TCU, timeout=TIMEOUT_TCU), evidencias, relogio=relogio),
+                RepositorioBasesLocais(sessoes),
+            ),
             consultas=RepositorioConsultas(sessoes),
             tabelas=carregar_tabelas(),
             zona=config.zona,
@@ -78,7 +88,13 @@ async def abrir_contexto(
             prazo=timedelta(seconds=config.prazo_consulta_s),
         )
         try:
-            fontes = ServicoFontes(RepositorioSaudeFontes(sessoes), relogio)
+            fontes = ServicoFontes(
+                RepositorioSaudeFontes(sessoes),
+                RepositorioBasesLocais(sessoes),
+                carregar_limites(),
+                config.zona,
+                relogio,
+            )
             yield ContextoAplicacao(config, engine, sessoes, servico, fontes)
         finally:
             await engine.dispose()

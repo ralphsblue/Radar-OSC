@@ -244,3 +244,30 @@ def test_dormir_padrao_e_asyncio_sleep() -> None:
             return await ClienteHttp(cliente, politica).obter(URL)
 
     assert asyncio.run(rodar()).tentativas == 2
+
+
+def _timeout_enviado(cliente_timeout: httpx.Timeout, timeout: httpx.Timeout | None) -> dict[str, float]:
+    enviados: list[dict[str, float]] = []
+
+    def responder(request: httpx.Request) -> httpx.Response:
+        enviados.append(request.extensions["timeout"])
+        return httpx.Response(200)
+
+    async def rodar() -> None:
+        transporte = httpx.MockTransport(responder)
+        async with httpx.AsyncClient(transport=transporte, timeout=cliente_timeout) as cliente:
+            await ClienteHttp(cliente, timeout=timeout).obter(URL)
+
+    asyncio.run(rodar())
+    [enviado] = enviados
+    return enviado
+
+
+def test_sem_timeout_proprio_usa_o_do_cliente() -> None:
+    enviado = _timeout_enviado(httpx.Timeout(12.0, connect=5.0), None)
+    assert enviado == {"connect": 5.0, "read": 12.0, "write": 12.0, "pool": 12.0}
+
+
+def test_timeout_proprio_substitui_o_do_cliente() -> None:
+    enviado = _timeout_enviado(httpx.Timeout(12.0, connect=5.0), httpx.Timeout(15.0, connect=4.0))
+    assert enviado == {"connect": 4.0, "read": 15.0, "write": 15.0, "pool": 15.0}

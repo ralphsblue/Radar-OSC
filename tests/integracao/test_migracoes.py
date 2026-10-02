@@ -31,7 +31,15 @@ def test_tabelas_criadas(banco_migrado: str) -> None:
         tabelas = set(inspect(engine).get_table_names())
     finally:
         engine.dispose()
-    assert {"resposta_fonte", "carga", "consulta", "consulta_evidencia", "alembic_version"} <= tabelas
+    assert {
+        "resposta_fonte",
+        "carga",
+        "consulta",
+        "consulta_evidencia",
+        "sancao_registro",
+        "lista_tcu_registro",
+        "alembic_version",
+    } <= tabelas
 
 
 def test_modelos_e_migracoes_nao_divergem(banco_migrado: str) -> None:

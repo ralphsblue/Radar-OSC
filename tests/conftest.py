@@ -10,7 +10,14 @@ from sqlalchemy.exc import OperationalError
 from validador_osc.config import Configuracao
 
 RAIZ = Path(__file__).parent.parent
-TABELAS = ("consulta_evidencia", "consulta", "resposta_fonte", "carga")
+TABELAS = (
+    "consulta_evidencia",
+    "consulta",
+    "resposta_fonte",
+    "sancao_registro",
+    "lista_tcu_registro",
+    "carga",
+)
 
 
 def _url_teste() -> str:

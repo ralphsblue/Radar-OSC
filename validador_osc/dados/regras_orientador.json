@@ -1,0 +1,12 @@
+{
+  "versao": "2026-10-02",
+  "situacao": "provisorio: recomendações da revisão cruzada, aguardando resposta do orientador",
+  "regras": {
+    "Q16_cnep_multa": {"valor": "alerta", "opcoes": ["alerta", "restricao"], "justificativa": "Multa e publicação extraordinária não estão no art. 39, V, e não têm prazo."},
+    "Q17_abrangencia_limitada": {"valor": "restricao", "opcoes": ["restricao", "alerta"], "justificativa": "O sistema não sabe qual ente firmará a parceria; a abrangência aparece no texto."},
+    "Q18_cepim": {"valor": "qualquer_esfera", "opcoes": ["qualquer_esfera", "so_uniao"], "justificativa": "Os motivos do CEPIM correspondem aos incisos II e IV do art. 39, válidos em qualquer esfera."},
+    "Q19_cnia": {"valor": "vigencia", "opcoes": ["vigencia", "qualquer_registro"], "justificativa": "Art. 39, VII, c: enquanto durarem os prazos; vigência pela proibição no CEIS de origem CNJ."},
+    "Q20_raiz": {"valor": "restricao", "opcoes": ["restricao", "alerta", "exato"], "justificativa": "A sanção alcança a pessoa jurídica, que é uma só para todos os estabelecimentos da raiz."},
+    "Q21_contas_irregulares_osc": {"valor": "alerta", "opcoes": ["alerta", "restricao", "nao_usar"], "justificativa": "A lista do TCU não informa se a conta é de parceria (art. 39, VI)."}
+  }
+}

@@ -33,6 +33,22 @@ O QSA do OpenCNPJ vem mascarado (`***123456**`); nenhuma fixture contém CPF com
 | `24006302000135.json` | `/24006302000135` | 2026-10-01 03:23:27 | 200 | `7feb6ede1b9901381effde3a77ac022d4747fed8fc335ab7f1a98fca675ac311` | IDEAS, filial com ordem 0001 (C27) |
 | `44551605000570.json` | `/44551605000570` | 2026-10-01 03:12:14 | 200 | `194c0b2286379a274d95d3eb3ee1bd35493882f7d1585f8b0a41372dbf2b91e4` | Instituto Global, filial ativa (C37) |
 | `44551605000146.json` | `/44551605000146` | 2026-10-01 03:12:25 | 200 | `d630e8190179b73c50a87c3c4d5b6a45e95ee3b0f160d7d34f4700899ceb47cb` | Instituto Global, matriz da filial acima (C38) |
+| `02203539000173.json` | `casos/respostas/02203539000173/opencnpj.json` | 2026-10-01 03:22:53 | 200 | `adf10b4d8819259d9b1d66379fe80594953843ecbc600abe3fa5fffafb0cf4a1` | C28, E2E de sanções |
+| `00688001000170.json` | `casos/respostas/00688001000170/opencnpj.json` | 2026-10-01 03:10:12 | 200 | `468497746d8803740d02ef5e9d3de123a7aa952088ef183161a29e64c1359b9e` | C29, E2E de sanções |
+| `30994499000160.json` | `casos/respostas/30994499000160/opencnpj.json` | 2026-10-01 03:23:04 | 200 | `a17fe896c3c70a72e9d7743d23ad8e5ad5767df80582b953d8a85081cb39107d` | C30, E2E de sanções |
+| `02393242000118.json` | `casos/respostas/02393242000118/opencnpj.json` | 2026-10-01 03:10:35 | 200 | `a31b7c4573e639a96283d11dcaa87a884b5468a32d85dd8cebbca7582b6f5d12` | C31, E2E de sanções |
+| `07408449000132.json` | `casos/respostas/07408449000132/opencnpj.json` | 2026-10-01 03:10:58 | 200 | `fd5c824ce3130d2d3fffa7c23835e0198947268bd178a82c7956eac942f4d4ec` | C32, E2E de sanções |
+| `09058351000128.json` | `casos/respostas/09058351000128/opencnpj.json` | 2026-10-01 03:11:10 | 200 | `290f1cf4b2878b70245a750714c259eea05dba2e78c862844093c54af7b85a5a` | C33, E2E de sanções |
+| `13144375000177.json` | `casos/respostas/13144375000177/opencnpj.json` | 2026-10-01 03:23:38 | 200 | `c7d3b85d09d275fdd66bd589f0b72f9a7154fcb882118166c7c3e259fcec6c64` | C34, E2E de sanções |
+| `01081476000167.json` | `casos/respostas/01081476000167/opencnpj.json` | 2026-10-01 03:24:00 | 200 | `de682889cd7b06b5f48c0c720d3ac8b34fe598d538b226e376b785de08861f7b` | C36, E2E de sanções |
+| `06287661000126.json` | `casos/respostas/06287661000126/opencnpj.json` | 2026-10-01 03:10:23 | 200 | `2fcdc0f63947f9f959104dcd624702286667359ddc7de36a6ca93417da0c5efe` | C39, E2E de sanções |
+| `03463763000167.json` | `casos/respostas/03463763000167/opencnpj.json` | 2026-10-01 03:11:33 | 200 | `0386b13aeaea8789b7e9c9489920baef47ee60cf5344793e97ac7aeb73a04c3f` | C40, E2E de sanções |
+| `14112015000156.json` | `casos/respostas/14112015000156/opencnpj.json` | 2026-10-01 03:10:03 | 200 | `ea2853f394bbcd14e3c22ee8cf27263f068be53b9a91484d945b6622547e9528` | C43, E2E de sanções |
+| `08928169000118.json` | `casos/respostas/08928169000118/opencnpj.json` | 2026-10-01 03:11:22 | 200 | `d7f4e14d8335eb0092effd0499eeb3dee3afd7d0e416f246cbead3a5c3fabcc5` | C45, E2E de sanções |
+| `53524534000183.json` | `casos/respostas/53524534000183/opencnpj.json` | 2026-10-01 03:11:51 | 200 | `67a57fc9ca59be3cdfbc62e2a353d626bfa63eca59878a0f60e5eafc0a0eadbd` | C41, E2E de sanções |
+| `21145289000107.json` | `casos/respostas/21145289000107/opencnpj.json` | 2026-10-01 03:12:02 | 200 | `7c8c8667d6fb95b87382d9296bf0cf414485bf443dbf68211f96c1cc0589d168` | C42, E2E de sanções |
+| `05051898000140.json` | `casos/respostas/05051898000140/opencnpj.json` | 2026-10-01 03:23:49 | 200 | `2aa0c954c4e9888b3829c9bbc5e08d33f027031f112be71e0eeb8490b97158e8` | C35, E2E de sanções |
+| `43337682000135.json` | `casos/respostas/43337682000135/opencnpj.json` | 2026-10-01 03:11:45 | 200 | `45c5d1f0e6fc4a3e389fc52d189c811e7ad98e8e4563c1d25d3c11b3dd6d8868` | C46, E2E de sanções |
 | `404_94580730000152.json` | `/94580730000152` | 2026-10-01 03:06:37 | 404 | `51d0a9e3bd9ffc25483790aaffe7a3597e642edd040dddb16aafc324e6e922ed` | CNPJ inexistente, corpo `{"error":"not found"}` |
 | `19131243000197_datasets.json` | `/19131243000197?datasets=ceis,cepim,cnep` | 2026-10-01 03:06:24 | 200 | `4fad8b2da01058e89fd8484d58ef755b41c5dce404c155a9e85437a5b045f7d3` | Resposta de `?datasets=`: só as chaves pedidas, sem o cadastro |
 | `info.json` | `/info` | 2026-10-01 01:15:24 (data do arquivo) | 200 | `c943a02b664c749d91086d9477da99d32b4b7aa82b2c7dd317403a10aa804d45` | Data do espelho: `last_updated` 2026-09-15T00:54:41.4550104Z |

@@ -1140,3 +1140,5 @@ Ainda em aberto, sem bloquear o início:
 
 - [ORIENTADOR Q14 a Q24] Regras de interpretação da lei; até a resposta valem as recomendações da revisão como parâmetros de `dados/regras_orientador.json`, `natureza_juridica.json` e `regras_cnae.json`, sem mudar código.
 - [PENDENTE X17] Carga do DOU desde 12/2023 (antes de fechar os casos da fatia 6).
+
+> Nota de implementação (02/10/2026): ver D22 a D24 em `decisoes.md` para os ajustes feitos durante as fatias 1 a 3 (datasets do OpenCNPJ fora do MVP, retenção das bases locais, sanidade com queda de 50%).

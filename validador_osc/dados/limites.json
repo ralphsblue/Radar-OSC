@@ -1,0 +1,18 @@
+{
+  "versao": "2026-10-02",
+  "idade_maxima_dias": {
+    "cgu_cepim": 7,
+    "cgu_ceis": 3,
+    "cgu_cnep": 3,
+    "tcu_inidoneos": 3,
+    "tcu_contas_irregulares": 7,
+    "tcu_inabilitados": 7,
+    "tcesp_terceiro_setor": 45,
+    "siscebas_saude": 7,
+    "dou_s01": 75
+  },
+  "idade_maxima_espelho_cadastral_dias": 60,
+  "janela_contas_irregulares_anos": 8,
+  "abrangencia_total": ["todas as esferas em todos os poderes", "", "sem informação", "sem informacao"],
+  "categorias_cnep_fora_art39": ["multa", "publicação extraordinária"]
+}

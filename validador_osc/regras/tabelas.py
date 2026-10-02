@@ -8,6 +8,13 @@ from functools import cache
 from importlib.resources import files
 from types import MappingProxyType
 
+from validador_osc.regras.parametros import (
+    Limites,
+    RegrasOrientador,
+    carregar_limites,
+    carregar_regras_orientador,
+)
+
 ARQUIVO_REGRAS_CNAE = "regras_cnae.json"
 ARQUIVO_ESTRUTURA_CNAE = "cnae_subclasses.json"
 ARQUIVO_NATUREZA = "natureza_juridica.json"
@@ -158,6 +165,8 @@ class TabelaNatureza:
 class Tabelas:
     cnae: TabelaCnae
     natureza: TabelaNatureza
+    orientador: RegrasOrientador
+    limites: Limites
 
 
 def normalizar_cnae(valor: str | int) -> str:
@@ -337,7 +346,12 @@ def carregar_tabela_natureza() -> TabelaNatureza:
 
 
 def carregar_tabelas() -> Tabelas:
-    return Tabelas(cnae=carregar_tabela_cnae(), natureza=carregar_tabela_natureza())
+    return Tabelas(
+        cnae=carregar_tabela_cnae(),
+        natureza=carregar_tabela_natureza(),
+        orientador=carregar_regras_orientador(),
+        limites=carregar_limites(),
+    )
 
 
 def _ler_json(nome: str) -> object:

@@ -454,8 +454,15 @@ def test_fixture_vira_cadastro_esperado(esperado: Esperado) -> None:
     assert cadastro.data_base == DATA_BASE
 
 
-def test_esperados_cobrem_todas_as_fixtures_de_cadastro() -> None:
-    assert sorted([*(esperado.arquivo for esperado in ESPERADOS), "19131243000197.json"]) == CADASTROS
+def test_esperados_apontam_para_fixtures_existentes() -> None:
+    assert {esperado.arquivo for esperado in ESPERADOS} <= set(CADASTROS)
+
+
+@pytest.mark.parametrize("arquivo", CADASTROS)
+def test_toda_fixture_de_cadastro_e_normalizada(arquivo: str) -> None:
+    cadastro = normalizar_cadastro(ler(arquivo), None)
+    assert cadastro.cnpj == arquivo.removesuffix(".json")
+    assert cadastro.razao_social
 
 
 @pytest.mark.parametrize("arquivo", CADASTROS)

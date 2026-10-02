@@ -29,6 +29,7 @@ class Configuracao(BaseSettings):
     prazo_consulta_s: float = Field(default=20.0, gt=0)
     timeout_banco_s: int = Field(default=5, ge=2)
     dir_arquivos: Path = Path("var/arquivos")
+    timeout_download_s: float = Field(default=300.0, gt=0)
     token_operador: SecretStr | None = None
     log_formato: FormatoLog = FormatoLog.CONSOLE
     log_nivel: str = "INFO"
