@@ -1,23 +1,26 @@
+import asyncio
 import time
 import uuid
 from collections.abc import Callable
 from dataclasses import dataclass
 from datetime import UTC, datetime, timedelta
-from typing import Any, Protocol
+from typing import Any
 from zoneinfo import ZoneInfo
 
 import structlog
 
-from validador_osc.cnpj import eh_alfanumerico, normalizar, validar
-from validador_osc.dominio.coleta import Coleta, Obtido
+from validador_osc.cnpj import cnpj_da_matriz, eh_alfanumerico, normalizar, validar
+from validador_osc.dominio.coleta import Coleta, Falha, MotivoFalha, Obtido
 from validador_osc.dominio.resultado import Contexto, Esfera
 from validador_osc.dominio.tipos import Cadastro
 from validador_osc.persistencia.repositorios import NovaConsulta, RepositorioConsultas
 from validador_osc.regras.motor import DadosConsulta, avaliar
 from validador_osc.regras.tabelas import Tabelas
 from validador_osc.servico.apresentacao import montar_documento
+from validador_osc.servico.cadastral import FonteCadastral
 
 JANELA_REPETICAO = timedelta(seconds=10)
+PRAZO_PADRAO = timedelta(seconds=20)
 CNPJ_INFORMADO_MAXIMO = 32
 
 log = structlog.get_logger()
@@ -25,10 +28,6 @@ log = structlog.get_logger()
 
 def _agora() -> datetime:
     return datetime.now(UTC)
-
-
-class FonteCadastral(Protocol):
-    async def consultar(self, cnpj: str, *, ignorar_cache: bool = False) -> Coleta[Cadastro]: ...
 
 
 @dataclass(frozen=True, slots=True)
@@ -55,6 +54,7 @@ class ServicoConsulta:
         versao_app: str,
         versao_regras: str,
         relogio: Callable[[], datetime] | None = None,
+        prazo: timedelta = PRAZO_PADRAO,
     ) -> None:
         self._cadastral = cadastral
         self._consultas = consultas
@@ -63,6 +63,32 @@ class ServicoConsulta:
         self._versao_app = versao_app
         self._versao_regras = versao_regras
         self._relogio = relogio or _agora
+        self._prazo = prazo
+
+    async def _coletar_cadastro(
+        self, cnpj: str, atualizar: bool
+    ) -> tuple[Coleta[Cadastro], Coleta[Cadastro] | None]:
+        limite = asyncio.get_running_loop().time() + self._prazo.total_seconds()
+        try:
+            async with asyncio.timeout_at(limite):
+                cadastro = await self._cadastral.consultar(cnpj, ignorar_cache=atualizar)
+        except TimeoutError:
+            return self._prazo_esgotado(), None
+        if not isinstance(cadastro, Obtido) or cadastro.dados.matriz:
+            return cadastro, None
+        cnpj_matriz = cnpj_da_matriz(cnpj)
+        if cnpj_matriz == cnpj:
+            return cadastro, None
+        try:
+            async with asyncio.timeout_at(limite):
+                matriz = await self._cadastral.consultar(cnpj_matriz, ignorar_cache=atualizar)
+        except TimeoutError:
+            return cadastro, self._prazo_esgotado()
+        return cadastro, matriz
+
+    def _prazo_esgotado(self) -> Falha:
+        log.warning("prazo_consulta_esgotado", prazo_s=self._prazo.total_seconds())
+        return Falha(MotivoFalha.PRAZO_ESGOTADO, "prazo global da consulta esgotado")
 
     async def obter(self, consulta_id: uuid.UUID) -> dict[str, Any] | None:
         return await self._consultas.obter_resultado(consulta_id)
@@ -86,17 +112,20 @@ class ServicoConsulta:
 
         structlog.contextvars.bind_contextvars(cnpj=cnpj)
         cadastro: Coleta[Cadastro] | None = None
+        matriz: Coleta[Cadastro] | None = None
         if validar(cnpj).valido and not eh_alfanumerico(cnpj):
-            cadastro = await self._cadastral.consultar(cnpj, ignorar_cache=pedido.atualizar)
+            cadastro, matriz = await self._coletar_cadastro(cnpj, pedido.atualizar)
 
         contexto = Contexto(data_referencia=iniciada_em.astimezone(self._zona).date(), esfera=pedido.esfera)
-        avaliacao = avaliar(DadosConsulta(cnpj, cadastro), contexto, self._tabelas)
+        avaliacao = avaliar(DadosConsulta(cnpj, cadastro, matriz), contexto, self._tabelas)
         consulta_id = uuid.uuid4()
         dados_cadastro = cadastro.dados if isinstance(cadastro, Obtido) else None
+        dados_matriz = matriz.dados if isinstance(matriz, Obtido) and matriz.dados.matriz else None
         documento = montar_documento(
             consulta_id=str(consulta_id),
             cnpj=cnpj,
             cadastro=dados_cadastro,
+            matriz=dados_matriz,
             esfera=pedido.esfera,
             data_referencia=contexto.data_referencia,
             consultado_em=iniciada_em.astimezone(self._zona),
@@ -118,7 +147,7 @@ class ServicoConsulta:
                 id=consulta_id,
                 cnpj_informado=pedido.cnpj[:CNPJ_INFORMADO_MAXIMO],
                 cnpj=cnpj[:14],
-                cnpj_matriz=None,
+                cnpj_matriz=dados_matriz.cnpj if dados_matriz else None,
                 esfera=esfera_texto,
                 data_referencia=contexto.data_referencia,
                 iniciada_em=iniciada_em,

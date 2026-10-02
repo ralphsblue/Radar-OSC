@@ -15,12 +15,12 @@ from validador_osc.dominio.resultado import (
 from validador_osc.dominio.tipos import SituacaoCadastral
 from validador_osc.regras.catalogo import (
     CNAE,
-    ESTABELECIMENTO,
     NATUREZA,
     RELIGIOSA,
     SITUACAO,
     TEMPO,
 )
+from validador_osc.regras.entidade import Entidade, SituacaoMatriz
 from validador_osc.regras.tabelas import (
     AvaliacaoCnae,
     RegraNatureza,
@@ -31,12 +31,12 @@ from validador_osc.regras.tabelas import (
 from validador_osc.regras.verificacoes.cadastro import (
     CadastroObtido,
     anos_completos,
-    verificar_estabelecimento,
     verificar_natureza,
     verificar_situacao,
     verificar_tempo,
 )
 from validador_osc.regras.verificacoes.cnae import verificar_cnae, verificar_religiosa
+from validador_osc.regras.verificacoes.estabelecimento import verificar_estabelecimento
 
 TABELAS = carregar_tabelas()
 CONTEXTO = Contexto(data_referencia=DATA_REFERENCIA)
@@ -125,20 +125,6 @@ class TestSituacao:
         assert resultado.situacao == "FONTE_INDISPONIVEL"
         assert f"({motivo})" in resultado.mensagem
         assert "detalhe técnico" not in resultado.mensagem
-
-
-class TestEstabelecimento:
-    def test_matriz(self) -> None:
-        resultado = verificar_estabelecimento(obtido(matriz=True))
-        assert resultado.definicao is ESTABELECIMENTO
-        assert resultado.estado is Estado.OK
-        assert "matriz" in resultado.mensagem
-        assert resultado.fontes == (fonte_esperada(),)
-
-    def test_filial(self) -> None:
-        resultado = verificar_estabelecimento(obtido(matriz=False))
-        assert resultado.estado is Estado.OK
-        assert "filial" in resultado.mensagem
 
 
 class TestNatureza:
@@ -411,10 +397,16 @@ def _avaliacao_de(item: CadastroObtido) -> AvaliacaoCnae | None:
     return avaliacao(cadastro.cnae_principal, cadastro.cnaes_secundarios, natureza)
 
 
+def _entidade(item: CadastroObtido) -> Entidade:
+    if item.cadastro.matriz:
+        return Entidade(item, item, SituacaoMatriz.CONSULTADA_E_MATRIZ, None)
+    return Entidade(item, None, SituacaoMatriz.NAO_IDENTIFICADA, None)
+
+
 type Verificacao = Callable[[CadastroObtido, Contexto], ResultadoVerificacao]
 
 NAO_ELIMINATORIAS: dict[str, Verificacao] = {
-    "estabelecimento": lambda item, _: verificar_estabelecimento(item),
+    "estabelecimento": lambda item, _: verificar_estabelecimento(_entidade(item)),
     "cnae": lambda item, _: verificar_cnae(item, TABELAS.cnae, _avaliacao_de(item)),
     "religiosa": lambda item, _: verificar_religiosa(item, _avaliacao_de(item)),
     "tempo": verificar_tempo,

@@ -107,6 +107,10 @@ def criar_app(
             return _problema(404, "Consulta não encontrada")
         return documento
 
+    @app.get("/api/v1/fontes", tags=["fontes"])
+    async def estado_fontes(contexto: Contexto) -> dict[str, Any]:
+        return await contexto.fontes.estado()
+
     @app.get("/", response_class=HTMLResponse, include_in_schema=False)
     async def inicio(request: Request) -> HTMLResponse:
         return templates.TemplateResponse(request, "inicio.html", {"versao": VERSAO})

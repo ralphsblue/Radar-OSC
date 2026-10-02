@@ -2,8 +2,8 @@ from datetime import date
 
 import pytest
 
-from tests.unit.fabricas import EVIDENCIA, coleta_obtida, fonte_esperada
-from validador_osc.dominio.coleta import Coleta, Falha, MotivoFalha, NaoEncontrado
+from tests.unit.fabricas import EVIDENCIA, RECEBIDA_EM, cadastro, coleta_obtida, fonte_esperada
+from validador_osc.dominio.coleta import Coleta, Falha, MotivoFalha, NaoEncontrado, Obtido, RefEvidencia
 from validador_osc.dominio.resultado import (
     Avaliacao,
     Contexto,
@@ -22,7 +22,7 @@ from validador_osc.regras.motor import (
     DadosConsulta,
     avaliar,
 )
-from validador_osc.regras.tabelas import carregar_tabelas
+from validador_osc.regras.tabelas import carregar_tabelas, formatar_cnae
 from validador_osc.regras.verificacoes.cadastro import MENSAGEM_SEM_CADASTRO
 
 CONTEXTO = Contexto(data_referencia=date(2026, 10, 1))
@@ -180,3 +180,80 @@ def test_nao_eliminatoria_nunca_devolve_restricao(
     for resultado in avaliacao.verificacoes:
         if resultado.tipo is not TipoVerificacao.ELIMINATORIA:
             assert resultado.estado is not Estado.RESTRICAO, resultado.id
+
+
+CNPJ_FILIAL = "62779145000270"
+CNPJ_MATRIZ = "62779145000190"
+EVIDENCIA_MATRIZ = RefEvidencia(id=8, fonte="opencnpj", sha256="cd" * 32, recebida_em=RECEBIDA_EM)
+
+
+def _filial(**alteracoes: object) -> Obtido[Cadastro]:
+    return coleta_obtida(**{"cnpj": CNPJ_FILIAL, "matriz": False, **alteracoes})
+
+
+def _matriz(**alteracoes: object) -> Obtido[Cadastro]:
+    return Obtido(cadastro(**{"cnpj": CNPJ_MATRIZ, "matriz": True, **alteracoes}), EVIDENCIA_MATRIZ)
+
+
+def test_filial_usa_natureza_e_tempo_da_matriz() -> None:
+    consultado = _filial(natureza_descricao="Sociedade Empresária Limitada", data_inicio=date(2026, 9, 1))
+    matriz = _matriz(natureza_descricao="Associação Privada", data_inicio=date(1970, 4, 27))
+
+    resultados = por_id(avaliar(DadosConsulta(CNPJ_FILIAL, consultado, matriz), CONTEXTO, TABELAS))
+
+    assert resultados["natureza"].estado is Estado.OK
+    assert [f.evidencia_id for f in resultados["natureza"].fontes] == [8]
+    assert resultados["tempo"].estado is Estado.OK
+    assert "27/04/1970" in resultados["tempo"].mensagem
+    assert [f.evidencia_id for f in resultados["tempo"].fontes] == [8]
+    assert resultados["situacao"].mensagem.startswith("Matriz: ")
+    assert resultados["estabelecimento"].situacao == "FILIAL"
+
+
+def test_filial_sem_matriz_identificada_usa_os_proprios_dados() -> None:
+    consultado = _filial(natureza_descricao="Sociedade Empresária Limitada")
+
+    avaliacao = avaliar(DadosConsulta(CNPJ_FILIAL, consultado, NaoEncontrado(None)), CONTEXTO, TABELAS)
+    resultados = por_id(avaliacao)
+
+    assert resultados["natureza"].estado is Estado.RESTRICAO
+    assert resultados["estabelecimento"].estado is Estado.ALERTA
+    assert avaliacao.status is StatusFinal.INAPTA
+
+
+def test_filial_une_os_cnaes_da_matriz_e_da_filial() -> None:
+    consultado = _filial(cnae_principal="8610101", cnaes_secundarios=("4711302",))
+    matriz = _matriz(cnae_principal="4711302", cnaes_secundarios=())
+
+    resultados = por_id(avaliar(DadosConsulta(CNPJ_FILIAL, consultado, matriz), CONTEXTO, TABELAS))
+
+    cnae = resultados["cnae"]
+    assert cnae.estado is Estado.OK
+    assert f"principal {formatar_cnae('4711302')}" in cnae.mensagem
+    assert [(a.dados["papel"], a.dados["codigo"]) for a in cnae.achados] == [
+        ("principal", formatar_cnae("4711302")),
+        ("secundario", formatar_cnae("8610101")),
+    ]
+    assert [f.evidencia_id for f in cnae.fontes] == [7, 8]
+    assert [f.evidencia_id for f in resultados["religiosa"].fontes] == [7, 8]
+
+
+def test_so_a_matriz_com_cnae_baixo_e_alerta() -> None:
+    matriz = _matriz(cnae_principal="4711302", cnaes_secundarios=())
+
+    avaliacao = avaliar(DadosConsulta(CNPJ_MATRIZ, matriz), CONTEXTO, TABELAS)
+
+    assert por_id(avaliacao)["cnae"].estado is Estado.ALERTA
+    assert [f.evidencia_id for f in por_id(avaliacao)["cnae"].fontes] == [8]
+
+
+def test_filial_com_matriz_indisponivel_e_inconclusiva() -> None:
+    falha = Falha(MotivoFalha.PRAZO_ESGOTADO, "prazo")
+
+    avaliacao = avaliar(DadosConsulta(CNPJ_FILIAL, _filial(), falha), CONTEXTO, TABELAS)
+    resultados = por_id(avaliacao)
+
+    assert resultados["situacao"].estado is Estado.INDISPONIVEL
+    assert resultados["situacao"].situacao == "MATRIZ_INDISPONIVEL"
+    assert avaliacao.status is StatusFinal.INCONCLUSIVA
+    assert "situacao" in avaliacao.motivos

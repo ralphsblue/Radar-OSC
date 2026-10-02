@@ -5,15 +5,11 @@ from datetime import UTC, date, datetime, timedelta
 import structlog
 
 from validador_osc.dominio.coleta import Coleta, Falha, MotivoFalha, NaoEncontrado, Obtido
-from validador_osc.dominio.evidencias import (
-    Evidencias,
-    RespostaBruta,
-    RespostaGuardada,
-    ResultadoResposta,
-)
+from validador_osc.dominio.evidencias import Evidencias, RespostaGuardada, ResultadoResposta
 from validador_osc.dominio.tipos import Cadastro
-from validador_osc.fontes.http import ClienteHttp, FalhaHttp, RespostaHttp
+from validador_osc.fontes.http import ClienteHttp, FalhaHttp
 from validador_osc.fontes.normalizacao.opencnpj import ErroFormato, extrair_data_base, normalizar_cadastro
+from validador_osc.fontes.registro import buscar_em_cache, resposta_falha, resposta_ok
 
 FONTE = "opencnpj"
 FONTE_INFO = "opencnpj_info"
@@ -59,7 +55,14 @@ class FonteOpenCnpj:
         data_base = await self._data_base()
         agora = self._relogio()
         if not ignorar_cache:
-            guardada = await self._em_cache(cnpj, agora)
+            guardada = await buscar_em_cache(
+                self._evidencias,
+                FONTE,
+                cnpj,
+                agora,
+                validade=self._validade.cadastro,
+                validade_nao_encontrado=self._validade.nao_encontrado,
+            )
             if guardada is not None:
                 return self._interpretar(guardada, data_base)
         try:
@@ -67,7 +70,7 @@ class FonteOpenCnpj:
                 f"{self._url_base}/{cnpj}", status_aceitos=frozenset({200, _NAO_ENCONTRADO})
             )
         except FalhaHttp as falha:
-            evidencia = await self._evidencias.gravar(_resposta_falha(cnpj, falha))
+            evidencia = await self._evidencias.gravar(resposta_falha(FONTE, cnpj, falha))
             log.warning("fonte_falhou", fonte=FONTE, cnpj=cnpj, motivo=falha.motivo, detalhe=falha.detalhe)
             return Falha(falha.motivo, falha.detalhe, evidencia)
         resultado = (
@@ -75,19 +78,8 @@ class FonteOpenCnpj:
             if resposta.status == _NAO_ENCONTRADO
             else ResultadoResposta.OBTIDO
         )
-        evidencia = await self._evidencias.gravar(_resposta_ok(FONTE, cnpj, resposta, resultado))
+        evidencia = await self._evidencias.gravar(resposta_ok(FONTE, cnpj, resposta, resultado))
         return self._interpretar(RespostaGuardada(resultado, resposta.corpo, evidencia), data_base)
-
-    async def _em_cache(self, cnpj: str, agora: datetime) -> RespostaGuardada | None:
-        guardada = await self._evidencias.buscar_recente(FONTE, cnpj, self._validade.cadastro, agora)
-        if guardada is None:
-            return None
-        if (
-            guardada.resultado is ResultadoResposta.NAO_ENCONTRADO
-            and agora - guardada.evidencia.recebida_em > self._validade.nao_encontrado
-        ):
-            return None
-        return guardada
 
     def _interpretar(self, guardada: RespostaGuardada, data_base: date | None) -> Coleta[Cadastro]:
         if guardada.resultado is ResultadoResposta.NAO_ENCONTRADO:
@@ -128,40 +120,9 @@ class FonteOpenCnpj:
             resposta = await self._http.obter(f"{self._url_base}/info")
         except FalhaHttp as falha:
             self._info_falhou_em = falha.recebida_em
-            await self._evidencias.gravar(_resposta_falha("info", falha, FONTE_INFO))
+            await self._evidencias.gravar(resposta_falha(FONTE_INFO, "info", falha))
             log.warning("fonte_falhou", fonte=FONTE_INFO, motivo=falha.motivo)
             return None
         self._info_falhou_em = None
-        await self._evidencias.gravar(_resposta_ok(FONTE_INFO, "info", resposta, ResultadoResposta.OBTIDO))
+        await self._evidencias.gravar(resposta_ok(FONTE_INFO, "info", resposta, ResultadoResposta.OBTIDO))
         return resposta.corpo
-
-
-def _resposta_ok(
-    fonte: str, chave: str, resposta: RespostaHttp, resultado: ResultadoResposta
-) -> RespostaBruta:
-    return RespostaBruta(
-        fonte=fonte,
-        chave=chave,
-        url=resposta.url,
-        resultado=resultado,
-        recebida_em=resposta.recebida_em,
-        duracao_ms=resposta.duracao_ms,
-        tentativas=resposta.tentativas,
-        http_status=resposta.status,
-        content_type=resposta.content_type,
-        corpo=resposta.corpo,
-    )
-
-
-def _resposta_falha(chave: str, falha: FalhaHttp, fonte: str = FONTE) -> RespostaBruta:
-    return RespostaBruta(
-        fonte=fonte,
-        chave=chave,
-        url=falha.url,
-        resultado=ResultadoResposta.FALHA,
-        recebida_em=falha.recebida_em,
-        duracao_ms=falha.duracao_ms,
-        tentativas=falha.tentativas,
-        http_status=falha.status,
-        motivo_falha=falha.motivo,
-    )

@@ -1,6 +1,6 @@
 # Fixtures do OpenCNPJ
 
-Respostas reais de `https://api.opencnpj.org`, usadas pelos testes de contrato em `tests/contrato/test_normalizacao_opencnpj.py`.
+Respostas reais de `https://api.opencnpj.org`, usadas pelos testes de contrato em `tests/contrato/test_normalizacao_opencnpj.py` e pelo replay dos testes E2E (`tests/e2e/replay.py`).
 
 ## Origem e fidelidade
 
@@ -28,6 +28,11 @@ O QSA do OpenCNPJ vem mascarado (`***123456**`); nenhuma fixture contém CPF com
 | `03126200000183.json` | `/03126200000183` | 2026-10-01 03:10:47 | 200 | `84da63b1c5ec370a4a84e5a2d10e6f5312972c8014e3d7e47735cdb540c6286d` | Associação inapta, motivo 63 |
 | `03728829000101.json` | `/03728829000101` | 2026-10-01 03:07:04 | 200 | `4aacdf81f444abbef0adf27890678aad6882cd24bd2a40549410f2d802ae01f8` | Associação suspensa, motivo 21 |
 | `04955882000108.json` | `/04955882000108` | 2026-10-01 03:09:52 | 200 | `f6a1d1413569fc0d2710d0253bd41bb18147ade8333f484c73a48c326b489291` | Instituto GRPCOM, `data_situacao_cadastral` = `"0"` |
+| `04955882000523.json` | `/04955882000523` | 2026-10-01 03:09:45 | 200 | `816c57981c0bd5ba006c3d9f1689d7b0cddb271b0bd72b85490905a65f451fc5` | Filial baixada do Instituto GRPCOM, matriz ativa (C24) |
+| `24006302000488.json` | `/24006302000488` | 2026-10-01 03:23:15 | 200 | `ad711534cd2c15207e4396838307316c475b3c14e38143d5f7b07089f8b286eb` | IDEAS, matriz com ordem 0004 (C26) |
+| `24006302000135.json` | `/24006302000135` | 2026-10-01 03:23:27 | 200 | `7feb6ede1b9901381effde3a77ac022d4747fed8fc335ab7f1a98fca675ac311` | IDEAS, filial com ordem 0001 (C27) |
+| `44551605000570.json` | `/44551605000570` | 2026-10-01 03:12:14 | 200 | `194c0b2286379a274d95d3eb3ee1bd35493882f7d1585f8b0a41372dbf2b91e4` | Instituto Global, filial ativa (C37) |
+| `44551605000146.json` | `/44551605000146` | 2026-10-01 03:12:25 | 200 | `d630e8190179b73c50a87c3c4d5b6a45e95ee3b0f160d7d34f4700899ceb47cb` | Instituto Global, matriz da filial acima (C38) |
 | `404_94580730000152.json` | `/94580730000152` | 2026-10-01 03:06:37 | 404 | `51d0a9e3bd9ffc25483790aaffe7a3597e642edd040dddb16aafc324e6e922ed` | CNPJ inexistente, corpo `{"error":"not found"}` |
 | `19131243000197_datasets.json` | `/19131243000197?datasets=ceis,cepim,cnep` | 2026-10-01 03:06:24 | 200 | `4fad8b2da01058e89fd8484d58ef755b41c5dce404c155a9e85437a5b045f7d3` | Resposta de `?datasets=`: só as chaves pedidas, sem o cadastro |
 | `info.json` | `/info` | 2026-10-01 01:15:24 (data do arquivo) | 200 | `c943a02b664c749d91086d9477da99d32b4b7aa82b2c7dd317403a10aa804d45` | Data do espelho: `last_updated` 2026-09-15T00:54:41.4550104Z |

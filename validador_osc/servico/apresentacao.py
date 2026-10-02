@@ -47,6 +47,7 @@ def montar_documento(
     consulta_id: str,
     cnpj: str,
     cadastro: Cadastro | None,
+    matriz: Cadastro | None,
     esfera: Esfera | None,
     data_referencia: date,
     consultado_em: datetime,
@@ -55,13 +56,14 @@ def montar_documento(
     versao_regras: str,
 ) -> dict[str, Any]:
     estabelecimento = None if cadastro is None else ("MATRIZ" if cadastro.matriz else "FILIAL")
+    entidade = matriz or cadastro
     return {
         "id": consulta_id,
         "cnpj": cnpj,
-        "cnpj_avaliado": cnpj,
+        "cnpj_avaliado": entidade.cnpj if entidade else cnpj,
         "estabelecimento": estabelecimento,
-        "razao_social": cadastro.razao_social if cadastro else None,
-        "nome_fantasia": cadastro.nome_fantasia if cadastro else None,
+        "razao_social": entidade.razao_social if entidade else None,
+        "nome_fantasia": entidade.nome_fantasia if entidade else None,
         "esfera": esfera.value if esfera else None,
         "data_referencia": data_referencia.isoformat(),
         "consultado_em": consultado_em.isoformat(),

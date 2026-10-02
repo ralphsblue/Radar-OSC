@@ -2,7 +2,7 @@ import hashlib
 from collections.abc import AsyncIterator, Callable
 from contextlib import asynccontextmanager
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import datetime, timedelta
 from importlib.metadata import version
 from importlib.resources import files
 
@@ -10,12 +10,20 @@ import httpx
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, async_sessionmaker
 
 from validador_osc.config import Configuracao
+from validador_osc.fontes.brasilapi import POLITICA_RETRY as RETRY_BRASILAPI
+from validador_osc.fontes.brasilapi import FonteBrasilApi
 from validador_osc.fontes.http import ClienteHttp
 from validador_osc.fontes.opencnpj import FonteOpenCnpj
 from validador_osc.persistencia.banco import criar_engine_async, criar_fabrica_sessoes
-from validador_osc.persistencia.repositorios import RepositorioConsultas, RepositorioEvidencias
+from validador_osc.persistencia.repositorios import (
+    RepositorioConsultas,
+    RepositorioEvidencias,
+    RepositorioSaudeFontes,
+)
 from validador_osc.regras.tabelas import carregar_tabelas
+from validador_osc.servico.cadastral import CadastralComReserva
 from validador_osc.servico.consulta import ServicoConsulta
+from validador_osc.servico.fontes import ServicoFontes
 
 VERSAO_APP = version("validador-osc")
 
@@ -36,6 +44,7 @@ class ContextoAplicacao:
     engine: AsyncEngine
     sessoes: async_sessionmaker[AsyncSession]
     consultas: ServicoConsulta
+    fontes: ServicoFontes
 
 
 @asynccontextmanager
@@ -54,16 +63,22 @@ async def abrir_contexto(
         transport=transporte,
     ) as cliente:
         evidencias = RepositorioEvidencias(sessoes)
+        http = ClienteHttp(cliente)
         servico = ServicoConsulta(
-            cadastral=FonteOpenCnpj(ClienteHttp(cliente), evidencias, relogio=relogio),
+            cadastral=CadastralComReserva(
+                FonteOpenCnpj(http, evidencias, relogio=relogio),
+                FonteBrasilApi(ClienteHttp(cliente, RETRY_BRASILAPI), evidencias, relogio=relogio),
+            ),
             consultas=RepositorioConsultas(sessoes),
             tabelas=carregar_tabelas(),
             zona=config.zona,
             versao_app=VERSAO_APP,
             versao_regras=calcular_versao_regras(),
             relogio=relogio,
+            prazo=timedelta(seconds=config.prazo_consulta_s),
         )
         try:
-            yield ContextoAplicacao(config, engine, sessoes, servico)
+            fontes = ServicoFontes(RepositorioSaudeFontes(sessoes), relogio)
+            yield ContextoAplicacao(config, engine, sessoes, servico, fontes)
         finally:
             await engine.dispose()

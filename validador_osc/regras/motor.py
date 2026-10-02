@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 
 from validador_osc.cnpj import eh_alfanumerico, validar
 from validador_osc.dominio.coleta import Coleta, Obtido
@@ -21,18 +21,20 @@ from validador_osc.regras.catalogo import (
     SITUACAO,
     TEMPO,
 )
+from validador_osc.regras.entidade import Entidade, resolver_entidade
 from validador_osc.regras.tabelas import AvaliacaoCnae, Tabelas, avaliar_cnaes, resolver_natureza
 from validador_osc.regras.verificacoes.cadastro import (
-    CadastroObtido,
     nao_verificada,
-    referencia_fonte,
-    verificar_estabelecimento,
     verificar_natureza,
     verificar_situacao,
     verificar_tempo,
 )
 from validador_osc.regras.verificacoes.cnae import verificar_cnae, verificar_religiosa
 from validador_osc.regras.verificacoes.dv import verificar_dv
+from validador_osc.regras.verificacoes.estabelecimento import (
+    verificar_estabelecimento,
+    verificar_situacao_entidade,
+)
 
 MENSAGEM_ALFANUMERICO = (
     "CNPJ alfanumérico ainda não é consultado nas fontes nesta versão; "
@@ -47,28 +49,33 @@ CADASTRAIS = frozenset({SITUACAO, ESTABELECIMENTO, NATUREZA, CNAE, RELIGIOSA, TE
 class DadosConsulta:
     cnpj_informado: str
     cadastro: Coleta[Cadastro] | None = None
+    matriz: Coleta[Cadastro] | None = None
 
 
-def _avaliacao_cnae(cadastro: Cadastro, tabelas: Tabelas) -> AvaliacaoCnae | None:
-    if cadastro.cnae_principal is None:
+def _avaliacao_cnae(entidade: Entidade, tabelas: Tabelas) -> AvaliacaoCnae | None:
+    cadastro = entidade.avaliado.cadastro
+    principal, secundarios = entidade.cnaes
+    if principal is None:
         return None
     natureza = resolver_natureza(tabelas.natureza, cadastro.natureza_codigo, cadastro.natureza_descricao)
     return avaliar_cnaes(
         tabelas.cnae,
         natureza.codigo if natureza else cadastro.natureza_codigo,
-        cadastro.cnae_principal,
-        cadastro.cnaes_secundarios,
+        principal,
+        secundarios,
     )
 
 
-def _cadastrais(obtido: CadastroObtido, contexto: Contexto, tabelas: Tabelas) -> list[ResultadoVerificacao]:
-    avaliacao = _avaliacao_cnae(obtido.cadastro, tabelas)
+def _cadastrais(entidade: Entidade, contexto: Contexto, tabelas: Tabelas) -> list[ResultadoVerificacao]:
+    avaliado = entidade.avaliado
+    avaliacao = _avaliacao_cnae(entidade, tabelas)
     return [
-        verificar_estabelecimento(obtido),
-        verificar_natureza(obtido, tabelas.natureza),
-        verificar_cnae(obtido, tabelas.cnae, avaliacao),
-        verificar_religiosa(obtido, avaliacao),
-        verificar_tempo(obtido, contexto),
+        verificar_situacao_entidade(entidade, contexto),
+        verificar_estabelecimento(entidade),
+        verificar_natureza(avaliado, tabelas.natureza),
+        replace(verificar_cnae(avaliado, tabelas.cnae, avaliacao), fontes=entidade.fontes),
+        replace(verificar_religiosa(avaliado, avaliacao), fontes=entidade.fontes),
+        verificar_tempo(avaliado, contexto),
     ]
 
 
@@ -87,11 +94,11 @@ def avaliar(dados: DadosConsulta, contexto: Contexto, tabelas: Tabelas) -> Avali
         mensagem = MENSAGEM_ALFANUMERICO if eh_alfanumerico(resultado_dv.cnpj) else MENSAGEM_SEM_FONTE
         return agregar([dv, *(nao_verificada(d, mensagem) for d in CATALOGO if d != DV)])
 
-    resultados: list[ResultadoVerificacao] = [dv, verificar_situacao(dados.cadastro, contexto)]
+    resultados: list[ResultadoVerificacao] = [dv]
     if isinstance(dados.cadastro, Obtido):
-        obtido = CadastroObtido(dados.cadastro.dados, referencia_fonte(dados.cadastro))
-        resultados.extend(_cadastrais(obtido, contexto, tabelas))
+        resultados.extend(_cadastrais(resolver_entidade(dados.cadastro, dados.matriz), contexto, tabelas))
     else:
+        resultados.append(verificar_situacao(dados.cadastro, contexto))
         resultados.extend(nao_verificada(d) for d in CADASTRAIS if d != SITUACAO)
 
     pendentes: list[DefinicaoVerificacao] = [d for d in CATALOGO if d != DV and d not in CADASTRAIS]

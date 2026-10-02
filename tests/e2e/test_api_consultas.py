@@ -9,16 +9,24 @@ from _pytest.mark import ParameterSet
 from fastapi.testclient import TestClient
 
 from tests.conftest import RAIZ
-from tests.e2e.replay import OPCOES_CLIENTE, OpenCnpjReplay, RelogioFixo, instante_referencia
+from tests.e2e.replay import (
+    HOST_BRASILAPI,
+    HOST_OPENCNPJ,
+    OPCOES_CLIENTE,
+    PREFIXO_BRASILAPI,
+    FontesReplay,
+    RelogioFixo,
+    instante_referencia,
+)
 from validador_osc.api.app import criar_app
-from validador_osc.cnpj import eh_alfanumerico, validar
+from validador_osc.cnpj import cnpj_da_matriz, eh_alfanumerico, validar
 from validador_osc.config import Configuracao
 
 pytestmark = pytest.mark.db
 
 ROTA = "/api/v1/consultas"
 TIPO_PROBLEMA = "application/problem+json"
-CADASTRAIS = ("dv", "situacao", "natureza", "cnae", "religiosa", "tempo")
+CADASTRAIS = ("dv", "situacao", "estabelecimento", "natureza", "cnae", "religiosa", "tempo")
 OKBR = "19131243000197"
 INEXISTENTE = "94580730000152"
 URL_BANCO_FORA = "postgresql+psycopg://validador:validador@127.0.0.1:1/validador"
@@ -31,10 +39,16 @@ def _precisa_de_rede(cnpj: str) -> bool:
     return validar(cnpj).valido and not eh_alfanumerico(cnpj)
 
 
+def _tem_fixtures(replay: FontesReplay, cnpj: str) -> bool:
+    if not _precisa_de_rede(cnpj):
+        return True
+    return replay.tem_fixture(cnpj) and replay.tem_fixture(cnpj_da_matriz(cnpj))
+
+
 def _cenarios() -> Iterator[ParameterSet]:
-    replay = OpenCnpjReplay()
+    replay = FontesReplay()
     for caso in CASOS:
-        if _precisa_de_rede(caso["cnpj"]) and not replay.tem_fixture(caso["cnpj"]):
+        if not _tem_fixtures(replay, caso["cnpj"]):
             continue
         variantes = [caso, *caso["variantes"]]
         for indice, variante in enumerate(variantes):
@@ -69,12 +83,10 @@ def _assert_problema(resposta: Any, status: int) -> None:
 def test_caso_de_referencia(
     cliente: TestClient,
     relogio: RelogioFixo,
-    replay: OpenCnpjReplay,
+    replay: FontesReplay,
     caso: dict[str, Any],
     variante: dict[str, Any],
 ) -> None:
-    if caso.get("contexto", {}).get("filial"):
-        pytest.skip("consulta por filial: o esperado usa os dados da matriz (D5), que chegam na fatia 2")
     parametros = variante["parametros"]
     relogio.instante = instante_referencia(date.fromisoformat(parametros["data_referencia"]))
 
@@ -89,11 +101,16 @@ def test_caso_de_referencia(
         assert obtidos == {"dv": esperados["dv"]}
     else:
         assert {id_: obtidos.get(id_) for id_ in esperados} == esperados
+    contexto = caso.get("contexto", {})
+    if "razao_social" in contexto:
+        assert documento["razao_social"] == contexto["razao_social"]
+        assert documento["estabelecimento"] == ("FILIAL" if contexto["filial"] else "MATRIZ")
+        assert documento["cnpj_avaliado"] == (contexto["matriz"] or caso["cnpj"])
     if not _precisa_de_rede(caso["cnpj"]):
         assert replay.chamadas == []
 
 
-def test_cnpj_invalido_e_resultado_de_negocio_sem_rede(cliente: TestClient, replay: OpenCnpjReplay) -> None:
+def test_cnpj_invalido_e_resultado_de_negocio_sem_rede(cliente: TestClient, replay: FontesReplay) -> None:
     documento = _consultar(cliente, "19.131.243/0001-98")
 
     assert documento["status"] == "CNPJ_INVALIDO"
@@ -106,7 +123,7 @@ def test_cnpj_invalido_e_resultado_de_negocio_sem_rede(cliente: TestClient, repl
     assert replay.chamadas == []
 
 
-def test_alfanumerico_fica_inconclusivo_sem_rede(cliente: TestClient, replay: OpenCnpjReplay) -> None:
+def test_alfanumerico_fica_inconclusivo_sem_rede(cliente: TestClient, replay: FontesReplay) -> None:
     documento = _consultar(cliente, "12.ABC.345/01DE-35")
 
     assert documento["cnpj"] == "12ABC34501DE35"
@@ -118,7 +135,7 @@ def test_alfanumerico_fica_inconclusivo_sem_rede(cliente: TestClient, replay: Op
     assert replay.chamadas == []
 
 
-def test_cnpj_inexistente_deixa_situacao_indisponivel(cliente: TestClient, replay: OpenCnpjReplay) -> None:
+def test_cnpj_inexistente_deixa_situacao_indisponivel(cliente: TestClient, replay: FontesReplay) -> None:
     documento = _consultar(cliente, INEXISTENTE)
 
     situacao = _verificacao(documento, "situacao")
@@ -129,7 +146,7 @@ def test_cnpj_inexistente_deixa_situacao_indisponivel(cliente: TestClient, repla
     assert f"/{INEXISTENTE}" in replay.caminhos()
 
 
-def test_consulta_okbr_traz_cadastro_e_evidencia(cliente: TestClient, replay: OpenCnpjReplay) -> None:
+def test_consulta_okbr_traz_cadastro_e_evidencia(cliente: TestClient, replay: FontesReplay) -> None:
     documento = _consultar(cliente, "19.131.243/0001-97")
 
     assert documento["cnpj"] == OKBR
@@ -174,7 +191,7 @@ def test_get_com_id_que_nao_e_uuid_e_422(cliente: TestClient) -> None:
         pytest.param({"cnpj": OKBR, "extra": 1}, id="campo-extra"),
     ],
 )
-def test_corpo_invalido_e_422(cliente: TestClient, replay: OpenCnpjReplay, corpo: dict[str, Any]) -> None:
+def test_corpo_invalido_e_422(cliente: TestClient, replay: FontesReplay, corpo: dict[str, Any]) -> None:
     _assert_problema(cliente.post(ROTA, json=corpo), 422)
     assert replay.chamadas == []
 
@@ -186,7 +203,7 @@ def test_corpo_que_nao_e_json_e_422(cliente: TestClient) -> None:
 
 
 def test_idempotency_key_devolve_a_mesma_consulta(
-    cliente: TestClient, relogio: RelogioFixo, replay: OpenCnpjReplay
+    cliente: TestClient, relogio: RelogioFixo, replay: FontesReplay
 ) -> None:
     cabecalho = {"Idempotency-Key": "pedido-1"}
     primeira = cliente.post(ROTA, json={"cnpj": OKBR}, headers=cabecalho)
@@ -203,7 +220,7 @@ def test_idempotency_key_devolve_a_mesma_consulta(
 
 
 def test_repeticao_em_menos_de_10s_devolve_a_consulta_feita(
-    cliente: TestClient, relogio: RelogioFixo, replay: OpenCnpjReplay
+    cliente: TestClient, relogio: RelogioFixo, replay: FontesReplay
 ) -> None:
     primeira = _consultar(cliente, OKBR)
     chamadas = len(replay.chamadas)
@@ -225,7 +242,7 @@ def test_outra_esfera_nao_e_repeticao(cliente: TestClient) -> None:
     assert segunda["esfera"] == "municipio"
 
 
-def test_atualizar_ignora_janela_e_cache(cliente: TestClient, replay: OpenCnpjReplay) -> None:
+def test_atualizar_ignora_janela_e_cache(cliente: TestClient, replay: FontesReplay) -> None:
     primeira = _consultar(cliente, OKBR)
     replay.chamadas.clear()
 
@@ -238,7 +255,7 @@ def test_atualizar_ignora_janela_e_cache(cliente: TestClient, replay: OpenCnpjRe
 
 
 def test_segunda_consulta_depois_de_10s_usa_cache(
-    cliente: TestClient, relogio: RelogioFixo, replay: OpenCnpjReplay
+    cliente: TestClient, relogio: RelogioFixo, replay: FontesReplay
 ) -> None:
     primeira = _consultar(cliente, OKBR)
     replay.chamadas.clear()
@@ -253,10 +270,10 @@ def test_segunda_consulta_depois_de_10s_usa_cache(
     assert [v["estado"] for v in segunda["verificacoes"]] == [v["estado"] for v in primeira["verificacoes"]]
 
 
-def test_fonte_fora_do_ar_fica_inconclusiva_sem_5xx(
-    cliente: TestClient, relogio: RelogioFixo, replay: OpenCnpjReplay
+def test_as_duas_fontes_fora_do_ar_ficam_inconclusivas_sem_5xx(
+    cliente: TestClient, relogio: RelogioFixo, replay: FontesReplay
 ) -> None:
-    replay.status_forcado = 503
+    replay.derrubar(HOST_OPENCNPJ, HOST_BRASILAPI)
 
     documento = _consultar(cliente, OKBR)
 
@@ -267,17 +284,95 @@ def test_fonte_fora_do_ar_fica_inconclusiva_sem_5xx(
     assert documento["status"] == "INCONCLUSIVA"
     assert "situacao" in documento["motivos"]
     assert replay.caminhos().count(f"/{OKBR}") == 3
+    assert replay.caminhos(HOST_BRASILAPI) == [f"{PREFIXO_BRASILAPI}{OKBR}"]
 
-    replay.status_forcado = None
+    replay.religar()
     replay.chamadas.clear()
     relogio.avancar(timedelta(seconds=11))
     recuperada = _consultar(cliente, OKBR)
 
     assert _verificacao(recuperada, "situacao")["estado"] == "OK"
     assert f"/{OKBR}" in replay.caminhos()
+    assert replay.caminhos(HOST_BRASILAPI) == []
+    assert {fonte["fonte"] for fonte in _fontes(recuperada)} == {"opencnpj"}
 
 
-def test_banco_fora_do_ar_e_503_problem_json(replay: OpenCnpjReplay, relogio: RelogioFixo) -> None:
+def test_opencnpj_fora_do_ar_usa_a_brasilapi(cliente: TestClient, replay: FontesReplay) -> None:
+    replay.derrubar(HOST_OPENCNPJ)
+
+    documento = _consultar(cliente, OKBR)
+
+    assert documento["razao_social"] == "OPEN KNOWLEDGE BRASIL"
+    assert {_verificacao(documento, id_)["estado"] for id_ in CADASTRAIS} == {"OK"}
+    assert {fonte["fonte"] for fonte in _fontes(documento)} == {"brasilapi"}
+    [fonte, *_] = _verificacao(documento, "situacao")["fontes"]
+    assert fonte["data_base"] is None
+    assert fonte["de_cache"] is False
+    assert len(fonte["sha256"]) == 64
+    assert replay.caminhos().count(f"/{OKBR}") == 3
+    assert replay.caminhos(HOST_BRASILAPI) == [f"{PREFIXO_BRASILAPI}{OKBR}"]
+
+
+def test_brasilapi_fora_do_ar_nao_afeta_quando_o_opencnpj_responde(
+    cliente: TestClient, replay: FontesReplay
+) -> None:
+    replay.derrubar(HOST_BRASILAPI)
+
+    documento = _consultar(cliente, OKBR)
+
+    assert _verificacao(documento, "situacao")["estado"] == "OK"
+    assert replay.caminhos(HOST_BRASILAPI) == []
+
+
+def test_cnpj_inexistente_nas_duas_fontes(cliente: TestClient, replay: FontesReplay) -> None:
+    documento = _consultar(cliente, INEXISTENTE)
+
+    assert _verificacao(documento, "situacao")["situacao"] == "NAO_ENCONTRADO"
+    assert replay.caminhos(HOST_BRASILAPI) == [f"{PREFIXO_BRASILAPI}{INEXISTENTE}"]
+
+
+def test_estado_das_fontes_depois_de_consultas(
+    cliente: TestClient, relogio: RelogioFixo, replay: FontesReplay
+) -> None:
+    _consultar(cliente, OKBR)
+    replay.derrubar(HOST_OPENCNPJ)
+    _consultar(cliente, "65478551000100")
+    replay.religar()
+    relogio.avancar(timedelta(minutes=1))
+
+    resposta = cliente.get("/api/v1/fontes")
+
+    assert resposta.status_code == 200
+    estado = resposta.json()
+    assert estado["gerado_em"] == relogio.instante.isoformat()
+    assert estado["janela_horas"] == 24
+    por_fonte = {f["fonte"]: f for f in estado["online"]}
+    assert [f["fonte"] for f in estado["online"]] == sorted(por_fonte)
+    assert {"opencnpj", "opencnpj_info", "brasilapi"} == set(por_fonte)
+    opencnpj = por_fonte["opencnpj"]
+    assert (opencnpj["respostas"], opencnpj["falhas"]) == (2, 1)
+    assert opencnpj["ultimo_resultado"] == "FALHA"
+    assert opencnpj["ultima_falha_em"] == opencnpj["ultima_resposta_em"]
+    assert opencnpj["descricao"].startswith("OpenCNPJ")
+    brasilapi = por_fonte["brasilapi"]
+    assert (brasilapi["respostas"], brasilapi["falhas"]) == (1, 0)
+    assert brasilapi["ultimo_resultado"] == "OBTIDO"
+    assert brasilapi["ultima_falha_em"] is None
+    assert brasilapi["descricao"].startswith("BrasilAPI")
+    for fonte in estado["online"]:
+        assert fonte["ultima_resposta_em"] is not None
+        assert isinstance(fonte["latencia_mediana_ms"], int)
+        assert fonte["latencia_mediana_ms"] >= 0
+
+
+def test_estado_das_fontes_sem_consultas(cliente: TestClient) -> None:
+    resposta = cliente.get("/api/v1/fontes")
+
+    assert resposta.status_code == 200
+    assert resposta.json()["online"] == []
+
+
+def test_banco_fora_do_ar_e_503_problem_json(replay: FontesReplay, relogio: RelogioFixo) -> None:
     configuracao = Configuracao(database_url=URL_BANCO_FORA, timeout_banco_s=2)
     app = criar_app(configuracao, replay.transporte, relogio)
     with TestClient(app, backend_options=OPCOES_CLIENTE) as cliente:

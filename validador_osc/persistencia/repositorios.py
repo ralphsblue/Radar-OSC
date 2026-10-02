@@ -4,7 +4,8 @@ from dataclasses import dataclass
 from datetime import date, datetime, timedelta
 from typing import Any
 
-from sqlalchemy import select
+from sqlalchemy import func, select
+from sqlalchemy.dialects.postgresql import distinct_on
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
 from validador_osc.dominio.coleta import RefEvidencia
@@ -145,3 +146,67 @@ class RepositorioConsultas:
         async with self._sessoes() as sessao:
             linha = (await sessao.scalars(consulta)).first()
         return linha.resultado if linha is not None else None
+
+
+@dataclass(frozen=True, slots=True)
+class ResumoFonte:
+    fonte: str
+    ultima_resposta_em: datetime | None
+    ultimo_resultado: str | None
+    ultima_falha_em: datetime | None
+    respostas: int
+    falhas: int
+    latencia_mediana_ms: float | None
+
+
+class RepositorioSaudeFontes:
+    def __init__(self, sessoes: async_sessionmaker[AsyncSession]) -> None:
+        self._sessoes = sessoes
+
+    async def resumir(self, desde: datetime) -> list[ResumoFonte]:
+        falha = RespostaFonte.resultado == ResultadoResposta.FALHA.value
+        agregado = (
+            select(
+                RespostaFonte.fonte,
+                func.count().label("respostas"),
+                func.count().filter(falha).label("falhas"),
+                func.percentile_cont(0.5).within_group(RespostaFonte.duracao_ms).label("mediana"),
+                func.max(RespostaFonte.recebida_em).filter(falha).label("ultima_falha"),
+            )
+            .where(RespostaFonte.recebida_em >= desde)
+            .group_by(RespostaFonte.fonte)
+            .subquery()
+        )
+        ultima = (
+            select(RespostaFonte.fonte, RespostaFonte.recebida_em, RespostaFonte.resultado)
+            .ext(distinct_on(RespostaFonte.fonte))
+            .order_by(RespostaFonte.fonte, RespostaFonte.recebida_em.desc())
+            .subquery()
+        )
+        consulta = (
+            select(
+                ultima.c.fonte,
+                ultima.c.recebida_em,
+                ultima.c.resultado,
+                agregado.c.ultima_falha,
+                func.coalesce(agregado.c.respostas, 0),
+                func.coalesce(agregado.c.falhas, 0),
+                agregado.c.mediana,
+            )
+            .outerjoin(agregado, agregado.c.fonte == ultima.c.fonte)
+            .order_by(ultima.c.fonte)
+        )
+        async with self._sessoes() as sessao:
+            linhas = (await sessao.execute(consulta)).all()
+        return [
+            ResumoFonte(
+                fonte=fonte,
+                ultima_resposta_em=recebida_em,
+                ultimo_resultado=resultado,
+                ultima_falha_em=ultima_falha,
+                respostas=int(respostas),
+                falhas=int(falhas),
+                latencia_mediana_ms=float(mediana) if mediana is not None else None,
+            )
+            for fonte, recebida_em, resultado, ultima_falha, respostas, falhas, mediana in linhas
+        ]

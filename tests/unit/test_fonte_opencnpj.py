@@ -9,8 +9,9 @@ from pathlib import Path
 import httpx
 import pytest
 
-from validador_osc.dominio.coleta import Coleta, Falha, MotivoFalha, NaoEncontrado, Obtido, RefEvidencia
-from validador_osc.dominio.evidencias import RespostaBruta, RespostaGuardada, ResultadoResposta
+from tests.unit.evidencias_em_memoria import EvidenciasEmMemoria
+from validador_osc.dominio.coleta import Coleta, Falha, MotivoFalha, NaoEncontrado, Obtido
+from validador_osc.dominio.evidencias import ResultadoResposta
 from validador_osc.dominio.tipos import Cadastro, SituacaoCadastral
 from validador_osc.fontes.http import ClienteHttp, PoliticaRetry
 from validador_osc.fontes.opencnpj import FONTE, FONTE_INFO, URL_BASE, FonteOpenCnpj
@@ -27,62 +28,15 @@ def ler(nome: str) -> bytes:
     return (FIXTURES / nome).read_bytes()
 
 
-@dataclass
-class EvidenciasEmMemoria:
-    gravadas: list[tuple[RespostaBruta, RefEvidencia]] = field(default_factory=list)
-
-    async def gravar(self, resposta: RespostaBruta) -> RefEvidencia:
-        sha256 = hashlib.sha256(resposta.corpo).hexdigest() if resposta.corpo is not None else None
-        ref = RefEvidencia(len(self.gravadas) + 1, resposta.fonte, sha256, resposta.recebida_em)
-        self.gravadas.append((resposta, ref))
-        return ref
-
-    async def buscar_recente(
-        self, fonte: str, chave: str, validade: timedelta, agora: datetime
-    ) -> RespostaGuardada | None:
-        candidatas = [
-            (resposta, ref)
-            for resposta, ref in self.gravadas
-            if resposta.fonte == fonte
-            and resposta.chave == chave
-            and resposta.resultado is not ResultadoResposta.FALHA
-            and resposta.recebida_em >= agora - validade
-        ]
-        if not candidatas:
-            return None
-        resposta, ref = max(candidatas, key=lambda par: par[0].recebida_em)
-        return RespostaGuardada(
-            resposta.resultado,
-            resposta.corpo,
-            RefEvidencia(ref.id, ref.fonte, ref.sha256, ref.recebida_em, de_cache=True),
-        )
-
-    def semear(
-        self,
-        chave: str,
-        resultado: ResultadoResposta,
-        corpo: bytes | None,
-        idade: timedelta,
-        fonte: str = FONTE,
-    ) -> None:
-        asyncio.run(
-            self.gravar(
-                RespostaBruta(
-                    fonte=fonte,
-                    chave=chave,
-                    url=f"{URL_BASE}/{chave}",
-                    resultado=resultado,
-                    recebida_em=datetime.now(UTC) - idade,
-                    duracao_ms=10,
-                    tentativas=1,
-                    http_status=404 if resultado is ResultadoResposta.NAO_ENCONTRADO else 200,
-                    corpo=corpo,
-                )
-            )
-        )
-
-    def de(self, fonte: str) -> list[RespostaBruta]:
-        return [resposta for resposta, _ in self.gravadas if resposta.fonte == fonte]
+def semear(
+    evidencias: EvidenciasEmMemoria,
+    chave: str,
+    resultado: ResultadoResposta,
+    corpo: bytes | None,
+    idade: timedelta,
+    fonte: str = FONTE,
+) -> None:
+    evidencias.semear(fonte, f"{URL_BASE}/{chave}", chave, resultado, corpo, datetime.now(UTC) - idade)
 
 
 type Rota = Callable[[httpx.Request], httpx.Response]
@@ -178,7 +132,7 @@ def test_cache_valido_nao_chama_a_rede() -> None:
 @pytest.mark.parametrize(("idade", "chamadas"), [(timedelta(hours=23), 0), (timedelta(hours=25), 1)])
 def test_cache_do_cadastro_vale_24_horas(idade: timedelta, chamadas: int) -> None:
     cenario = Cenario()
-    cenario.evidencias.semear(CNPJ_OKBR, ResultadoResposta.OBTIDO, ler(f"{CNPJ_OKBR}.json"), idade)
+    semear(cenario.evidencias, CNPJ_OKBR, ResultadoResposta.OBTIDO, ler(f"{CNPJ_OKBR}.json"), idade)
     obtido(cenario.consultar(CNPJ_OKBR))
     assert cenario.chamadas[f"/{CNPJ_OKBR}"] == chamadas
 
@@ -221,14 +175,14 @@ def test_404_em_cache_e_reaproveitado() -> None:
 )
 def test_cache_do_404_expira_em_6_horas(idade: timedelta, chamadas: int) -> None:
     cenario = Cenario()
-    cenario.evidencias.semear(CNPJ_INEXISTENTE, ResultadoResposta.NAO_ENCONTRADO, b"{}", idade)
+    semear(cenario.evidencias, CNPJ_INEXISTENTE, ResultadoResposta.NAO_ENCONTRADO, b"{}", idade)
     assert isinstance(cenario.consultar(CNPJ_INEXISTENTE), NaoEncontrado)
     assert cenario.chamadas[f"/{CNPJ_INEXISTENTE}"] == chamadas
 
 
 def test_cnpj_que_passou_a_existir_depois_do_404_expirado() -> None:
     cenario = Cenario()
-    cenario.evidencias.semear(CNPJ_OKBR, ResultadoResposta.NAO_ENCONTRADO, b"{}", timedelta(hours=7))
+    semear(cenario.evidencias, CNPJ_OKBR, ResultadoResposta.NAO_ENCONTRADO, b"{}", timedelta(hours=7))
     assert obtido(cenario.consultar(CNPJ_OKBR)).dados.cnpj == CNPJ_OKBR
 
 
@@ -316,7 +270,7 @@ def test_info_gravado_e_reaproveitado_entre_cnpjs() -> None:
 def test_info_em_cache_da_a_data_base_sem_rede() -> None:
     cenario = Cenario()
     info = b'{"last_updated":"2026-07-01T12:00:00Z"}'
-    cenario.evidencias.semear("info", ResultadoResposta.OBTIDO, info, timedelta(hours=2), FONTE_INFO)
+    semear(cenario.evidencias, "info", ResultadoResposta.OBTIDO, info, timedelta(hours=2), FONTE_INFO)
     coleta = obtido(cenario.consultar(CNPJ_OKBR))
     assert coleta.dados.data_base == date(2026, 7, 1)
     assert cenario.chamadas["/info"] == 0
@@ -325,7 +279,7 @@ def test_info_em_cache_da_a_data_base_sem_rede() -> None:
 def test_info_vencido_e_buscado_de_novo() -> None:
     cenario = Cenario()
     info = b'{"last_updated":"2026-07-01T12:00:00Z"}'
-    cenario.evidencias.semear("info", ResultadoResposta.OBTIDO, info, timedelta(hours=25), FONTE_INFO)
+    semear(cenario.evidencias, "info", ResultadoResposta.OBTIDO, info, timedelta(hours=25), FONTE_INFO)
     coleta = obtido(cenario.consultar(CNPJ_OKBR))
     assert coleta.dados.data_base == DATA_BASE_INFO
     assert cenario.chamadas["/info"] == 1
@@ -333,8 +287,8 @@ def test_info_vencido_e_buscado_de_novo() -> None:
 
 def test_cadastro_em_cache_usa_a_data_base_atual() -> None:
     cenario = Cenario()
-    cenario.evidencias.semear(
-        CNPJ_OKBR, ResultadoResposta.OBTIDO, ler(f"{CNPJ_OKBR}.json"), timedelta(hours=1)
+    semear(
+        cenario.evidencias, CNPJ_OKBR, ResultadoResposta.OBTIDO, ler(f"{CNPJ_OKBR}.json"), timedelta(hours=1)
     )
     coleta = obtido(cenario.consultar(CNPJ_OKBR))
     assert coleta.evidencia.de_cache
@@ -375,7 +329,7 @@ def test_url_base_com_barra_final() -> None:
 def test_falha_no_info_usa_a_ultima_data_conhecida() -> None:
     cenario = Cenario()
     info = b'{"last_updated":"2026-07-01T12:00:00Z"}'
-    cenario.evidencias.semear("info", ResultadoResposta.OBTIDO, info, timedelta(days=10), FONTE_INFO)
+    semear(cenario.evidencias, "info", ResultadoResposta.OBTIDO, info, timedelta(days=10), FONTE_INFO)
     cenario.rotas["/info"] = corpo(500, b"")
     assert obtido(cenario.consultar(CNPJ_OKBR)).dados.data_base == date(2026, 7, 1)
 

@@ -13,7 +13,7 @@ from validador_osc.dominio.resultado import (
     ResultadoVerificacao,
 )
 from validador_osc.dominio.tipos import Cadastro, SituacaoCadastral
-from validador_osc.regras.catalogo import ESTABELECIMENTO, NATUREZA, SITUACAO, TEMPO
+from validador_osc.regras.catalogo import NATUREZA, SITUACAO, TEMPO
 from validador_osc.regras.tabelas import RegraNatureza, TabelaNatureza, resolver_natureza
 
 IDADE_MAXIMA_ESPELHO = timedelta(days=60)
@@ -76,45 +76,35 @@ def verificar_situacao(coleta: Coleta[Cadastro], contexto: Contexto) -> Resultad
                 situacao="FONTE_INDISPONIVEL",
             )
         case Obtido(dados=cadastro):
-            fonte = referencia_fonte(coleta)
-            if cadastro.situacao is not SituacaoCadastral.ATIVA:
-                explicacao = f" Motivo: {cadastro.motivo_descricao}." if cadastro.motivo_descricao else ""
-                return ResultadoVerificacao(
-                    SITUACAO,
-                    Estado.RESTRICAO,
-                    f"Situação {cadastro.situacao.name} desde {data_br(cadastro.situacao_data)}.{explicacao} "
-                    "A Lei 13.019/2014 exige cadastro ativo.",
-                    fontes=(fonte,),
-                )
-            base = cadastro.data_base
-            if base is not None and contexto.data_referencia - base > IDADE_MAXIMA_ESPELHO:
-                return ResultadoVerificacao(
-                    SITUACAO,
-                    Estado.ALERTA,
-                    f"Situação ATIVA, mas a base cadastral é de {data_br(base)}. "
-                    "Confirme no site da Receita.",
-                    fontes=(fonte,),
-                )
-            return ResultadoVerificacao(
-                SITUACAO,
-                Estado.OK,
-                f"Situação ATIVA desde {data_br(cadastro.situacao_data)}.",
-                fontes=(fonte,),
-            )
+            return avaliar_situacao(CadastroObtido(cadastro, referencia_fonte(coleta)), contexto)
 
 
-def verificar_estabelecimento(obtido: CadastroObtido) -> ResultadoVerificacao:
+def avaliar_situacao(obtido: CadastroObtido, contexto: Contexto, sujeito: str = "") -> ResultadoVerificacao:
     cadastro = obtido.cadastro
-    if cadastro.matriz:
+    fontes = (obtido.fonte,)
+    if cadastro.situacao is not SituacaoCadastral.ATIVA:
+        explicacao = f" Motivo: {cadastro.motivo_descricao}." if cadastro.motivo_descricao else ""
         return ResultadoVerificacao(
-            ESTABELECIMENTO, Estado.OK, "Consulta feita pelo CNPJ da matriz.", fontes=(obtido.fonte,)
+            SITUACAO,
+            Estado.RESTRICAO,
+            f"{sujeito}Situação {cadastro.situacao.name} desde {data_br(cadastro.situacao_data)}."
+            f"{explicacao} A Lei 13.019/2014 exige cadastro ativo.",
+            fontes=fontes,
+        )
+    base = cadastro.data_base
+    if base is not None and contexto.data_referencia - base > IDADE_MAXIMA_ESPELHO:
+        return ResultadoVerificacao(
+            SITUACAO,
+            Estado.ALERTA,
+            f"{sujeito}Situação ATIVA, mas a base cadastral é de {data_br(base)}. "
+            "Confirme no site da Receita.",
+            fontes=fontes,
         )
     return ResultadoVerificacao(
-        ESTABELECIMENTO,
+        SITUACAO,
         Estado.OK,
-        "Consulta feita pelo CNPJ de uma filial. Nesta versão a avaliação usa os dados da filial; "
-        "a avaliação pela matriz chega na próxima versão.",
-        fontes=(obtido.fonte,),
+        f"{sujeito}Situação ATIVA desde {data_br(cadastro.situacao_data)}.",
+        fontes=fontes,
     )
 
 

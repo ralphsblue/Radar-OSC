@@ -18,6 +18,8 @@ from validador_osc.persistencia.repositorios import (
     NovaConsulta,
     RepositorioConsultas,
     RepositorioEvidencias,
+    RepositorioSaudeFontes,
+    ResumoFonte,
 )
 
 pytestmark = pytest.mark.db
@@ -279,3 +281,95 @@ def test_recente_equivalente_fora_da_janela(banco_limpo: str) -> None:
         return await consultas.recente_equivalente(CNPJ, None, AGORA - timedelta(seconds=10))
 
     assert rodar(banco_limpo, cenario) is None
+
+
+def _resumir(url: str, respostas: list[RespostaBruta], desde: datetime) -> list[ResumoFonte]:
+    async def cenario(sessoes: Sessoes) -> list[ResumoFonte]:
+        evidencias = RepositorioEvidencias(sessoes)
+        for item in respostas:
+            await evidencias.gravar(item)
+        return await RepositorioSaudeFontes(sessoes).resumir(desde)
+
+    return rodar(url, cenario)
+
+
+def test_resumo_de_fontes_sem_respostas_e_vazio(banco_limpo: str) -> None:
+    assert _resumir(banco_limpo, [], AGORA - VALIDADE) == []
+
+
+def test_resumo_conta_respostas_falhas_mediana_e_ultima(banco_limpo: str) -> None:
+    respostas = [
+        replace(resposta(AGORA - timedelta(hours=3)), duracao_ms=40),
+        replace(resposta(AGORA - timedelta(hours=2), resultado=ResultadoResposta.FALHA), duracao_ms=10),
+        replace(resposta(AGORA - timedelta(hours=1)), duracao_ms=20),
+        replace(resposta(AGORA - timedelta(minutes=30), fonte="brasilapi"), duracao_ms=100),
+        replace(
+            resposta(
+                AGORA - timedelta(minutes=10), fonte="brasilapi", resultado=ResultadoResposta.NAO_ENCONTRADO
+            ),
+            duracao_ms=300,
+        ),
+    ]
+
+    resumos = _resumir(banco_limpo, respostas, AGORA - VALIDADE)
+
+    assert resumos == [
+        ResumoFonte(
+            fonte="brasilapi",
+            ultima_resposta_em=AGORA - timedelta(minutes=10),
+            ultimo_resultado="NAO_ENCONTRADO",
+            ultima_falha_em=None,
+            respostas=2,
+            falhas=0,
+            latencia_mediana_ms=200.0,
+        ),
+        ResumoFonte(
+            fonte="opencnpj",
+            ultima_resposta_em=AGORA - timedelta(hours=1),
+            ultimo_resultado="OBTIDO",
+            ultima_falha_em=AGORA - timedelta(hours=2),
+            respostas=3,
+            falhas=1,
+            latencia_mediana_ms=20.0,
+        ),
+    ]
+
+
+def test_resumo_so_conta_dentro_da_janela_mas_guarda_a_ultima_resposta(banco_limpo: str) -> None:
+    antiga = AGORA - VALIDADE - timedelta(hours=1)
+    respostas = [
+        resposta(antiga, fonte="brasilapi", resultado=ResultadoResposta.FALHA),
+        resposta(antiga, resultado=ResultadoResposta.FALHA),
+        replace(resposta(AGORA - timedelta(hours=1)), duracao_ms=30),
+    ]
+
+    resumos = {r.fonte: r for r in _resumir(banco_limpo, respostas, AGORA - VALIDADE)}
+
+    assert resumos["brasilapi"] == ResumoFonte(
+        fonte="brasilapi",
+        ultima_resposta_em=antiga,
+        ultimo_resultado="FALHA",
+        ultima_falha_em=None,
+        respostas=0,
+        falhas=0,
+        latencia_mediana_ms=None,
+    )
+    assert resumos["opencnpj"].respostas == 1
+    assert resumos["opencnpj"].falhas == 0
+    assert resumos["opencnpj"].ultima_falha_em is None
+    assert resumos["opencnpj"].latencia_mediana_ms == 30.0
+    assert resumos["opencnpj"].ultimo_resultado == "OBTIDO"
+
+
+def test_resumo_com_falha_como_ultima_resposta(banco_limpo: str) -> None:
+    respostas = [
+        resposta(AGORA - timedelta(hours=2)),
+        resposta(AGORA - timedelta(minutes=5), resultado=ResultadoResposta.FALHA),
+    ]
+
+    [resumo] = _resumir(banco_limpo, respostas, AGORA - VALIDADE)
+
+    assert resumo.ultimo_resultado == "FALHA"
+    assert resumo.ultima_resposta_em == AGORA - timedelta(minutes=5)
+    assert resumo.ultima_falha_em == AGORA - timedelta(minutes=5)
+    assert (resumo.respostas, resumo.falhas) == (2, 1)

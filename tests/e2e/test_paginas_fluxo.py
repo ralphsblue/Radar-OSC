@@ -6,7 +6,7 @@ from typing import Any
 import pytest
 from fastapi.testclient import TestClient
 
-from tests.e2e.replay import OpenCnpjReplay
+from tests.e2e.replay import FontesReplay
 from validador_osc.api.formatacao import rotulo_estado, rotulo_status
 
 pytestmark = pytest.mark.db
@@ -80,7 +80,7 @@ def test_formulario_com_esfera_desconhecida_consulta_sem_esfera(cliente: TestCli
     assert _documento(cliente, consulta_id)["esfera"] is None
 
 
-def test_cnpj_invalido_volta_ao_formulario_preenchido(cliente: TestClient, replay: OpenCnpjReplay) -> None:
+def test_cnpj_invalido_volta_ao_formulario_preenchido(cliente: TestClient, replay: FontesReplay) -> None:
     consulta_id = _enviar_formulario(cliente, "19.131.243/0001-98", "estado")
 
     pagina = _pagina(cliente, consulta_id)
@@ -99,3 +99,36 @@ def test_pagina_de_consulta_inexistente_e_404(cliente: TestClient) -> None:
 
     assert resposta.status_code == 404
     assert resposta.headers["content-type"].startswith("text/html")
+
+
+def test_pagina_de_filial_mostra_a_matriz_avaliada(cliente: TestClient) -> None:
+    consulta_id = _enviar_formulario(cliente, "62.779.145/0002-70")
+
+    documento = _documento(cliente, consulta_id)
+    pagina = _pagina(cliente, consulta_id)
+
+    assert documento["cnpj"] == "62779145000270"
+    assert documento["cnpj_avaliado"] == "62779145000190"
+    assert documento["estabelecimento"] == "FILIAL"
+    assert '<p class="identificacao__cnpj">CNPJ <span class="numero">62.779.145/0001-90</span></p>' in pagina
+    assert (
+        'Consulta feita a partir do estabelecimento <span class="numero">62.779.145/0002-70</span> (filial). '
+        "A avaliação vale para a matriz."
+    ) in pagina
+    assert escape(documento["razao_social"]) in pagina
+    for verificacao in documento["verificacoes"]:
+        assert escape(verificacao["mensagem"]) in pagina
+
+
+def test_pagina_de_filial_baixada_alerta_sobre_o_estabelecimento(cliente: TestClient) -> None:
+    consulta_id = _enviar_formulario(cliente, "04.955.882/0005-23")
+
+    documento = _documento(cliente, consulta_id)
+    pagina = _pagina(cliente, consulta_id)
+
+    estabelecimento = next(v for v in documento["verificacoes"] if v["id"] == "estabelecimento")
+    assert estabelecimento["estado"] == "ALERTA"
+    assert estabelecimento["situacao"] == "FILIAL_NAO_ATIVA"
+    assert '<span class="numero">04.955.882/0001-08</span>' in pagina
+    assert escape(estabelecimento["mensagem"]) in pagina
+    assert 'id="verificacao-estabelecimento"' in pagina

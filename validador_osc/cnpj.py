@@ -11,6 +11,7 @@ _BASE = re.compile(r"[0-9A-Z]{12}")
 _CNPJ = re.compile(r"[0-9A-Z]{12}[0-9]{2}")
 _NUMERICO = re.compile(r"[0-9]{14}")
 _RESTO_MINIMO = 2
+TAMANHO = 14
 
 
 class Motivo(StrEnum):
@@ -66,3 +67,10 @@ def validar(cnpj: str) -> ResultadoDV:
     if dvs != esperado:
         return ResultadoDV(normalizado, False, Motivo.DV, esperado)
     return ResultadoDV(normalizado, True)
+
+
+def formatar(cnpj: str) -> str:
+    valor = normalizar(cnpj)
+    if len(valor) != TAMANHO:
+        return cnpj
+    return f"{valor[:2]}.{valor[2:5]}.{valor[5:8]}/{valor[8:12]}-{valor[12:]}"
