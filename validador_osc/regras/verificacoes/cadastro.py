@@ -39,6 +39,10 @@ def data_br(valor: date | None) -> str:
     return valor.strftime("%d/%m/%Y") if valor else "data não informada"
 
 
+def _desde(valor: date | None) -> str:
+    return f" desde {data_br(valor)}" if valor else ""
+
+
 def referencia_fonte(coleta: Obtido[Cadastro]) -> RefFonte:
     evidencia = coleta.evidencia
     return RefFonte(
@@ -87,7 +91,7 @@ def avaliar_situacao(obtido: CadastroObtido, contexto: Contexto, sujeito: str = 
         return ResultadoVerificacao(
             SITUACAO,
             Estado.RESTRICAO,
-            f"{sujeito}Situação {cadastro.situacao.name} desde {data_br(cadastro.situacao_data)}."
+            f"{sujeito}Situação {cadastro.situacao.name}{_desde(cadastro.situacao_data)}."
             f"{explicacao} A Lei 13.019/2014 exige cadastro ativo.",
             fontes=fontes,
         )
@@ -103,7 +107,7 @@ def avaliar_situacao(obtido: CadastroObtido, contexto: Contexto, sujeito: str = 
     return ResultadoVerificacao(
         SITUACAO,
         Estado.OK,
-        f"{sujeito}Situação ATIVA desde {data_br(cadastro.situacao_data)}.",
+        f"{sujeito}Situação ATIVA{_desde(cadastro.situacao_data)}.",
         fontes=fontes,
     )
 

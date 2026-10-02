@@ -177,3 +177,10 @@ def test_formatar_cnpj(entrada: str, esperado: str) -> None:
 def test_formatar_data() -> None:
     assert formatar_data("2026-10-05") == "05/10/2026"
     assert formatar_data(None) == ""
+
+
+def test_favicon_ico_redireciona_para_o_svg() -> None:
+    with TestClient(criar_app(Configuracao())) as cliente:
+        resposta = cliente.get("/favicon.ico", follow_redirects=False)
+    assert resposta.status_code == 301
+    assert resposta.headers["location"].startswith("/static/favicon.svg")

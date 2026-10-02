@@ -12,7 +12,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from sqlalchemy.exc import DBAPIError
+from sqlalchemy.exc import DBAPIError, InterfaceError, OperationalError
 
 from validador_osc.api.esquemas import PedidoConsultaApi, Problema
 from validador_osc.api.formatacao import registrar_filtros
@@ -65,9 +65,12 @@ def criar_app(
     Servico = Annotated[ServicoConsulta, Depends(obter_servico)]
 
     @app.exception_handler(DBAPIError)
-    async def banco_indisponivel(request: Request, erro: DBAPIError) -> JSONResponse:
-        log.error("banco_indisponivel", rota=request.url.path, erro=type(erro.orig).__name__)
-        return _problema(503, "Serviço indisponível", "O banco de dados não está acessível.")
+    async def erro_banco(request: Request, erro: DBAPIError) -> JSONResponse:
+        if isinstance(erro, OperationalError | InterfaceError):
+            log.error("banco_indisponivel", rota=request.url.path, erro=type(erro.orig).__name__)
+            return _problema(503, "Serviço indisponível", "O banco de dados não está acessível.")
+        log.exception("erro_banco", rota=request.url.path, erro=type(erro.orig).__name__)
+        return _problema(500, "Erro interno", "Falha inesperada ao gravar ou ler dados.")
 
     @app.exception_handler(RequestValidationError)
     async def corpo_invalido(request: Request, erro: RequestValidationError) -> JSONResponse:
@@ -110,6 +113,10 @@ def criar_app(
     @app.get("/api/v1/fontes", tags=["fontes"])
     async def estado_fontes(contexto: Contexto) -> dict[str, Any]:
         return await contexto.fontes.estado()
+
+    @app.get("/favicon.ico", include_in_schema=False)
+    async def favicon() -> RedirectResponse:
+        return RedirectResponse(f"/static/favicon.svg?v={VERSAO}", status_code=301)
 
     @app.get("/", response_class=HTMLResponse, include_in_schema=False)
     async def inicio(request: Request) -> HTMLResponse:

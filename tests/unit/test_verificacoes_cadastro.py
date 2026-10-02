@@ -87,8 +87,14 @@ class TestSituacao:
         coleta = coleta_obtida(situacao=SituacaoCadastral.BAIXADA, situacao_data=None, motivo_descricao=None)
         resultado = verificar_situacao(coleta, CONTEXTO)
         assert resultado.estado is Estado.RESTRICAO
-        assert "desde data não informada." in resultado.mensagem
+        assert resultado.mensagem.startswith("Situação BAIXADA. A Lei")
+        assert "desde" not in resultado.mensagem
         assert "Motivo" not in resultado.mensagem
+
+    def test_ativa_sem_data_nao_menciona_desde(self) -> None:
+        resultado = verificar_situacao(coleta_obtida(situacao_data=None), CONTEXTO)
+        assert resultado.estado is Estado.OK
+        assert resultado.mensagem == "Situação ATIVA."
 
     def test_nao_ativa_com_base_antiga_continua_restricao(self) -> None:
         coleta = coleta_obtida(situacao=SituacaoCadastral.INAPTA, data_base=date(2025, 1, 1))
