@@ -11,6 +11,14 @@ FIXTURES_OPENCNPJ = FIXTURES / "opencnpj"
 FIXTURES_BRASILAPI = FIXTURES / "brasilapi"
 HOST_OPENCNPJ = "api.opencnpj.org"
 HOST_BRASILAPI = "brasilapi.com.br"
+HOST_TCU = "certidoes-apf.apps.tcu.gov.br"
+HOST_MAPA = "mapaosc.ipea.gov.br"
+FIXTURES_TCU = FIXTURES / "tcu"
+FIXTURES_MAPA = FIXTURES / "mapa_osc"
+PREFIXO_TCU = "/api/rest/publico/certidoes/"
+PREFIXO_MAPA = "/api/api/"
+MAPA_POR_CNPJ = {"19131243000197": ("okbr", 621480), "38894796000146": ("abrinq", 594130)}
+MAPA_POR_ID = {id_osc: prefixo for prefixo, id_osc in MAPA_POR_CNPJ.values()}
 PREFIXO_BRASILAPI = "/api/cnpj/v1/"
 FUSO = ZoneInfo("America/Sao_Paulo")
 DATA_REFERENCIA = date(2026, 10, 1)
@@ -74,7 +82,7 @@ class FontesReplay:
 
     def _responder(self, requisicao: httpx.Request) -> httpx.Response:
         host = requisicao.url.host
-        if host not in {HOST_OPENCNPJ, HOST_BRASILAPI}:
+        if host not in {HOST_OPENCNPJ, HOST_BRASILAPI, HOST_TCU, HOST_MAPA}:
             raise AssertionError(f"chamada fora do modo replay: {requisicao.url}")
         self.chamadas.append(requisicao.url)
         status = self.status_forcado.get(host)
@@ -82,6 +90,10 @@ class FontesReplay:
             return httpx.Response(status, content=b"", request=requisicao)
         if host == HOST_BRASILAPI:
             return self._brasilapi_responder(requisicao)
+        if host == HOST_TCU:
+            return self._tcu_responder(requisicao)
+        if host == HOST_MAPA:
+            return self._mapa_responder(requisicao)
         return self._opencnpj_responder(requisicao)
 
     def _brasilapi_responder(self, requisicao: httpx.Request) -> httpx.Response:
@@ -107,3 +119,30 @@ class FontesReplay:
         if arquivo.is_file():
             return httpx.Response(200, content=arquivo.read_bytes(), headers=_JSON, request=requisicao)
         return httpx.Response(404, content=_NAO_ENCONTRADO_OPENCNPJ, headers=_JSON, request=requisicao)
+
+    def _tcu_responder(self, requisicao: httpx.Request) -> httpx.Response:
+        cnpj = requisicao.url.path.removeprefix(PREFIXO_TCU)
+        arquivo = FIXTURES_TCU / f"{cnpj}.json"
+        if arquivo.is_file():
+            return httpx.Response(200, content=arquivo.read_bytes(), headers=_JSON, request=requisicao)
+        return httpx.Response(503, content=b"sem fixture do TCU", request=requisicao)
+
+    def _mapa_responder(self, requisicao: httpx.Request) -> httpx.Response:
+        caminho = requisicao.url.path.removeprefix(PREFIXO_MAPA)
+        if caminho.startswith("busca/cnpj/"):
+            cnpj = caminho.removeprefix("busca/cnpj/").zfill(14)
+            prefixo = MAPA_POR_CNPJ.get(cnpj, (None, 0))[0]
+            if prefixo is None:
+                return httpx.Response(503, content=b"sem fixture do Mapa", request=requisicao)
+            return httpx.Response(
+                200,
+                content=(FIXTURES_MAPA / f"{prefixo}_busca_cnpj.json").read_bytes(),
+                headers=_JSON,
+                request=requisicao,
+            )
+        secao, _, id_osc = caminho.removeprefix("osc/").rpartition("/")
+        prefixo_id = MAPA_POR_ID.get(int(id_osc)) if id_osc.isdigit() else None
+        if prefixo_id is None:
+            return httpx.Response(503, content=b"sem fixture do Mapa", request=requisicao)
+        corpo = (FIXTURES_MAPA / f"{prefixo_id}_{secao}.json").read_bytes()
+        return httpx.Response(200, content=corpo, headers=_JSON, request=requisicao)

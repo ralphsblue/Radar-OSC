@@ -8,7 +8,7 @@ from validador_osc.dominio.resultado import (
     Estado,
     ResultadoVerificacao,
 )
-from validador_osc.dominio.tipos import Cadastro
+from validador_osc.dominio.tipos import Cadastro, PerfilMapa
 from validador_osc.regras.agregacao import agregar
 from validador_osc.regras.catalogo import (
     CATALOGO,
@@ -17,8 +17,10 @@ from validador_osc.regras.catalogo import (
     CNAE,
     CNEP,
     CNJ_CNIA,
+    DIRIGENTES,
     DV,
     ESTABELECIMENTO,
+    MAPA_OSC,
     NATUREZA,
     RELIGIOSA,
     SITUACAO,
@@ -36,11 +38,13 @@ from validador_osc.regras.verificacoes.cadastro import (
     verificar_tempo,
 )
 from validador_osc.regras.verificacoes.cnae import verificar_cnae, verificar_religiosa
+from validador_osc.regras.verificacoes.dirigentes import ObservacoesDirigentes, verificar_dirigentes
 from validador_osc.regras.verificacoes.dv import verificar_dv
 from validador_osc.regras.verificacoes.estabelecimento import (
     verificar_estabelecimento,
     verificar_situacao_entidade,
 )
+from validador_osc.regras.verificacoes.mapa import verificar_mapa_osc
 from validador_osc.regras.verificacoes.sancoes import (
     ObservacoesSancoes,
     verificar_ceis,
@@ -67,6 +71,8 @@ class DadosConsulta:
     cadastro: Coleta[Cadastro] | None = None
     matriz: Coleta[Cadastro] | None = None
     sancoes: ObservacoesSancoes | None = None
+    mapa: Coleta[PerfilMapa] | None = None
+    dirigentes: ObservacoesDirigentes | None = None
 
 
 def _avaliacao_cnae(entidade: Entidade, tabelas: Tabelas) -> AvaliacaoCnae | None:
@@ -123,7 +129,17 @@ def avaliar(dados: DadosConsulta, contexto: Contexto, tabelas: Tabelas) -> Avali
     else:
         resultados.extend(nao_verificada(d, MENSAGEM_SEM_FONTE) for d in SANCOES)
 
-    tratadas = CADASTRAIS | SANCOES | {DV}
+    if dados.mapa is not None:
+        resultados.append(verificar_mapa_osc(dados.mapa))
+    else:
+        resultados.append(nao_verificada(MAPA_OSC, MENSAGEM_SEM_FONTE))
+
+    if dados.dirigentes is not None:
+        resultados.append(verificar_dirigentes(dados.dirigentes, contexto, tabelas.limites))
+    else:
+        resultados.append(nao_verificada(DIRIGENTES, MENSAGEM_SEM_FONTE))
+
+    tratadas = CADASTRAIS | SANCOES | {DV, MAPA_OSC, DIRIGENTES}
     resultados.extend(nao_verificada(d, MENSAGEM_SEM_FONTE) for d in CATALOGO if d not in tratadas)
     return agregar(_ordenar(_ativas(resultados, tabelas)))
 

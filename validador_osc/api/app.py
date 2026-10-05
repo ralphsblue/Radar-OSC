@@ -16,6 +16,7 @@ from sqlalchemy.exc import DBAPIError, InterfaceError, OperationalError
 
 from validador_osc.api.esquemas import PedidoConsultaApi, Problema
 from validador_osc.api.formatacao import registrar_filtros
+from validador_osc.api.privacidade import eh_operador, ocultar_dirigentes
 from validador_osc.config import Configuracao, obter_configuracao
 from validador_osc.dominio.resultado import Esfera
 from validador_osc.logs import configurar_logs
@@ -62,6 +63,12 @@ def criar_app(
         return obter_contexto(request).consultas
 
     Contexto = Annotated[ContextoAplicacao, Depends(obter_contexto)]
+
+    def _visivel(documento: dict[str, Any], token: str | None) -> dict[str, Any]:
+        if eh_operador(token, configuracao.token_operador):
+            return documento
+        return ocultar_dirigentes(documento)
+
     Servico = Annotated[ServicoConsulta, Depends(obter_servico)]
 
     @app.exception_handler(DBAPIError)
@@ -94,6 +101,7 @@ def criar_app(
         servico: Servico,
         response: Response,
         idempotency_key: Annotated[str | None, Header(max_length=128)] = None,
+        x_token_operador: Annotated[str | None, Header()] = None,
     ) -> dict[str, Any]:
         feita = await servico.executar(
             PedidoConsulta(pedido.cnpj, pedido.esfera, pedido.atualizar, idempotency_key)
@@ -101,14 +109,18 @@ def criar_app(
         response.headers["Location"] = f"/api/v1/consultas/{feita.documento['id']}"
         if not feita.nova:
             response.status_code = 200
-        return feita.documento
+        return _visivel(feita.documento, x_token_operador)
 
     @app.get("/api/v1/consultas/{consulta_id}", tags=["consultas"], response_model=None)
-    async def ler_consulta(consulta_id: uuid.UUID, servico: Servico) -> dict[str, Any] | JSONResponse:
+    async def ler_consulta(
+        consulta_id: uuid.UUID,
+        servico: Servico,
+        x_token_operador: Annotated[str | None, Header()] = None,
+    ) -> dict[str, Any] | JSONResponse:
         documento = await servico.obter(consulta_id)
         if documento is None:
             return _problema(404, "Consulta não encontrada")
-        return documento
+        return _visivel(documento, x_token_operador)
 
     @app.get("/api/v1/fontes", tags=["fontes"])
     async def estado_fontes(contexto: Contexto) -> dict[str, Any]:
@@ -140,7 +152,11 @@ def criar_app(
         return templates.TemplateResponse(
             request,
             "resultado.html",
-            {"versao": VERSAO, "consulta": documento, "link_permanente": str(request.url)},
+            {
+                "versao": VERSAO,
+                "consulta": ocultar_dirigentes(documento),
+                "link_permanente": str(request.url),
+            },
         )
 
     return app

@@ -6,11 +6,15 @@ from pathlib import Path
 import httpx
 from sqlalchemy import Engine
 
-from validador_osc.bases_locais import listas_tcu, sancoes_cgu
+from validador_osc.bases_locais import listas_tcu, sancoes_cgu, tcesp
 from validador_osc.bases_locais.carga import CicloCarga, DefinicaoBase, Obtencao, ResultadoCarga, Sanidade
 from validador_osc.config import Configuracao
 
-FONTES_IMPLEMENTADAS: tuple[str, ...] = (*sancoes_cgu.FONTES_CGU, *listas_tcu.FONTES_TCU)
+FONTES_IMPLEMENTADAS: tuple[str, ...] = (
+    *sancoes_cgu.FONTES_CGU,
+    *listas_tcu.FONTES_TCU,
+    *tcesp.FONTES_TCESP,
+)
 PAUSA_ENTRE_FONTES_S = 1.5
 
 
@@ -73,6 +77,11 @@ class Atualizador:
                 else listas_tcu.obtencao_remota(self._cliente, tcu, self._hoje)
             )
             return listas_tcu.definicao(tcu, sanidade), obtencao
+        if (terceiro_setor := tcesp.FONTES_TCESP.get(fonte)) is not None:
+            obtencao = (
+                tcesp.obtencao_local(arquivo) if arquivo is not None else tcesp.obtencao_remota(self._cliente)
+            )
+            return tcesp.definicao(terceiro_setor, sanidade), obtencao
         raise FonteDesconhecida(
             f"fonte desconhecida: {fonte} (conhecidas: {', '.join(FONTES_IMPLEMENTADAS)})"
         )
@@ -81,6 +90,8 @@ class Atualizador:
 def _arquivo_mais_recente(diretorio: Path, fonte: str) -> Path:
     if fonte in listas_tcu.FONTES_TCU:
         padroes = [f"*_{fonte}.{listas_tcu.EXTENSAO}"]
+    elif fonte in tcesp.FONTES_TCESP:
+        padroes = [f"*_{fonte}.{tcesp.EXTENSAO}"]
     else:
         cadastro = sancoes_cgu.FONTES_CGU[fonte].cadastro.value
         padroes = [f"*_{cadastro}.zip", f"*_{cadastro}.csv"]

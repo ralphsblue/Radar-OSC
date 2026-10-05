@@ -72,6 +72,18 @@ class SituacaoCertidaoTcu(StrEnum):
 
 
 @dataclass(frozen=True, slots=True)
+class RegistroTcesp:
+    nome: str
+    cpf_inicio: str
+    cpf_fim: str
+    processo: str | None
+    materia: str | None
+    origem: str | None
+    data_transito: date | None
+    exercicio: str | None
+
+
+@dataclass(frozen=True, slots=True)
 class CertidaoTcu:
     tipo: TipoCertidaoTcu
     situacao: SituacaoCertidaoTcu

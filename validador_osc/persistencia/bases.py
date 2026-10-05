@@ -6,10 +6,11 @@ from validador_osc.dominio.sancoes import (
     CadastroSancao,
     ListaTcu,
     RegistroListaTcu,
+    RegistroTcesp,
     Sancao,
     TipoPessoa,
 )
-from validador_osc.persistencia.modelos import Carga, ListaTcuRegistro, SancaoRegistro
+from validador_osc.persistencia.modelos import Carga, ListaTcuRegistro, SancaoRegistro, TcespRegistro
 
 TAMANHO_RAIZ = 8
 
@@ -24,6 +25,8 @@ FONTES_LISTA_TCU: dict[ListaTcu, str] = {
     ListaTcu.CONTAS_IRREGULARES: "tcu_contas_irregulares",
     ListaTcu.INABILITADOS: "tcu_inabilitados",
 }
+
+FONTE_TCESP = "tcesp_terceiro_setor"
 
 
 def _carga_ativa(linha: Carga) -> CargaAtiva:
@@ -53,6 +56,19 @@ def _sancao(linha: SancaoRegistro) -> Sancao:
         origem_informacoes=linha.origem_informacoes,
         motivo=linha.motivo,
         convenio=linha.convenio,
+    )
+
+
+def _registro_tcesp(linha: TcespRegistro) -> RegistroTcesp:
+    return RegistroTcesp(
+        nome=linha.nome,
+        cpf_inicio=linha.cpf_inicio,
+        cpf_fim=linha.cpf_fim,
+        processo=linha.processo,
+        materia=linha.materia,
+        origem=linha.origem,
+        data_transito=linha.data_transito,
+        exercicio=linha.exercicio,
     )
 
 
@@ -99,6 +115,19 @@ class RepositorioBasesLocais:
             ListaTcuRegistro.cpf_meio == cpf_meio
         )
         return await self._listas_tcu(lista, filtro)
+
+    async def tcesp_pf(self, nome_normalizado: str) -> ConsultaLocal[RegistroTcesp] | None:
+        async with self._sessoes() as sessao:
+            carga = await self._ativa(sessao, FONTE_TCESP)
+            if carga is None:
+                return None
+            consulta = (
+                select(TcespRegistro)
+                .where(TcespRegistro.carga_id == carga.id, TcespRegistro.nome_normalizado == nome_normalizado)
+                .order_by(TcespRegistro.id)
+            )
+            linhas = (await sessao.scalars(consulta)).all()
+        return ConsultaLocal(carga, tuple(_registro_tcesp(linha) for linha in linhas))
 
     async def _ativa(self, sessao: AsyncSession, fonte: str) -> CargaAtiva | None:
         consulta = select(Carga).where(Carga.fonte == fonte, Carga.ativa.is_(True))

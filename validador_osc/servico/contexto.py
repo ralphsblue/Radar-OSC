@@ -13,6 +13,7 @@ from validador_osc.config import Configuracao
 from validador_osc.fontes.brasilapi import POLITICA_RETRY as RETRY_BRASILAPI
 from validador_osc.fontes.brasilapi import FonteBrasilApi
 from validador_osc.fontes.http import ClienteHttp
+from validador_osc.fontes.mapa_osc import FonteMapaOsc
 from validador_osc.fontes.opencnpj import FonteOpenCnpj
 from validador_osc.fontes.tcu import POLITICA_RETRY as RETRY_TCU
 from validador_osc.fontes.tcu import TIMEOUT as TIMEOUT_TCU
@@ -27,7 +28,8 @@ from validador_osc.persistencia.repositorios import (
 from validador_osc.regras.parametros import carregar_limites
 from validador_osc.regras.tabelas import carregar_tabelas
 from validador_osc.servico.cadastral import CadastralComReserva
-from validador_osc.servico.consulta import ServicoConsulta
+from validador_osc.servico.consulta import Coletores, ServicoConsulta
+from validador_osc.servico.dirigentes import ColetorDirigentes
 from validador_osc.servico.fontes import ServicoFontes
 from validador_osc.servico.sancoes import ColetorSancoes
 
@@ -71,13 +73,19 @@ async def abrir_contexto(
         evidencias = RepositorioEvidencias(sessoes)
         http = ClienteHttp(cliente)
         servico = ServicoConsulta(
-            cadastral=CadastralComReserva(
-                FonteOpenCnpj(http, evidencias, relogio=relogio),
-                FonteBrasilApi(ClienteHttp(cliente, RETRY_BRASILAPI), evidencias, relogio=relogio),
-            ),
-            sancoes=ColetorSancoes(
-                FonteTcu(ClienteHttp(cliente, RETRY_TCU, timeout=TIMEOUT_TCU), evidencias, relogio=relogio),
-                RepositorioBasesLocais(sessoes),
+            coletores=Coletores(
+                cadastral=CadastralComReserva(
+                    FonteOpenCnpj(http, evidencias, relogio=relogio),
+                    FonteBrasilApi(ClienteHttp(cliente, RETRY_BRASILAPI), evidencias, relogio=relogio),
+                ),
+                sancoes=ColetorSancoes(
+                    FonteTcu(
+                        ClienteHttp(cliente, RETRY_TCU, timeout=TIMEOUT_TCU), evidencias, relogio=relogio
+                    ),
+                    RepositorioBasesLocais(sessoes),
+                ),
+                mapa=FonteMapaOsc(ClienteHttp(cliente), evidencias, relogio=relogio),
+                dirigentes=ColetorDirigentes(RepositorioBasesLocais(sessoes)),
             ),
             consultas=RepositorioConsultas(sessoes),
             tabelas=carregar_tabelas(),

@@ -40,3 +40,16 @@ class Cadastro:
     qsa: tuple[Dirigente, ...]
     fonte: str
     data_base: date | None
+
+
+@dataclass(frozen=True, slots=True)
+class PerfilMapa:
+    id_osc: int
+    cnpj: str
+    situacao_cadastral: int | None
+    indice_preenchimento: float | None
+    campos_autodeclarados: tuple[str, ...]
+
+    @property
+    def preenchido_pela_osc(self) -> bool:
+        return bool(self.campos_autodeclarados)

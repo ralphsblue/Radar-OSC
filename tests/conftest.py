@@ -16,6 +16,7 @@ TABELAS = (
     "resposta_fonte",
     "sancao_registro",
     "lista_tcu_registro",
+    "tcesp_registro",
     "carga",
 )
 

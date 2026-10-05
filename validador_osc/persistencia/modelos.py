@@ -215,3 +215,21 @@ class ListaTcuRegistro(Base):
     data_transito: Mapped[date | None] = mapped_column(Date)
     data_final: Mapped[date | None] = mapped_column(Date)
     linha: Mapped[dict[str, Any]] = mapped_column(JSONB)
+
+
+class TcespRegistro(Base):
+    __tablename__ = "tcesp_registro"
+    __table_args__ = (Index("ix_tcesp_registro_carga_pessoa", "carga_id", "nome_normalizado"),)
+
+    id: Mapped[int] = mapped_column(BigInteger, Identity(), primary_key=True)
+    carga_id: Mapped[int] = mapped_column(ForeignKey("carga.id", ondelete="CASCADE"))
+    nome: Mapped[str] = mapped_column(Text)
+    nome_normalizado: Mapped[str] = mapped_column(Text)
+    cpf_inicio: Mapped[str] = mapped_column(String(3))
+    cpf_fim: Mapped[str] = mapped_column(String(2))
+    processo: Mapped[str | None] = mapped_column(Text)
+    materia: Mapped[str | None] = mapped_column(Text)
+    origem: Mapped[str | None] = mapped_column(Text)
+    data_transito: Mapped[date | None] = mapped_column(Date)
+    exercicio: Mapped[str | None] = mapped_column(Text)
+    linha: Mapped[dict[str, Any]] = mapped_column(JSONB)

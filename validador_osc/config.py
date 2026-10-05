@@ -22,7 +22,7 @@ class Configuracao(BaseSettings):
     )
 
     database_url: PostgresDsn = PostgresDsn(
-        "postgresql+psycopg://validador:validador@127.0.0.1:55432/validador"
+        "postgresql+psycopg://validador:validador@127.0.0.1:15432/validador"
     )
     user_agent: str = "validador-osc-ifsp/0.1 (projeto academico de extensao)"
     timeout_fonte_s: float = Field(default=12.0, gt=0)

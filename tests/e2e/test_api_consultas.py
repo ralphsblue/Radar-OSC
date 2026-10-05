@@ -73,8 +73,16 @@ def _verificacao(documento: dict[str, Any], id_: str) -> dict[str, Any]:
 DATA_ESPELHO_REPLAY = date(2026, 9, 14)
 
 
+FONTES_CADASTRAIS = frozenset({"opencnpj", "opencnpj_info", "brasilapi"})
+
+
 def _fontes(documento: dict[str, Any]) -> list[dict[str, Any]]:
-    return [fonte for v in documento["verificacoes"] for fonte in v["fontes"]]
+    return [
+        fonte
+        for v in documento["verificacoes"]
+        for fonte in v["fontes"]
+        if fonte["fonte"] in FONTES_CADASTRAIS
+    ]
 
 
 def _assert_problema(resposta: Any, status: int) -> None:
@@ -358,7 +366,7 @@ def test_estado_das_fontes_depois_de_consultas(
     assert estado["janela_horas"] == 24
     por_fonte = {f["fonte"]: f for f in estado["online"]}
     assert [f["fonte"] for f in estado["online"]] == sorted(por_fonte)
-    assert {"opencnpj", "opencnpj_info", "brasilapi"} == set(por_fonte)
+    assert set(FONTES_CADASTRAIS) <= set(por_fonte)
     opencnpj = por_fonte["opencnpj"]
     assert (opencnpj["respostas"], opencnpj["falhas"]) == (2, 1)
     assert opencnpj["ultimo_resultado"] == "FALHA"

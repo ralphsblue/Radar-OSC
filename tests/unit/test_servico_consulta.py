@@ -7,12 +7,14 @@ from zoneinfo import ZoneInfo
 from sqlalchemy.ext.asyncio import async_sessionmaker
 
 from tests.unit.fabricas import RECEBIDA_EM, coleta_obtida
-from validador_osc.dominio.coleta import Coleta, Obtido
-from validador_osc.dominio.tipos import Cadastro
+from validador_osc.dominio.coleta import Coleta, NaoEncontrado, Obtido
+from validador_osc.dominio.tipos import Cadastro, Dirigente, PerfilMapa
 from validador_osc.persistencia.repositorios import NovaConsulta, RepositorioConsultas
 from validador_osc.regras.tabelas import carregar_tabelas
+from validador_osc.regras.verificacoes.dirigentes import ObservacoesDirigentes
 from validador_osc.regras.verificacoes.sancoes import ObservacoesSancoes
-from validador_osc.servico.consulta import PedidoConsulta, ServicoConsulta
+from validador_osc.servico.consulta import Coletores, PedidoConsulta, ServicoConsulta
+from validador_osc.servico.dirigentes import ColetorDirigentes
 from validador_osc.servico.sancoes import ColetorSancoes
 
 FILIAL = "62779145000270"
@@ -71,12 +73,39 @@ class SancoesVazias(ColetorSancoes):
         return ObservacoesSancoes(consultado=consultado, matriz=matriz)
 
 
-def servico(fonte: FonteControlada, prazo: timedelta) -> tuple[ServicoConsulta, ConsultasEmMemoria]:
+class MapaAusente:
+    async def consultar(self, cnpj: str, *, ignorar_cache: bool = False) -> Coleta[PerfilMapa]:
+        del cnpj, ignorar_cache
+        return NaoEncontrado(None)
+
+
+class DirigentesVazios(ColetorDirigentes):
+    def __init__(self) -> None:
+        pass
+
+    async def coletar(self, qsa: tuple[Dirigente, ...]) -> ObservacoesDirigentes:
+        del qsa
+        return ObservacoesDirigentes()
+
+
+class MapaQuebrado:
+    async def consultar(self, cnpj: str, *, ignorar_cache: bool = False) -> Coleta[PerfilMapa]:
+        del cnpj, ignorar_cache
+        raise RuntimeError("falha inesperada")
+
+
+def servico(
+    fonte: FonteControlada, prazo: timedelta, mapa: MapaAusente | MapaQuebrado | None = None
+) -> tuple[ServicoConsulta, ConsultasEmMemoria]:
     consultas = ConsultasEmMemoria()
     return (
         ServicoConsulta(
-            cadastral=fonte,
-            sancoes=SancoesVazias(),
+            coletores=Coletores(
+                cadastral=fonte,
+                sancoes=SancoesVazias(),
+                mapa=mapa or MapaAusente(),
+                dirigentes=DirigentesVazios(),
+            ),
             consultas=consultas,
             tabelas=TABELAS,
             zona=ZoneInfo("America/Sao_Paulo"),
@@ -190,3 +219,11 @@ def test_matriz_que_volta_como_filial_nao_vira_entidade() -> None:
     assert documento["cnpj_avaliado"] == FILIAL
     assert consultas.salvas[0].cnpj_matriz is None
     assert verificacao(documento, "estabelecimento")["situacao"] == "MATRIZ_NAO_IDENTIFICADA"
+
+
+def test_erro_inesperado_no_mapa_nao_derruba_a_consulta() -> None:
+    alvo, consultas = servico(FonteControlada({OKBR: coleta_obtida()}), PRAZO_CURTO, MapaQuebrado())
+    feita = asyncio.run(alvo.executar(PedidoConsulta(OKBR)))
+    assert verificacao(feita.documento, "mapa_osc")["estado"] == "INDISPONIVEL"
+    assert "mapa_osc" in feita.documento["avisos"]
+    assert len(consultas.salvas) == 1

@@ -4,7 +4,7 @@ import uuid
 from collections.abc import Callable
 from dataclasses import dataclass
 from datetime import UTC, datetime, timedelta
-from typing import Any
+from typing import Any, Protocol
 from zoneinfo import ZoneInfo
 
 import structlog
@@ -12,13 +12,15 @@ import structlog
 from validador_osc.cnpj import cnpj_da_matriz, eh_alfanumerico, normalizar, validar
 from validador_osc.dominio.coleta import Coleta, Falha, MotivoFalha, Obtido
 from validador_osc.dominio.resultado import Contexto, Esfera
-from validador_osc.dominio.tipos import Cadastro
+from validador_osc.dominio.tipos import Cadastro, Dirigente, PerfilMapa
 from validador_osc.persistencia.repositorios import NovaConsulta, RepositorioConsultas
 from validador_osc.regras.motor import DadosConsulta, avaliar
 from validador_osc.regras.tabelas import Tabelas
+from validador_osc.regras.verificacoes.dirigentes import ObservacoesDirigentes
 from validador_osc.regras.verificacoes.sancoes import ObservacoesSancoes
 from validador_osc.servico.apresentacao import montar_documento
 from validador_osc.servico.cadastral import FonteCadastral
+from validador_osc.servico.dirigentes import ColetorDirigentes
 from validador_osc.servico.sancoes import ColetorSancoes
 
 JANELA_REPETICAO = timedelta(seconds=10)
@@ -26,6 +28,10 @@ PRAZO_PADRAO = timedelta(seconds=20)
 CNPJ_INFORMADO_MAXIMO = 32
 
 log = structlog.get_logger()
+
+
+class FonteMapa(Protocol):
+    async def consultar(self, cnpj: str, *, ignorar_cache: bool = False) -> Coleta[PerfilMapa]: ...
 
 
 def _agora() -> datetime:
@@ -46,11 +52,18 @@ class ConsultaFeita:
     nova: bool
 
 
+@dataclass(frozen=True, slots=True)
+class Coletores:
+    cadastral: FonteCadastral
+    sancoes: ColetorSancoes
+    mapa: FonteMapa
+    dirigentes: ColetorDirigentes
+
+
 class ServicoConsulta:
     def __init__(
         self,
-        cadastral: FonteCadastral,
-        sancoes: ColetorSancoes,
+        coletores: Coletores,
         consultas: RepositorioConsultas,
         tabelas: Tabelas,
         zona: ZoneInfo,
@@ -59,8 +72,10 @@ class ServicoConsulta:
         relogio: Callable[[], datetime] | None = None,
         prazo: timedelta = PRAZO_PADRAO,
     ) -> None:
-        self._cadastral = cadastral
-        self._sancoes = sancoes
+        self._cadastral = coletores.cadastral
+        self._sancoes = coletores.sancoes
+        self._mapa = coletores.mapa
+        self._dirigentes = coletores.dirigentes
         self._consultas = consultas
         self._tabelas = tabelas
         self._zona = zona
@@ -88,6 +103,29 @@ class ServicoConsulta:
         except TimeoutError:
             return cadastro, self._prazo_esgotado()
         return cadastro, matriz
+
+    async def _coletar_dirigentes(
+        self, qsa: tuple[Dirigente, ...], limite: float
+    ) -> ObservacoesDirigentes | None:
+        try:
+            async with asyncio.timeout_at(limite):
+                return await self._dirigentes.coletar(qsa)
+        except TimeoutError:
+            log.warning("prazo_consulta_esgotado", etapa="dirigentes")
+            return None
+        except Exception as erro:
+            log.exception("coleta_dirigentes_falhou", erro=repr(erro))
+            return None
+
+    async def _coletar_mapa(self, cnpj: str, atualizar: bool, limite: float) -> Coleta[PerfilMapa]:
+        try:
+            async with asyncio.timeout_at(limite):
+                return await self._mapa.consultar(cnpj, ignorar_cache=atualizar)
+        except TimeoutError:
+            return self._prazo_esgotado()
+        except Exception as erro:
+            log.exception("coleta_mapa_falhou", erro=repr(erro))
+            return Falha(MotivoFalha.FORMATO_INESPERADO, "erro inesperado ao consultar o Mapa das OSCs")
 
     def _prazo_esgotado(self) -> Falha:
         log.warning("prazo_consulta_esgotado", prazo_s=self._prazo.total_seconds())
@@ -117,19 +155,25 @@ class ServicoConsulta:
         cadastro: Coleta[Cadastro] | None = None
         matriz: Coleta[Cadastro] | None = None
         sancoes: ObservacoesSancoes | None = None
+        mapa: Coleta[PerfilMapa] | None = None
+        dirigentes: ObservacoesDirigentes | None = None
         if validar(cnpj).valido and not eh_alfanumerico(cnpj):
             limite = asyncio.get_running_loop().time() + self._prazo.total_seconds()
             cadastro, matriz = await self._coletar_cadastro(cnpj, pedido.atualizar, limite)
             if isinstance(cadastro, Obtido):
-                cnpj_matriz = (
-                    matriz.dados.cnpj if isinstance(matriz, Obtido) and matriz.dados.matriz else None
-                )
-                sancoes = await self._sancoes.coletar(
-                    cnpj, cnpj_matriz, ignorar_cache=pedido.atualizar, limite=limite
+                matriz_obtida = matriz.dados if isinstance(matriz, Obtido) and matriz.dados.matriz else None
+                cnpj_matriz = matriz_obtida.cnpj if matriz_obtida else None
+                entidade = matriz_obtida or cadastro.dados
+                sancoes, mapa, dirigentes = await asyncio.gather(
+                    self._sancoes.coletar(cnpj, cnpj_matriz, ignorar_cache=pedido.atualizar, limite=limite),
+                    self._coletar_mapa(cnpj_matriz or cnpj, pedido.atualizar, limite),
+                    self._coletar_dirigentes(entidade.qsa, limite),
                 )
 
         contexto = Contexto(data_referencia=iniciada_em.astimezone(self._zona).date(), esfera=pedido.esfera)
-        avaliacao = avaliar(DadosConsulta(cnpj, cadastro, matriz, sancoes), contexto, self._tabelas)
+        avaliacao = avaliar(
+            DadosConsulta(cnpj, cadastro, matriz, sancoes, mapa, dirigentes), contexto, self._tabelas
+        )
         consulta_id = uuid.uuid4()
         dados_cadastro = cadastro.dados if isinstance(cadastro, Obtido) else None
         dados_matriz = matriz.dados if isinstance(matriz, Obtido) and matriz.dados.matriz else None

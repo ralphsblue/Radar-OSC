@@ -32,6 +32,7 @@ dev = [
     "pre-commit>=4.3",
     "pytest>=8.4",
     "ruff>=0.14",
+    "types-openpyxl>=3.1.5.20260827",
 ]
 
 [build-system]
