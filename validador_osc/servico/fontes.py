@@ -3,7 +3,12 @@ from datetime import UTC, datetime, timedelta
 from typing import Any
 from zoneinfo import ZoneInfo
 
-from validador_osc.persistencia.bases import FONTES_LISTA_TCU, FONTES_SANCAO, RepositorioBasesLocais
+from validador_osc.persistencia.bases import (
+    FONTE_TCESP,
+    FONTES_LISTA_TCU,
+    FONTES_SANCAO,
+    RepositorioBasesLocais,
+)
 from validador_osc.persistencia.repositorios import RepositorioSaudeFontes
 from validador_osc.regras.parametros import Limites
 
@@ -13,6 +18,9 @@ DESCRICOES = {
     "opencnpj": "OpenCNPJ (cadastro da Receita, principal)",
     "opencnpj_info": "OpenCNPJ (data da base)",
     "brasilapi": "BrasilAPI (cadastro da Receita, reserva)",
+    "mapa_osc_busca": "Mapa das OSCs (Ipea), busca por CNPJ",
+    "mapa_osc_perfil": "Mapa das OSCs (Ipea), perfil da organização",
+    "tcesp_terceiro_setor": "TCE-SP, repasses ao Terceiro Setor julgados irregulares",
     "tcu_consolidada": "TCU, Consulta Consolidada de Pessoa Jurídica (inidôneos, CNIA, CEIS, CNEP)",
     "cgu_cepim": "CGU, CEPIM (arquivo diário oficial)",
     "cgu_ceis": "CGU, CEIS (arquivo diário oficial)",
@@ -22,7 +30,7 @@ DESCRICOES = {
     "tcu_inabilitados": "TCU, inabilitados para função pública",
 }
 
-FONTES_LOCAIS = (*FONTES_SANCAO.values(), *FONTES_LISTA_TCU.values())
+FONTES_LOCAIS = (*FONTES_SANCAO.values(), *FONTES_LISTA_TCU.values(), FONTE_TCESP)
 
 
 class ServicoFontes:

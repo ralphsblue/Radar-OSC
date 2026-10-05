@@ -62,5 +62,7 @@ def test_pagina_de_fontes_lista_bases_e_fontes_online(cliente_operador: TestClie
     resposta = cliente_operador.get("/fontes")
     assert resposta.status_code == 200
     assert "CGU, CEIS" in resposta.text
+    assert "TCE-SP, repasses ao Terceiro Setor" in resposta.text
+    assert "Mapa das OSCs (Ipea), busca por CNPJ" in resposta.text
     assert "Sem carga" in resposta.text
     assert "OpenCNPJ" in resposta.text

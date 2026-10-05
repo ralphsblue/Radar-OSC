@@ -608,6 +608,12 @@ code {
   border-top: 1px solid var(--cor-borda);
 }
 
+.metadados:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+
 .metadados dt {
   font-size: 0.8125rem;
   color: var(--cor-texto-suave);
@@ -1017,6 +1023,74 @@ code {
   vertical-align: bottom;
 }
 
+.pendentes {
+  --texto: var(--nao-verificado-texto);
+  --fundo: var(--nao-verificado-fundo);
+  --borda: var(--nao-verificado-borda);
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--cor-borda);
+  border-left: 0.25rem solid var(--borda);
+  border-radius: var(--raio);
+  background: var(--cor-superficie);
+}
+
+.pendentes__cabecalho {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+}
+
+.pendentes__titulo {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.pendentes__motivo {
+  margin-top: 0.375rem;
+  font-size: 0.9375rem;
+  color: var(--cor-texto-suave);
+}
+
+.pendentes__lista {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed var(--cor-borda);
+}
+
+.pendente {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.125rem 0.5rem;
+  font-size: 0.9375rem;
+  scroll-margin-top: 1rem;
+}
+
+.pendente:target {
+  outline: 3px solid var(--cor-foco);
+  outline-offset: 2px;
+}
+
+.pendente__nome {
+  font-weight: 600;
+}
+
+.pendente--decisiva .pendente__nome {
+  text-decoration: underline;
+  text-decoration-color: var(--texto);
+  text-decoration-thickness: 0.125rem;
+}
+
+.pendente__mensagem {
+  color: var(--cor-texto-suave);
+}
+
 .bloco--limites {
   box-shadow: none;
   background: var(--cor-superficie-2);
@@ -1104,7 +1178,8 @@ code {
     height: 2rem;
   }
 
-  .verificacao {
+  .verificacao,
+  .pendentes {
     padding: 0.875rem 1rem;
   }
 
@@ -1163,7 +1238,8 @@ code {
     print-color-adjust: exact;
   }
 
-  .verificacao:target {
+  .verificacao:target,
+  .pendente:target {
     outline: none;
   }
 
@@ -1223,6 +1299,7 @@ code {
   .aviso,
   .resumo,
   .verificacao,
+  .pendentes,
   .grupo__cabecalho,
   .bloco {
     break-inside: avoid;
@@ -1308,7 +1385,15 @@ code {
   font-weight: 600;
 }
 
-.bloco--fontes .lista a,
-.pagina--fontes .tabela td:first-child {
+.tabela-rolagem {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.pagina--fontes .tabela {
+  min-width: 34rem;
+}
+
+.bloco--fontes .lista a {
   overflow-wrap: anywhere;
 }

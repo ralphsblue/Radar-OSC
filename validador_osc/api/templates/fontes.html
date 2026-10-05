@@ -14,6 +14,7 @@
 
   <section class="bloco" aria-labelledby="titulo-locais">
     <h2 class="bloco__titulo" id="titulo-locais">Bases baixadas diariamente</h2>
+    <div class="tabela-rolagem" tabindex="0" role="region" aria-labelledby="titulo-locais">
     <table class="tabela">
       <thead>
         <tr><th scope="col">Fonte</th><th scope="col">Estado</th><th scope="col">Data da base</th><th scope="col">Idade</th></tr>
@@ -29,11 +30,13 @@
         {% endfor %}
       </tbody>
     </table>
+    </div>
   </section>
 
   <section class="bloco" aria-labelledby="titulo-online">
     <h2 class="bloco__titulo" id="titulo-online">Fontes consultadas na hora (últimas {{ estado.janela_horas }} horas)</h2>
     {% if estado.online %}
+    <div class="tabela-rolagem" tabindex="0" role="region" aria-labelledby="titulo-online">
     <table class="tabela">
       <thead>
         <tr><th scope="col">Fonte</th><th scope="col">Última resposta</th><th scope="col">Respostas</th><th scope="col">Falhas</th><th scope="col">Latência mediana</th></tr>
@@ -50,6 +53,7 @@
         {% endfor %}
       </tbody>
     </table>
+    </div>
     {% else %}
     <p>Nenhuma consulta nas últimas {{ estado.janela_horas }} horas.</p>
     {% endif %}
