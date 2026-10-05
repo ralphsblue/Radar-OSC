@@ -165,6 +165,16 @@
   </section>
 
   {% include "parciais/nao_verifica.html" %}
+  {% if consulta.fontes_consultadas is defined and consulta.fontes_consultadas %}
+  <section class="bloco bloco--fontes" aria-labelledby="fontes-titulo">
+    <h2 class="bloco__titulo" id="fontes-titulo">Fontes consultadas</h2>
+    <ul class="lista">
+      {% for fonte in consulta.fontes_consultadas %}
+      <li><a href="{{ fonte.link }}" target="_blank" rel="noopener noreferrer">{{ fonte.fonte | nome_fonte }}</a>{% if fonte.data_base %}, base de {{ fonte.data_base | data }}{% endif %}.</li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
 
   <p class="aviso-legal">
     {{ consulta.aviso | default("Triagem automatizada de cadastros públicos. Não substitui certidões oficiais.", true) }}

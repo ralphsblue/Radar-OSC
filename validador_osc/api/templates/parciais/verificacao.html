@@ -13,6 +13,17 @@
   {% if verificacao.situacao is defined and verificacao.situacao %}
   <p class="verificacao__situacao">{{ verificacao.id | rotulo_campo_situacao }}: <strong>{{ verificacao.situacao | rotulo_situacao }}</strong></p>
   {% endif %}
+  {% set dirigentes = verificacao.achados | selectattr("tipo", "equalto", "dirigente") | list %}
+  {% if dirigentes %}
+  <ul class="achados" aria-label="Correspondências encontradas">
+    {% for achado in dirigentes %}
+    <li class="achado">{{ achado.nome or achado.dirigente }}{% if achado.qualificacao %} ({{ achado.qualificacao }}){% endif %}: {{ achado.fonte }}, {{ achado.detalhe }}{% if achado.processo %}, processo {{ achado.processo }}{% endif %}.</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  {% if verificacao.consulta_manual is defined and verificacao.consulta_manual %}
+  <p class="verificacao__manual"><a href="{{ verificacao.consulta_manual }}" target="_blank" rel="noopener noreferrer">Consultar na fonte</a></p>
+  {% endif %}
   {% if verificacao.fontes %}
   <ul class="fontes" aria-label="Fontes consultadas">
     {% for fonte in verificacao.fontes %}
