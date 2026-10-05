@@ -31,6 +31,7 @@ class Configuracao(BaseSettings):
     dir_arquivos: Path = Path("var/arquivos")
     timeout_download_s: float = Field(default=300.0, gt=0)
     token_operador: SecretStr | None = None
+    limite_consultas_por_minuto: int = Field(default=10, ge=0)
     log_formato: FormatoLog = FormatoLog.CONSOLE
     log_nivel: str = "INFO"
     fuso: str = "America/Sao_Paulo"

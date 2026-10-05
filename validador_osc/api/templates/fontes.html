@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block titulo %}Fontes de dados - Validador de OSC{% endblock %}
+
+{% block conteudo %}
+<div class="pagina pagina--fontes">
+  <section class="apresentacao" aria-labelledby="titulo-fontes">
+    <h1 class="titulo" id="titulo-fontes">Fontes de dados</h1>
+    <p class="lead">
+      Estado de cada fonte consultada pelo validador. Bases vencidas deixam a verificação indisponível,
+      e o resultado nunca é aprovado com dado velho.
+    </p>
+  </section>
+
+  <section class="bloco" aria-labelledby="titulo-locais">
+    <h2 class="bloco__titulo" id="titulo-locais">Bases baixadas diariamente</h2>
+    <table class="tabela">
+      <thead>
+        <tr><th scope="col">Fonte</th><th scope="col">Estado</th><th scope="col">Data da base</th><th scope="col">Idade</th></tr>
+      </thead>
+      <tbody>
+        {% for base in estado.locais %}
+        <tr>
+          <td>{{ base.descricao }}</td>
+          <td><span class="selo selo--{{ 'ok' if base.estado == 'VALIDA' else 'indisponivel' }}">{{ {'VALIDA': 'Válida', 'VENCIDA': 'Vencida', 'SEM_CARGA': 'Sem carga'}[base.estado] }}</span></td>
+          <td>{{ base.data_base | data if base.data_base is defined else "-" }}</td>
+          <td>{% if base.idade_dias is defined %}{{ base.idade_dias }} de {{ base.idade_maxima_dias }} dias{% else %}-{% endif %}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+
+  <section class="bloco" aria-labelledby="titulo-online">
+    <h2 class="bloco__titulo" id="titulo-online">Fontes consultadas na hora (últimas {{ estado.janela_horas }} horas)</h2>
+    {% if estado.online %}
+    <table class="tabela">
+      <thead>
+        <tr><th scope="col">Fonte</th><th scope="col">Última resposta</th><th scope="col">Respostas</th><th scope="col">Falhas</th><th scope="col">Latência mediana</th></tr>
+      </thead>
+      <tbody>
+        {% for fonte in estado.online %}
+        <tr>
+          <td>{{ fonte.descricao }}</td>
+          <td>{{ fonte.ultima_resposta_em | instante if fonte.ultima_resposta_em else "-" }}</td>
+          <td>{{ fonte.respostas }}</td>
+          <td>{{ fonte.falhas }}</td>
+          <td>{{ fonte.latencia_mediana_ms ~ " ms" if fonte.latencia_mediana_ms is not none else "-" }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p>Nenhuma consulta nas últimas {{ estado.janela_horas }} horas.</p>
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

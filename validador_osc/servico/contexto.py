@@ -30,6 +30,7 @@ from validador_osc.regras.tabelas import carregar_tabelas
 from validador_osc.servico.cadastral import CadastralComReserva
 from validador_osc.servico.consulta import Coletores, ServicoConsulta
 from validador_osc.servico.dirigentes import ColetorDirigentes
+from validador_osc.servico.evidencias import ServicoEvidencias
 from validador_osc.servico.fontes import ServicoFontes
 from validador_osc.servico.sancoes import ColetorSancoes
 
@@ -53,6 +54,7 @@ class ContextoAplicacao:
     sessoes: async_sessionmaker[AsyncSession]
     consultas: ServicoConsulta
     fontes: ServicoFontes
+    evidencias: ServicoEvidencias
 
 
 @asynccontextmanager
@@ -103,6 +105,6 @@ async def abrir_contexto(
                 config.zona,
                 relogio,
             )
-            yield ContextoAplicacao(config, engine, sessoes, servico, fontes)
+            yield ContextoAplicacao(config, engine, sessoes, servico, fontes, ServicoEvidencias(evidencias))
         finally:
             await engine.dispose()

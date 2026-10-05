@@ -10,6 +10,9 @@
     </p>
   </section>
 
+  {% if erro_geral is defined and erro_geral %}
+  <p class="aviso aviso--erro" role="alert">{{ erro_geral }}</p>
+  {% endif %}
   <section class="cartao cartao--formulario" aria-label="Formulário de consulta">
     {% include "parciais/formulario.html" %}
   </section>

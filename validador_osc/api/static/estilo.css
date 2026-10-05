@@ -1289,3 +1289,26 @@ code {
   margin: 0.5rem 0 0;
   font-size: 0.875rem;
 }
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+
+.tabela th,
+.tabela td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--cor-borda, rgba(127, 127, 127, 0.25));
+  text-align: left;
+  vertical-align: top;
+}
+
+.tabela th {
+  font-weight: 600;
+}
+
+.bloco--fontes .lista a,
+.pagina--fontes .tabela td:first-child {
+  overflow-wrap: anywhere;
+}
