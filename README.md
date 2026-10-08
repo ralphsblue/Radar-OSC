@@ -2,6 +2,15 @@
 
 [![ci](https://github.com/ralphsblue/Radar-OSC/actions/workflows/ci.yml/badge.svg)](https://github.com/ralphsblue/Radar-OSC/actions/workflows/ci.yml)
 
+
+## Fala, dev!
+Esse é o MVP de um projeto da faculdade (IFSP) que tem o objetivo de facilitar o processo para que CNPJ's se tornem OSC's.
+De forma resumida, já que vamos abordar de forma mais detalhada ao longo desse arquivo, nós fazemos as verificações necessárias para que um CNPJ seja considerado uma osc,
+ ja que atualmente esse processo é feito de forma manual, atrasando o tempo de análise. Buscamos os dados em API's publicas e base de dados públicas, e o processo está documentado.
+Novamente, reforçando: esse ainda é apenas o MVP de um projeto de extensão. O foco no momento está na descoberta dos dados e em cruzar eles. Decisões arquiteturais complexas e análises extensivas de performance foram consideradas durante o desenvolvimento, mas não foi o comprometimento central.
+
+---
+
 Triagem automatizada de CNPJ para parcerias conforme o Marco Regulatório das Organizações da Sociedade Civil (Lei 13.019/2014).
 O sistema consulta cadastros públicos e devolve um status (apta, apta com ressalvas, inconclusiva ou inapta), com a explicação de cada verificação e a fonte de cada dado.
 É uma triagem: não substitui as certidões oficiais.
