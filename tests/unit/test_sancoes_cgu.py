@@ -7,7 +7,7 @@ from pathlib import Path
 import httpx
 import pytest
 
-from tests.csv_cgu import (
+from tests.apoio.csv_cgu import (
     alterar,
     compactar,
     cpf_sintetico,

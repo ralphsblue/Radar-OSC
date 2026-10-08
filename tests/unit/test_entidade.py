@@ -1,6 +1,6 @@
 import pytest
 
-from tests.unit.fabricas import EVIDENCIA, RECEBIDA_EM, SHA256, cadastro, coleta_obtida
+from tests.apoio.fabricas import EVIDENCIA, RECEBIDA_EM, SHA256, cadastro, coleta_obtida
 from validador_osc.dominio.coleta import Coleta, Falha, MotivoFalha, NaoEncontrado, Obtido, RefEvidencia
 from validador_osc.dominio.tipos import Cadastro
 from validador_osc.regras.entidade import SituacaoMatriz, resolver_entidade

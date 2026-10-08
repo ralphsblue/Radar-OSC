@@ -3,7 +3,7 @@ from dataclasses import dataclass, field
 
 import pytest
 
-from tests.unit.fabricas import EVIDENCIA, coleta_obtida
+from tests.apoio.fabricas import EVIDENCIA, coleta_obtida
 from validador_osc.dominio.coleta import Coleta, Falha, MotivoFalha, NaoEncontrado
 from validador_osc.dominio.tipos import Cadastro
 from validador_osc.servico.cadastral import CadastralComReserva

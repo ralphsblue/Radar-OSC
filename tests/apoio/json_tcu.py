@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-FIXTURES_TCU = Path(__file__).parent / "fixtures" / "bases" / "tcu"
+FIXTURES_TCU = Path(__file__).parent.parent / "fixtures" / "bases" / "tcu"
 ARQUIVOS = {
     "tcu_inidoneos": "20261002_tcu_inidoneos.json",
     "tcu_contas_irregulares": "20261001_tcu_contas_irregulares.json",

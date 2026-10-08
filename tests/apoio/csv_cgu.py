@@ -4,7 +4,7 @@ from pathlib import Path
 
 from validador_osc.dominio.pessoa_fisica import calcular_dvs
 
-FIXTURES_CGU = Path(__file__).parent / "fixtures" / "bases" / "cgu"
+FIXTURES_CGU = Path(__file__).parent.parent / "fixtures" / "bases" / "cgu"
 ARQUIVOS = {"CEPIM": "20260928_CEPIM.csv", "CEIS": "20260930_CEIS.csv", "CNEP": "20260930_CNEP.csv"}
 
 type Tabela = tuple[list[str], list[list[str]]]

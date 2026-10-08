@@ -6,7 +6,7 @@ from zoneinfo import ZoneInfo
 
 from sqlalchemy.ext.asyncio import async_sessionmaker
 
-from tests.unit.fabricas import RECEBIDA_EM, coleta_obtida
+from tests.apoio.fabricas import RECEBIDA_EM, coleta_obtida
 from validador_osc.dominio.coleta import Coleta, NaoEncontrado, Obtido
 from validador_osc.dominio.tipos import Cadastro, Dirigente, PerfilMapa
 from validador_osc.persistencia.repositorios import NovaConsulta, RepositorioConsultas

@@ -3,7 +3,7 @@ from datetime import date, timedelta
 
 import pytest
 
-from tests.unit.fabricas import DATA_REFERENCIA, EVIDENCIA, coleta_obtida, fonte_esperada, obtido
+from tests.apoio.fabricas import DATA_REFERENCIA, EVIDENCIA, coleta_obtida, fonte_esperada, obtido
 from validador_osc.dominio.coleta import Falha, MotivoFalha, NaoEncontrado
 from validador_osc.dominio.consulta import Contexto, Esfera
 from validador_osc.dominio.resultado import Estado, ResultadoVerificacao, TipoVerificacao

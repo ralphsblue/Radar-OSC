@@ -7,8 +7,8 @@ from typing import Any
 import httpx
 import pytest
 
-from tests.csv_cgu import cpf_sintetico, formatar_cpf
-from tests.json_tcu import alterar, fixture, gravar_json, ler_fixture
+from tests.apoio.csv_cgu import cpf_sintetico, formatar_cpf
+from tests.apoio.json_tcu import alterar, fixture, gravar_json, ler_fixture
 from validador_osc.bases_locais import listas_tcu
 from validador_osc.bases_locais.carga import ErroArquivo
 from validador_osc.bases_locais.listas_tcu import (

@@ -1,6 +1,6 @@
 import pytest
 
-from tests.csv_cgu import cpf_sintetico, formatar_cpf
+from tests.apoio.csv_cgu import cpf_sintetico, formatar_cpf
 from validador_osc.dominio.pessoa_fisica import (
     FragmentoCpf,
     calcular_dvs,

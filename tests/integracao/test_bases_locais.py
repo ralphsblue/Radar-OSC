@@ -11,7 +11,7 @@ import pytest
 from sqlalchemy import Engine, create_engine, insert, select, text
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
-from tests.csv_cgu import (
+from tests.apoio.csv_cgu import (
     alterar,
     compactar,
     cpf_sintetico,

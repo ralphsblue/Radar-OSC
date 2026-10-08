@@ -9,7 +9,7 @@ from pathlib import Path
 import httpx
 import pytest
 
-from tests.unit.evidencias_em_memoria import EvidenciasEmMemoria
+from tests.apoio.evidencias_em_memoria import EvidenciasEmMemoria
 from validador_osc.dominio.coleta import Coleta, Falha, MotivoFalha, Obtido
 from validador_osc.dominio.evidencias import ResultadoResposta
 from validador_osc.dominio.sancoes import RespostaTcu, SituacaoCertidaoTcu, TipoCertidaoTcu

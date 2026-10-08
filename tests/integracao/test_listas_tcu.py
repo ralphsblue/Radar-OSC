@@ -9,10 +9,10 @@ from typing import Any
 import pytest
 from sqlalchemy import Engine, create_engine, func, select, text
 
-from tests.csv_cgu import cpf_sintetico, formatar_cpf, gravar_csv
-from tests.csv_cgu import fixture as fixture_cgu
-from tests.csv_cgu import ler_fixture as ler_fixture_cgu
-from tests.json_tcu import alterar, fixture, gravar_json, ler_fixture
+from tests.apoio.csv_cgu import cpf_sintetico, formatar_cpf, gravar_csv
+from tests.apoio.csv_cgu import fixture as fixture_cgu
+from tests.apoio.csv_cgu import ler_fixture as ler_fixture_cgu
+from tests.apoio.json_tcu import alterar, fixture, gravar_json, ler_fixture
 from validador_osc import cli
 from validador_osc.bases_locais import listas_tcu
 from validador_osc.bases_locais.carga import CicloCarga, ResultadoCarga, Sanidade, StatusCarga
