@@ -19,12 +19,9 @@ from validador_osc.dominio.sancoes import (
     TipoPessoa,
 )
 from validador_osc.dominio.tipos import Dirigente
+from validador_osc.regras.entradas import ConsultaDirigente, ObservacoesDirigentes
 from validador_osc.regras.parametros import carregar_limites
-from validador_osc.regras.verificacoes.dirigentes import (
-    ConsultaDirigente,
-    ObservacoesDirigentes,
-    verificar_dirigentes,
-)
+from validador_osc.regras.verificacoes.dirigentes import verificar_dirigentes
 
 REF = date(2026, 10, 1)
 CONTEXTO = Contexto(REF)

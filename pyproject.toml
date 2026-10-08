@@ -154,6 +154,23 @@ forbidden_modules = [
 ]
 
 [[tool.importlinter.contracts]]
+name = "serviço usa o motor de regras só pela fachada"
+type = "forbidden"
+allow_indirect_imports = true
+source_modules = ["validador_osc.servico"]
+forbidden_modules = [
+    "validador_osc.regras.agregacao",
+    "validador_osc.regras.catalogo",
+    "validador_osc.regras.comum",
+    "validador_osc.regras.entidade",
+    "validador_osc.regras.entradas",
+    "validador_osc.regras.motor",
+    "validador_osc.regras.parametros",
+    "validador_osc.regras.tabelas",
+    "validador_osc.regras.verificacoes",
+]
+
+[[tool.importlinter.contracts]]
 name = "API só fala com o serviço"
 type = "forbidden"
 allow_indirect_imports = true

@@ -1,11 +1,10 @@
 import re
-from collections.abc import Mapping, Sequence
-from dataclasses import dataclass, field
+from collections.abc import Sequence
 from datetime import date
 
 from validador_osc.dominio.bases import ConsultaLocal
 from validador_osc.dominio.cnpj import formatar
-from validador_osc.dominio.coleta import Coleta, Obtido
+from validador_osc.dominio.coleta import Obtido
 from validador_osc.dominio.consulta import Contexto, Esfera
 from validador_osc.dominio.resultado import (
     Achado,
@@ -25,6 +24,7 @@ from validador_osc.dominio.sancoes import (
 )
 from validador_osc.regras.catalogo import CEIS, CEPIM, CNEP, CNJ_CNIA, TCU_CONTAS_IRREGULARES, TCU_INIDONEOS
 from validador_osc.regras.comum import data_br
+from validador_osc.regras.entradas import ObservacoesSancoes
 from validador_osc.regras.parametros import (
     AbrangenciaLimitada,
     CepimEsfera,
@@ -39,21 +39,6 @@ from validador_osc.regras.parametros import (
 _DIGITOS = re.compile(r"\D")
 _PROCESSO_MINIMO = 10
 _ORDEM_ESTADO = {Estado.OK: 0, Estado.ALERTA: 1, Estado.RESTRICAO: 2}
-
-
-@dataclass(frozen=True, slots=True)
-class ObservacoesSancoes:
-    consultado: str
-    matriz: str | None
-    locais: Mapping[CadastroSancao, ConsultaLocal[Sancao] | None] = field(default_factory=dict)
-    listas: Mapping[ListaTcu, ConsultaLocal[RegistroListaTcu] | None] = field(default_factory=dict)
-    tcu: Mapping[str, Coleta[RespostaTcu]] = field(default_factory=dict)
-
-    @property
-    def cnpjs(self) -> tuple[str, ...]:
-        if self.matriz and self.matriz != self.consultado:
-            return (self.consultado, self.matriz)
-        return (self.consultado,)
 
 
 def _pior(a: Estado, b: Estado) -> Estado:

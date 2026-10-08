@@ -10,26 +10,11 @@ from validador_osc.dominio.sancoes import RegistroListaTcu, RegistroTcesp, Sanca
 from validador_osc.dominio.tipos import Dirigente
 from validador_osc.regras.catalogo import DIRIGENTES
 from validador_osc.regras.comum import data_br
+from validador_osc.regras.entradas import ObservacoesDirigentes
 from validador_osc.regras.parametros import Limites
 
 CATEGORIAS_FORA_ART39 = ("demissão", "demissao", "suspensão", "suspensao")
 _DIGITOS_INICIO_TCESP = 3
-
-
-@dataclass(frozen=True, slots=True)
-class ConsultaDirigente:
-    dirigente: Dirigente
-    ceis: ConsultaLocal[Sancao] | None = None
-    cnep: ConsultaLocal[Sancao] | None = None
-    contas_irregulares: ConsultaLocal[RegistroListaTcu] | None = None
-    inabilitados: ConsultaLocal[RegistroListaTcu] | None = None
-    tcesp: ConsultaLocal[RegistroTcesp] | None = None
-
-
-@dataclass(frozen=True, slots=True)
-class ObservacoesDirigentes:
-    consultas: tuple[ConsultaDirigente, ...] = ()
-    sem_fragmento: tuple[Dirigente, ...] = ()
 
 
 @dataclass(slots=True)

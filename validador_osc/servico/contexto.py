@@ -25,8 +25,7 @@ from validador_osc.persistencia.repositorios import (
     RepositorioEvidencias,
     RepositorioSaudeFontes,
 )
-from validador_osc.regras.parametros import carregar_limites
-from validador_osc.regras.tabelas import carregar_tabelas
+from validador_osc.regras import carregar_limites, carregar_tabelas
 from validador_osc.servico.cadastral import CadastralComReserva
 from validador_osc.servico.consulta import Coletores, ServicoConsulta
 from validador_osc.servico.dirigentes import ColetorDirigentes

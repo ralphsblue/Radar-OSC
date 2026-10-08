@@ -7,7 +7,7 @@ import structlog
 from validador_osc.dominio.bases import ConsultaLocal
 from validador_osc.dominio.coleta import Coleta, Falha, MotivoFalha
 from validador_osc.dominio.sancoes import CadastroSancao, ListaTcu, RegistroListaTcu, RespostaTcu, Sancao
-from validador_osc.regras.verificacoes.sancoes import ObservacoesSancoes
+from validador_osc.regras import ObservacoesSancoes
 
 log = structlog.get_logger()
 

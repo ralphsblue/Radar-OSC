@@ -1,10 +1,9 @@
-from dataclasses import dataclass, replace
+from dataclasses import replace
 
 from validador_osc.dominio.cnpj import eh_alfanumerico, validar
-from validador_osc.dominio.coleta import Coleta, Obtido
+from validador_osc.dominio.coleta import Obtido
 from validador_osc.dominio.consulta import Contexto
 from validador_osc.dominio.resultado import Avaliacao, Estado, ResultadoVerificacao
-from validador_osc.dominio.tipos import Cadastro, PerfilMapa
 from validador_osc.regras.agregacao import agregar
 from validador_osc.regras.catalogo import (
     CATALOGO,
@@ -26,11 +25,12 @@ from validador_osc.regras.catalogo import (
 )
 from validador_osc.regras.comum import nao_verificada
 from validador_osc.regras.entidade import Entidade, resolver_entidade
+from validador_osc.regras.entradas import DadosConsulta, ObservacoesSancoes
 from validador_osc.regras.parametros import ContasIrregulares
 from validador_osc.regras.tabelas import AvaliacaoCnae, Tabelas, avaliar_cnaes, resolver_natureza
 from validador_osc.regras.verificacoes.cadastro import verificar_natureza, verificar_situacao, verificar_tempo
 from validador_osc.regras.verificacoes.cnae import verificar_cnae, verificar_religiosa
-from validador_osc.regras.verificacoes.dirigentes import ObservacoesDirigentes, verificar_dirigentes
+from validador_osc.regras.verificacoes.dirigentes import verificar_dirigentes
 from validador_osc.regras.verificacoes.dv import verificar_dv
 from validador_osc.regras.verificacoes.estabelecimento import (
     verificar_estabelecimento,
@@ -38,7 +38,6 @@ from validador_osc.regras.verificacoes.estabelecimento import (
 )
 from validador_osc.regras.verificacoes.mapa import verificar_mapa_osc
 from validador_osc.regras.verificacoes.sancoes import (
-    ObservacoesSancoes,
     verificar_ceis,
     verificar_cepim,
     verificar_cnep,
@@ -55,16 +54,6 @@ MENSAGEM_SEM_FONTE = "Verificação ainda não disponível nesta versão."
 
 CADASTRAIS = frozenset({SITUACAO, ESTABELECIMENTO, NATUREZA, CNAE, RELIGIOSA, TEMPO})
 SANCOES = frozenset({CEPIM, CEIS, CNEP, TCU_INIDONEOS, CNJ_CNIA, TCU_CONTAS_IRREGULARES})
-
-
-@dataclass(frozen=True, slots=True)
-class DadosConsulta:
-    cnpj_informado: str
-    cadastro: Coleta[Cadastro] | None = None
-    matriz: Coleta[Cadastro] | None = None
-    sancoes: ObservacoesSancoes | None = None
-    mapa: Coleta[PerfilMapa] | None = None
-    dirigentes: ObservacoesDirigentes | None = None
 
 
 def _avaliacao_cnae(entidade: Entidade, tabelas: Tabelas) -> AvaliacaoCnae | None:

@@ -10,9 +10,8 @@ from tests.unit.fabricas import RECEBIDA_EM, coleta_obtida
 from validador_osc.dominio.coleta import Coleta, NaoEncontrado, Obtido
 from validador_osc.dominio.tipos import Cadastro, Dirigente, PerfilMapa
 from validador_osc.persistencia.repositorios import NovaConsulta, RepositorioConsultas
+from validador_osc.regras.entradas import ObservacoesDirigentes, ObservacoesSancoes
 from validador_osc.regras.tabelas import carregar_tabelas
-from validador_osc.regras.verificacoes.dirigentes import ObservacoesDirigentes
-from validador_osc.regras.verificacoes.sancoes import ObservacoesSancoes
 from validador_osc.servico.consulta import Coletores, PedidoConsulta, ServicoConsulta
 from validador_osc.servico.dirigentes import ColetorDirigentes
 from validador_osc.servico.sancoes import ColetorSancoes

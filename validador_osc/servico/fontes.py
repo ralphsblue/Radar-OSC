@@ -10,7 +10,7 @@ from validador_osc.persistencia.bases import (
     RepositorioBasesLocais,
 )
 from validador_osc.persistencia.repositorios import RepositorioSaudeFontes
-from validador_osc.regras.parametros import Limites
+from validador_osc.regras import Limites
 
 JANELA = timedelta(hours=24)
 

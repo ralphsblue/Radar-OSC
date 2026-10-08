@@ -20,6 +20,7 @@ from validador_osc.dominio.sancoes import (
     TipoCertidaoTcu,
     TipoPessoa,
 )
+from validador_osc.regras.entradas import ObservacoesSancoes
 from validador_osc.regras.parametros import (
     CepimEsfera,
     CnepMulta,
@@ -29,7 +30,6 @@ from validador_osc.regras.parametros import (
     carregar_regras_orientador,
 )
 from validador_osc.regras.verificacoes.sancoes import (
-    ObservacoesSancoes,
     verificar_ceis,
     verificar_cepim,
     verificar_cnep,
