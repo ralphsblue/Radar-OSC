@@ -4,8 +4,9 @@ from validador_osc.dominio.consulta import Contexto
 from validador_osc.dominio.resultado import Achado, Estado, ResultadoVerificacao
 from validador_osc.dominio.tipos import SituacaoCadastral
 from validador_osc.regras.catalogo import ESTABELECIMENTO, SITUACAO
+from validador_osc.regras.comum import data_br
 from validador_osc.regras.entidade import Entidade, SituacaoMatriz
-from validador_osc.regras.verificacoes.cadastro import avaliar_situacao, data_br
+from validador_osc.regras.verificacoes.cadastro import avaliar_situacao
 
 
 def verificar_situacao_entidade(entidade: Entidade, contexto: Contexto) -> ResultadoVerificacao:

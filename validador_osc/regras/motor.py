@@ -24,15 +24,11 @@ from validador_osc.regras.catalogo import (
     TCU_INIDONEOS,
     TEMPO,
 )
+from validador_osc.regras.comum import nao_verificada
 from validador_osc.regras.entidade import Entidade, resolver_entidade
 from validador_osc.regras.parametros import ContasIrregulares
 from validador_osc.regras.tabelas import AvaliacaoCnae, Tabelas, avaliar_cnaes, resolver_natureza
-from validador_osc.regras.verificacoes.cadastro import (
-    nao_verificada,
-    verificar_natureza,
-    verificar_situacao,
-    verificar_tempo,
-)
+from validador_osc.regras.verificacoes.cadastro import verificar_natureza, verificar_situacao, verificar_tempo
 from validador_osc.regras.verificacoes.cnae import verificar_cnae, verificar_religiosa
 from validador_osc.regras.verificacoes.dirigentes import ObservacoesDirigentes, verificar_dirigentes
 from validador_osc.regras.verificacoes.dv import verificar_dv

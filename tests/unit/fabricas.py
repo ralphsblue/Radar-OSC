@@ -5,7 +5,7 @@ from typing import Any
 from validador_osc.dominio.coleta import Obtido, RefEvidencia
 from validador_osc.dominio.resultado import RefFonte
 from validador_osc.dominio.tipos import Cadastro, SituacaoCadastral
-from validador_osc.regras.verificacoes.cadastro import CadastroObtido, referencia_fonte
+from validador_osc.regras.comum import CadastroObtido, referencia_fonte
 
 DATA_REFERENCIA = date(2026, 10, 1)
 RECEBIDA_EM = datetime(2026, 10, 1, 12, 0, tzinfo=UTC)

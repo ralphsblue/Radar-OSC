@@ -15,6 +15,7 @@ from validador_osc.regras.catalogo import (
     SITUACAO,
     TEMPO,
 )
+from validador_osc.regras.comum import CadastroObtido
 from validador_osc.regras.entidade import Entidade, SituacaoMatriz
 from validador_osc.regras.tabelas import (
     AvaliacaoCnae,
@@ -24,7 +25,6 @@ from validador_osc.regras.tabelas import (
     formatar_cnae,
 )
 from validador_osc.regras.verificacoes.cadastro import (
-    CadastroObtido,
     anos_completos,
     verificar_natureza,
     verificar_situacao,

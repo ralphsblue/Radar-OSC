@@ -24,6 +24,7 @@ from validador_osc.dominio.sancoes import (
     TipoCertidaoTcu,
 )
 from validador_osc.regras.catalogo import CEIS, CEPIM, CNEP, CNJ_CNIA, TCU_CONTAS_IRREGULARES, TCU_INIDONEOS
+from validador_osc.regras.comum import data_br
 from validador_osc.regras.parametros import (
     AbrangenciaLimitada,
     CepimEsfera,
@@ -34,7 +35,6 @@ from validador_osc.regras.parametros import (
     Raiz,
     RegrasOrientador,
 )
-from validador_osc.regras.verificacoes.cadastro import data_br
 
 _DIGITOS = re.compile(r"\D")
 _PROCESSO_MINIMO = 10

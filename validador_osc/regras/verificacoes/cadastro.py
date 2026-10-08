@@ -1,18 +1,16 @@
 from calendar import isleap
-from dataclasses import dataclass
 from datetime import date
 
 from validador_osc.dominio.coleta import Coleta, Falha, NaoEncontrado, Obtido
 from validador_osc.dominio.consulta import Contexto, Esfera
 from validador_osc.dominio.resultado import (
     Achado,
-    DefinicaoVerificacao,
     Estado,
-    RefFonte,
     ResultadoVerificacao,
 )
 from validador_osc.dominio.tipos import Cadastro, SituacaoCadastral
 from validador_osc.regras.catalogo import NATUREZA, SITUACAO, TEMPO
+from validador_osc.regras.comum import CadastroObtido, data_br, referencia_fonte
 from validador_osc.regras.parametros import carregar_limites
 from validador_osc.regras.tabelas import RegraNatureza, TabelaNatureza, resolver_natureza
 
@@ -26,39 +24,9 @@ NOME_ESFERA: dict[Esfera, str] = {
 _FEVEREIRO = 2
 _DIA_BISSEXTO = 29
 
-MENSAGEM_SEM_CADASTRO = "Não verificado: os dados cadastrais do CNPJ não foram obtidos."
-
-
-@dataclass(frozen=True, slots=True)
-class CadastroObtido:
-    cadastro: Cadastro
-    fonte: RefFonte
-
-
-def data_br(valor: date | None) -> str:
-    return valor.strftime("%d/%m/%Y") if valor else "data não informada"
-
 
 def _desde(valor: date | None) -> str:
     return f" desde {data_br(valor)}" if valor else ""
-
-
-def referencia_fonte(coleta: Obtido[Cadastro]) -> RefFonte:
-    evidencia = coleta.evidencia
-    return RefFonte(
-        fonte=evidencia.fonte,
-        obtida_em=evidencia.recebida_em,
-        data_base=coleta.dados.data_base,
-        de_cache=evidencia.de_cache,
-        evidencia_id=evidencia.id,
-        sha256=evidencia.sha256,
-    )
-
-
-def nao_verificada(
-    definicao: DefinicaoVerificacao, mensagem: str = MENSAGEM_SEM_CADASTRO
-) -> ResultadoVerificacao:
-    return ResultadoVerificacao(definicao, Estado.NAO_VERIFICADO, mensagem)
 
 
 def verificar_situacao(coleta: Coleta[Cadastro], contexto: Contexto) -> ResultadoVerificacao:

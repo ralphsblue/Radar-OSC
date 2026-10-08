@@ -9,8 +9,8 @@ from validador_osc.dominio.resultado import Achado, Estado, RefFonte, ResultadoV
 from validador_osc.dominio.sancoes import RegistroListaTcu, RegistroTcesp, Sancao
 from validador_osc.dominio.tipos import Dirigente
 from validador_osc.regras.catalogo import DIRIGENTES
+from validador_osc.regras.comum import data_br
 from validador_osc.regras.parametros import Limites
-from validador_osc.regras.verificacoes.cadastro import data_br
 
 CATEGORIAS_FORA_ART39 = ("demissão", "demissao", "suspensão", "suspensao")
 _DIGITOS_INICIO_TCESP = 3

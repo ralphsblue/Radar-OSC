@@ -4,7 +4,7 @@ from enum import StrEnum
 from validador_osc.dominio.coleta import Coleta, NaoEncontrado, Obtido
 from validador_osc.dominio.resultado import RefFonte
 from validador_osc.dominio.tipos import Cadastro
-from validador_osc.regras.verificacoes.cadastro import CadastroObtido, referencia_fonte
+from validador_osc.regras.comum import CadastroObtido, referencia_fonte
 
 
 class SituacaoMatriz(StrEnum):
