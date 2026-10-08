@@ -15,7 +15,7 @@ O sistema consulta cadastros públicos e devolve um status (apta, apta com ressa
 | Dirigentes do quadro de sócios | CEIS, CNEP, TCU (contas irregulares e inabilitados) e TCE-SP |
 | Presença e perfil no Mapa das OSCs | Ipea |
 
-As regras e decisões estão em `validador_osc_especificacao_mvp.md`, `arquitetura.md` e `decisoes.md`.
+As regras e decisões estão em `docs/especificacao.md`, `docs/historico/arquitetura_planejamento.md` e `docs/decisoes.md`.
 
 ## Como rodar
 

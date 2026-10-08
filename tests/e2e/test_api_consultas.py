@@ -32,7 +32,7 @@ OKBR = "19131243000197"
 INEXISTENTE = "94580730000152"
 URL_BANCO_FORA = "postgresql+psycopg://validador:validador@127.0.0.1:1/validador"
 CASOS: list[dict[str, Any]] = json.loads(
-    (RAIZ / "fase0" / "casos_referencia.json").read_text(encoding="utf-8")
+    (RAIZ / "tests" / "fixtures" / "casos_referencia.json").read_text(encoding="utf-8")
 )["casos"]
 
 

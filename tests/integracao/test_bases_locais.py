@@ -34,7 +34,7 @@ from validador_osc.persistencia.modelos import Carga, ListaTcuRegistro, SancaoRe
 pytestmark = pytest.mark.db
 
 SANIDADE_TESTE = Sanidade(minimo_linhas=5)
-DOWNLOADS_FASE0 = Path(__file__).parent.parent.parent / "fase0" / "portal" / "downloads"
+DOWNLOADS_FASE0 = Path(__file__).parent.parent.parent / "var" / "pesquisa" / "portal" / "downloads"
 
 type Sessoes = async_sessionmaker[AsyncSession]
 
@@ -422,7 +422,9 @@ def test_banco_recusa_cpf_completo_no_documento(engine: Engine) -> None:
             )
 
 
-@pytest.mark.skipif(not DOWNLOADS_FASE0.exists(), reason="downloads reais da fase 0 ausentes")
+@pytest.mark.skipif(
+    not DOWNLOADS_FASE0.exists(), reason="downloads reais da pesquisa ausentes (var/pesquisa)"
+)
 @pytest.mark.parametrize(
     ("fonte", "nome"), [("cgu_ceis", "20260930_CEIS.zip"), ("cgu_cnep", "20260930_CNEP.zip")]
 )

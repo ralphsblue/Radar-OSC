@@ -30,7 +30,7 @@ from validador_osc.persistencia.modelos import Carga, ListaTcuRegistro, SancaoRe
 pytestmark = pytest.mark.db
 
 SANIDADE_TESTE = Sanidade(minimo_linhas=3)
-DOWNLOADS_FASE0 = Path(__file__).parent.parent.parent / "fase0" / "dirigentes" / "downloads"
+DOWNLOADS_FASE0 = Path(__file__).parent.parent.parent / "var" / "pesquisa" / "dirigentes" / "downloads"
 
 
 def rodar[T](engine: Engine, funcao: Callable[[RepositorioBasesLocais], Awaitable[T]]) -> T:
@@ -286,7 +286,9 @@ def test_retencao_nas_sancoes_da_cgu(engine: Engine, arquivos: Path, tmp_path: P
     assert contagens == [0, 15, 16]
 
 
-@pytest.mark.skipif(not DOWNLOADS_FASE0.exists(), reason="downloads reais da fase 0 ausentes")
+@pytest.mark.skipif(
+    not DOWNLOADS_FASE0.exists(), reason="downloads reais da pesquisa ausentes (var/pesquisa)"
+)
 @pytest.mark.parametrize(
     ("fonte", "nome"),
     [

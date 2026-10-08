@@ -1,7 +1,0 @@
-url=https://mapaosc.ipea.gov.br/mapa
-final=https://mapaosc.ipea.gov.br/mapa
-status=200
-tempo_s=8.39
-data=2026-09-30T22:03:22.756135
-sha256=1b03afcb1e2c0bdd324f0079add0dd1121f5a0a7a9d6c0f41a6b85ff9e21b696
-headers={'date': 'Thu, 01 Oct 2026 01:03:34 GMT', 'server': 'Apache/2.4.29 (Ubuntu)', 'content-security-policy': 'upgrade-insecure-requests;', 'cache-control': 'no-cache, private', 'vary': 'Accept-Encoding', 'content-encoding': 'gzip', 'content-length': '7768', 'content-type': 'text/html; charset=UTF-8', 'set-cookie': 'XSRF-TOKEN=eyJpdiI6IkhiWlB3ZFg1S1E5aHZoYmFHQWVtUEE9PSIsInZhbHVlIjoiWFlUcmhpR1d5ajl1RFlLdjJrckZXUVBYeEVMVG5zVHduU1J0SnYyaFNjQzlvM0xPWHVhSVREV08wemk0eU0yMSIsIm1hYyI6Ijg2NzVmYTA0YzgwY2ExMDJjNTNiNjQ1NjRhNWJkZDRmNzA5NThhNjk5ZjFlZmI4NTRmOTE2NmM4NjI0ZGNhYTEifQ%3D%3D; expires=Thu, 01-Oct-2026 03:03:34 GMT; Max-Age=7200; path=/, laravel_session=eyJpdiI6IjFkZnRBNUpCeE9wUlZMcEtOTTdFYUE9PSIsInZhbHVlIjoiQjdYTEFwWVlRbk5lbUhtd1dLb0VHM2ZoVWdhNU1aVGY1bGdlSDVKWGs4VXp4cmZST1wvSE5HRllCMVpzMHh4Y1QiLCJtYWMiOiIxOGI1ZTdiZjgxZjIyNzdmMmE0MmJmYWFlZmU4OWI2YmRiZDdlODZjYTlmYmE3Y2Q3MTE3ZTQ4NzVjNDI1MjMwIn0%3D; expires=Thu, 01-Oct-2026 03:03:34 GMT; Max-Age=7200; path=/; httponly', 'via': '1.1 mapaosc.ipea.gov.br', 'keep-alive': 'timeout=15, max=100', 'connection': 'Keep-Alive'}

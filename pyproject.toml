@@ -45,7 +45,7 @@ module-root = ""
 [tool.ruff]
 line-length = 110
 target-version = "py314"
-extend-exclude = ["fase0"]
+extend-exclude = ["docs/pesquisa"]
 force-exclude = true
 
 [tool.ruff.lint]

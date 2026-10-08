@@ -1,6 +1,5 @@
 import copy
 import json
-from collections.abc import Iterator
 from importlib.resources import files
 from pathlib import Path
 
@@ -19,14 +18,7 @@ from validador_osc.regras.tabelas.natureza import (
     resolver_natureza,
 )
 
-FASE0 = Path(__file__).resolve().parents[2] / "fase0"
-PASTAS_RESPOSTAS = (
-    FASE0 / "brasilapi" / "respostas",
-    FASE0 / "casos" / "respostas",
-    FASE0 / "mapa_osc" / "respostas",
-)
-CHAVES_DESCRICAO = frozenset({"natureza_juridica", "natureza", "tx_nome_natureza_juridica_osc"})
-CHAVE_CONTAGEM = "naturezas"
+NATUREZAS_VISTAS = Path(__file__).resolve().parents[1] / "fixtures" / "naturezas_vistas_fase0.json"
 
 
 def _bruto() -> dict[str, object]:
@@ -41,31 +33,9 @@ def _itens(bruto: dict[str, object]) -> list[dict[str, object]]:
     return itens
 
 
-def _descricoes(valor: object) -> Iterator[str]:
-    if isinstance(valor, dict):
-        for chave, item in valor.items():
-            if chave in CHAVES_DESCRICAO and isinstance(item, str):
-                yield item
-            if chave == CHAVE_CONTAGEM and isinstance(item, dict):
-                yield from (str(texto) for texto in item)
-            yield from _descricoes(item)
-    elif isinstance(valor, list):
-        for item in valor:
-            yield from _descricoes(item)
-
-
 def _descricoes_da_fase0() -> set[str]:
-    arquivos = [FASE0 / "casos_referencia.json"]
-    for pasta in PASTAS_RESPOSTAS:
-        arquivos.extend(pasta.rglob("*.json"))
-    vistas: set[str] = set()
-    for arquivo in arquivos:
-        try:
-            conteudo = json.loads(arquivo.read_text(encoding="utf-8"))
-        except UnicodeDecodeError, json.JSONDecodeError:
-            continue
-        vistas.update(_descricoes(conteudo))
-    return vistas
+    vistas: list[str] = json.loads(NATUREZAS_VISTAS.read_text(encoding="utf-8"))
+    return set(vistas)
 
 
 @pytest.fixture(scope="module")

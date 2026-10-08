@@ -2,7 +2,7 @@
 .venv
 .env
 .env.*
-fase0
+docs
 var
 tests
 **/__pycache__

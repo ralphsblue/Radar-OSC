@@ -1,7 +1,0 @@
-url=https://mapaosc.ipea.gov.br/api/geo/regioes
-final=https://mapaosc.ipea.gov.br/api/geo/regioes
-status=404
-tempo_s=12.45
-data=2026-09-30T22:02:45.994030
-sha256=7dbca10893af9aaea3a68c5d08f956a5e663e6ecdb776dc2f5367304867a6ec7
-headers={'date': 'Thu, 01 Oct 2026 01:02:58 GMT', 'server': 'Apache/2.4.29 (Ubuntu)', 'content-security-policy': 'upgrade-insecure-requests;', 'cache-control': 'no-cache, private', 'access-control-allow-origin': '*', 'access-control-allow-methods': 'POST, GET, OPTIONS, PUT, DELETE', 'access-control-allow-credentials': 'true', 'access-control-max-age': '86400', 'access-control-allow-headers': 'Content-Type, Authorization, X-Requested-With, x-csrf-token', 'content-type': 'text/html; charset=UTF-8', 'via': '1.1 mapaosc.ipea.gov.br', 'content-length': '1636', 'keep-alive': 'timeout=15, max=100', 'connection': 'Keep-Alive'}
