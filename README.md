@@ -1,5 +1,7 @@
 # Validador de OSC
 
+[![ci](https://github.com/ralphsblue/Radar-OSC/actions/workflows/ci.yml/badge.svg)](https://github.com/ralphsblue/Radar-OSC/actions/workflows/ci.yml)
+
 Triagem automatizada de CNPJ para parcerias conforme o Marco Regulatório das Organizações da Sociedade Civil (Lei 13.019/2014).
 O sistema consulta cadastros públicos e devolve um status (apta, apta com ressalvas, inconclusiva ou inapta), com a explicação de cada verificação e a fonte de cada dado.
 É uma triagem: não substitui as certidões oficiais.
