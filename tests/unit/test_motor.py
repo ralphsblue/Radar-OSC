@@ -4,10 +4,9 @@ import pytest
 
 from tests.unit.fabricas import EVIDENCIA, RECEBIDA_EM, cadastro, coleta_obtida, fonte_esperada
 from validador_osc.dominio.coleta import Coleta, Falha, MotivoFalha, NaoEncontrado, Obtido, RefEvidencia
+from validador_osc.dominio.consulta import Contexto, Esfera
 from validador_osc.dominio.resultado import (
     Avaliacao,
-    Contexto,
-    Esfera,
     Estado,
     ResultadoVerificacao,
     StatusFinal,

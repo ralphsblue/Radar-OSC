@@ -60,7 +60,7 @@ _PADRAO_PERIODO_ARQUIVO = re.compile(r"a (\d{2})-(\d{2})-(\d{4})_Prest_Contas", 
 
 
 @dataclass(frozen=True, slots=True)
-class FonteTcesp:
+class BaseTcesp:
     sanidade: Sanidade
 
     @property
@@ -68,8 +68,8 @@ class FonteTcesp:
         return FONTE_TCESP
 
 
-FONTES_TCESP: dict[str, FonteTcesp] = {
-    fonte.fonte: fonte for fonte in (FonteTcesp(Sanidade(minimo_linhas=8_000)),)
+FONTES_TCESP: dict[str, BaseTcesp] = {
+    fonte.fonte: fonte for fonte in (BaseTcesp(Sanidade(minimo_linhas=8_000)),)
 }
 
 
@@ -95,7 +95,7 @@ class RegistroLinhaTcesp:
         }
 
 
-def definicao(fonte: FonteTcesp, sanidade: Sanidade | None = None) -> DefinicaoBase:
+def definicao(fonte: BaseTcesp, sanidade: Sanidade | None = None) -> DefinicaoBase:
     return DefinicaoBase(
         fonte=fonte.fonte,
         tabela=cast(Table, TcespRegistro.__table__),

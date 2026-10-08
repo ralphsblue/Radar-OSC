@@ -6,11 +6,10 @@ from datetime import date
 from validador_osc.dominio.bases import ConsultaLocal
 from validador_osc.dominio.cnpj import formatar
 from validador_osc.dominio.coleta import Coleta, Obtido
+from validador_osc.dominio.consulta import Contexto, Esfera
 from validador_osc.dominio.resultado import (
     Achado,
-    Contexto,
     DefinicaoVerificacao,
-    Esfera,
     Estado,
     RefFonte,
     ResultadoVerificacao,

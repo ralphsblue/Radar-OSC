@@ -5,13 +5,8 @@ import pytest
 
 from tests.unit.fabricas import DATA_REFERENCIA, EVIDENCIA, coleta_obtida, fonte_esperada, obtido
 from validador_osc.dominio.coleta import Falha, MotivoFalha, NaoEncontrado
-from validador_osc.dominio.resultado import (
-    Contexto,
-    Esfera,
-    Estado,
-    ResultadoVerificacao,
-    TipoVerificacao,
-)
+from validador_osc.dominio.consulta import Contexto, Esfera
+from validador_osc.dominio.resultado import Estado, ResultadoVerificacao, TipoVerificacao
 from validador_osc.dominio.tipos import SituacaoCadastral
 from validador_osc.regras.catalogo import (
     CNAE,

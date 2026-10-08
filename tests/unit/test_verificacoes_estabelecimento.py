@@ -4,7 +4,8 @@ import pytest
 
 from tests.unit.fabricas import DATA_REFERENCIA, RECEBIDA_EM, SHA256, cadastro, coleta_obtida
 from validador_osc.dominio.coleta import Coleta, Falha, MotivoFalha, NaoEncontrado, Obtido, RefEvidencia
-from validador_osc.dominio.resultado import Achado, Contexto, Estado
+from validador_osc.dominio.consulta import Contexto
+from validador_osc.dominio.resultado import Achado, Estado
 from validador_osc.dominio.tipos import Cadastro, SituacaoCadastral
 from validador_osc.regras.catalogo import ESTABELECIMENTO, SITUACAO
 from validador_osc.regras.entidade import Entidade, resolver_entidade

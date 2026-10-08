@@ -7,8 +7,9 @@ from pydantic import SecretStr
 
 from validador_osc.api.privacidade import eh_operador, ocultar_dirigentes
 from validador_osc.dominio.bases import CargaAtiva, ConsultaLocal
+from validador_osc.dominio.consulta import Contexto
 from validador_osc.dominio.pessoa_fisica import calcular_dvs
-from validador_osc.dominio.resultado import Contexto, Estado
+from validador_osc.dominio.resultado import Estado
 from validador_osc.dominio.sancoes import (
     CadastroSancao,
     ListaTcu,

@@ -89,7 +89,7 @@ _COLUNA_DOCUMENTO = {
 
 
 @dataclass(frozen=True, slots=True)
-class FonteCgu:
+class BaseCgu:
     cadastro: CadastroSancao
     colunas: tuple[str, ...]
     sanidade: Sanidade
@@ -103,12 +103,12 @@ class FonteCgu:
         return self.cadastro.value.lower()
 
 
-FONTES_CGU: dict[str, FonteCgu] = {
+FONTES_CGU: dict[str, BaseCgu] = {
     fonte.fonte: fonte
     for fonte in (
-        FonteCgu(CadastroSancao.CEPIM, COLUNAS_CEPIM, Sanidade(minimo_linhas=3_000)),
-        FonteCgu(CadastroSancao.CEIS, COLUNAS_CEIS, Sanidade(minimo_linhas=20_000)),
-        FonteCgu(CadastroSancao.CNEP, COLUNAS_CNEP, Sanidade(minimo_linhas=1_500)),
+        BaseCgu(CadastroSancao.CEPIM, COLUNAS_CEPIM, Sanidade(minimo_linhas=3_000)),
+        BaseCgu(CadastroSancao.CEIS, COLUNAS_CEIS, Sanidade(minimo_linhas=20_000)),
+        BaseCgu(CadastroSancao.CNEP, COLUNAS_CNEP, Sanidade(minimo_linhas=1_500)),
     )
 }
 
@@ -149,7 +149,7 @@ class RegistroSancao:
         }
 
 
-def definicao(fonte: FonteCgu, sanidade: Sanidade | None = None) -> DefinicaoBase:
+def definicao(fonte: BaseCgu, sanidade: Sanidade | None = None) -> DefinicaoBase:
     return DefinicaoBase(
         fonte=fonte.fonte,
         tabela=cast(Table, SancaoRegistro.__table__),
@@ -341,7 +341,7 @@ def _com_tentativas[T](acao: Callable[[], T], descricao: str) -> T:
     return com_tentativas(acao, descricao, PAUSA_TENTATIVA_S)
 
 
-def descobrir_data(cliente: httpx.Client, fonte: FonteCgu) -> date:
+def descobrir_data(cliente: httpx.Client, fonte: BaseCgu) -> date:
     url = f"{URL_DOWNLOAD}/{fonte.caminho}"
 
     def buscar() -> str:
@@ -356,7 +356,7 @@ def descobrir_data(cliente: httpx.Client, fonte: FonteCgu) -> date:
     return max(datas)
 
 
-def obtencao_remota(cliente: httpx.Client, fonte: FonteCgu) -> Obtencao:
+def obtencao_remota(cliente: httpx.Client, fonte: BaseCgu) -> Obtencao:
     url_pagina = f"{URL_DOWNLOAD}/{fonte.caminho}"
 
     def gravar(destino: BinaryIO) -> ArquivoObtido:

@@ -7,7 +7,8 @@ import pytest
 
 from validador_osc.dominio.bases import CargaAtiva, ConsultaLocal
 from validador_osc.dominio.coleta import Falha, MotivoFalha, Obtido, RefEvidencia
-from validador_osc.dominio.resultado import Contexto, Esfera, Estado
+from validador_osc.dominio.consulta import Contexto, Esfera
+from validador_osc.dominio.resultado import Estado
 from validador_osc.dominio.sancoes import (
     CadastroSancao,
     CertidaoTcu,

@@ -1,6 +1,7 @@
 from validador_osc.dominio.cnpj import cnpj_da_matriz
 from validador_osc.dominio.cnpj import formatar as formatar_cnpj
-from validador_osc.dominio.resultado import Achado, Contexto, Estado, ResultadoVerificacao
+from validador_osc.dominio.consulta import Contexto
+from validador_osc.dominio.resultado import Achado, Estado, ResultadoVerificacao
 from validador_osc.dominio.tipos import SituacaoCadastral
 from validador_osc.regras.catalogo import ESTABELECIMENTO, SITUACAO
 from validador_osc.regras.entidade import Entidade, SituacaoMatriz

@@ -61,7 +61,7 @@ COLUNAS_COM_SANCAO = tuple(sorted((*_COLUNAS_COMUNS, "dataAcordao", "dataFinalSa
 
 
 @dataclass(frozen=True, slots=True)
-class FonteTcu:
+class BaseListaTcu:
     lista: ListaTcu
     recurso: str
     colunas: tuple[str, ...]
@@ -76,19 +76,19 @@ class FonteTcu:
         return f"{URL_API}/{self.recurso}"
 
 
-FONTES_TCU: dict[str, FonteTcu] = {
+FONTES_TCU: dict[str, BaseListaTcu] = {
     fonte.fonte: fonte
     for fonte in (
-        FonteTcu(
+        BaseListaTcu(
             ListaTcu.INIDONEOS, "responsaveis-inidoneos", COLUNAS_COM_SANCAO, Sanidade(minimo_linhas=80)
         ),
-        FonteTcu(
+        BaseListaTcu(
             ListaTcu.CONTAS_IRREGULARES,
             "responsaveis-contas-irregulares",
             COLUNAS_CONTAS_IRREGULARES,
             Sanidade(minimo_linhas=40_000),
         ),
-        FonteTcu(
+        BaseListaTcu(
             ListaTcu.INABILITADOS,
             "responsaveis-inabilitados",
             COLUNAS_COM_SANCAO,
@@ -126,7 +126,7 @@ class RegistroTcu:
         }
 
 
-def definicao(fonte: FonteTcu, sanidade: Sanidade | None = None) -> DefinicaoBase:
+def definicao(fonte: BaseListaTcu, sanidade: Sanidade | None = None) -> DefinicaoBase:
     return DefinicaoBase(
         fonte=fonte.fonte,
         tabela=cast(Table, ListaTcuRegistro.__table__),
@@ -271,7 +271,7 @@ def ler_arquivo(caminho: Path, lista: ListaTcu) -> Iterator[Leitura]:
         yield Leitura(colunas, (registro.para_tabela() for registro in registros))
 
 
-def obtencao_remota(cliente: httpx.Client, fonte: FonteTcu, hoje: Callable[[], date]) -> Obtencao:
+def obtencao_remota(cliente: httpx.Client, fonte: BaseListaTcu, hoje: Callable[[], date]) -> Obtencao:
     def gravar(destino: BinaryIO) -> ArquivoObtido:
         def baixar() -> str:
             destino.seek(0)

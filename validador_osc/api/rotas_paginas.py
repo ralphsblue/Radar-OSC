@@ -13,7 +13,7 @@ from validador_osc.api.dependencias import (
     excedeu_limite,
 )
 from validador_osc.api.privacidade import ocultar_dirigentes
-from validador_osc.dominio.resultado import Esfera
+from validador_osc.dominio.consulta import Esfera
 from validador_osc.servico.consulta import PedidoConsulta
 
 rotas = APIRouter(include_in_schema=False)

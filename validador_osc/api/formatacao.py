@@ -6,7 +6,8 @@ from zoneinfo import ZoneInfo
 
 from jinja2 import Environment
 
-from validador_osc.dominio.resultado import Esfera, Estado, StatusFinal, TipoVerificacao
+from validador_osc.dominio.consulta import Esfera
+from validador_osc.dominio.resultado import Estado, StatusFinal, TipoVerificacao
 
 _CNPJ = re.compile(r"([0-9A-Z]{2})([0-9A-Z]{3})([0-9A-Z]{3})([0-9A-Z]{4})([0-9]{2})")
 

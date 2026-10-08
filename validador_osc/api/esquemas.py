@@ -1,6 +1,6 @@
 from pydantic import BaseModel, ConfigDict, Field
 
-from validador_osc.dominio.resultado import Esfera
+from validador_osc.dominio.consulta import Esfera
 
 
 class PedidoConsultaApi(BaseModel):

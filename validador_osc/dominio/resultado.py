@@ -26,18 +26,6 @@ class StatusFinal(StrEnum):
     APTA = "APTA"
 
 
-class Esfera(StrEnum):
-    MUNICIPIO = "municipio"
-    ESTADO = "estado"
-    UNIAO = "uniao"
-
-
-@dataclass(frozen=True, slots=True)
-class Contexto:
-    data_referencia: date
-    esfera: Esfera | None = None
-
-
 @dataclass(frozen=True, slots=True)
 class Achado:
     tipo: str

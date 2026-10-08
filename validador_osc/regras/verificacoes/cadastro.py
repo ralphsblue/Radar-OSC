@@ -3,11 +3,10 @@ from dataclasses import dataclass
 from datetime import date
 
 from validador_osc.dominio.coleta import Coleta, Falha, NaoEncontrado, Obtido
+from validador_osc.dominio.consulta import Contexto, Esfera
 from validador_osc.dominio.resultado import (
     Achado,
-    Contexto,
     DefinicaoVerificacao,
-    Esfera,
     Estado,
     RefFonte,
     ResultadoVerificacao,

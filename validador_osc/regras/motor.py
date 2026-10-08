@@ -2,12 +2,8 @@ from dataclasses import dataclass, replace
 
 from validador_osc.dominio.cnpj import eh_alfanumerico, validar
 from validador_osc.dominio.coleta import Coleta, Obtido
-from validador_osc.dominio.resultado import (
-    Avaliacao,
-    Contexto,
-    Estado,
-    ResultadoVerificacao,
-)
+from validador_osc.dominio.consulta import Contexto
+from validador_osc.dominio.resultado import Avaliacao, Estado, ResultadoVerificacao
 from validador_osc.dominio.tipos import Cadastro, PerfilMapa
 from validador_osc.regras.agregacao import agregar
 from validador_osc.regras.catalogo import (

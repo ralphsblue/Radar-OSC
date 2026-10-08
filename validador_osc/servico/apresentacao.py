@@ -2,7 +2,8 @@ from collections import Counter
 from datetime import date, datetime
 from typing import Any
 
-from validador_osc.dominio.resultado import Avaliacao, Esfera, Estado, RefFonte, ResultadoVerificacao
+from validador_osc.dominio.consulta import Esfera
+from validador_osc.dominio.resultado import Avaliacao, Estado, RefFonte, ResultadoVerificacao
 from validador_osc.dominio.tipos import Cadastro
 
 AVISO = "Triagem automatizada de cadastros públicos. Não substitui certidões oficiais."
