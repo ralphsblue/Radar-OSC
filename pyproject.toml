@@ -3,6 +3,8 @@ name = "validador-osc"
 version = "0.1.0"
 description = "Triagem automatizada de CNPJ de Organizações da Sociedade Civil (Lei 13.019/2014)"
 readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
 requires-python = ">=3.14,<3.15"
 dependencies = [
     "alembic>=1.16",
