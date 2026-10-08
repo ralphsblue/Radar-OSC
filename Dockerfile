@@ -3,7 +3,7 @@ COPY --from=ghcr.io/astral-sh/uv:0.12 /uv /usr/local/bin/uv
 ENV UV_COMPILE_BYTECODE=1 UV_LINK_MODE=copy UV_PYTHON_DOWNLOADS=never PYTHONUNBUFFERED=1
 WORKDIR /app
 
-COPY pyproject.toml uv.lock README.md ./
+COPY pyproject.toml uv.lock README.md LICENSE ./
 RUN uv sync --locked --no-dev --no-install-project
 
 COPY validador_osc ./validador_osc
