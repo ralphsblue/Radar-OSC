@@ -2,6 +2,12 @@
 
 {% block titulo %}Fontes de dados - Validador de OSC{% endblock %}
 
+{% block navegacao %}
+<nav class="navegacao" aria-label="Principal">
+  <a class="navegacao__link" href="/">Nova consulta</a>
+</nav>
+{% endblock %}
+
 {% block conteudo %}
 <div class="pagina pagina--fontes">
   <section class="apresentacao" aria-labelledby="titulo-fontes">
@@ -45,10 +51,10 @@
         {% for fonte in estado.online %}
         <tr>
           <td>{{ fonte.descricao }}</td>
-          <td>{{ fonte.ultima_resposta_em | instante if fonte.ultima_resposta_em else "-" }}</td>
+          <td class="tabela__sem-quebra">{{ fonte.ultima_resposta_em | instante if fonte.ultima_resposta_em else "-" }}</td>
           <td>{{ fonte.respostas }}</td>
           <td>{{ fonte.falhas }}</td>
-          <td>{{ fonte.latencia_mediana_ms ~ " ms" if fonte.latencia_mediana_ms is not none else "-" }}</td>
+          <td class="tabela__sem-quebra">{{ fonte.latencia_mediana_ms ~ " ms" if fonte.latencia_mediana_ms is not none else "-" }}</td>
         </tr>
         {% endfor %}
       </tbody>

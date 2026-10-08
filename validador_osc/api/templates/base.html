@@ -22,7 +22,11 @@
           <span class="marca__subtitulo">Triagem para parcerias da Lei 13.019/2014</span>
         </span>
       </a>
-      {% block navegacao %}<a class="navegacao__link" href="/fontes">Fontes de dados</a>{% endblock %}
+      {% block navegacao %}
+      <nav class="navegacao" aria-label="Principal">
+        <a class="navegacao__link" href="/fontes">Fontes de dados</a>
+      </nav>
+      {% endblock %}
     </div>
   </header>
   <main id="conteudo" class="conteudo" tabindex="-1">

@@ -1385,6 +1385,10 @@ code {
   font-weight: 600;
 }
 
+.tabela__sem-quebra {
+  white-space: nowrap;
+}
+
 .tabela-rolagem {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
