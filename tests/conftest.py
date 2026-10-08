@@ -65,11 +65,9 @@ def _banco_acessivel(url: str) -> bool:
 
 def pytest_collection_modifyitems(config: pytest.Config, items: list[pytest.Item]) -> None:
     del config
-    if os.environ.get("CI"):
-        return
     if not any(item.get_closest_marker("db") for item in items):
         return
-    if _banco_acessivel(_url_admin(URL_TESTE)):
+    if os.environ.get("CI") or _banco_acessivel(_url_admin(URL_TESTE)):
         _garantir_banco(URL_TESTE)
         return
     pular = pytest.mark.skip(reason="PostgreSQL inacessível; suba com `docker compose up -d db`")
