@@ -26,8 +26,8 @@ from validador_osc.bases_locais.listas_tcu import (
     obtencao_remota,
 )
 from validador_osc.bases_locais.obtencao import ErroObtencao
+from validador_osc.dominio.pessoa_fisica import FragmentoCpf, contem_cpf
 from validador_osc.dominio.sancoes import ListaTcu
-from validador_osc.pessoa_fisica import FragmentoCpf, contem_cpf
 
 LISTAS = {
     "tcu_inidoneos": ListaTcu.INIDONEOS,

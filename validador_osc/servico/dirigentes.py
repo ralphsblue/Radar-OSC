@@ -2,9 +2,9 @@ import asyncio
 from typing import Protocol
 
 from validador_osc.dominio.bases import ConsultaLocal
+from validador_osc.dominio.pessoa_fisica import fragmento_cpf, normalizar_nome
 from validador_osc.dominio.sancoes import CadastroSancao, ListaTcu, RegistroListaTcu, RegistroTcesp, Sancao
 from validador_osc.dominio.tipos import Dirigente
-from validador_osc.pessoa_fisica import fragmento_cpf, normalizar_nome
 from validador_osc.regras.verificacoes.dirigentes import ConsultaDirigente, ObservacoesDirigentes
 
 

@@ -9,7 +9,7 @@ from zoneinfo import ZoneInfo
 
 import structlog
 
-from validador_osc.cnpj import cnpj_da_matriz, eh_alfanumerico, normalizar, validar
+from validador_osc.dominio.cnpj import cnpj_da_matriz, eh_alfanumerico, normalizar, validar
 from validador_osc.dominio.coleta import Coleta, Falha, MotivoFalha, Obtido
 from validador_osc.dominio.resultado import Contexto, Esfera
 from validador_osc.dominio.tipos import Cadastro, Dirigente, PerfilMapa

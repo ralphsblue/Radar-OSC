@@ -3,10 +3,10 @@ from dataclasses import dataclass, field
 from datetime import date
 
 from validador_osc.dominio.bases import ConsultaLocal
+from validador_osc.dominio.pessoa_fisica import calcular_dvs, fragmento_cpf
 from validador_osc.dominio.resultado import Achado, Contexto, Estado, RefFonte, ResultadoVerificacao
 from validador_osc.dominio.sancoes import RegistroListaTcu, RegistroTcesp, Sancao
 from validador_osc.dominio.tipos import Dirigente
-from validador_osc.pessoa_fisica import calcular_dvs, fragmento_cpf
 from validador_osc.regras.catalogo import DIRIGENTES
 from validador_osc.regras.parametros import Limites
 from validador_osc.regras.verificacoes.cadastro import data_br

@@ -17,7 +17,7 @@ from sqlalchemy import Connection, Engine, Table, delete, insert, select, text, 
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.exc import DBAPIError
 
-from validador_osc import cnpj
+from validador_osc.dominio import cnpj
 from validador_osc.persistencia.modelos import Carga
 
 TAMANHO_CNPJ = 14

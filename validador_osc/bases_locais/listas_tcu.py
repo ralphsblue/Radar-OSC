@@ -21,10 +21,10 @@ from validador_osc.bases_locais.carga import (
     Sanidade,
 )
 from validador_osc.bases_locais.obtencao import com_tentativas
+from validador_osc.dominio.pessoa_fisica import FragmentoCpf, fragmento_cpf, mascarar_cpfs, normalizar_nome
 from validador_osc.dominio.sancoes import ListaTcu, RegistroListaTcu
 from validador_osc.persistencia.bases import FONTES_LISTA_TCU
 from validador_osc.persistencia.modelos import ListaTcuRegistro
-from validador_osc.pessoa_fisica import FragmentoCpf, fragmento_cpf, mascarar_cpfs, normalizar_nome
 
 URL_API = "https://certidoes.apps.tcu.gov.br/api/publico"
 EXTENSAO = "json"

@@ -3,8 +3,8 @@ from collections.abc import Mapping, Sequence
 from dataclasses import dataclass, field
 from datetime import date
 
-from validador_osc.cnpj import formatar
 from validador_osc.dominio.bases import ConsultaLocal
+from validador_osc.dominio.cnpj import formatar
 from validador_osc.dominio.coleta import Coleta, Obtido
 from validador_osc.dominio.resultado import (
     Achado,

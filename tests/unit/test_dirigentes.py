@@ -7,6 +7,7 @@ from pydantic import SecretStr
 
 from validador_osc.api.privacidade import eh_operador, ocultar_dirigentes
 from validador_osc.dominio.bases import CargaAtiva, ConsultaLocal
+from validador_osc.dominio.pessoa_fisica import calcular_dvs
 from validador_osc.dominio.resultado import Contexto, Estado
 from validador_osc.dominio.sancoes import (
     CadastroSancao,
@@ -17,7 +18,6 @@ from validador_osc.dominio.sancoes import (
     TipoPessoa,
 )
 from validador_osc.dominio.tipos import Dirigente
-from validador_osc.pessoa_fisica import calcular_dvs
 from validador_osc.regras.parametros import carregar_limites
 from validador_osc.regras.verificacoes.dirigentes import (
     ConsultaDirigente,

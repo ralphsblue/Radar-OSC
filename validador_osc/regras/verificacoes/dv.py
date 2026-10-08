@@ -1,4 +1,4 @@
-from validador_osc.cnpj import Motivo, ResultadoDV
+from validador_osc.dominio.cnpj import Motivo, ResultadoDV
 from validador_osc.dominio.resultado import Achado, Estado, ResultadoVerificacao
 from validador_osc.regras.catalogo import DV
 

@@ -80,7 +80,6 @@ name = "dominio só depende da biblioteca padrão"
 type = "forbidden"
 source_modules = ["validador_osc.dominio"]
 forbidden_modules = [
-    "validador_osc.cnpj",
     "validador_osc.config",
     "validador_osc.regras",
     "validador_osc.fontes",

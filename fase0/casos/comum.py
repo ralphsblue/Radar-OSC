@@ -20,7 +20,7 @@ RAIZ = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(RAIZ))
 sys.path.insert(0, str(RAIZ / "fase0" / "cnae"))
 
-from validador_osc.cnpj import cnpj_da_matriz, validar
+from validador_osc.dominio.cnpj import cnpj_da_matriz, validar
 
 PASTA = Path(__file__).parent
 RESPOSTAS = PASTA / "respostas"

@@ -32,8 +32,8 @@ from validador_osc.bases_locais.sancoes_cgu import (
     obtencao_local,
     obtencao_remota,
 )
+from validador_osc.dominio.pessoa_fisica import FragmentoCpf, contem_cpf
 from validador_osc.dominio.sancoes import CadastroSancao, TipoPessoa
-from validador_osc.pessoa_fisica import FragmentoCpf, contem_cpf
 
 PAGINA = (
     '<script>arquivos.push({"ano" : "2026", "mes" : "09", "dia" : "29", "origem" : "CEIS"});'

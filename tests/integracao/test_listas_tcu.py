@@ -21,11 +21,11 @@ from validador_osc.bases_locais.sancoes_cgu import FONTES_CGU
 from validador_osc.bases_locais.sancoes_cgu import definicao as definicao_cgu
 from validador_osc.bases_locais.sancoes_cgu import obtencao_local as obtencao_local_cgu
 from validador_osc.config import obter_configuracao
+from validador_osc.dominio.pessoa_fisica import contem_cpf
 from validador_osc.dominio.sancoes import ListaTcu
 from validador_osc.persistencia.banco import criar_engine_async, criar_fabrica_sessoes
 from validador_osc.persistencia.bases import RepositorioBasesLocais
 from validador_osc.persistencia.modelos import Carga, ListaTcuRegistro, SancaoRegistro
-from validador_osc.pessoa_fisica import contem_cpf
 
 pytestmark = pytest.mark.db
 

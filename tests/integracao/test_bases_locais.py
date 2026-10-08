@@ -25,11 +25,11 @@ from validador_osc.bases_locais import sancoes_cgu
 from validador_osc.bases_locais.carga import CicloCarga, ResultadoCarga, Sanidade, StatusCarga
 from validador_osc.bases_locais.sancoes_cgu import FONTES_CGU, definicao, obtencao_local
 from validador_osc.config import obter_configuracao
+from validador_osc.dominio.pessoa_fisica import contem_cpf
 from validador_osc.dominio.sancoes import CadastroSancao, ListaTcu, TipoPessoa
 from validador_osc.persistencia.banco import criar_engine_async, criar_fabrica_sessoes
 from validador_osc.persistencia.bases import RepositorioBasesLocais
 from validador_osc.persistencia.modelos import Carga, ListaTcuRegistro, SancaoRegistro
-from validador_osc.pessoa_fisica import contem_cpf
 
 pytestmark = pytest.mark.db
 

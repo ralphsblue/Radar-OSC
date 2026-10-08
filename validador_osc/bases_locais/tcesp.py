@@ -21,10 +21,10 @@ from validador_osc.bases_locais.carga import (
     Sanidade,
 )
 from validador_osc.bases_locais.obtencao import ErroObtencao, com_tentativas
+from validador_osc.dominio.pessoa_fisica import normalizar_nome
 from validador_osc.dominio.sancoes import RegistroTcesp
 from validador_osc.persistencia.bases import FONTE_TCESP
 from validador_osc.persistencia.modelos import TcespRegistro
-from validador_osc.pessoa_fisica import normalizar_nome
 
 PAGINA = "https://www.tce.sp.gov.br/relacao-de-responsaveis-por-contas-julgadas-irregulares"
 EXTENSAO = "xlsx"

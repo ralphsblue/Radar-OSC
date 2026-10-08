@@ -1,6 +1,6 @@
 import pytest
 
-from validador_osc.cnpj import (
+from validador_osc.dominio.cnpj import (
     Motivo,
     ResultadoDV,
     calcular_dvs,

@@ -1,6 +1,6 @@
 from dataclasses import dataclass, replace
 
-from validador_osc.cnpj import eh_alfanumerico, validar
+from validador_osc.dominio.cnpj import eh_alfanumerico, validar
 from validador_osc.dominio.coleta import Coleta, Obtido
 from validador_osc.dominio.resultado import (
     Avaliacao,

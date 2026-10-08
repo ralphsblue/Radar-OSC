@@ -19,8 +19,8 @@ from tests.e2e.replay import (
     instante_referencia,
 )
 from validador_osc.api.app import criar_app
-from validador_osc.cnpj import cnpj_da_matriz, eh_alfanumerico, validar
 from validador_osc.config import Configuracao
+from validador_osc.dominio.cnpj import cnpj_da_matriz, eh_alfanumerico, validar
 from validador_osc.regras.parametros import carregar_limites
 
 pytestmark = pytest.mark.db

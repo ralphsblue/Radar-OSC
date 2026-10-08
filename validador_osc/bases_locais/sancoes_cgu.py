@@ -24,10 +24,10 @@ from validador_osc.bases_locais.carga import (
     Sanidade,
 )
 from validador_osc.bases_locais.obtencao import ErroObtencao, com_tentativas
+from validador_osc.dominio.pessoa_fisica import FragmentoCpf, fragmento_cpf, mascarar_cpfs, normalizar_nome
 from validador_osc.dominio.sancoes import CadastroSancao, Sancao, TipoPessoa
 from validador_osc.persistencia.bases import FONTES_SANCAO
 from validador_osc.persistencia.modelos import SancaoRegistro
-from validador_osc.pessoa_fisica import FragmentoCpf, fragmento_cpf, mascarar_cpfs, normalizar_nome
 
 ENCODING = "iso-8859-1"
 URL_DOWNLOAD = "https://portaldatransparencia.gov.br/download-de-dados"
