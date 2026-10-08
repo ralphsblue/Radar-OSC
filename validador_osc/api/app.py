@@ -16,9 +16,9 @@ from validador_osc.api import rotas_json, rotas_paginas
 from validador_osc.api.dependencias import VERSAO, problema
 from validador_osc.api.formatacao import registrar_filtros
 from validador_osc.api.limite import LimitePorCliente
+from validador_osc.composicao import abrir_contexto
 from validador_osc.config import Configuracao, obter_configuracao
 from validador_osc.logs import configurar_logs
-from validador_osc.servico.contexto import abrir_contexto
 
 _RECURSOS = files("validador_osc.api")
 

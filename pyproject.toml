@@ -22,7 +22,7 @@ dependencies = [
 ]
 
 [project.scripts]
-validador-osc = "validador_osc.__main__:main"
+validador-osc = "validador_osc.cli:main"
 
 [dependency-groups]
 dev = [
@@ -145,11 +145,14 @@ forbidden_modules = [
 ]
 
 [[tool.importlinter.contracts]]
-name = "serviço não conhece a API"
+name = "serviço não conhece a API nem os adaptadores concretos"
 type = "forbidden"
 source_modules = ["validador_osc.servico"]
 forbidden_modules = [
     "validador_osc.api",
+    "validador_osc.composicao",
+    "validador_osc.fontes",
+    "validador_osc.bases_locais",
     "fastapi",
 ]
 

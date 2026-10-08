@@ -7,8 +7,8 @@ from fastapi.templating import Jinja2Templates
 from validador_osc.api.esquemas import Problema
 from validador_osc.api.limite import LimitePorCliente
 from validador_osc.api.privacidade import eh_operador, ocultar_dirigentes
+from validador_osc.composicao import VERSAO_APP, ContextoAplicacao
 from validador_osc.servico.consulta import ServicoConsulta
-from validador_osc.servico.contexto import VERSAO_APP, ContextoAplicacao
 
 TIPO_PROBLEMA = "application/problem+json"
 MENSAGEM_LIMITE = "Muitas consultas seguidas. Aguarde um minuto e tente de novo."

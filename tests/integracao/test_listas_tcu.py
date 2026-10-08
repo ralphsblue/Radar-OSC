@@ -13,7 +13,7 @@ from tests.csv_cgu import cpf_sintetico, formatar_cpf, gravar_csv
 from tests.csv_cgu import fixture as fixture_cgu
 from tests.csv_cgu import ler_fixture as ler_fixture_cgu
 from tests.json_tcu import alterar, fixture, gravar_json, ler_fixture
-from validador_osc import __main__ as cli
+from validador_osc import cli
 from validador_osc.bases_locais import listas_tcu
 from validador_osc.bases_locais.carga import CicloCarga, ResultadoCarga, Sanidade, StatusCarga
 from validador_osc.bases_locais.listas_tcu import FONTES_TCU, definicao, obtencao_local

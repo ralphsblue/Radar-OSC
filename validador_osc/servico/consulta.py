@@ -15,9 +15,9 @@ from validador_osc.dominio.consulta import Contexto, Esfera
 from validador_osc.dominio.tipos import Cadastro, Dirigente, PerfilMapa
 from validador_osc.persistencia.repositorios import NovaConsulta, RepositorioConsultas
 from validador_osc.regras import DadosConsulta, ObservacoesDirigentes, ObservacoesSancoes, Tabelas, avaliar
-from validador_osc.servico.apresentacao import montar_documento
 from validador_osc.servico.cadastral import FonteCadastral
 from validador_osc.servico.dirigentes import ColetorDirigentes
+from validador_osc.servico.documento import montar_documento
 from validador_osc.servico.sancoes import ColetorSancoes
 
 JANELA_REPETICAO = timedelta(seconds=10)

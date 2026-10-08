@@ -20,7 +20,7 @@ from tests.csv_cgu import (
     gravar_csv,
     ler_fixture,
 )
-from validador_osc import __main__ as cli
+from validador_osc import cli
 from validador_osc.bases_locais import sancoes_cgu
 from validador_osc.bases_locais.carga import CicloCarga, ResultadoCarga, Sanidade, StatusCarga
 from validador_osc.bases_locais.sancoes_cgu import FONTES_CGU, definicao, obtencao_local

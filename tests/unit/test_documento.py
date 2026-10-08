@@ -3,7 +3,7 @@ from typing import Any
 
 from validador_osc.dominio.resultado import Avaliacao, Estado, RefFonte, ResultadoVerificacao, StatusFinal
 from validador_osc.regras.catalogo import CEIS, DV, SITUACAO
-from validador_osc.servico.apresentacao import CONSULTA_MANUAL, montar_documento
+from validador_osc.servico.documento import CONSULTA_MANUAL, montar_documento
 
 
 def _documento(*verificacoes: ResultadoVerificacao) -> dict[str, Any]:
