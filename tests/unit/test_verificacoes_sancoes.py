@@ -29,10 +29,8 @@ from validador_osc.regras.parametros import (
     carregar_limites,
     carregar_regras_orientador,
 )
-from validador_osc.regras.verificacoes.sancoes import (
-    verificar_ceis,
-    verificar_cepim,
-    verificar_cnep,
+from validador_osc.regras.verificacoes.sancoes_cgu import verificar_ceis, verificar_cepim, verificar_cnep
+from validador_osc.regras.verificacoes.tcu_cnj import (
     verificar_cnj_cnia,
     verificar_tcu_contas_irregulares,
     verificar_tcu_inidoneos,

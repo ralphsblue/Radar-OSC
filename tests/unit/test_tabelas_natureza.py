@@ -6,12 +6,12 @@ from pathlib import Path
 
 import pytest
 
-from validador_osc.regras.tabelas import (
-    ErroTabela,
+from validador_osc.regras.tabelas import carregar_tabelas
+from validador_osc.regras.tabelas.leitura import ErroTabela
+from validador_osc.regras.tabelas.natureza import (
     RegraNatureza,
     TabelaNatureza,
     carregar_tabela_natureza,
-    carregar_tabelas,
     digito_natureza,
     formatar_natureza,
     montar_tabela_natureza,

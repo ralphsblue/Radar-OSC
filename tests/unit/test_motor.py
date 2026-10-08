@@ -17,7 +17,8 @@ from validador_osc.regras.catalogo import CATALOGO
 from validador_osc.regras.comum import MENSAGEM_SEM_CADASTRO
 from validador_osc.regras.entradas import DadosConsulta
 from validador_osc.regras.motor import CADASTRAIS, MENSAGEM_ALFANUMERICO, MENSAGEM_SEM_FONTE, avaliar
-from validador_osc.regras.tabelas import carregar_tabelas, formatar_cnae
+from validador_osc.regras.tabelas import carregar_tabelas
+from validador_osc.regras.tabelas.cnae import formatar_cnae
 
 CONTEXTO = Contexto(data_referencia=date(2026, 10, 1))
 TABELAS = carregar_tabelas()

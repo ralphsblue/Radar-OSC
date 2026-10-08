@@ -9,7 +9,7 @@ from validador_osc.dominio.resultado import Achado, Estado, RefFonte, ResultadoV
 from validador_osc.dominio.sancoes import RegistroListaTcu, RegistroTcesp, Sancao
 from validador_osc.dominio.tipos import Dirigente
 from validador_osc.regras.catalogo import DIRIGENTES
-from validador_osc.regras.comum import data_br
+from validador_osc.regras.comum import data_br, menos_anos
 from validador_osc.regras.entradas import ObservacoesDirigentes
 from validador_osc.regras.parametros import Limites
 
@@ -24,13 +24,6 @@ class _Apuracao:
     fontes: dict[str, RefFonte] = field(default_factory=dict)
     verificadas: set[str] = field(default_factory=set)
     indisponiveis: set[str] = field(default_factory=set)
-
-
-def _menos_anos(referencia: date, anos: int) -> date:
-    try:
-        return referencia.replace(year=referencia.year - anos)
-    except ValueError:
-        return date(referencia.year - anos, 2, 28)
 
 
 def _valida[T](consulta: ConsultaLocal[T] | None, limites: Limites, contexto: Contexto) -> bool:
@@ -147,7 +140,7 @@ def _tcesp(
 def _apurar(obs: ObservacoesDirigentes, contexto: Contexto, limites: Limites) -> _Apuracao:
     apuracao = _Apuracao()
     referencia = contexto.data_referencia
-    inicio_janela = _menos_anos(referencia, limites.janela_contas_irregulares_anos)
+    inicio_janela = menos_anos(referencia, limites.janela_contas_irregulares_anos)
     for consulta in obs.consultas:
         dirigente = consulta.dirigente
         fragmento = fragmento_cpf(dirigente.documento_mascarado or "")

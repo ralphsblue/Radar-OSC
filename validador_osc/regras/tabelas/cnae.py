@@ -1,39 +1,28 @@
-import json
 import re
-import unicodedata
 from collections.abc import Iterable, Mapping
 from dataclasses import dataclass
 from enum import StrEnum
 from functools import cache
-from importlib.resources import files
 from types import MappingProxyType
 
-from validador_osc.regras.parametros import (
-    Limites,
-    RegrasOrientador,
-    carregar_limites,
-    carregar_regras_orientador,
+from validador_osc.regras.tabelas.leitura import (
+    ErroTabela,
+    ler_enum,
+    ler_json,
+    ler_lista,
+    ler_objeto,
+    ler_texto,
 )
+from validador_osc.regras.tabelas.natureza import NATUREZA_ORGANIZACAO_RELIGIOSA
 
 ARQUIVO_REGRAS_CNAE = "regras_cnae.json"
 ARQUIVO_ESTRUTURA_CNAE = "cnae_subclasses.json"
-ARQUIVO_NATUREZA = "natureza_juridica.json"
 
-NATUREZA_ORGANIZACAO_RELIGIOSA = 3220
 SUBCLASSE_RELIGIOSA = "9491000"
 DIGITOS_SUBCLASSE = 7
 DIGITOS_MINIMOS_INFORMADOS = 6
-MENOR_CODIGO_NATUREZA = 1000
-MAIOR_CODIGO_NATUREZA = 9999
 
 _NAO_DIGITO = re.compile(r"\D")
-_NAO_ALFANUMERICO = re.compile(r"[\W_]+")
-_PESOS_DV_NATUREZA = (4, 3, 2)
-_MODULO_DV_NATUREZA = 11
-
-
-class ErroTabela(ValueError):
-    pass
 
 
 class Faixa(StrEnum):
@@ -137,38 +126,6 @@ class AvaliacaoCnae:
     alerta_religiosa: bool
 
 
-class RegraNatureza(StrEnum):
-    ELEGIVEL = "ELEGIVEL"
-    ELEGIVEL_COM_ALERTA_RELIGIOSO = "ELEGIVEL_COM_ALERTA_RELIGIOSO"
-    REVISAO_MANUAL = "REVISAO_MANUAL"
-    NAO_ELEGIVEL = "NAO_ELEGIVEL"
-
-
-@dataclass(frozen=True, slots=True)
-class NaturezaJuridica:
-    codigo: int
-    codigo_formatado: str
-    descricao: str
-    sinonimos: tuple[str, ...]
-    regra: RegraNatureza
-    justificativa: str
-
-
-@dataclass(frozen=True, slots=True)
-class TabelaNatureza:
-    versao: str
-    naturezas: Mapping[int, NaturezaJuridica]
-    por_descricao: Mapping[str, NaturezaJuridica]
-
-
-@dataclass(frozen=True, slots=True)
-class Tabelas:
-    cnae: TabelaCnae
-    natureza: TabelaNatureza
-    orientador: RegrasOrientador
-    limites: Limites
-
-
 def normalizar_cnae(valor: str | int) -> str:
     if isinstance(valor, bool):
         raise ValueError(f"CNAE inválido: {valor!r}")
@@ -239,35 +196,8 @@ def avaliar_cnaes(
     )
 
 
-def formatar_natureza(codigo: int) -> str:
-    radical, digito = divmod(codigo, 10)
-    return f"{radical:03d}-{digito}"
-
-
-def digito_natureza(radical: int) -> int:
-    soma = sum(int(d) * p for d, p in zip(f"{radical:03d}", _PESOS_DV_NATUREZA, strict=True))
-    resto = soma % _MODULO_DV_NATUREZA
-    return 0 if resto <= 1 else _MODULO_DV_NATUREZA - resto
-
-
-def normalizar_descricao_natureza(texto: str) -> str:
-    decomposto = unicodedata.normalize("NFKD", texto)
-    sem_acento = "".join(c for c in decomposto if not unicodedata.combining(c))
-    return _NAO_ALFANUMERICO.sub(" ", sem_acento.casefold()).strip()
-
-
-def resolver_natureza(
-    tabela: TabelaNatureza, codigo: int | None, descricao: str | None
-) -> NaturezaJuridica | None:
-    if codigo is not None and (natureza := tabela.naturezas.get(codigo)) is not None:
-        return natureza
-    if descricao is None:
-        return None
-    return tabela.por_descricao.get(normalizar_descricao_natureza(descricao))
-
-
 def montar_estrutura_cnae(bruto: object) -> EstruturaCnae:
-    objeto = _objeto(bruto, ARQUIVO_ESTRUTURA_CNAE)
+    objeto = ler_objeto(bruto, ARQUIVO_ESTRUTURA_CNAE)
     niveis = {
         nivel: _codigos(objeto, nivel, f"{ARQUIVO_ESTRUTURA_CNAE}.{nivel.colecao}") for nivel in NivelCnae
     }
@@ -276,7 +206,7 @@ def montar_estrutura_cnae(bruto: object) -> EstruturaCnae:
             if codigo[: superior.tamanho] not in niveis[superior]:
                 raise ErroTabela(f"{nivel} {codigo} sem {superior} correspondente na estrutura CNAE")
     return EstruturaCnae(
-        versao=_texto(objeto.get("versao_cnae"), f"{ARQUIVO_ESTRUTURA_CNAE}.versao_cnae"),
+        versao=ler_texto(objeto.get("versao_cnae"), f"{ARQUIVO_ESTRUTURA_CNAE}.versao_cnae"),
         divisoes=niveis[NivelCnae.DIVISAO],
         grupos=niveis[NivelCnae.GRUPO],
         classes=niveis[NivelCnae.CLASSE],
@@ -285,20 +215,20 @@ def montar_estrutura_cnae(bruto: object) -> EstruturaCnae:
 
 
 def montar_tabela_cnae(bruto_regras: object, estrutura: EstruturaCnae) -> TabelaCnae:
-    objeto = _objeto(bruto_regras, ARQUIVO_REGRAS_CNAE)
+    objeto = ler_objeto(bruto_regras, ARQUIVO_REGRAS_CNAE)
     onde_padrao = f"{ARQUIVO_REGRAS_CNAE}.padrao"
-    padrao = _objeto(objeto.get("padrao"), onde_padrao)
+    padrao = ler_objeto(objeto.get("padrao"), onde_padrao)
     regras: dict[str, RegraCnae] = {}
-    for indice, item in enumerate(_lista(objeto.get("regras"), f"{ARQUIVO_REGRAS_CNAE}.regras")):
+    for indice, item in enumerate(ler_lista(objeto.get("regras"), f"{ARQUIVO_REGRAS_CNAE}.regras")):
         regra = _regra(item, f"{ARQUIVO_REGRAS_CNAE}.regras[{indice}]", estrutura)
         if regra.prefixo in regras:
             raise ErroTabela(f"Prefixo duplicado: {regra.prefixo}")
         regras[regra.prefixo] = regra
     return TabelaCnae(
-        versao=_texto(objeto.get("versao"), f"{ARQUIVO_REGRAS_CNAE}.versao"),
+        versao=ler_texto(objeto.get("versao"), f"{ARQUIVO_REGRAS_CNAE}.versao"),
         regras=MappingProxyType(regras),
         faixa_padrao=_faixa(padrao.get("faixa"), f"{onde_padrao}.faixa"),
-        justificativa_padrao=_texto(
+        justificativa_padrao=ler_texto(
             padrao.get("justificativa"), f"{ARQUIVO_REGRAS_CNAE}.padrao.justificativa"
         ),
         estrutura=estrutura,
@@ -307,68 +237,19 @@ def montar_tabela_cnae(bruto_regras: object, estrutura: EstruturaCnae) -> Tabela
 
 @cache
 def carregar_tabela_cnae() -> TabelaCnae:
-    estrutura = montar_estrutura_cnae(_ler_json(ARQUIVO_ESTRUTURA_CNAE))
-    return montar_tabela_cnae(_ler_json(ARQUIVO_REGRAS_CNAE), estrutura)
-
-
-def montar_tabela_natureza(bruto: object) -> TabelaNatureza:
-    objeto = _objeto(bruto, ARQUIVO_NATUREZA)
-    itens = _lista(objeto.get("naturezas"), f"{ARQUIVO_NATUREZA}.naturezas")
-    if not itens:
-        raise ErroTabela(f"{ARQUIVO_NATUREZA}.naturezas: lista vazia")
-    naturezas: dict[int, NaturezaJuridica] = {}
-    por_descricao: dict[str, NaturezaJuridica] = {}
-    for indice, item in enumerate(itens):
-        natureza = _natureza(item, f"{ARQUIVO_NATUREZA}.naturezas[{indice}]")
-        if natureza.codigo in naturezas:
-            raise ErroTabela(f"Código de natureza duplicado: {natureza.codigo_formatado}")
-        naturezas[natureza.codigo] = natureza
-        for texto in (natureza.descricao, *natureza.sinonimos):
-            chave = normalizar_descricao_natureza(texto)
-            if not chave:
-                raise ErroTabela(f"Descrição sem conteúdo após normalizar: {texto!r}")
-            if chave in por_descricao:
-                raise ErroTabela(
-                    f"Descrição {texto!r} de {natureza.codigo_formatado} repete "
-                    f"{por_descricao[chave].codigo_formatado}"
-                )
-            por_descricao[chave] = natureza
-    return TabelaNatureza(
-        versao=_texto(objeto.get("versao"), f"{ARQUIVO_NATUREZA}.versao"),
-        naturezas=MappingProxyType(naturezas),
-        por_descricao=MappingProxyType(por_descricao),
-    )
-
-
-@cache
-def carregar_tabela_natureza() -> TabelaNatureza:
-    return montar_tabela_natureza(_ler_json(ARQUIVO_NATUREZA))
-
-
-def carregar_tabelas() -> Tabelas:
-    return Tabelas(
-        cnae=carregar_tabela_cnae(),
-        natureza=carregar_tabela_natureza(),
-        orientador=carregar_regras_orientador(),
-        limites=carregar_limites(),
-    )
-
-
-def _ler_json(nome: str) -> object:
-    texto = files("validador_osc").joinpath("dados", nome).read_text(encoding="utf-8")
-    resultado: object = json.loads(texto)
-    return resultado
+    estrutura = montar_estrutura_cnae(ler_json(ARQUIVO_ESTRUTURA_CNAE))
+    return montar_tabela_cnae(ler_json(ARQUIVO_REGRAS_CNAE), estrutura)
 
 
 def _regra(bruto: object, onde: str, estrutura: EstruturaCnae) -> RegraCnae:
-    objeto = _objeto(bruto, onde)
+    objeto = ler_objeto(bruto, onde)
     esperados = {"prefixo", "nivel", "faixa", "justificativa"}
     if set(objeto) != esperados:
         raise ErroTabela(f"{onde}: campos esperados {sorted(esperados)}, encontrados {sorted(objeto)}")
-    prefixo = _texto(objeto["prefixo"], f"{onde}.prefixo")
-    nivel = _enum(NivelCnae, objeto["nivel"], f"{onde}.nivel")
+    prefixo = ler_texto(objeto["prefixo"], f"{onde}.prefixo")
+    nivel = ler_enum(NivelCnae, objeto["nivel"], f"{onde}.nivel")
     faixa = _faixa(objeto["faixa"], f"{onde}.faixa")
-    justificativa = _texto(objeto["justificativa"], f"{onde}.justificativa")
+    justificativa = ler_texto(objeto["justificativa"], f"{onde}.justificativa")
     if _NIVEL_POR_TAMANHO.get(len(prefixo)) is not nivel:
         raise ErroTabela(f"Nível '{nivel}' não confere com o prefixo {prefixo}")
     if prefixo not in estrutura.codigos(nivel):
@@ -376,75 +257,17 @@ def _regra(bruto: object, onde: str, estrutura: EstruturaCnae) -> RegraCnae:
     return RegraCnae(prefixo, nivel, faixa, justificativa)
 
 
-def _natureza(bruto: object, onde: str) -> NaturezaJuridica:
-    objeto = _objeto(bruto, onde)
-    esperados = {"codigo", "codigo_formatado", "descricao", "sinonimos", "regra", "justificativa"}
-    if set(objeto) != esperados:
-        raise ErroTabela(f"{onde}: campos esperados {sorted(esperados)}, encontrados {sorted(objeto)}")
-    codigo = objeto["codigo"]
-    if (
-        not isinstance(codigo, int)
-        or isinstance(codigo, bool)
-        or not MENOR_CODIGO_NATUREZA <= codigo <= MAIOR_CODIGO_NATUREZA
-    ):
-        raise ErroTabela(f"{onde}.codigo: esperado inteiro de 4 dígitos, encontrado {codigo!r}")
-    formatado = _texto(objeto["codigo_formatado"], f"{onde}.codigo_formatado")
-    if formatado != formatar_natureza(codigo):
-        raise ErroTabela(f"{onde}: código formatado {formatado!r} não confere com {codigo}")
-    radical, digito = divmod(codigo, 10)
-    if digito_natureza(radical) != digito:
-        raise ErroTabela(f"{onde}: dígito verificador inválido em {formatado}")
-    sinonimos = tuple(
-        _texto(s, f"{onde}.sinonimos[{i}]")
-        for i, s in enumerate(_lista(objeto["sinonimos"], f"{onde}.sinonimos"))
-    )
-    return NaturezaJuridica(
-        codigo=codigo,
-        codigo_formatado=formatado,
-        descricao=_texto(objeto["descricao"], f"{onde}.descricao"),
-        sinonimos=sinonimos,
-        regra=_enum(RegraNatureza, objeto["regra"], f"{onde}.regra"),
-        justificativa=_texto(objeto["justificativa"], f"{onde}.justificativa"),
-    )
-
-
 def _codigos(objeto: Mapping[str, object], nivel: NivelCnae, onde: str) -> Mapping[str, str]:
-    bruto = _objeto(objeto.get(nivel.colecao), onde)
+    bruto = ler_objeto(objeto.get(nivel.colecao), onde)
     codigos: dict[str, str] = {}
     for codigo, descricao in bruto.items():
         if len(codigo) != nivel.tamanho or not codigo.isascii() or not codigo.isdigit():
             raise ErroTabela(f"{onde}: código {codigo!r} inválido para {nivel}")
-        codigos[codigo] = _texto(descricao, f"{onde}.{codigo}")
+        codigos[codigo] = ler_texto(descricao, f"{onde}.{codigo}")
     if not codigos:
         raise ErroTabela(f"{onde}: nível vazio")
     return MappingProxyType(codigos)
 
 
 def _faixa(valor: object, onde: str) -> Faixa:
-    return _enum(Faixa, valor, onde)
-
-
-def _enum[E: StrEnum](tipo: type[E], valor: object, onde: str) -> E:
-    texto = _texto(valor, onde)
-    try:
-        return tipo(texto)
-    except ValueError:
-        raise ErroTabela(f"{onde}: valor inválido {texto!r}") from None
-
-
-def _objeto(valor: object, onde: str) -> Mapping[str, object]:
-    if not isinstance(valor, dict):
-        raise ErroTabela(f"{onde}: esperado objeto JSON")
-    return {str(chave): item for chave, item in valor.items()}
-
-
-def _lista(valor: object, onde: str) -> list[object]:
-    if not isinstance(valor, list):
-        raise ErroTabela(f"{onde}: esperada lista JSON")
-    return list(valor)
-
-
-def _texto(valor: object, onde: str) -> str:
-    if not isinstance(valor, str) or not valor.strip():
-        raise ErroTabela(f"{onde}: esperado texto não vazio")
-    return valor
+    return ler_enum(Faixa, valor, onde)

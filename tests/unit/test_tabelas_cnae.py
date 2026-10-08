@@ -5,13 +5,12 @@ from types import MappingProxyType
 
 import pytest
 
-from validador_osc.regras.tabelas import (
-    ErroTabela,
+from validador_osc.regras.tabelas import carregar_tabelas
+from validador_osc.regras.tabelas.cnae import (
     Faixa,
     TabelaCnae,
     avaliar_cnaes,
     carregar_tabela_cnae,
-    carregar_tabelas,
     classificar_subclasse,
     descrever_subclasse,
     formatar_cnae,
@@ -20,6 +19,7 @@ from validador_osc.regras.tabelas import (
     montar_tabela_cnae,
     normalizar_cnae,
 )
+from validador_osc.regras.tabelas.leitura import ErroTabela
 
 ASSOCIACAO = 3999
 RELIGIOSA = 3220

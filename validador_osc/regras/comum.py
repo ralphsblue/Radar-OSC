@@ -34,3 +34,10 @@ def nao_verificada(
     definicao: DefinicaoVerificacao, mensagem: str = MENSAGEM_SEM_CADASTRO
 ) -> ResultadoVerificacao:
     return ResultadoVerificacao(definicao, Estado.NAO_VERIFICADO, mensagem)
+
+
+def menos_anos(referencia: date, anos: int) -> date:
+    try:
+        return referencia.replace(year=referencia.year - anos)
+    except ValueError:
+        return date(referencia.year - anos, 2, 28)

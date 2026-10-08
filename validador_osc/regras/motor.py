@@ -27,7 +27,9 @@ from validador_osc.regras.comum import nao_verificada
 from validador_osc.regras.entidade import Entidade, resolver_entidade
 from validador_osc.regras.entradas import DadosConsulta, ObservacoesSancoes
 from validador_osc.regras.parametros import ContasIrregulares
-from validador_osc.regras.tabelas import AvaliacaoCnae, Tabelas, avaliar_cnaes, resolver_natureza
+from validador_osc.regras.tabelas import Tabelas
+from validador_osc.regras.tabelas.cnae import AvaliacaoCnae, avaliar_cnaes
+from validador_osc.regras.tabelas.natureza import resolver_natureza
 from validador_osc.regras.verificacoes.cadastro import verificar_natureza, verificar_situacao, verificar_tempo
 from validador_osc.regras.verificacoes.cnae import verificar_cnae, verificar_religiosa
 from validador_osc.regras.verificacoes.dirigentes import verificar_dirigentes
@@ -37,10 +39,8 @@ from validador_osc.regras.verificacoes.estabelecimento import (
     verificar_situacao_entidade,
 )
 from validador_osc.regras.verificacoes.mapa import verificar_mapa_osc
-from validador_osc.regras.verificacoes.sancoes import (
-    verificar_ceis,
-    verificar_cepim,
-    verificar_cnep,
+from validador_osc.regras.verificacoes.sancoes_cgu import verificar_ceis, verificar_cepim, verificar_cnep
+from validador_osc.regras.verificacoes.tcu_cnj import (
     verificar_cnj_cnia,
     verificar_tcu_contas_irregulares,
     verificar_tcu_inidoneos,

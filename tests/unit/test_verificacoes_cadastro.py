@@ -17,13 +17,9 @@ from validador_osc.regras.catalogo import (
 )
 from validador_osc.regras.comum import CadastroObtido
 from validador_osc.regras.entidade import Entidade, SituacaoMatriz
-from validador_osc.regras.tabelas import (
-    AvaliacaoCnae,
-    RegraNatureza,
-    avaliar_cnaes,
-    carregar_tabelas,
-    formatar_cnae,
-)
+from validador_osc.regras.tabelas import carregar_tabelas
+from validador_osc.regras.tabelas.cnae import AvaliacaoCnae, avaliar_cnaes, formatar_cnae
+from validador_osc.regras.tabelas.natureza import RegraNatureza
 from validador_osc.regras.verificacoes.cadastro import (
     anos_completos,
     verificar_natureza,

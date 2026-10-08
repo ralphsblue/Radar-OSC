@@ -1,7 +1,7 @@
 from validador_osc.dominio.resultado import Achado, Estado, ResultadoVerificacao
 from validador_osc.regras.catalogo import CNAE, RELIGIOSA
 from validador_osc.regras.comum import CadastroObtido
-from validador_osc.regras.tabelas import (
+from validador_osc.regras.tabelas.cnae import (
     AvaliacaoCnae,
     ClassificacaoCnae,
     Faixa,
