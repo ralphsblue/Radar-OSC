@@ -11,6 +11,9 @@ from validador_osc.config import Configuracao
 
 RAIZ = Path(__file__).parent.parent
 TABELAS = (
+    "lote_item",
+    "lote",
+    "usuario",
     "consulta_evidencia",
     "consulta",
     "resposta_fonte",

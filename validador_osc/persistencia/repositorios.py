@@ -7,10 +7,18 @@ from typing import Any
 from sqlalchemy import func, select
 from sqlalchemy.dialects.postgresql import distinct_on
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
+from sqlalchemy.orm import selectinload
 
 from validador_osc.dominio.coleta import RefEvidencia
 from validador_osc.dominio.evidencias import RespostaBruta, RespostaGuardada, ResultadoResposta
-from validador_osc.persistencia.modelos import Consulta, ConsultaEvidencia, RespostaFonte
+from validador_osc.persistencia.modelos import (
+    Consulta,
+    ConsultaEvidencia,
+    Lote,
+    LoteItem,
+    RespostaFonte,
+    Usuario,
+)
 
 
 def _ref(linha: RespostaFonte, de_cache: bool) -> RefEvidencia:
@@ -146,6 +154,198 @@ class RepositorioConsultas:
         async with self._sessoes() as sessao:
             linha = (await sessao.scalars(consulta)).first()
         return linha.resultado if linha is not None else None
+
+
+@dataclass(frozen=True, slots=True)
+class NovoUsuario:
+    id: uuid.UUID
+    email: str
+    senha_hash: str
+    criado_em: datetime
+
+
+@dataclass(frozen=True, slots=True)
+class UsuarioRegistro:
+    id: uuid.UUID
+    email: str
+    senha_hash: str
+    ativo: bool
+
+
+def _para_registro(linha: Usuario) -> UsuarioRegistro:
+    return UsuarioRegistro(linha.id, linha.email, linha.senha_hash, linha.ativo)
+
+
+class RepositorioUsuarios:
+    def __init__(self, sessoes: async_sessionmaker[AsyncSession]) -> None:
+        self._sessoes = sessoes
+
+    async def criar(self, novo: NovoUsuario) -> None:
+        async with self._sessoes() as sessao, sessao.begin():
+            sessao.add(
+                Usuario(id=novo.id, email=novo.email, senha_hash=novo.senha_hash, criado_em=novo.criado_em)
+            )
+
+    async def por_email(self, email: str) -> UsuarioRegistro | None:
+        async with self._sessoes() as sessao:
+            linha = (await sessao.scalars(select(Usuario).where(Usuario.email == email))).first()
+        return _para_registro(linha) if linha is not None else None
+
+    async def por_id(self, usuario_id: uuid.UUID) -> UsuarioRegistro | None:
+        async with self._sessoes() as sessao:
+            linha = await sessao.get(Usuario, usuario_id)
+        return _para_registro(linha) if linha is not None else None
+
+
+@dataclass(frozen=True, slots=True)
+class NovoLote:
+    id: uuid.UUID
+    usuario_id: uuid.UUID
+    esfera: str | None
+    criado_em: datetime
+    cnpjs: tuple[str, ...]
+
+
+@dataclass(frozen=True, slots=True)
+class ItemLoteRegistro:
+    id: int
+    posicao: int
+    cnpj_informado: str
+    status: str
+    consulta_id: uuid.UUID | None
+    erro: str | None
+
+
+@dataclass(frozen=True, slots=True)
+class LoteRegistro:
+    id: uuid.UUID
+    usuario_id: uuid.UUID
+    esfera: str | None
+    status: str
+    total_itens: int
+    criado_em: datetime
+    concluido_em: datetime | None
+    itens: tuple[ItemLoteRegistro, ...]
+
+
+@dataclass(frozen=True, slots=True)
+class ItemComLoteRegistro:
+    id: int
+    lote_id: uuid.UUID
+    cnpj_informado: str
+    esfera: str | None
+
+
+def _item_lote_registro(linha: LoteItem) -> ItemLoteRegistro:
+    return ItemLoteRegistro(
+        id=linha.id,
+        posicao=linha.posicao,
+        cnpj_informado=linha.cnpj_informado,
+        status=linha.status,
+        consulta_id=linha.consulta_id,
+        erro=linha.erro,
+    )
+
+
+def _lote_registro(linha: Lote) -> LoteRegistro:
+    itens = sorted(linha.itens, key=lambda item: item.posicao)
+    return LoteRegistro(
+        id=linha.id,
+        usuario_id=linha.usuario_id,
+        esfera=linha.esfera,
+        status=linha.status,
+        total_itens=linha.total_itens,
+        criado_em=linha.criado_em,
+        concluido_em=linha.concluido_em,
+        itens=tuple(_item_lote_registro(item) for item in itens),
+    )
+
+
+class RepositorioLotes:
+    def __init__(self, sessoes: async_sessionmaker[AsyncSession]) -> None:
+        self._sessoes = sessoes
+
+    async def criar(self, novo: NovoLote) -> list[int]:
+        async with self._sessoes() as sessao, sessao.begin():
+            sessao.add(
+                Lote(
+                    id=novo.id,
+                    usuario_id=novo.usuario_id,
+                    esfera=novo.esfera,
+                    status="PENDENTE",
+                    total_itens=len(novo.cnpjs),
+                    criado_em=novo.criado_em,
+                    concluido_em=None,
+                )
+            )
+            itens = [
+                LoteItem(
+                    lote_id=novo.id,
+                    cnpj_informado=cnpj,
+                    posicao=posicao,
+                    status="PENDENTE",
+                    consulta_id=None,
+                    erro=None,
+                    atualizado_em=novo.criado_em,
+                )
+                for posicao, cnpj in enumerate(novo.cnpjs)
+            ]
+            sessao.add_all(itens)
+            await sessao.flush()
+            return [item.id for item in itens]
+
+    async def obter(self, lote_id: uuid.UUID) -> LoteRegistro | None:
+        async with self._sessoes() as sessao:
+            linha = await sessao.get(Lote, lote_id, options=[selectinload(Lote.itens)])
+        return _lote_registro(linha) if linha is not None else None
+
+    async def listar_por_usuario(self, usuario_id: uuid.UUID) -> list[LoteRegistro]:
+        consulta = (
+            select(Lote)
+            .where(Lote.usuario_id == usuario_id)
+            .options(selectinload(Lote.itens))
+            .order_by(Lote.criado_em.desc())
+        )
+        async with self._sessoes() as sessao:
+            linhas = (await sessao.scalars(consulta)).all()
+        return [_lote_registro(linha) for linha in linhas]
+
+    async def obter_item_com_lote(self, item_id: int) -> ItemComLoteRegistro | None:
+        async with self._sessoes() as sessao:
+            linha = await sessao.get(LoteItem, item_id, options=[selectinload(LoteItem.lote)])
+        if linha is None:
+            return None
+        return ItemComLoteRegistro(
+            id=linha.id, lote_id=linha.lote_id, cnpj_informado=linha.cnpj_informado, esfera=linha.lote.esfera
+        )
+
+    async def marcar_item(
+        self,
+        item_id: int,
+        *,
+        status: str,
+        consulta_id: uuid.UUID | None,
+        erro: str | None,
+        atualizado_em: datetime,
+    ) -> None:
+        async with self._sessoes() as sessao, sessao.begin():
+            item = await sessao.get(LoteItem, item_id)
+            if item is None:
+                return
+            item.status = status
+            item.consulta_id = consulta_id
+            item.erro = erro
+            item.atualizado_em = atualizado_em
+
+    async def atualizar_status_lote(
+        self, lote_id: uuid.UUID, *, status: str, concluido_em: datetime | None
+    ) -> None:
+        async with self._sessoes() as sessao, sessao.begin():
+            lote = await sessao.get(Lote, lote_id)
+            if lote is None:
+                return
+            lote.status = status
+            lote.concluido_em = concluido_em
 
 
 @dataclass(frozen=True, slots=True)

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block titulo %}Registrar - Validador de OSC{% endblock %}
+
+{% block conteudo %}
+<div class="pagina pagina--registrar">
+  <section class="apresentacao" aria-labelledby="titulo-registrar">
+    <h1 class="titulo" id="titulo-registrar">Criar conta</h1>
+    <p class="lead">Cadastre-se para consultar organizações em lote e acompanhar seu histórico.</p>
+  </section>
+
+  {% if erro_geral is defined and erro_geral %}
+  <p class="aviso aviso--erro" role="alert">{{ erro_geral }}</p>
+  {% endif %}
+
+  <section class="cartao cartao--formulario" aria-label="Formulário de registro">
+    <form class="consulta" method="post" action="/registrar" novalidate>
+      <div class="campo">
+        <label class="campo__rotulo" for="email">E-mail</label>
+        <input class="campo__entrada" id="email" name="email" type="email" autocomplete="email"
+               required maxlength="255" value="{{ email_digitado | default('', true) }}">
+      </div>
+      <div class="campo">
+        <label class="campo__rotulo" for="senha">Senha</label>
+        <p class="campo__ajuda" id="senha-ajuda">No mínimo 8 caracteres.</p>
+        <input class="campo__entrada" id="senha" name="senha" type="password" autocomplete="new-password"
+               required minlength="8" maxlength="128" aria-describedby="senha-ajuda">
+      </div>
+      <div class="consulta__acoes">
+        <button class="botao botao--primario" type="submit">Criar conta</button>
+      </div>
+    </form>
+  </section>
+
+  <p class="lead">Já tem conta? <a href="/entrar">Entre</a>.</p>
+</div>
+{% endblock %}

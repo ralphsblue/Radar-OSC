@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block titulo %}Consulta em lote - Validador de OSC{% endblock %}
+
+{% set esfera_atual = esfera_escolhida | default("", true) %}
+{% set erro = erro_geral | default("", true) %}
+
+{% block conteudo %}
+<div class="pagina pagina--lote-novo">
+  <section class="apresentacao" aria-labelledby="titulo-lote">
+    <h1 class="titulo" id="titulo-lote">Consultar organizações em lote</h1>
+    <p class="lead">Cole até 20 CNPJs separados por ponto e vírgula (;) para verificar todos de uma vez.</p>
+  </section>
+
+  {% if erro %}
+  <p class="aviso aviso--erro" role="alert">{{ erro }}</p>
+  {% endif %}
+
+  <section class="cartao cartao--formulario" aria-label="Formulário de lote">
+    <form class="consulta" method="post" action="/lotes" novalidate>
+      <div class="campo{% if erro %} campo--erro{% endif %}">
+        <label class="campo__rotulo" for="cnpjs">CNPJs das organizações</label>
+        <p class="campo__ajuda" id="cnpjs-ajuda">Separe cada CNPJ com ponto e vírgula. Máximo de 20 por lote.</p>
+        <textarea class="campo__entrada campo__entrada--textarea" id="cnpjs" name="cnpjs" rows="6"
+                  required aria-describedby="cnpjs-ajuda"
+                  placeholder="00.000.000/0000-00; 11.111.111/0001-11">{{ cnpjs_digitado | default('', true) }}</textarea>
+      </div>
+
+      <fieldset class="esferas">
+        <legend class="campo__rotulo">Esfera da parceria <span class="opcional">(opcional)</span></legend>
+        <p class="campo__ajuda" id="esfera-ajuda">
+          O art. 33, V, a da Lei 13.019/2014 exige tempo mínimo de existência com cadastro ativo:
+          1 ano para municípios, 2 anos para estados e o Distrito Federal, 3 anos para a União.
+          Sem esfera, o resultado mostra os três cenários.
+        </p>
+        <div class="esferas__opcoes">
+          {% for valor, rotulo, prazo in [
+            ("", "Não informar", "Três cenários"),
+            ("municipio", "Município", "1 ano"),
+            ("estado", "Estado ou DF", "2 anos"),
+            ("uniao", "União", "3 anos"),
+          ] %}
+          <label class="opcao">
+            <input type="radio" name="esfera" value="{{ valor }}"{% if valor == esfera_atual %} checked{% endif %}>
+            <span class="opcao__texto">
+              <span class="opcao__nome">{{ rotulo }}</span>
+              <span class="opcao__detalhe">{{ prazo }}</span>
+            </span>
+          </label>
+          {% endfor %}
+        </div>
+      </fieldset>
+
+      <div class="consulta__acoes">
+        <button class="botao botao--primario" type="submit">Consultar lote</button>
+      </div>
+    </form>
+  </section>
+</div>
+{% endblock %}

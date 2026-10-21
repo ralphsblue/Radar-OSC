@@ -1,4 +1,5 @@
 import hashlib
+import uuid
 from collections.abc import AsyncIterator, Callable
 from contextlib import asynccontextmanager
 from dataclasses import dataclass
@@ -7,6 +8,8 @@ from importlib.metadata import version
 from importlib.resources import files
 
 import httpx
+import redis
+import rq
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, async_sessionmaker
 
 from validador_osc.config import Configuracao
@@ -23,14 +26,18 @@ from validador_osc.persistencia.bases import RepositorioBasesLocais
 from validador_osc.persistencia.repositorios import (
     RepositorioConsultas,
     RepositorioEvidencias,
+    RepositorioLotes,
     RepositorioSaudeFontes,
+    RepositorioUsuarios,
 )
 from validador_osc.regras import carregar_limites, carregar_tabelas
+from validador_osc.servico.auth import ServicoAuth
 from validador_osc.servico.cadastral import CadastralComReserva
 from validador_osc.servico.consulta import Coletores, ServicoConsulta
 from validador_osc.servico.dirigentes import ColetorDirigentes
 from validador_osc.servico.evidencias import ServicoEvidencias
 from validador_osc.servico.fontes import ServicoFontes
+from validador_osc.servico.lotes import ServicoLotes
 from validador_osc.servico.sancoes import ColetorSancoes
 
 VERSAO_APP = version("validador-osc")
@@ -54,6 +61,8 @@ class ContextoAplicacao:
     consultas: ServicoConsulta
     fontes: ServicoFontes
     evidencias: ServicoEvidencias
+    auth: ServicoAuth
+    lotes: ServicoLotes
 
 
 @asynccontextmanager
@@ -104,6 +113,21 @@ async def abrir_contexto(
                 config.zona,
                 relogio,
             )
-            yield ContextoAplicacao(config, engine, sessoes, servico, fontes, ServicoEvidencias(evidencias))
+            auth = ServicoAuth(RepositorioUsuarios(sessoes), config.jwt_segredo, config.jwt_expiracao_min)
+            conexao_redis = redis.Redis.from_url(config.redis_url)
+            fila = rq.Queue(config.fila_nome, connection=conexao_redis)
+
+            def enfileirar(lote_id: uuid.UUID, item_id: int) -> None:
+                # Passa o nome da função (string) em vez de importar `processar_item_lote`
+                # direto: o módulo `validador_osc.trabalhador` só existe a partir da Fase 4
+                # e importá-lo aqui criaria uma dependência de um módulo ainda inexistente.
+                fila.enqueue("validador_osc.trabalhador.processar_item_lote", str(lote_id), item_id)
+
+            lotes = ServicoLotes(
+                RepositorioLotes(sessoes), enfileirar, relogio, RepositorioConsultas(sessoes)
+            )
+            yield ContextoAplicacao(
+                config, engine, sessoes, servico, fontes, ServicoEvidencias(evidencias), auth, lotes
+            )
         finally:
             await engine.dispose()

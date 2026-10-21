@@ -31,6 +31,12 @@ class Configuracao(BaseSettings):
     dir_arquivos: Path = Path("var/arquivos")
     timeout_download_s: float = Field(default=300.0, gt=0)
     token_operador: SecretStr | None = None
+    jwt_segredo: SecretStr = SecretStr("altere-este-segredo-em-producao-0123456789")
+    jwt_expiracao_min: int = Field(default=720, ge=1)
+    redis_url: str = "redis://127.0.0.1:16379/0"
+    fila_nome: str = "lotes"
+    # Valor provisório, ainda não validado com uso real - fácil de ajustar depois.
+    fila_concorrencia: int = Field(default=4, ge=1)
     limite_consultas_por_minuto: int = Field(default=10, ge=0)
     log_formato: FormatoLog = FormatoLog.CONSOLE
     log_nivel: str = "INFO"

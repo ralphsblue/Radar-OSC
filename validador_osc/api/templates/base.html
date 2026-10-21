@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="light dark">
+  <meta name="color-scheme" content="light">
   <meta name="description" content="Triagem automatizada de organizações da sociedade civil para parcerias da Lei 13.019/2014.">
   <title>{% block titulo %}Validador de OSC{% endblock %}</title>
   <link rel="icon" href="/static/favicon.svg?v={{ versao }}" type="image/svg+xml">
@@ -25,6 +25,7 @@
       {% block navegacao %}
       <nav class="navegacao" aria-label="Principal">
         <a class="navegacao__link" href="/fontes">Fontes de dados</a>
+        {% include "parciais/navegacao_auth.html" %}
       </nav>
       {% endblock %}
     </div>

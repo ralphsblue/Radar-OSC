@@ -1,7 +1,10 @@
 import argparse
+import sys
 from collections.abc import Callable, Sequence
 from pathlib import Path
 
+import redis
+import rq
 import uvicorn
 
 from validador_osc.bases_locais.atualizacao import FONTES_IMPLEMENTADAS, Atualizador, criar_cliente
@@ -23,6 +26,19 @@ def _servir(argumentos: argparse.Namespace) -> int:
         loop="asyncio:SelectorEventLoop",
         log_config=None,
     )
+    return 0
+
+
+def _trabalhar(argumentos: argparse.Namespace) -> int:
+    config = obter_configuracao()
+    configurar_logs(config)
+    conexao_redis = redis.Redis.from_url(config.redis_url)
+    fila = rq.Queue(config.fila_nome, connection=conexao_redis)
+    # No Windows, RQ não consegue fazer fork, então o worker precisa ser single-process
+    # (SimpleWorker). Em produção/Docker (Linux) o Worker padrão funciona normalmente.
+    classe_worker = rq.SimpleWorker if sys.platform == "win32" else rq.Worker
+    worker = classe_worker([fila], connection=conexao_redis)
+    worker.work(burst=argumentos.burst)
     return 0
 
 
@@ -84,6 +100,12 @@ def _analisador() -> argparse.ArgumentParser:
 
     configuracao = sub.add_parser("configuracao", help="mostra a configuração efetiva sem segredos")
     configuracao.set_defaults(executar=_configuracao)
+
+    trabalhar = sub.add_parser("trabalhar", help="processa a fila de lotes (worker RQ)")
+    trabalhar.add_argument(
+        "--burst", action="store_true", help="processa o que tiver na fila e sai, em vez de ficar escutando"
+    )
+    trabalhar.set_defaults(executar=_trabalhar)
 
     ingerir = sub.add_parser("ingerir", help="carrega uma base local")
     ingerir.add_argument("fonte", choices=FONTES_IMPLEMENTADAS)

@@ -11,6 +11,13 @@ class PedidoConsultaApi(BaseModel):
     atualizar: bool = False
 
 
+class PedidoLoteApi(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    cnpjs: str = Field(min_length=1)
+    esfera: Esfera | None = None
+
+
 class Problema(BaseModel):
     type: str = "about:blank"
     title: str

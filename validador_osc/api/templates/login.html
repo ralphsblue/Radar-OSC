@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block titulo %}Entrar - Validador de OSC{% endblock %}
+
+{% block conteudo %}
+<div class="pagina pagina--entrar">
+  <section class="apresentacao" aria-labelledby="titulo-entrar">
+    <h1 class="titulo" id="titulo-entrar">Entrar</h1>
+    <p class="lead">Acesse sua conta para consultar em lote e acompanhar seu painel.</p>
+  </section>
+
+  {% if erro_geral is defined and erro_geral %}
+  <p class="aviso aviso--erro" role="alert">{{ erro_geral }}</p>
+  {% endif %}
+
+  <section class="cartao cartao--formulario" aria-label="Formulário de entrada">
+    <form class="consulta" method="post" action="/entrar" novalidate>
+      <div class="campo">
+        <label class="campo__rotulo" for="email">E-mail</label>
+        <input class="campo__entrada" id="email" name="email" type="email" autocomplete="email"
+               required maxlength="255" value="{{ email_digitado | default('', true) }}">
+      </div>
+      <div class="campo">
+        <label class="campo__rotulo" for="senha">Senha</label>
+        <input class="campo__entrada" id="senha" name="senha" type="password" autocomplete="current-password"
+               required maxlength="128">
+      </div>
+      <div class="consulta__acoes">
+        <button class="botao botao--primario" type="submit">Entrar</button>
+      </div>
+    </form>
+  </section>
+
+  <p class="lead">Ainda não tem conta? <a href="/registrar">Registre-se</a>.</p>
+</div>
+{% endblock %}

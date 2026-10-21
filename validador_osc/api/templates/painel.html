@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% set modificadores_final = {"APTA": "ok", "APTA_COM_RESSALVAS": "alerta", "INAPTA": "restricao", "INCONCLUSIVA": "indisponivel", "CNPJ_INVALIDO": "nao-verificado"} %}
+{% set rotulos_final = {"APTA": "Apta", "APTA_COM_RESSALVAS": "Apta c/ ressalvas", "INAPTA": "Inapta", "INCONCLUSIVA": "Inconclusiva", "CNPJ_INVALIDO": "CNPJ inválido"} %}
+{% set rotulos_status_lote = {"PENDENTE": "Pendente", "PROCESSANDO": "Processando", "CONCLUIDO": "Concluído"} %}
+
+{% block titulo %}Painel - Validador de OSC{% endblock %}
+
+{% block conteudo %}
+<div class="pagina pagina--painel">
+  <section class="apresentacao" aria-labelledby="titulo-painel">
+    <h1 class="titulo" id="titulo-painel">Painel</h1>
+    <p class="lead">Números agregados de todos os lotes já processados por você.</p>
+  </section>
+
+  <section class="cartao" aria-label="Resumo agregado">
+    <ul class="resumo" aria-label="Totais do histórico">
+      <li>
+        <div class="resumo__item resumo__item--nao-verificado">
+          <span class="resumo__numero">{{ metricas.total_lotes }}</span>
+          <span class="resumo__rotulo">Lote{{ "s" if metricas.total_lotes != 1 else "" }} processado{{ "s" if metricas.total_lotes != 1 else "" }}</span>
+        </div>
+      </li>
+      <li>
+        <div class="resumo__item resumo__item--nao-verificado">
+          <span class="resumo__numero">{{ metricas.total_cnpjs_avaliados }}</span>
+          <span class="resumo__rotulo">CNPJs avaliados</span>
+        </div>
+      </li>
+      <li>
+        <div class="resumo__item resumo__item--restricao">
+          <span class="resumo__numero">{{ total_impedimentos }}</span>
+          <span class="resumo__rotulo">Impedimentos detectados</span>
+        </div>
+      </li>
+      {% for status, quantidade in metricas.distribuicao_status.items() %}
+      {% if quantidade %}
+      <li>
+        <div class="resumo__item resumo__item--{{ modificadores_final[status] }}">
+          <span class="resumo__numero">{{ quantidade }}</span>
+          <span class="resumo__rotulo">{{ rotulos_final[status] }}</span>
+        </div>
+      </li>
+      {% endif %}
+      {% endfor %}
+    </ul>
+  </section>
+
+  <section class="cartao" aria-labelledby="titulo-impedimentos">
+    <h2 class="secao__titulo" id="titulo-impedimentos">Impedimentos por tipo</h2>
+    <p class="campo__ajuda">Quantas vezes cada verificação eliminatória ou de alerta pesou no resultado, somando todos os lotes.</p>
+    {% if metricas.impedimentos_por_tipo %}
+    <ul class="grafico-barras" aria-label="Impedimentos detectados por tipo">
+      {% for nome, quantidade in metricas.impedimentos_por_tipo.items() %}
+      <li class="grafico-barras__linha">
+        <span class="grafico-barras__rotulo">{{ nome }}</span>
+        <span class="grafico-barras__trilha">
+          <span class="grafico-barras__barra" style="width: {{ (quantidade / maior_impedimento * 100) if maior_impedimento else 0 }}%"></span>
+        </span>
+        <span class="grafico-barras__valor">{{ quantidade }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p class="bloco__nota">Nenhum impedimento detectado até agora.</p>
+    {% endif %}
+  </section>
+
+  <section class="cartao" aria-labelledby="titulo-lotes-anteriores">
+    <h2 class="secao__titulo" id="titulo-lotes-anteriores">Lotes anteriores</h2>
+    {% if lotes %}
+    <div class="tabela-rolagem" tabindex="0" role="region" aria-label="Lotes anteriores">
+    <table class="tabela">
+      <thead>
+        <tr>
+          <th scope="col">Data</th>
+          <th scope="col">Esfera</th>
+          <th scope="col">CNPJs</th>
+          <th scope="col">Status</th>
+          <th scope="col">Ação</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for lote in lotes %}
+        <tr>
+          <td>{{ lote.criado_em | instante }}</td>
+          <td>{{ lote.esfera | rotulo_esfera }}</td>
+          <td class="numero" style="font-family: var(--fonte-mono);">{{ lote.total_itens }}</td>
+          <td>{{ rotulos_status_lote.get(lote.status, lote.status) }}</td>
+          <td><a href="/lotes/{{ lote.id }}">Reabrir resultado</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    </div>
+    {% else %}
+    <p class="bloco__nota">Você ainda não processou nenhum lote. <a href="/lotes/novo">Criar o primeiro lote</a>.</p>
+    {% endif %}
+  </section>
+</div>
+{% endblock %}

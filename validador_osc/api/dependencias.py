@@ -1,6 +1,6 @@
 from typing import Annotated, Any
 
-from fastapi import Depends, Request
+from fastapi import Depends, HTTPException, Request
 from fastapi.responses import JSONResponse
 from fastapi.templating import Jinja2Templates
 
@@ -8,11 +8,13 @@ from validador_osc.api.esquemas import Problema
 from validador_osc.api.limite import LimitePorCliente
 from validador_osc.api.privacidade import eh_operador, ocultar_dirigentes
 from validador_osc.composicao import VERSAO_APP, ContextoAplicacao
+from validador_osc.servico.auth import UsuarioAutenticado
 from validador_osc.servico.consulta import ServicoConsulta
 
 TIPO_PROBLEMA = "application/problem+json"
 MENSAGEM_LIMITE = "Muitas consultas seguidas. Aguarde um minuto e tente de novo."
 VERSAO = VERSAO_APP
+COOKIE_TOKEN = "vosc_token"  # noqa: S105 -- nome do cookie, não um segredo
 
 
 def problema(status: int, titulo: str, detalhe: str | None = None) -> JSONResponse:
@@ -34,9 +36,29 @@ def obter_templates(request: Request) -> Jinja2Templates:
     return templates
 
 
+async def usuario_atual(request: Request) -> UsuarioAutenticado | None:
+    token = request.cookies.get(COOKIE_TOKEN)
+    if token is None:
+        return None
+    contexto = obter_contexto(request)
+    usuario_id = contexto.auth.verificar_token(token)
+    if usuario_id is None:
+        return None
+    return await contexto.auth.obter_usuario(usuario_id)
+
+
+async def exigir_usuario(request: Request) -> UsuarioAutenticado:
+    usuario = await usuario_atual(request)
+    if usuario is None:
+        raise HTTPException(status_code=401, detail="Autenticação necessária.")
+    return usuario
+
+
 Contexto = Annotated[ContextoAplicacao, Depends(obter_contexto)]
 Servico = Annotated[ServicoConsulta, Depends(obter_servico)]
 Templates = Annotated[Jinja2Templates, Depends(obter_templates)]
+UsuarioOpcional = Annotated[UsuarioAutenticado | None, Depends(usuario_atual)]
+UsuarioLogado = Annotated[UsuarioAutenticado, Depends(exigir_usuario)]
 
 
 def excedeu_limite(request: Request) -> bool:

@@ -17,15 +17,41 @@ services:
       timeout: 3s
       retries: 30
 
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "127.0.0.1:16379:6379"
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
   app:
     profiles: ["completo"]
     build: .
     environment:
       VOSC_DATABASE_URL: postgresql+psycopg://validador:validador@db:5432/validador
+      VOSC_REDIS_URL: redis://redis:6379/0
     ports:
       - "127.0.0.1:8000:8000"
     depends_on:
       db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  worker:
+    profiles: ["completo"]
+    build: .
+    command: ["validador-osc", "trabalhar"]
+    environment:
+      VOSC_DATABASE_URL: postgresql+psycopg://validador:validador@db:5432/validador
+      VOSC_REDIS_URL: redis://redis:6379/0
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
         condition: service_healthy
 
 volumes:

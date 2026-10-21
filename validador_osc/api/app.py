@@ -12,7 +12,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from sqlalchemy.exc import DBAPIError, InterfaceError, OperationalError
 
-from validador_osc.api import rotas_json, rotas_paginas
+from validador_osc.api import rotas_json, rotas_lotes, rotas_paginas
 from validador_osc.api.dependencias import VERSAO, problema
 from validador_osc.api.formatacao import registrar_filtros
 from validador_osc.api.limite import LimitePorCliente
@@ -63,5 +63,6 @@ def criar_app(
     app.add_exception_handler(DBAPIError, _erro_banco)
     app.add_exception_handler(RequestValidationError, _corpo_invalido)
     app.include_router(rotas_json.rotas)
+    app.include_router(rotas_lotes.rotas)
     app.include_router(rotas_paginas.rotas)
     return app

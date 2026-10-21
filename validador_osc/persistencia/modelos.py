@@ -21,7 +21,7 @@ from sqlalchemy import (
     text,
 )
 from sqlalchemy.dialects.postgresql import JSONB, UUID
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
 CONVENCAO_NOMES = {
     "ix": "ix_%(column_0_label)s",
@@ -233,3 +233,51 @@ class TcespRegistro(Base):
     data_transito: Mapped[date | None] = mapped_column(Date)
     exercicio: Mapped[str | None] = mapped_column(Text)
     linha: Mapped[dict[str, Any]] = mapped_column(JSONB)
+
+
+class Usuario(Base):
+    __tablename__ = "usuario"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True)
+    email: Mapped[str] = mapped_column(Text, unique=True)
+    senha_hash: Mapped[str] = mapped_column(Text)
+    criado_em: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    ativo: Mapped[bool] = mapped_column(Boolean, server_default=text("true"))
+
+
+class Lote(Base):
+    __tablename__ = "lote"
+    __table_args__ = (
+        CheckConstraint("esfera IN ('municipio', 'estado', 'uniao')", name="esfera"),
+        CheckConstraint("status IN ('PENDENTE', 'PROCESSANDO', 'CONCLUIDO')", name="status"),
+        Index("ix_lote_usuario_criado_em", "usuario_id", text("criado_em DESC")),
+    )
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True)
+    usuario_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("usuario.id", ondelete="CASCADE"))
+    esfera: Mapped[str | None] = mapped_column(Text)
+    status: Mapped[str] = mapped_column(Text)
+    total_itens: Mapped[int] = mapped_column(Integer)
+    criado_em: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+    concluido_em: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
+    itens: Mapped[list["LoteItem"]] = relationship(back_populates="lote")  # noqa: UP037
+
+
+class LoteItem(Base):
+    __tablename__ = "lote_item"
+    __table_args__ = (
+        CheckConstraint("status IN ('PENDENTE', 'PROCESSANDO', 'CONCLUIDO', 'ERRO')", name="status"),
+        Index("ix_lote_item_lote_posicao", "lote_id", "posicao"),
+    )
+
+    id: Mapped[int] = mapped_column(BigInteger, Identity(), primary_key=True)
+    lote_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("lote.id", ondelete="CASCADE"))
+    cnpj_informado: Mapped[str] = mapped_column(Text)
+    posicao: Mapped[int] = mapped_column(Integer)
+    status: Mapped[str] = mapped_column(Text)
+    consulta_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("consulta.id"))
+    erro: Mapped[str | None] = mapped_column(Text)
+    atualizado_em: Mapped[datetime] = mapped_column(DateTime(timezone=True))
+
+    lote: Mapped[Lote] = relationship(back_populates="itens")

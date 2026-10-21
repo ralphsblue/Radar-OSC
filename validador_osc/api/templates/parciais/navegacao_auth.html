@@ -1,0 +1,10 @@
+{% set usuario = usuario | default(none, true) %}
+{% if usuario %}
+<a class="navegacao__link" href="/painel">Painel</a>
+<form class="navegacao__sair" method="post" action="/sair">
+  <button class="navegacao__link navegacao__link--botao" type="submit">Sair</button>
+</form>
+{% else %}
+<a class="navegacao__link" href="/entrar">Entrar</a>
+<a class="navegacao__link" href="/registrar">Registrar</a>
+{% endif %}

@@ -38,6 +38,9 @@ def test_tabelas_criadas(banco_migrado: str) -> None:
         "consulta_evidencia",
         "sancao_registro",
         "lista_tcu_registro",
+        "usuario",
+        "lote",
+        "lote_item",
         "alembic_version",
     } <= tabelas
 

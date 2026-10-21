@@ -178,6 +178,70 @@
     });
   };
 
+  const INTERVALO_POLLING_MS = 4000;
+  const STATUS_LOTE_EM_ANDAMENTO = new Set(["PENDENTE", "PROCESSANDO"]);
+
+  const iniciarPolling = (pagina) => {
+    const loteId = pagina.dataset.loteId;
+    const statusInicial = pagina.dataset.statusLote;
+    if (!loteId || !STATUS_LOTE_EM_ANDAMENTO.has(statusInicial)) {
+      return;
+    }
+    const temporizador = window.setInterval(async () => {
+      try {
+        const resposta = await fetch(`/api/v1/lotes/${loteId}`);
+        if (!resposta.ok) {
+          return;
+        }
+        const lote = await resposta.json();
+        if (lote.status !== statusInicial) {
+          window.clearInterval(temporizador);
+          window.location.reload();
+        }
+      } catch {
+        // Mantém o polling tentando na próxima rodada.
+      }
+    }, INTERVALO_POLLING_MS);
+  };
+
+  const iniciarFiltrosChip = (container) => {
+    const botoes = Array.from(container.querySelectorAll("[data-filtro-chip]"));
+    const tabela = document.querySelector("[data-tabela-lote]");
+    const semResultados = document.querySelector("[data-sem-resultados]");
+    if (botoes.length === 0 || !tabela) {
+      return;
+    }
+    const linhas = Array.from(tabela.querySelectorAll("[data-linha-item]"));
+
+    const aplicarFiltro = (filtro) => {
+      let visiveis = 0;
+      linhas.forEach((linha) => {
+        let mostrar = true;
+        if (filtro.startsWith("item:")) {
+          mostrar = linha.dataset.statusItem === filtro.slice(5);
+        } else if (filtro.startsWith("final:")) {
+          mostrar = linha.dataset.statusFinal === filtro.slice(6);
+        }
+        linha.hidden = !mostrar;
+        if (mostrar) {
+          visiveis += 1;
+        }
+      });
+      if (semResultados) {
+        semResultados.hidden = visiveis !== 0;
+      }
+    };
+
+    botoes.forEach((botao) => {
+      botao.addEventListener("click", () => {
+        botoes.forEach((outro) => outro.setAttribute("aria-pressed", String(outro === botao)));
+        aplicarFiltro(botao.dataset.filtro ?? "");
+      });
+    });
+  };
+
   document.querySelectorAll("[data-consulta]").forEach(iniciarFormulario);
   document.querySelectorAll("[data-acoes]").forEach(iniciarAcoes);
+  document.querySelectorAll("[data-lote-detalhe]").forEach(iniciarPolling);
+  document.querySelectorAll("[data-filtros-lote]").forEach(iniciarFiltrosChip);
 })();
