@@ -27,8 +27,8 @@ O validador faz a triagem em segundos, mostra de onde veio cada dado e nunca apr
 
 ## Para quem é
 
-- **A própria OSC:** confere se está apta antes de concorrer a um edital e envia o link do resultado à prefeitura.
-- **O ente público:** tria as organizações candidatas com rapidez e critério uniforme, informando a esfera da parceria (município, estado ou União).
+- **O ente público** (prefeitura, estado ou União): usuário principal. Cria uma conta, tria várias organizações candidatas de um edital de uma vez (consulta em lote) e acompanha o histórico num painel.
+- **A própria OSC:** confere se está apta antes de concorrer a um edital e envia o link do resultado à prefeitura. Não precisa de conta para a consulta avulsa.
 - **O público em geral:** transparência sobre organizações que recebem recursos públicos.
 
 ## Como ler o resultado
@@ -89,10 +89,20 @@ flowchart LR
 
 Detalhes, diagramas e o caminho completo de uma consulta em [docs/arquitetura.md](docs/arquitetura.md).
 
+## Contas e consulta em lote
+
+O ente público cria uma conta simples (e-mail e senha) em `/registrar` e autentica por um cookie com token JWT.
+Logado, consegue consultar até 20 CNPJs de uma vez em `/lotes/novo` (separados por `;`), em vez de um por um.
+Cada CNPJ do lote é processado em paralelo por uma fila (RQ + Redis): a página não trava esperando, e um worker separado (`validador-osc trabalhar`) consome a fila e grava o resultado de cada CNPJ como uma consulta normal.
+O resultado do lote pode ser filtrado por status, exportado em CSV e cada linha abre a tela de resultado individual.
+O painel do usuário (`/painel`) mostra o histórico de lotes e métricas agregadas: total de CNPJs avaliados, distribuição de status e impedimentos encontrados por tipo.
+
+Decisões de produto por trás dessas telas (usuário principal, fluxo, métricas, paleta) estão em [docs/produto_interface.md](docs/produto_interface.md).
+
 ## Tecnologia
 
-Python 3.14, FastAPI, Jinja2, httpx, SQLAlchemy 2 (assíncrono), PostgreSQL 17, Alembic, structlog e pydantic.
-Interface em HTML, CSS e JavaScript simples, sem framework, com tema claro e escuro e impressão.
+Python 3.14, FastAPI, Jinja2, httpx, SQLAlchemy 2 (assíncrono), PostgreSQL 17, Redis, RQ, Alembic, structlog, pydantic, PyJWT e bcrypt.
+Interface em HTML, CSS e JavaScript simples, sem framework, com impressão. Tema claro por padrão (paleta nova com tipografia Public Sans/IBM Plex Mono); tema escuro ainda não foi adaptado à paleta nova.
 Qualidade: uv, ruff, mypy estrito, import-linter, pre-commit e GitHub Actions.
 
 ## Como rodar
@@ -101,14 +111,20 @@ Pré-requisitos: [uv](https://docs.astral.sh/uv/) e Docker.
 
 ```
 uv sync
-docker compose up -d --wait db
+docker compose up -d --wait db redis
 uv run alembic upgrade head
 uv run validador-osc atualizar-bases
 uv run validador-osc servir
 ```
 
+Num segundo terminal, pra processar consultas em lote:
+
+```
+uv run validador-osc trabalhar
+```
+
 A aplicação fica em http://127.0.0.1:8000.
-O banco local usa a porta 15432, fora das faixas que o Windows costuma reservar.
+O banco local usa a porta 15432 e o Redis a porta 16379, fora das faixas que o Windows costuma reservar.
 No Windows, não use `--recarregar` com o log redirecionado: o recarregamento automático trava nesse cenário.
 
 ## Bases locais
@@ -132,6 +148,8 @@ Em Linux, use o cron com `uv run --no-sync validador-osc atualizar-bases`.
 Variáveis com prefixo `VOSC_`, documentadas em `.env.example`.
 `VOSC_TOKEN_OPERADOR` libera, no header `X-Token-Operador`, os nomes de dirigentes com possível correspondência e as evidências brutas em `/api/v1/evidencias/{id}`.
 `VOSC_LIMITE_CONSULTAS_POR_MINUTO` limita consultas por endereço IP (0 desliga).
+`VOSC_JWT_SEGREDO` assina o cookie de sessão das contas; troque o valor padrão antes de qualquer uso real.
+`VOSC_REDIS_URL` aponta pra fila de processamento de lotes.
 
 ## API
 
@@ -140,6 +158,10 @@ Documentação interativa em http://127.0.0.1:8000/docs.
 - `POST /api/v1/consultas` com `{"cnpj": "...", "esfera": "municipio|estado|uniao", "atualizar": false}`.
 - `GET /api/v1/consultas/{id}`: resultado gravado (link permanente).
 - `GET /api/v1/fontes`: estado das fontes online e das bases locais.
+- `POST /api/v1/lotes` (autenticado) com `{"cnpjs": "cnpj1;cnpj2;...", "esfera": "..."}`: cria um lote (até 20 CNPJs) e enfileira o processamento.
+- `GET /api/v1/lotes/{id}` / `GET /api/v1/lotes` (autenticado): status do lote ou histórico do usuário.
+- `GET /api/v1/lotes/{id}/export.csv` (autenticado): exporta o resultado do lote.
+- `GET /api/v1/usuarios/me/metricas` (autenticado): métricas agregadas do usuário.
 
 Erros seguem o formato `application/problem+json` (RFC 9457).
 
@@ -153,7 +175,7 @@ uv run lint-imports
 uv run pytest
 ```
 
-São mais de 1.200 testes: unidade, contrato com respostas reais gravadas, integração com PostgreSQL e ponta a ponta com as fontes em replay, sem rede.
+São mais de 1.300 testes: unidade, contrato com respostas reais gravadas, integração com PostgreSQL e ponta a ponta com as fontes em replay, sem rede.
 Os testes de integração e de ponta a ponta usam o banco `validador_teste`, criado automaticamente.
 
 ## Documentação
@@ -161,18 +183,21 @@ Os testes de integração e de ponta a ponta usam o banco `validador_teste`, cri
 | Documento | Conteúdo |
 |---|---|
 | [docs/produto.md](docs/produto.md) | Contexto, usuários, regras de decisão, limitações, pendências e glossário |
+| [docs/produto_interface.md](docs/produto_interface.md) | Usuário principal, fluxo de lote, métricas, paleta e tipografia, disposição das telas |
 | [docs/arquitetura.md](docs/arquitetura.md) | Camadas, regras de dependência, fluxos e mapa das pastas |
 | [docs/especificacao.md](docs/especificacao.md) | Especificação funcional do MVP |
 | [docs/decisoes.md](docs/decisoes.md) | Decisões de produto e engenharia, com data e motivo |
 | [docs/roteiro_demonstracao.md](docs/roteiro_demonstracao.md) | Roteiro de 10 minutos com CNPJs de exemplo |
 | [docs/pesquisa/](docs/pesquisa/README.md) | Testes de cada fonte de dados antes do código |
+| [README_PROFESSORA.md](README_PROFESSORA.md) | Leitura guiada do projeto: o que foi feito, arquitetura e decisões, sem exigir leitura de código |
 
 ## In English
 
 Validador de OSC screens a Brazilian nonprofit's CNPJ (company registry number) against public registries to check whether it may sign partnerships with the government under Law 13.019/2014.
 It cross-checks the federal company registry, federal sanction lists (CGU), the Federal Court of Accounts (TCU), the National Justice Council (CNJ), the São Paulo State Court of Accounts and the Ipea nonprofit map, and explains every check with its source and date.
 The rules engine is pure and isolated from I/O, dependency direction between layers is enforced in CI with import-linter, every source response is stored with a SHA-256 hash as evidence, and a source that fails never turns into an approval.
-Stack: Python 3.14, FastAPI, async SQLAlchemy, PostgreSQL, httpx, plain HTML/CSS/JS, with 1,200+ tests including contract tests on recorded real responses and network-free end-to-end tests.
+Government bodies can create an account and screen up to 20 CNPJs at once (batch), processed asynchronously through a Redis-backed queue so the request never blocks; a user dashboard tracks batch history and aggregated metrics.
+Stack: Python 3.14, FastAPI, async SQLAlchemy, PostgreSQL, Redis, RQ, httpx, plain HTML/CSS/JS, with 1,300+ tests including contract tests on recorded real responses and network-free end-to-end tests.
 
 ## Licença
 
