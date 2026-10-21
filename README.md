@@ -25,6 +25,25 @@ Para firmar parceria com a administração pública, a organização precisa ser
 Hoje essa checagem é feita à mão, em vários sites diferentes.
 O validador faz a triagem em segundos, mostra de onde veio cada dado e nunca aprova quando uma fonte essencial não respondeu.
 
+## Para quem é
+
+- **A própria OSC:** confere se está apta antes de concorrer a um edital e envia o link do resultado à prefeitura.
+- **O ente público:** tria as organizações candidatas com rapidez e critério uniforme, informando a esfera da parceria (município, estado ou União).
+- **O público em geral:** transparência sobre organizações que recebem recursos públicos.
+
+## Como ler o resultado
+
+| Status | Significado |
+|---|---|
+| Apta | Nada impede nas bases consultadas |
+| Apta com ressalvas | Pode firmar parceria, mas há pontos para análise humana (por exemplo, atividade de baixa relevância social ou dirigente com possível sanção) |
+| Inconclusiva | Uma verificação eliminatória não pôde ser feita (fonte fora do ar ou base vencida); não dá para afirmar que está apta |
+| Inapta | Há um impedimento registrado (por exemplo, sanção vigente no CEIS ou natureza jurídica incompatível) |
+| CNPJ inválido | Erro de digitação; nada foi consultado |
+
+Cada uma das 16 verificações mostra o estado (OK, restrição, alerta, indisponível ou não verificado), a mensagem, a fonte, a data da base e um link para conferir na fonte oficial.
+A descrição completa do produto, com regras, limitações, regras provisórias e glossário, está em [docs/produto.md](docs/produto.md).
+
 ## O que é verificado
 
 | Verificação | Fonte |
@@ -141,6 +160,7 @@ Os testes de integração e de ponta a ponta usam o banco `validador_teste`, cri
 
 | Documento | Conteúdo |
 |---|---|
+| [docs/produto.md](docs/produto.md) | Contexto, usuários, regras de decisão, limitações, pendências e glossário |
 | [docs/arquitetura.md](docs/arquitetura.md) | Camadas, regras de dependência, fluxos e mapa das pastas |
 | [docs/especificacao.md](docs/especificacao.md) | Especificação funcional do MVP |
 | [docs/decisoes.md](docs/decisoes.md) | Decisões de produto e engenharia, com data e motivo |
