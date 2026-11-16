@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from datetime import UTC, datetime
 from typing import Any
 
-from validador_osc.dominio.resultado import StatusFinal
+from validador_osc.dominio.resultado import Estado, StatusFinal
 from validador_osc.persistencia.repositorios import (
     ItemComLoteRegistro,
     ItemLoteRegistro,
@@ -242,9 +242,8 @@ class ServicoLotes:
                 status = documento.get("status")
                 if status:
                     contagem_status[status] += 1
-                motivos = documento.get("motivos") or []
                 for verificacao in documento.get("verificacoes") or []:
-                    if verificacao.get("id") in motivos:
+                    if verificacao.get("estado") == Estado.RESTRICAO.value:
                         contagem_impedimentos[verificacao["nome"]] += 1
         distribuicao_status = {status.value: contagem_status.get(status.value, 0) for status in StatusFinal}
         impedimentos_por_tipo = dict(

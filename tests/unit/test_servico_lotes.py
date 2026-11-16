@@ -339,9 +339,17 @@ def test_metricas_agrega_lotes_cnpjs_status_e_impedimentos() -> None:
     servico = ServicoLotes(repositorio, enfileirador, _relogio_fixo, consultas)
     usuario_id = uuid.uuid4()
 
-    verificacoes_cepim = [
-        {"id": "cepim", "nome": "CEPIM"},
-        {"id": "ceis", "nome": "CEIS"},
+    verificacoes_so_cepim = [
+        {"id": "cepim", "nome": "CEPIM", "estado": "RESTRICAO"},
+        {"id": "ceis", "nome": "CEIS", "estado": "OK"},
+    ]
+    verificacoes_sem_restricao = [
+        {"id": "cepim", "nome": "CEPIM", "estado": "OK"},
+        {"id": "ceis", "nome": "CEIS", "estado": "OK"},
+    ]
+    verificacoes_cepim_e_ceis = [
+        {"id": "cepim", "nome": "CEPIM", "estado": "RESTRICAO"},
+        {"id": "ceis", "nome": "CEIS", "estado": "RESTRICAO"},
     ]
 
     lote_um = asyncio.run(
@@ -358,12 +366,14 @@ def test_metricas_agrega_lotes_cnpjs_status_e_impedimentos() -> None:
     consulta_a = uuid.uuid4()
     consultas.gravar_documento(
         consulta_a,
-        _documento("11111111000111", "INAPTA", ["cepim"], verificacoes_cepim),
+        _documento("11111111000111", "INAPTA", ["cepim"], verificacoes_so_cepim),
     )
     asyncio.run(servico.marcar_item(item_a, status="CONCLUIDO", consulta_id=consulta_a))
 
     consulta_b = uuid.uuid4()
-    consultas.gravar_documento(consulta_b, _documento("22222222000122", "APTA", [], verificacoes_cepim))
+    consultas.gravar_documento(
+        consulta_b, _documento("22222222000122", "APTA", [], verificacoes_sem_restricao)
+    )
     asyncio.run(servico.marcar_item(item_b, status="CONCLUIDO", consulta_id=consulta_b))
 
     lote_dois = asyncio.run(
@@ -373,7 +383,7 @@ def test_metricas_agrega_lotes_cnpjs_status_e_impedimentos() -> None:
     consulta_c = uuid.uuid4()
     consultas.gravar_documento(
         consulta_c,
-        _documento("11111111000111", "INAPTA", ["cepim", "ceis"], verificacoes_cepim),
+        _documento("11111111000111", "INAPTA", ["cepim", "ceis"], verificacoes_cepim_e_ceis),
     )
     asyncio.run(servico.marcar_item(item_c, status="CONCLUIDO", consulta_id=consulta_c))
 
@@ -385,6 +395,31 @@ def test_metricas_agrega_lotes_cnpjs_status_e_impedimentos() -> None:
     assert metricas.distribuicao_status["APTA"] == 1
     assert metricas.distribuicao_status["APTA_COM_RESSALVAS"] == 0
     assert metricas.impedimentos_por_tipo == {"CEPIM": 2, "CEIS": 1}
+
+
+def test_metricas_nao_conta_fonte_indisponivel_como_impedimento() -> None:
+    enfileirador = Enfileirador()
+    consultas = RepositorioConsultasEmMemoria()
+    servico = ServicoLotes(RepositorioLotesEmMemoria(), enfileirador, _relogio_fixo, consultas)
+    usuario_id = uuid.uuid4()
+    lote_id = asyncio.run(
+        servico.criar(PedidoLote(usuario_id=usuario_id, esfera=None, cnpjs=("11111111000111",)))
+    )
+    (item_id,) = (chamada[1] for chamada in enfileirador.chamadas if chamada[0] == lote_id)
+    consulta_id = uuid.uuid4()
+    verificacoes = [
+        {"id": "cnj_cnia", "nome": "Improbidade administrativa (CNJ)", "estado": "INDISPONIVEL"},
+        {"id": "ceis", "nome": "CEIS", "estado": "OK"},
+    ]
+    consultas.gravar_documento(
+        consulta_id, _documento("11111111000111", "INCONCLUSIVA", ["cnj_cnia"], verificacoes)
+    )
+    asyncio.run(servico.marcar_item(item_id, status="CONCLUIDO", consulta_id=consulta_id))
+
+    metricas = asyncio.run(servico.metricas(usuario_id))
+
+    assert metricas.distribuicao_status["INCONCLUSIVA"] == 1
+    assert metricas.impedimentos_por_tipo == {}
 
 
 def test_metricas_sem_lotes_retorna_tudo_zerado() -> None:

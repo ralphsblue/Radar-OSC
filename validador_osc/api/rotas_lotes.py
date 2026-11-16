@@ -95,7 +95,7 @@ def _linhas_csv(
 ) -> Iterator[str]:
     buffer = io.StringIO()
     escritor = csv.writer(buffer)
-    escritor.writerow(["CNPJ", "Razão social", "Status", "Impedimento principal", "Data"])
+    escritor.writerow(["CNPJ", "Razão social", "Status", "Motivo do status", "Data"])
     yield buffer.getvalue()
     for linha in linhas:
         buffer.seek(0)
