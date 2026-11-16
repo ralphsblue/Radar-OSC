@@ -66,7 +66,15 @@ O que a triagem não verifica (certidões do art. 34, sanções estaduais e muni
   </tr>
   <tr>
     <td>Consulta por CNPJ, com a esfera da parceria.</td>
-    <td>Se uma fonte eliminatória não responde, o resultado é inconclusivo, nunca apto.</td>
+    <td>Uma célula por verificação; se uma fonte eliminatória não responde, o resultado é inconclusivo, nunca apto.</td>
+  </tr>
+  <tr>
+    <td><img src="docs/imagens/lote.png" alt="Lote de cinco CNPJs concluído, com filtro por status e motivo de cada resultado"></td>
+    <td><img src="docs/imagens/painel.png" alt="Painel com totais, distribuição de status e impedimentos por tipo"></td>
+  </tr>
+  <tr>
+    <td>Consulta em lote com progresso ao vivo, filtro por status e exportação em CSV.</td>
+    <td>Painel do ente público: impedimentos encontrados em todo o histórico.</td>
   </tr>
 </table>
 
