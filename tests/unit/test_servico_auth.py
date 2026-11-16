@@ -46,7 +46,7 @@ class Relogio:
         return self.agora
 
 
-SEGREDO = SecretStr("segredo-de-teste")
+SEGREDO = SecretStr("segredo-de-teste-com-32-bytes-ou-mais")
 
 
 def _servico(expiracao_min: int = 720, relogio: Relogio | None = None) -> ServicoAuth:
@@ -109,5 +109,7 @@ def test_verificar_token_adulterado_e_rejeitado() -> None:
 def test_verificar_token_assinado_com_outro_segredo_e_rejeitado() -> None:
     servico = _servico()
     usuario_id = uuid.uuid4()
-    token_estranho = jwt.encode({"sub": str(usuario_id)}, "outro-segredo", algorithm=ALGORITMO)
+    token_estranho = jwt.encode(
+        {"sub": str(usuario_id)}, "outro-segredo-tambem-com-32-bytes-ou-mais", algorithm=ALGORITMO
+    )
     assert servico.verificar_token(token_estranho) is None
