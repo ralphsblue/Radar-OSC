@@ -7,10 +7,13 @@ services:
       POSTGRES_USER: validador
       POSTGRES_PASSWORD: validador
       POSTGRES_DB: validador
+    labels:
+      pgrouter.name: validador
     ports:
       - "127.0.0.1:15432:5432"
     volumes:
       - dados-postgres:/var/lib/postgresql/data
+    restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U validador -d validador"]
       interval: 2s
@@ -21,6 +24,7 @@ services:
     image: redis:7-alpine
     ports:
       - "127.0.0.1:16379:6379"
+    restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "redis-cli ping"]
       interval: 2s
@@ -35,6 +39,7 @@ services:
       VOSC_REDIS_URL: redis://redis:6379/0
     ports:
       - "127.0.0.1:8000:8000"
+    restart: unless-stopped
     depends_on:
       db:
         condition: service_healthy
@@ -48,6 +53,7 @@ services:
     environment:
       VOSC_DATABASE_URL: postgresql+psycopg://validador:validador@db:5432/validador
       VOSC_REDIS_URL: redis://redis:6379/0
+    restart: unless-stopped
     depends_on:
       db:
         condition: service_healthy
