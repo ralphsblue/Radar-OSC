@@ -422,6 +422,28 @@ def test_metricas_nao_conta_fonte_indisponivel_como_impedimento() -> None:
     assert metricas.impedimentos_por_tipo == {}
 
 
+def test_metricas_nao_conta_cnpj_invalido_como_impedimento() -> None:
+    enfileirador = Enfileirador()
+    consultas = RepositorioConsultasEmMemoria()
+    servico = ServicoLotes(RepositorioLotesEmMemoria(), enfileirador, _relogio_fixo, consultas)
+    usuario_id = uuid.uuid4()
+    lote_id = asyncio.run(
+        servico.criar(PedidoLote(usuario_id=usuario_id, esfera=None, cnpjs=("11111111111111",)))
+    )
+    (item_id,) = (chamada[1] for chamada in enfileirador.chamadas if chamada[0] == lote_id)
+    consulta_id = uuid.uuid4()
+    verificacoes = [{"id": "dv", "nome": "Dígito verificador", "estado": "RESTRICAO"}]
+    consultas.gravar_documento(
+        consulta_id, _documento("11111111111111", "CNPJ_INVALIDO", ["dv"], verificacoes)
+    )
+    asyncio.run(servico.marcar_item(item_id, status="CONCLUIDO", consulta_id=consulta_id))
+
+    metricas = asyncio.run(servico.metricas(usuario_id))
+
+    assert metricas.distribuicao_status["CNPJ_INVALIDO"] == 1
+    assert metricas.impedimentos_por_tipo == {}
+
+
 def test_metricas_sem_lotes_retorna_tudo_zerado() -> None:
     servico = ServicoLotes(
         RepositorioLotesEmMemoria(), Enfileirador(), _relogio_fixo, RepositorioConsultasEmMemoria()

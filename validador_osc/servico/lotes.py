@@ -242,6 +242,8 @@ class ServicoLotes:
                 status = documento.get("status")
                 if status:
                     contagem_status[status] += 1
+                if status == StatusFinal.CNPJ_INVALIDO.value:
+                    continue
                 for verificacao in documento.get("verificacoes") or []:
                     if verificacao.get("estado") == Estado.RESTRICAO.value:
                         contagem_impedimentos[verificacao["nome"]] += 1
