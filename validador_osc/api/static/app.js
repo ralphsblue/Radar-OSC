@@ -181,33 +181,50 @@
   const INTERVALO_POLLING_MS = 4000;
   const STATUS_LOTE_EM_ANDAMENTO = new Set(["PENDENTE", "PROCESSANDO"]);
 
+  const assinaturaLote = (raiz) =>
+    Array.from(raiz.querySelectorAll("[data-linha-item]"), (linha) =>
+      `${linha.dataset.statusItem}:${linha.dataset.statusFinal}`,
+    ).join("|") + `#${raiz.dataset.statusLote ?? ""}`;
+
   const iniciarPolling = (pagina) => {
-    const loteId = pagina.dataset.loteId;
-    const statusInicial = pagina.dataset.statusLote;
-    if (!loteId || !STATUS_LOTE_EM_ANDAMENTO.has(statusInicial)) {
+    if (!STATUS_LOTE_EM_ANDAMENTO.has(pagina.dataset.statusLote ?? "")) {
       return;
     }
+    let assinatura = assinaturaLote(pagina);
     const temporizador = window.setInterval(async () => {
       try {
-        const resposta = await fetch(`/api/v1/lotes/${loteId}`);
+        const resposta = await fetch(window.location.href, { headers: { Accept: "text/html" } });
         if (!resposta.ok) {
           return;
         }
-        const lote = await resposta.json();
-        if (lote.status !== statusInicial) {
+        const documento = new DOMParser().parseFromString(await resposta.text(), "text/html");
+        const nova = documento.querySelector("[data-lote-detalhe]");
+        if (!nova) {
+          return;
+        }
+        const novaAssinatura = assinaturaLote(nova);
+        if (novaAssinatura === assinatura) {
+          return;
+        }
+        assinatura = novaAssinatura;
+        const filtroAtivo = pagina.querySelector('[data-filtro-chip][aria-pressed="true"]')?.dataset.filtro ?? "";
+        pagina.dataset.statusLote = nova.dataset.statusLote ?? "";
+        pagina.replaceChildren(...nova.childNodes);
+        pagina.querySelectorAll("[data-filtros-lote]").forEach((container) => iniciarFiltrosChip(container, filtroAtivo));
+        if (!STATUS_LOTE_EM_ANDAMENTO.has(pagina.dataset.statusLote)) {
           window.clearInterval(temporizador);
-          window.location.reload();
         }
       } catch {
-        // Mantém o polling tentando na próxima rodada.
+        return;
       }
     }, INTERVALO_POLLING_MS);
   };
 
-  const iniciarFiltrosChip = (container) => {
+  function iniciarFiltrosChip(container, filtroInicial = "") {
     const botoes = Array.from(container.querySelectorAll("[data-filtro-chip]"));
-    const tabela = document.querySelector("[data-tabela-lote]");
-    const semResultados = document.querySelector("[data-sem-resultados]");
+    const raiz = container.closest("[data-lote-detalhe]") ?? document;
+    const tabela = raiz.querySelector("[data-tabela-lote]");
+    const semResultados = raiz.querySelector("[data-sem-resultados]");
     if (botoes.length === 0 || !tabela) {
       return;
     }
@@ -232,16 +249,83 @@
       }
     };
 
+    const selecionar = (botao) => {
+      botoes.forEach((outro) => outro.setAttribute("aria-pressed", String(outro === botao)));
+      aplicarFiltro(botao.dataset.filtro ?? "");
+    };
+
     botoes.forEach((botao) => {
-      botao.addEventListener("click", () => {
-        botoes.forEach((outro) => outro.setAttribute("aria-pressed", String(outro === botao)));
-        aplicarFiltro(botao.dataset.filtro ?? "");
+      botao.addEventListener("click", () => selecionar(botao));
+    });
+    const inicial = botoes.find((botao) => botao.dataset.filtro === filtroInicial);
+    if (inicial) {
+      selecionar(inicial);
+    }
+  }
+
+  const iniciarRecolhidas = (grupos) => {
+    if (grupos.length === 0) {
+      return;
+    }
+    const abrirAlvo = () => {
+      const id = decodeURIComponent(window.location.hash.slice(1));
+      const alvo = id ? document.getElementById(id) : null;
+      const recolhida = alvo?.closest("[data-recolhidas]");
+      if (recolhida && !recolhida.open) {
+        recolhida.open = true;
+        alvo.scrollIntoView();
+      }
+    };
+    let abertasAntesDeImprimir = [];
+    window.addEventListener("beforeprint", () => {
+      abertasAntesDeImprimir = grupos.map((grupo) => grupo.open);
+      grupos.forEach((grupo) => {
+        grupo.open = true;
       });
     });
+    window.addEventListener("afterprint", () => {
+      grupos.forEach((grupo, i) => {
+        grupo.open = abertasAntesDeImprimir[i] ?? false;
+      });
+    });
+    window.addEventListener("hashchange", abrirAlvo);
+    abrirAlvo();
   };
 
+  const iniciarContadorLote = (campo) => {
+    const contador = campo.closest(".campo")?.querySelector("[data-lote-contador]");
+    if (!contador) {
+      return;
+    }
+    const maximo = Number(campo.dataset.maximo ?? "20");
+    const atualizar = () => {
+      const cnpjs = campo.value.split(";").map(normalizar).filter((cnpj) => cnpj.length > 0);
+      const invalidos = cnpjs.filter((cnpj) => diagnosticar(cnpj) !== "");
+      contador.classList.toggle("contador--erro", cnpjs.length > maximo);
+      contador.classList.toggle("contador--aviso", cnpjs.length <= maximo && invalidos.length > 0);
+      if (cnpjs.length === 0) {
+        contador.textContent = "";
+        return;
+      }
+      const partes = [`${cnpjs.length} de ${maximo} CNPJs`];
+      if (invalidos.length === 1) {
+        partes.push(`1 com dígito verificador inválido (${formatar(invalidos[0])})`);
+      } else if (invalidos.length > 1) {
+        partes.push(`${invalidos.length} com dígito verificador inválido`);
+      }
+      if (cnpjs.length > maximo) {
+        partes.push(`remova ${cnpjs.length - maximo} para enviar`);
+      }
+      contador.textContent = partes.join(" · ");
+    };
+    campo.addEventListener("input", atualizar);
+    atualizar();
+  };
+
+  document.querySelectorAll("[data-lote-cnpjs]").forEach(iniciarContadorLote);
+  iniciarRecolhidas(Array.from(document.querySelectorAll("[data-recolhidas]")));
   document.querySelectorAll("[data-consulta]").forEach(iniciarFormulario);
   document.querySelectorAll("[data-acoes]").forEach(iniciarAcoes);
   document.querySelectorAll("[data-lote-detalhe]").forEach(iniciarPolling);
-  document.querySelectorAll("[data-filtros-lote]").forEach(iniciarFiltrosChip);
+  document.querySelectorAll("[data-filtros-lote]").forEach((container) => iniciarFiltrosChip(container));
 })();

@@ -23,7 +23,8 @@
         <p class="campo__ajuda" id="cnpjs-ajuda">Separe cada CNPJ com ponto e vírgula. Máximo de 20 por lote.</p>
         <textarea class="campo__entrada campo__entrada--textarea" id="cnpjs" name="cnpjs" rows="6"
                   required aria-describedby="cnpjs-ajuda"
-                  placeholder="00.000.000/0000-00; 11.111.111/0001-11">{{ cnpjs_digitado | default('', true) }}</textarea>
+                  placeholder="00.000.000/0000-00; 11.111.111/0001-11" data-lote-cnpjs data-maximo="20">{{ cnpjs_digitado | default('', true) }}</textarea>
+        <p class="contador" aria-live="polite" data-lote-contador></p>
       </div>
 
       <fieldset class="esferas">
@@ -52,7 +53,7 @@
       </fieldset>
 
       <div class="consulta__acoes">
-        <button class="botao botao--primario" type="submit">Consultar lote</button>
+        <button class="botao botao--primario" type="submit" data-lote-enviar>Consultar lote</button>
       </div>
     </form>
   </section>

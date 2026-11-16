@@ -15,6 +15,13 @@
   {% endif %}
   <section class="cartao cartao--formulario" aria-label="Formulário de consulta">
     {% include "parciais/formulario.html" %}
+    <p class="atalho-lote">
+      {% if usuario is defined and usuario %}
+      Vários CNPJs de um edital? <a href="/lotes/novo">Consulte até 20 de uma vez</a>.
+      {% else %}
+      Vários CNPJs de um edital? <a href="/registrar">Crie uma conta</a> para consultar até 20 de uma vez.
+      {% endif %}
+    </p>
   </section>
 
   <div class="blocos">

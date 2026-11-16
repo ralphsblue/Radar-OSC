@@ -1,0 +1,25 @@
+{% set usuario = usuario | default(none, true) %}
+{% set caminho = request.url.path if request is defined else "" %}
+{% macro item(href, rotulo, ativo) -%}
+<a class="navegacao__link{% if ativo %} navegacao__link--atual{% endif %}" href="{{ href }}"{% if ativo %} aria-current="page"{% endif %}>{{ rotulo }}</a>
+{%- endmacro %}
+<nav class="navegacao" aria-label="Principal">
+  <div class="navegacao__principal">
+    {{ item("/", "Consultar", caminho == "/" or caminho.startswith("/consultas")) }}
+    {% if usuario %}
+    {{ item("/lotes/novo", "Consulta em lote", caminho.startswith("/lotes")) }}
+    {{ item("/painel", "Painel", caminho == "/painel") }}
+    {% endif %}
+    {{ item("/fontes", "Fontes de dados", caminho == "/fontes") }}
+  </div>
+  <div class="navegacao__conta">
+    {% if usuario %}
+    <form class="navegacao__sair" method="post" action="/sair">
+      <button class="botao botao--discreto botao--pequeno" type="submit" title="Sair da conta {{ usuario.email }}">Sair</button>
+    </form>
+    {% else %}
+    {{ item("/entrar", "Entrar", caminho == "/entrar") }}
+    <a class="botao botao--primario botao--pequeno" href="/registrar">Criar conta</a>
+    {% endif %}
+  </div>
+</nav>

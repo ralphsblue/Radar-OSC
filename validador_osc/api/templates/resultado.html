@@ -5,13 +5,6 @@
 
 {% block titulo %}{% if invalido %}CNPJ inválido{% else %}{{ status | rotulo_status }}: {{ consulta.razao_social or cnpj_exibido }}{% endif %} - Radar OSC{% endblock %}
 
-{% block navegacao %}
-<nav class="navegacao" aria-label="Principal">
-  <a class="navegacao__link" href="/">Nova consulta</a>
-  {% include "parciais/navegacao_auth.html" %}
-</nav>
-{% endblock %}
-
 {% block rodape_aviso %}{% if invalido %}{{ super() }}{% endif %}{% endblock %}
 
 {% block conteudo %}
@@ -130,34 +123,70 @@
   </section>
 
   <section class="verificacoes" aria-labelledby="titulo-verificacoes">
-    <h2 class="secao__titulo" id="titulo-verificacoes">Verificações</h2>
-    {% if consulta.resumo %}
-    <ul class="resumo" aria-label="Resumo das verificações">
-      {% for chave, rotulo in [("ok", "OK"), ("restricao", "Restrição"), ("alerta", "Alerta"), ("indisponivel", "Indisponível"), ("nao_verificado", "Não verificado")] %}
-      {% set quantidade = consulta.resumo[chave] | default(0) %}
-      <li class="resumo__item resumo__item--{{ chave | replace('_', '-') }}{% if not quantidade %} resumo__item--zero{% endif %}">
-        <span class="resumo__numero">{{ quantidade }}</span>
-        <span class="resumo__rotulo">{{ rotulo }}</span>
-      </li>
-      {% endfor %}
-    </ul>
-    {% endif %}
-    {% for tipo in ["ELIMINATORIA", "ALERTA", "INFORMATIVA"] %}
+    {% set ordem_tipos = ["ELIMINATORIA", "ALERTA", "INFORMATIVA"] %}
+    {% set rotulos_contagem = [("OK", "OK"), ("RESTRICAO", "Restrição"), ("ALERTA", "Alerta"), ("INDISPONIVEL", "Indisponível"), ("NAO_VERIFICADO", "Não verificado")] %}
+    <header class="verificacoes__cabecalho">
+      <h2 class="secao__titulo" id="titulo-verificacoes">Verificações</h2>
+      <p class="verificacoes__total">{{ consulta.verificacoes | length }} verificações nesta consulta</p>
+    </header>
+    <div class="faixa">
+      <ol class="faixa__celulas" aria-label="Estado de cada verificação">
+        {% for tipo in ordem_tipos %}
+        {% for verificacao in consulta.verificacoes | selectattr("tipo", "equalto", tipo) %}
+        {% set mod = verificacao.estado | string | lower | replace("_", "-") %}
+        <li class="faixa__item">
+          <a class="faixa__celula faixa__celula--{{ mod }}" href="#verificacao-{{ verificacao.id }}" title="{{ verificacao.nome }}: {{ verificacao.estado | rotulo_estado }}">
+            <svg class="icone" aria-hidden="true" focusable="false"><use href="#i-{{ mod }}"></use></svg>
+            <span class="oculto">{{ verificacao.nome }}: {{ verificacao.estado | rotulo_estado }}</span>
+          </a>
+        </li>
+        {% endfor %}
+        {% endfor %}
+      </ol>
+      <ul class="faixa__legenda" aria-label="Contagem por estado">
+        {% for estado, rotulo in rotulos_contagem %}
+        {% set quantidade = consulta.verificacoes | selectattr("estado", "equalto", estado) | list | length %}
+        {% if quantidade %}
+        <li class="faixa__contagem faixa__contagem--{{ estado | lower | replace('_', '-') }}"><span class="numero">{{ quantidade }}</span> {{ rotulo }}</li>
+        {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+    {% for tipo in ordem_tipos %}
     {% set grupo = consulta.verificacoes | selectattr("tipo", "equalto", tipo) | list %}
     {% if grupo %}
     {% set pendentes = grupo | selectattr("estado", "equalto", "NAO_VERIFICADO") | rejectattr("fontes") | list %}
     {% set feitas = grupo | reject("in", pendentes) | list %}
+    {% set atencao = feitas | rejectattr("estado", "equalto", "OK") | list %}
+    {% set sem_pendencia = feitas | selectattr("estado", "equalto", "OK") | list %}
     <section class="grupo" aria-labelledby="grupo-{{ tipo | lower }}">
       <header class="grupo__cabecalho">
         <h3 class="grupo__titulo" id="grupo-{{ tipo | lower }}">{{ tipo | rotulo_tipo }}</h3>
         <p class="grupo__descricao">{{ tipo | descricao_tipo }}</p>
       </header>
       <div class="grupo__lista">
-        {% for verificacao in feitas %}
+        {% for verificacao in atencao %}
         {% include "parciais/verificacao.html" %}
         {% endfor %}
         {% if pendentes %}
         {% include "parciais/pendentes.html" %}
+        {% endif %}
+        {% if sem_pendencia %}
+        <details class="recolhidas" data-recolhidas>
+          <summary class="recolhidas__resumo">
+            <span class="selo selo--ok">
+              <svg class="icone" aria-hidden="true" focusable="false"><use href="#i-ok"></use></svg>
+              OK
+            </span>
+            <span class="recolhidas__texto">{% if sem_pendencia | length == 1 %}1 verificação sem pendência{% else %}{{ sem_pendencia | length }} verificações sem pendência{% endif %}</span>
+            <span class="recolhidas__nomes">{{ sem_pendencia | map(attribute="nome") | join(", ") }}</span>
+          </summary>
+          <div class="recolhidas__lista">
+            {% for verificacao in sem_pendencia %}
+            {% include "parciais/verificacao.html" %}
+            {% endfor %}
+          </div>
+        </details>
         {% endif %}
       </div>
     </section>

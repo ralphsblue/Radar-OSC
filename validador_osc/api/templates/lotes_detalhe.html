@@ -1,47 +1,59 @@
 {% extends "base.html" %}
 
 {% set modificadores_final = {"APTA": "ok", "APTA_COM_RESSALVAS": "alerta", "INAPTA": "restricao", "INCONCLUSIVA": "indisponivel", "CNPJ_INVALIDO": "nao-verificado"} %}
-{% set icones_item = {"PENDENTE": "nao-verificado", "PROCESSANDO": "alerta", "ERRO": "restricao"} %}
-{% set rotulos_item = {"PENDENTE": "Pendente", "PROCESSANDO": "Processando", "CONCLUIDO": "Concluído", "ERRO": "Erro"} %}
+{% set modificadores_item = {"PENDENTE": "nao-verificado", "PROCESSANDO": "processando", "ERRO": "restricao"} %}
+{% set icones_item = {"PENDENTE": "nao-verificado", "PROCESSANDO": "processando", "ERRO": "restricao"} %}
+{% set rotulos_item = {"PENDENTE": "Na fila", "PROCESSANDO": "Consultando", "CONCLUIDO": "Concluído", "ERRO": "Erro"} %}
+{% set em_andamento = lote.status in ["PENDENTE", "PROCESSANDO"] %}
+{% set finalizados = (contagens_item.get("CONCLUIDO", 0) + contagens_item.get("ERRO", 0)) %}
+{% set percentual = ((finalizados / lote.total_itens * 100) | round | int) if lote.total_itens else 100 %}
 
 {% block titulo %}Lote de consultas - Radar OSC{% endblock %}
 
-{% block navegacao %}
-<nav class="navegacao" aria-label="Principal">
-  <a class="navegacao__link" href="/">Nova consulta</a>
-  {% include "parciais/navegacao_auth.html" %}
-</nav>
-{% endblock %}
-
 {% block conteudo %}
 <div class="pagina pagina--lote-detalhe" data-lote-detalhe data-lote-id="{{ lote.id }}" data-status-lote="{{ lote.status }}">
-  <section class="apresentacao" aria-labelledby="titulo-lote-detalhe">
-    <h1 class="titulo" id="titulo-lote-detalhe">Lote de consultas</h1>
-    <p class="lead" data-lote-resumo-texto>
-      {{ lote.total_itens }} CNPJ{{ "s" if lote.total_itens != 1 else "" }} no lote, status atual: {{ rotulos_item.get(lote.status, lote.status) }}.
-    </p>
+  <section class="apresentacao apresentacao--com-acao" aria-labelledby="titulo-lote-detalhe">
+    <div>
+      <p class="sobretitulo"><a href="/painel">Painel</a> / Lote</p>
+      <h1 class="titulo" id="titulo-lote-detalhe">Lote de {{ lote.total_itens }} CNPJ{{ "s" if lote.total_itens != 1 else "" }}</h1>
+      <p class="lead">Criado em {{ lote.criado_em | instante }}. Esfera: {{ lote.esfera | rotulo_esfera }}.</p>
+    </div>
+    <a class="botao botao--secundario" href="/api/v1/lotes/{{ lote.id }}/export.csv" download>
+      <svg class="icone" aria-hidden="true" focusable="false"><use href="#i-baixar"></use></svg>
+      <span>Exportar CSV</span>
+    </a>
   </section>
 
-  <section class="cartao" aria-label="Resumo do lote">
+  <section class="cartao progresso{% if not em_andamento %} progresso--concluido{% endif %}" aria-label="Andamento do lote" data-lote-conteudo>
+    <div class="progresso__cabecalho">
+      <p class="progresso__texto" role="status">
+        {% if em_andamento %}
+        <svg class="icone progresso__icone" aria-hidden="true" focusable="false"><use href="#i-processando"></use></svg>
+        <span>Consultando as fontes: <strong class="numero">{{ finalizados }} de {{ lote.total_itens }}</strong> prontos</span>
+        {% else %}
+        <svg class="icone progresso__icone" aria-hidden="true" focusable="false"><use href="#i-ok"></use></svg>
+        <span>Lote concluído{% if lote.concluido_em %} em {{ lote.concluido_em | instante }}{% endif %}</span>
+        {% endif %}
+      </p>
+      <span class="progresso__percentual numero">{{ percentual }}%</span>
+    </div>
+    <div class="progresso__trilha" role="progressbar" aria-label="CNPJs prontos" aria-valuemin="0" aria-valuemax="{{ lote.total_itens }}" aria-valuenow="{{ finalizados }}">
+      <span class="progresso__barra" style="width: {{ percentual }}%"></span>
+    </div>
+    {% if em_andamento %}
+    <p class="progresso__nota">A página se atualiza sozinha. Pode fechar e voltar depois: o lote continua sendo processado.</p>
+    {% endif %}
+  </section>
+
+  <section class="cartao cartao--tabela" aria-label="Itens do lote">
     <ul class="resumo resumo--filtros" aria-label="Filtrar por status" data-filtros-lote>
       <li>
-        <button class="resumo__item resumo__item--nao-verificado" type="button" data-filtro-chip data-filtro="" aria-pressed="true">
+        <button class="resumo__item resumo__item--total" type="button" data-filtro-chip data-filtro="" aria-pressed="true">
           <span class="resumo__numero">{{ lote.total_itens }}</span>
-          <span class="resumo__rotulo">Total</span>
+          <span class="resumo__rotulo">Todos</span>
         </button>
       </li>
-      {% for status in ["PENDENTE", "PROCESSANDO", "ERRO"] %}
-      {% set quantidade = contagens_item.get(status, 0) %}
-      {% if quantidade %}
-      <li>
-        <button class="resumo__item resumo__item--{{ icones_item[status] }}" type="button" data-filtro-chip data-filtro="item:{{ status }}" aria-pressed="false">
-          <span class="resumo__numero">{{ quantidade }}</span>
-          <span class="resumo__rotulo">{{ rotulos_item[status] }}</span>
-        </button>
-      </li>
-      {% endif %}
-      {% endfor %}
-      {% for status, rotulo in [("APTA", "Apta"), ("APTA_COM_RESSALVAS", "Apta c/ ressalvas"), ("INCONCLUSIVA", "Inconclusiva"), ("INAPTA", "Inapta"), ("CNPJ_INVALIDO", "CNPJ inválido")] %}
+      {% for status, rotulo in [("INAPTA", "Inapta"), ("INCONCLUSIVA", "Inconclusiva"), ("APTA_COM_RESSALVAS", "Apta c/ ressalvas"), ("APTA", "Apta"), ("CNPJ_INVALIDO", "CNPJ inválido")] %}
       {% set quantidade = contagens_final.get(status, 0) %}
       {% if quantidade %}
       <li>
@@ -52,46 +64,46 @@
       </li>
       {% endif %}
       {% endfor %}
+      {% for status in ["PROCESSANDO", "PENDENTE", "ERRO"] %}
+      {% set quantidade = contagens_item.get(status, 0) %}
+      {% if quantidade %}
+      <li>
+        <button class="resumo__item resumo__item--{{ modificadores_item[status] }}" type="button" data-filtro-chip data-filtro="item:{{ status }}" aria-pressed="false">
+          <span class="resumo__numero">{{ quantidade }}</span>
+          <span class="resumo__rotulo">{{ rotulos_item[status] }}</span>
+        </button>
+      </li>
+      {% endif %}
+      {% endfor %}
     </ul>
-    <div class="acoes">
-      <a class="botao botao--secundario" href="/api/v1/lotes/{{ lote.id }}/export.csv">
-        <svg class="icone" aria-hidden="true" focusable="false"><use href="#i-link"></use></svg>
-        <span>Exportar CSV</span>
-      </a>
-    </div>
-  </section>
 
-  <section class="cartao" aria-label="Itens do lote">
     <div class="tabela-rolagem" tabindex="0" role="region" aria-label="Itens do lote">
-    <table class="tabela" data-tabela-lote>
+    <table class="tabela tabela--empilhada" data-tabela-lote>
       <thead>
-        <tr><th scope="col">CNPJ</th><th scope="col">Razão social</th><th scope="col">Status</th><th scope="col">Detalhe</th></tr>
+        <tr><th scope="col">CNPJ</th><th scope="col">Organização</th><th scope="col">Status</th><th scope="col">Motivo</th><th scope="col"><span class="oculto">Ação</span></th></tr>
       </thead>
       <tbody>
         {% for item, linha in linhas_itens %}
         {% if linha.status_consulta %}
-        {% set modificador = modificadores_final.get(linha.status_consulta, "info") %}
+        {% set modificador = modificadores_final.get(linha.status_consulta, "nao-verificado") %}
         {% set icone = modificador %}
         {% set rotulo_badge = linha.status_consulta | rotulo_status %}
         {% else %}
-        {% set modificador = icones_item.get(item.status, "nao-verificado") %}
-        {% set icone = modificador %}
+        {% set modificador = modificadores_item.get(item.status, "nao-verificado") %}
+        {% set icone = icones_item.get(item.status, "nao-verificado") %}
         {% set rotulo_badge = rotulos_item.get(item.status, item.status) %}
         {% endif %}
         <tr data-linha-item data-status-item="{{ item.status }}" data-status-final="{{ linha.status_consulta or '' }}">
-          <td class="numero" style="font-family: var(--fonte-mono);">{{ item.cnpj_informado | cnpj }}</td>
-          <td>{{ linha.razao_social or "-" }}</td>
+          <td class="tabela__cnpj numero">{{ item.cnpj_informado | cnpj }}</td>
+          <td>{{ linha.razao_social or "" }}{% if not linha.razao_social %}<span class="tabela__vazio">{{ "Aguardando" if item.status in ["PENDENTE", "PROCESSANDO"] else "Não obtida" }}</span>{% endif %}</td>
           <td><span class="selo selo--{{ modificador }}">
             <svg class="icone" aria-hidden="true" focusable="false"><use href="#i-{{ icone }}"></use></svg>
             {{ rotulo_badge }}
           </span></td>
-          <td>
+          <td class="tabela__motivo">{% if item.erro %}{{ item.erro }}{% elif linha.impedimento_principal and linha.status_consulta != "APTA" %}{{ linha.impedimento_principal }}{% endif %}</td>
+          <td class="tabela__acao">
             {% if item.consulta_id %}
-            <a href="/consultas/{{ item.consulta_id }}">Ver detalhe</a>
-            {% elif item.erro %}
-            <span class="verificacao__mensagem">{{ item.erro }}</span>
-            {% else %}
-            -
+            <a href="/consultas/{{ item.consulta_id }}">Ver resultado<span class="oculto"> de {{ item.cnpj_informado | cnpj }}</span></a>
             {% endif %}
           </td>
         </tr>
