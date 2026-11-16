@@ -107,7 +107,7 @@ Camadas, fluxos e o caminho completo de uma consulta em [docs/arquitetura.md](do
 | Dados | PostgreSQL 17, SQLAlchemy 2 (assíncrono), Alembic |
 | Fila | Redis, RQ |
 | Autenticação | JWT em cookie, bcrypt |
-| Interface | HTML, CSS e JavaScript sem framework, pronta para impressão |
+| Interface | HTML, CSS e JavaScript sem framework, temas claro e escuro, pronta para impressão |
 | Qualidade | uv, ruff, mypy estrito, import-linter, pytest, pre-commit, GitHub Actions |
 | Deploy | Docker Compose, nginx, Let's Encrypt |
 

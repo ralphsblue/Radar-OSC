@@ -323,6 +323,35 @@
   };
 
   document.querySelectorAll("[data-lote-cnpjs]").forEach(iniciarContadorLote);
+  const iniciarTema = (botao) => {
+    const raiz = document.documentElement;
+    const rotulo = botao.querySelector("[data-tema-rotulo]");
+    const sistemaEscuro = window.matchMedia("(prefers-color-scheme: dark)");
+    const efetivo = () => raiz.dataset.theme ?? (sistemaEscuro.matches ? "dark" : "light");
+    const atualizar = () => {
+      const texto = efetivo() === "dark" ? "Usar tema claro" : "Usar tema escuro";
+      botao.title = texto;
+      if (rotulo) {
+        rotulo.textContent = texto;
+      }
+    };
+    botao.addEventListener("click", () => {
+      const novo = efetivo() === "dark" ? "light" : "dark";
+      raiz.dataset.theme = novo;
+      try {
+        window.localStorage.setItem("tema", novo);
+      } catch {
+        return;
+      } finally {
+        atualizar();
+      }
+    });
+    sistemaEscuro.addEventListener("change", atualizar);
+    botao.hidden = false;
+    atualizar();
+  };
+
+  document.querySelectorAll("[data-tema]").forEach(iniciarTema);
   iniciarRecolhidas(Array.from(document.querySelectorAll("[data-recolhidas]")));
   document.querySelectorAll("[data-consulta]").forEach(iniciarFormulario);
   document.querySelectorAll("[data-acoes]").forEach(iniciarAcoes);

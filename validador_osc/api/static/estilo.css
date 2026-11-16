@@ -20,80 +20,53 @@
 }
 
 :root {
-  color-scheme: light;
+  color-scheme: light dark;
   --fonte: "Public Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --fonte-mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", "Segoe UI Mono", Consolas, monospace;
 
-  --cor-fundo: #ffffff;
-  --cor-superficie: #ffffff;
-  --cor-superficie-2: #f8f9fb;
-  --cor-texto: #17181c;
-  --cor-texto-suave: #63666e;
-  --cor-borda: #dfe1e6;
-  --cor-borda-forte: #9aa4b2;
-  --cor-primaria: #2f5bae;
-  --cor-primaria-forte: #153c70;
-  --cor-sobre-primaria: #ffffff;
-  --cor-foco: #2f5bae;
-  --cor-topo: #ffffff;
-  --cor-marca-traco: #ffffff;
+  --cor-fundo: light-dark(#ffffff, #111318);
+  --cor-superficie: light-dark(#ffffff, #181b21);
+  --cor-superficie-2: light-dark(#f8f9fb, #1f232a);
+  --cor-texto: light-dark(#17181c, #e6e8ec);
+  --cor-texto-suave: light-dark(#63666e, #a3a9b3);
+  --cor-borda: light-dark(#dfe1e6, #2c313a);
+  --cor-borda-forte: light-dark(#848e9c, #646d7d);
+  --cor-primaria: light-dark(#2f5bae, #86aaf0);
+  --cor-primaria-forte: light-dark(#153c70, #aec7f6);
+  --cor-sobre-primaria: light-dark(#ffffff, #0d1a30);
+  --cor-foco: light-dark(#2f5bae, #86aaf0);
+  --cor-topo: light-dark(#ffffff, #111318);
+  --cor-marca-traco: light-dark(#ffffff, #0d1a30);
 
-  --ok-texto: #1e8a4c;
-  --ok-fundo: #e8f4ed;
-  --ok-borda: #b7c5aa;
-  --restricao-texto: #b3261e;
-  --restricao-fundo: #f8edea;
-  --restricao-borda: #dc9c98;
-  --alerta-texto: #c27803;
-  --alerta-fundo: #faf2e8;
-  --alerta-borda: #e3ae8e;
-  --indisponivel-texto: #5c6b7a;
-  --indisponivel-fundo: #f0f1f3;
-  --indisponivel-borda: #b5bbc3;
-  --nao-verificado-texto: #5c6b7a;
-  --nao-verificado-fundo: #e1e3e8;
-  --nao-verificado-borda: #b4bcc4;
+  --ok-texto: light-dark(#1e8a4c, #6fcf93);
+  --ok-fundo: light-dark(#e8f4ed, #13291c);
+  --ok-borda: light-dark(#b7c5aa, #2b5c3d);
+  --restricao-texto: light-dark(#b3261e, #f4978e);
+  --restricao-fundo: light-dark(#f8edea, #361918);
+  --restricao-borda: light-dark(#dc9c98, #6e302b);
+  --alerta-texto: light-dark(#c27803, #ebb563);
+  --alerta-fundo: light-dark(#faf2e8, #30240f);
+  --alerta-borda: light-dark(#e3ae8e, #6b4e1e);
+  --indisponivel-texto: light-dark(#5c6b7a, #a7b4c3);
+  --indisponivel-fundo: light-dark(#f0f1f3, #1d232b);
+  --indisponivel-borda: light-dark(#b5bbc3, #3f4b58);
+  --nao-verificado-texto: light-dark(#5c6b7a, #a3a9b3);
+  --nao-verificado-fundo: light-dark(#e1e3e8, #22262d);
+  --nao-verificado-borda: light-dark(#b4bcc4, #424852);
 
   --raio: 0.5rem;
   --raio-grande: 0.75rem;
-  --sombra: 0 1px 2px rgb(16 24 40 / 0.06), 0 1px 3px rgb(16 24 40 / 0.08);
+  --sombra: 0 1px 2px light-dark(rgb(16 24 40 / 0.06), rgb(0 0 0 / 0.35)), 0 1px 3px light-dark(rgb(16 24 40 / 0.08), rgb(0 0 0 / 0));
   --largura: 60rem;
   --gutter: 1rem;
 }
 
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --cor-fundo: #0f141b;
-  --cor-superficie: #171e28;
-  --cor-superficie-2: #1c2430;
-  --cor-texto: #e7eaef;
-  --cor-texto-suave: #a7b1bf;
-  --cor-borda: #2c3644;
-  --cor-borda-forte: #56637a;
-  --cor-primaria: #8ab6f2;
-  --cor-primaria-forte: #b3cff7;
-  --cor-sobre-primaria: #0f1d33;
-  --cor-foco: #8ab6f2;
-  --cor-topo: #141a23;
-  --cor-marca-traco: #0f1d33;
-
-  --ok-texto: #84d6a0;
-  --ok-fundo: #13261a;
-  --ok-borda: #2d5a3c;
-  --restricao-texto: #f3a19a;
-  --restricao-fundo: #321718;
-  --restricao-borda: #6d3330;
-  --alerta-texto: #f1c36f;
-  --alerta-fundo: #2c2211;
-  --alerta-borda: #6a5024;
-  --indisponivel-texto: #bdb3f2;
-  --indisponivel-fundo: #201d36;
-  --indisponivel-borda: #4b437c;
-  --nao-verificado-texto: #b3bcc9;
-  --nao-verificado-fundo: #1d242e;
-  --nao-verificado-borda: #3b4655;
-
-  --sombra: 0 1px 2px rgb(0 0 0 / 0.4);
 }
 
 *,
@@ -405,7 +378,7 @@ code {
   padding: 0.75rem 0.875rem;
   border: 1px solid var(--cor-borda-forte);
   border-radius: var(--raio);
-  background: var(--cor-superficie);
+  background: var(--cor-fundo);
   color: var(--cor-texto);
   font: inherit;
   font-size: 1.25rem;
@@ -1129,7 +1102,7 @@ button.resumo__item[aria-pressed="true"] {
 }
 
 .sumario__segmento--nao-verificado {
-  background: var(--nao-verificado-borda);
+  background: var(--cor-borda-forte);
 }
 
 .sumario__total {
@@ -1577,7 +1550,8 @@ button.resumo__item[aria-pressed="true"] {
 }
 
 @media print {
-  :root {
+  :root,
+  :root[data-theme] {
     color-scheme: light;
     --cor-fundo: #ffffff;
     --cor-superficie: #ffffff;
@@ -1595,7 +1569,7 @@ button.resumo__item[aria-pressed="true"] {
     --restricao-fundo: #ffffff;
     --alerta-texto: #85480a;
     --alerta-fundo: #ffffff;
-    --indisponivel-texto: #4a3e8c;
+    --indisponivel-texto: #4a5664;
     --indisponivel-fundo: #ffffff;
     --nao-verificado-texto: #333333;
     --nao-verificado-fundo: #ffffff;
@@ -2089,7 +2063,7 @@ button.resumo__item:hover {
 }
 
 .distribuicao__segmento--nao-verificado {
-  background: var(--nao-verificado-borda);
+  background: var(--cor-borda-forte);
 }
 
 .distribuicao__legenda {
@@ -2116,7 +2090,7 @@ button.resumo__item:hover {
 }
 
 .distribuicao__item--nao-verificado::before {
-  background: var(--nao-verificado-borda);
+  background: var(--cor-borda-forte);
 }
 
 .distribuicao__valor {
@@ -2216,5 +2190,50 @@ button.resumo__item:hover {
     grid-template-areas: "selo texto seta" "nomes nomes nomes";
     gap: 0.375rem 0.625rem;
     padding: 0.875rem 1rem;
+  }
+}
+
+.tema {
+  display: inline-grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: var(--raio);
+  background: transparent;
+  color: var(--cor-texto-suave);
+  cursor: pointer;
+}
+
+.tema:hover {
+  color: var(--cor-texto);
+  background: var(--cor-superficie-2);
+  border-color: var(--cor-borda);
+}
+
+.tema__icone {
+  grid-area: 1 / 1;
+  width: 1.125rem;
+  height: 1.125rem;
+  vertical-align: 0;
+}
+
+.tema__icone--sol,
+:root[data-theme="dark"] .tema__icone--lua {
+  display: none;
+}
+
+:root[data-theme="dark"] .tema__icone--sol {
+  display: block;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .tema__icone--lua {
+    display: none;
+  }
+
+  :root:not([data-theme="light"]) .tema__icone--sol {
+    display: block;
   }
 }

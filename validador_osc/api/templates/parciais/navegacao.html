@@ -13,6 +13,11 @@
     {{ item("/fontes", "Fontes de dados", caminho == "/fontes") }}
   </div>
   <div class="navegacao__conta">
+    <button class="tema" type="button" data-tema hidden>
+      <svg class="icone tema__icone tema__icone--lua" aria-hidden="true" focusable="false"><use href="#i-lua"></use></svg>
+      <svg class="icone tema__icone tema__icone--sol" aria-hidden="true" focusable="false"><use href="#i-sol"></use></svg>
+      <span class="oculto" data-tema-rotulo>Alternar tema</span>
+    </button>
     {% if usuario %}
     <form class="navegacao__sair" method="post" action="/sair">
       <button class="botao botao--discreto botao--pequeno" type="submit" title="Sair da conta {{ usuario.email }}">Sair</button>

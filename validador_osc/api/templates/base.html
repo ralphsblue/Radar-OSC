@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="light">
+  <meta name="color-scheme" content="light dark">
+  <script>try{var t=localStorage.getItem("tema");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
   <meta name="description" content="Triagem automatizada de organizações da sociedade civil para parcerias da Lei 13.019/2014.">
   <title>{% block titulo %}Radar OSC{% endblock %}</title>
   <link rel="icon" href="/static/favicon.svg?v={{ versao }}" type="image/svg+xml">

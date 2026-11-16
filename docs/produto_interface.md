@@ -84,21 +84,29 @@ Cor é usada só como acento (ações e links) e como semáforo de status, nunca
 
 ### 5.2 Paleta
 
-Valores fechados em 21/10/2026 (opção C entre três propostas), todos com contraste AA sobre fundo branco.
-Vale só para o tema claro; o tema escuro é pendência futura (ver seção 7).
+Tema claro fechado em 21/10/2026 (opção C entre três propostas); tema escuro derivado dele em 16/11/2026, com os mesmos matizes.
+Todos os textos têm contraste AA (4,5:1) sobre o fundo e as superfícies do próprio tema; bordas de campo têm pelo menos 3:1.
 
-| Papel | Cor | Hex |
+| Papel | Claro | Escuro |
 |---|---|---|
-| Fundo | branco | `#FFFFFF` |
-| Texto principal | quase preto | `#17181C` |
-| Texto secundário | cinza médio | `#63666E` |
-| Borda / divisor | cinza claro | `#DFE1E6` |
-| Acento de marca (links, botão primário, foco) | azul-marinho | `#2F5BAE` |
-| Status OK | verde | `#1E8A4C` |
-| Status ALERTA | âmbar | `#C27803` |
-| Status RESTRIÇÃO | vermelho | `#B3261E` |
-| Status INDISPONÍVEL | cinza-azulado | `#5C6B7A` |
-| Status NÃO VERIFICADO | cinza bem claro | `#E1E3E8` |
+| Fundo | `#FFFFFF` | `#111318` |
+| Superfície (cartões) | `#FFFFFF` | `#181B21` |
+| Texto principal | `#17181C` | `#E6E8EC` |
+| Texto secundário | `#63666E` | `#A3A9B3` |
+| Borda / divisor | `#DFE1E6` | `#2C313A` |
+| Borda de campo | `#848E9C` | `#646D7D` |
+| Acento de marca (links, botão primário, foco) | `#2F5BAE` | `#86AAF0` |
+| Status OK | `#1E8A4C` | `#6FCF93` |
+| Status ALERTA | `#C27803` | `#EBB563` |
+| Status RESTRIÇÃO | `#B3261E` | `#F4978E` |
+| Status INDISPONÍVEL | `#5C6B7A` | `#A7B4C3` |
+| Status NÃO VERIFICADO | `#E1E3E8` | `#22262D` |
+
+A borda de campo era `#9AA4B2`, com 2,5:1 sobre branco; passou para `#848E9C` (mesmo matiz) para atingir os 3:1 exigidos para componentes de interface.
+No escuro, as superfícies sobem de tom em vez de usar sombra, e os campos de texto ficam um tom abaixo do cartão.
+O tema segue a preferência do sistema; o botão sol/lua no topo grava uma escolha explícita no navegador.
+A impressão sai sempre no tema claro.
+Os valores ficam num só lugar, em `estilo.css`, com a função `light-dark()` do CSS.
 
 O acento de marca nunca é usado em nenhum estado de verificação, para não ser confundido com status.
 Cor nunca é o único sinal de estado: todo estado também tem ícone e rótulo de texto, para acessibilidade e para reforçar reconhecimento em vez de lembrança.
