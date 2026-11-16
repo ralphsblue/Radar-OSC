@@ -124,33 +124,37 @@
 
   <section class="verificacoes" aria-labelledby="titulo-verificacoes">
     {% set ordem_tipos = ["ELIMINATORIA", "ALERTA", "INFORMATIVA"] %}
-    {% set rotulos_contagem = [("OK", "OK"), ("RESTRICAO", "Restrição"), ("ALERTA", "Alerta"), ("INDISPONIVEL", "Indisponível"), ("NAO_VERIFICADO", "Não verificado")] %}
-    <header class="verificacoes__cabecalho">
-      <h2 class="secao__titulo" id="titulo-verificacoes">Verificações</h2>
-      <p class="verificacoes__total">{{ consulta.verificacoes | length }} verificações nesta consulta</p>
-    </header>
-    <div class="faixa">
-      <ol class="faixa__celulas" aria-label="Estado de cada verificação">
-        {% for tipo in ordem_tipos %}
-        {% for verificacao in consulta.verificacoes | selectattr("tipo", "equalto", tipo) %}
-        {% set mod = verificacao.estado | string | lower | replace("_", "-") %}
-        <li class="faixa__item">
-          <a class="faixa__celula faixa__celula--{{ mod }}" href="#verificacao-{{ verificacao.id }}" title="{{ verificacao.nome }}: {{ verificacao.estado | rotulo_estado }}">
-            <svg class="icone" aria-hidden="true" focusable="false"><use href="#i-{{ mod }}"></use></svg>
-            <span class="oculto">{{ verificacao.nome }}: {{ verificacao.estado | rotulo_estado }}</span>
-          </a>
-        </li>
-        {% endfor %}
-        {% endfor %}
-      </ol>
-      <ul class="faixa__legenda" aria-label="Contagem por estado">
-        {% for estado, rotulo in rotulos_contagem %}
-        {% set quantidade = consulta.verificacoes | selectattr("estado", "equalto", estado) | list | length %}
+    {% set ordenadas = [] %}
+    {% for tipo in ordem_tipos %}{% for v in consulta.verificacoes | selectattr("tipo", "equalto", tipo) %}{% set _ = ordenadas.append(v) %}{% endfor %}{% endfor %}
+    {% set rotulos_sumario = [("RESTRICAO", "restrição", "restrições"), ("ALERTA", "alerta", "alertas"), ("INDISPONIVEL", "indisponível", "indisponíveis"), ("NAO_VERIFICADO", "não verificada", "não verificadas"), ("OK", "OK", "OK")] %}
+    <div class="sumario">
+      <div class="sumario__topo">
+        <h2 class="secao__titulo" id="titulo-verificacoes">Verificações</h2>
+        <ul class="sumario__estados" aria-label="Verificações por estado">
+          {% for estado, singular, plural in rotulos_sumario %}
+          {% set doestado = ordenadas | selectattr("estado", "equalto", estado) | list %}
+          {% if doestado %}
+          {% set mod = estado | lower | replace("_", "-") %}
+          <li>
+            <a class="sumario__estado sumario__estado--{{ mod }}" href="#verificacao-{{ (doestado | first).id }}">
+              <svg class="icone" aria-hidden="true" focusable="false"><use href="#i-{{ mod }}"></use></svg>
+              <span class="sumario__numero numero">{{ doestado | length }}</span>
+              <span class="sumario__rotulo">{{ singular if doestado | length == 1 else plural }}</span>
+            </a>
+          </li>
+          {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="sumario__barra" aria-hidden="true">
+        {% for estado, singular, plural in rotulos_sumario %}
+        {% set quantidade = ordenadas | selectattr("estado", "equalto", estado) | list | length %}
         {% if quantidade %}
-        <li class="faixa__contagem faixa__contagem--{{ estado | lower | replace('_', '-') }}"><span class="numero">{{ quantidade }}</span> {{ rotulo }}</li>
+        <span class="sumario__segmento sumario__segmento--{{ estado | lower | replace('_', '-') }}" style="flex-grow: {{ quantidade }}"></span>
         {% endif %}
         {% endfor %}
-      </ul>
+      </div>
+      <p class="sumario__total">{{ ordenadas | length }} verificações nesta consulta.</p>
     </div>
     {% for tipo in ordem_tipos %}
     {% set grupo = consulta.verificacoes | selectattr("tipo", "equalto", tipo) | list %}
