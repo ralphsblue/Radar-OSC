@@ -3,7 +3,7 @@
 {% set invalido = status == "CNPJ_INVALIDO" %}
 {% set cnpj_exibido = (consulta.cnpj_avaliado or consulta.cnpj) | cnpj %}
 
-{% block titulo %}{% if invalido %}CNPJ inválido{% else %}{{ status | rotulo_status }}: {{ consulta.razao_social or cnpj_exibido }}{% endif %} - Validador de OSC{% endblock %}
+{% block titulo %}{% if invalido %}CNPJ inválido{% else %}{{ status | rotulo_status }}: {{ consulta.razao_social or cnpj_exibido }}{% endif %} - Radar OSC{% endblock %}
 
 {% block navegacao %}
 <nav class="navegacao" aria-label="Principal">

@@ -1,4 +1,4 @@
-# Validador de OSC: documento de produto
+# Radar OSC: documento de produto
 
 Este documento descreve o produto por inteiro, para quem nunca viu o projeto: contexto, problema, usuários, o que o sistema faz, como decide, o que não faz, o que está pendente e as perguntas em aberto.
 Ele não exige ler código.
@@ -6,7 +6,7 @@ Para a parte técnica, veja `docs/arquitetura.md`; para a especificação detalh
 
 ## 1. Resumo
 
-O Validador de OSC recebe o CNPJ de uma organização e diz, em segundos, se ela parece apta a firmar parceria com a administração pública segundo a Lei 13.019/2014.
+O Radar OSC recebe o CNPJ de uma organização e diz, em segundos, se ela parece apta a firmar parceria com a administração pública segundo a Lei 13.019/2014.
 Ele consulta cadastros públicos (Receita Federal, CGU, TCU, CNJ, TCE-SP e Ipea), aplica 16 verificações e devolve um status com a explicação e a fonte de cada dado.
 É uma triagem: aponta impedimentos registrados em bases públicas, mas não substitui as certidões e a análise documental exigidas no edital.
 É o MVP de um projeto de extensão do IFSP, feito para demonstrar a viabilidade e ser aprovado na disciplina.

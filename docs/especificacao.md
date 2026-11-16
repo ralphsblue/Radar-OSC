@@ -1,4 +1,4 @@
-# Validador de OSC - Especificação técnica do MVP
+# Radar OSC - Especificação técnica do MVP
 
 Verificação automatizada de CNPJ para parcerias conforme o Marco Regulatório das OSCs (Lei nº 13.019/2014).
 

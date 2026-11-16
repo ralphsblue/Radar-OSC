@@ -54,7 +54,7 @@ def criar_app(
             app.state.contexto = contexto
             yield
 
-    app = FastAPI(title="Validador de OSC", version=VERSAO, lifespan=ciclo_de_vida)
+    app = FastAPI(title="Radar OSC", version=VERSAO, lifespan=ciclo_de_vida)
     app.mount("/static", StaticFiles(directory=str(_RECURSOS / "static")), name="static")
     templates = Jinja2Templates(directory=str(_RECURSOS / "templates"))
     registrar_filtros(templates.env, configuracao.zona)
