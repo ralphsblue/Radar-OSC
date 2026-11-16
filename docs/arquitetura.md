@@ -1,7 +1,6 @@
 # Arquitetura
 
 Este documento explica como o código está organizado, como as partes conversam e por quê.
-O planejamento original, com todas as alternativas consideradas, está em `docs/historico/arquitetura_planejamento.md`.
 
 ## Ideia central
 

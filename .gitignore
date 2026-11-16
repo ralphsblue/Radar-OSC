@@ -14,18 +14,18 @@ __pycache__/
 # IDE
 .idea/
 
-# Downloads brutos da Fase 0 (grandes; CSVs da CGU têm CPF completo)
-fase0/**/downloads/
-fase0/brasilapi/respostas/falhas/
-fase0/casos/respostas/mapa_base/
-fase0/casos/respostas/00000000000191/mapa_busca.json
-fase0/cnae/ibge_cnae_subclasses.json
+# Downloads de bases oficiais
 *.zip
 *.xls
 *.xlsx
 !tests/fixtures/**/*.xls
 !tests/fixtures/**/*.xlsx
 
+# Dados locais e ferramentas
 var/
-validador_osc_especificacao_mvp.pdf
 .lavish/
+
+# Material acadêmico interno (fora do repositório público)
+README_PROFESSORA.md
+docs/historico/
+validador_osc_especificacao_mvp.pdf
